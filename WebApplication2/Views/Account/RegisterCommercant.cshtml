@@ -1,0 +1,74 @@
+﻿@using TourMe.Data.Entities.Enum;
+@model CommercentViewModel
+
+@{
+    ViewBag.Title = "Commerçant";
+}
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h1> Inscription Commerçant</h1>
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nom"></label>
+                <input asp-for="Nom" class="form-control" />
+
+            </div>
+            <div class="form-group">
+                <label asp-for="PreNom"></label>
+                <input asp-for="PreNom" class="form-control" />
+                <span asp-validation-for="Nom" class="text-danger"></span>
+
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Telephone"></label>
+                <input asp-for="Telephone" class="form-control" />
+                <span asp-validation-for="Telephone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CIN"></label>
+                <input asp-for="CIN" class="form-control" />
+                <span asp-validation-for="CIN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Domaine"></label>
+                <select asp-for="Domaine" asp-items="Html.GetEnumSelectList<domaine>()"></select>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="Secteur"></label>
+                <select asp-for="Secteur" asp-items="Html.GetEnumSelectList<Secteur>()"></select>
+
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" class="form-control" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+        </form>
+    </div>
+</div>
