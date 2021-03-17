@@ -11,6 +11,7 @@ namespace Services.Implementation
     {
         public IEnumerable<Utilisateur> GetAllUtilisateurs();
 
+
         public Task InsertUtilisateurAsync(Utilisateur Utilisateur);
         public Task DeleteUtilisateurAsync(string id);
         public IEnumerable<Utilisateur> GetAllUtilisateurDetails();
