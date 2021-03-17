@@ -9,8 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 using Services.Implementation;
-
-
+using System.Diagnostics;
 
 namespace Finance.Controllers
 {
@@ -37,13 +36,52 @@ namespace Finance.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
+            Debug.WriteLine("zaaaab");
             return View(UserService.GetAllUtilisateurs());
+           
+            
         }
         [HttpGet]
-        public IActionResult Profil()
+        public async Task<IActionResult> Delete(string id)
         {
-            return View(UserService.GetAllUtilisateurs());
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var utilisateur = await UserService.GetById(id);
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return View(utilisateur);
         }
+
+        // POST: Utilisateurs/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+          await  UserService.DeleteUtilisateurAsync(id);
+        //    var utilisateur = await _context.User.FindAsync(id);
+        //    _context.User.Remove(utilisateur);
+        //    await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GetAll));
+        }
+        [HttpGet]
+       
+        public async Task<IActionResult> Profil()
+        {
+            string id =  userManager.GetUserId(User);
+           
+           Utilisateur  us = await UserService.GetById(id);
+            if (us == null)
+            { return RedirectToAction("index", "home"); }
+
+            return View(us);
+        }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -127,7 +165,7 @@ namespace Finance.Controllers
                 .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-                   
+                    
                     return RedirectToAction("index", "home");
                 }
              
@@ -197,7 +235,9 @@ public async Task<IActionResult>
                 user = new Utilisateur
                 {
                     UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-                    Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                    Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                    Nom = info.Principal.FindFirstValue(ClaimTypes.Name),
+                    BirthDate = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth)
                 };
 
                 await userManager.CreateAsync(user);
