@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Repository.Interfaces
 {
-    class Class1
+   public class CLass
     {
     }
 }
