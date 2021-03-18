@@ -9,11 +9,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 using Services.Implementation;
-using System.Diagnostics;
-using Twilio.Exceptions;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using TourMe.Data;
-using Twilio.Rest.Lookups.V1;
+
 
 
 namespace Finance.Controllers
