@@ -14,7 +14,8 @@ namespace WebApplication2.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-
+        [Phone]
+        public string Telephone { get; set; }
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
