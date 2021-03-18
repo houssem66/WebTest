@@ -12,8 +12,9 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
+                    @{var x = Model.ProfilePhoto;}
                   <img class="profile-user-img img-fluid img-circle"
-                       src="../../dist/img/user4-128x128.jpg"
+                       src="@x"
                        alt="User profile picture">
                 </div>
 
@@ -25,7 +26,7 @@
                   
                 </ul>
 
-                <a href="#" class="btn btn-primary btn-block"><b>Follow</b></a>
+                <a href="#" class="btn btn-primary btn-block"><b>Change photo</b></a>
               </div>
               <!-- /.card-body -->
             </div>
@@ -77,9 +78,9 @@
             <div class="card">
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
-                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Activity</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Timeline</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Settings</a></li>
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">List Reservation</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#timeline" data-toggle="tab">Historique</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Paramétre</a></li>
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">
@@ -159,9 +160,10 @@
                         <span class="description">Posted 5 photos - 5 days ago</span>
                       </div>
                       <!-- /.user-block -->
+                       
                       <div class="row mb-3">
                         <div class="col-sm-6">
-                          <img class="img-fluid" src="../../dist/img/photo1.png" alt="Photo">
+                          <img class="img-fluid" src="@x" alt="Photo">
                         </div>
                         <!-- /.col -->
                         <div class="col-sm-6">
@@ -299,13 +301,13 @@
                       <div class="form-group row">
                         <label for="inputName" class="col-sm-2 col-form-label">Name</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputName" placeholder="Name">
+                          <input type="email" class="form-control" id="inputName" value="@Html.Raw(Model.Nom)">
                         </div>
                       </div>
                       <div class="form-group row">
                         <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                          <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                          <input type="email" class="form-control" id="inputEmail"value="@Html.Raw(Model.Email) ">
                         </div>
                       </div>
                       <div class="form-group row">
