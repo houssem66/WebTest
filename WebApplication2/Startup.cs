@@ -15,6 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Data;
+using TourMe.Web;
+using Twilio;
 
 namespace WebApplication2
 {
@@ -34,6 +36,8 @@ namespace WebApplication2
             services.AddDbContext<TourMeContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("myconn")));
             services.AddIdentity<Utilisateur, IdentityRole>().AddEntityFrameworkStores<TourMeContext>();
+            TwilioClient.Init("AC57fc209fe337678b3790258f07270630", "54cdda9763c43829eed0c2a660b98d88");
+            services.AddSingleton<CountryService>();
             services.AddControllersWithViews();
             services.AddAuthentication().AddFacebook(options =>
             {

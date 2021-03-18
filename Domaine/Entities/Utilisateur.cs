@@ -21,7 +21,7 @@ namespace Domaine.Entities
         public String ProfilePhoto { get; set; }
        
         public String BirthDate { get; set; }
-        public String Adresse { get; set; }
+        public virtual String Adresse { get; set; }
 
     }
 }

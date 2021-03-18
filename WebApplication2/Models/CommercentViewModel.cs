@@ -9,6 +9,9 @@ namespace WebApplication2.Models
 {
     public class CommercentViewModel
     {
+
+        public string Type { get; set; }
+
         [Required]
         public string Nom { get; set; }
         [Required]
@@ -16,20 +19,22 @@ namespace WebApplication2.Models
         [Required]
         [EmailAddress]
         public string Email { get; set; }
-        public string Telephone { get; set; }
+
         public int CIN { get; set; }
         [Display(Name = "Domaine d'activité")]
         public domaine Domaine { get; set; }
-
+        [Display(Name = "Forme Juridique")]
         public string Forme { get; set; }
 
         public int EffectFemme { get; set; }
         public int EffectHomme { get; set; }
+        [Display(Name = "Situation Micro-Entreprise")]
         public string SituationEntreprise { get; set; }
         public string NomGerant { get; set; }
         public string Patente { get; set; }
         [Display(Name = "Secteur")]
         public Secteur Secteur { get; set; }
+
 
         [Required]
         [DataType(DataType.Password)]
@@ -40,5 +45,15 @@ namespace WebApplication2.Models
         [Compare("Password",
             ErrorMessage = "Password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+
+
+
+        [Phone]
+        public string Telephone { get; set; }
+        [Display(Name = "Phone number country")]
+        public string PhoneNumberCountryCode { get; set; }
+
+
     }
 }

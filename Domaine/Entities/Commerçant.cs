@@ -8,9 +8,11 @@ namespace Domaine.Entities
 {
    public  class Commerçant:Utilisateur
     {
-        
+
         public int CIN { get; set; }
-       
+        override
+        public string Adresse
+        { get; set; }
         public domaine DomainActivite { get; set; }
         public string FormeJuridique { get; set; }
         public int EffectFemme { get; set; }
@@ -19,6 +21,5 @@ namespace Domaine.Entities
         public string NomGerant { get; set; }
         public string Patente { get; set; }
         public Secteur Secteur { get; set; }
-
     }
 }
