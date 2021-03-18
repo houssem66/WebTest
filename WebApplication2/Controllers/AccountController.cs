@@ -36,7 +36,6 @@ namespace Finance.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            Debug.WriteLine("zaaaab");
             return View(UserService.GetAllUtilisateurs());
            
             
@@ -97,6 +96,7 @@ namespace Finance.Controllers
             return View();
         }
         [HttpPost]
+       
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
             if (ModelState.IsValid)
@@ -225,20 +225,22 @@ public async Task<IActionResult>
     else
     {
         var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-
-        if (email != null)
+                var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+                var photo = $"https://graph.facebook.com/{identifier}/picture";
+                if (email != null)
         {
             var user = await userManager.FindByEmailAsync(email);
 
             if (user == null)
             {
-                user = new Utilisateur
-                {
-                    UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
-                    Email = info.Principal.FindFirstValue(ClaimTypes.Email),
-                    Nom = info.Principal.FindFirstValue(ClaimTypes.Name),
-                    BirthDate = info.Principal.FindFirstValue(ClaimTypes.DateOfBirth)
-                };
+                        user = new Utilisateur
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Nom = info.Principal.FindFirstValue(ClaimTypes.Name),
+
+                            ProfilePhoto = photo
+                    };
 
                 await userManager.CreateAsync(user);
             }
