@@ -36,9 +36,11 @@ namespace WebApplication2
             services.AddIdentity<Utilisateur, IdentityRole>().AddEntityFrameworkStores<TourMeContext>();
             services.AddControllersWithViews();
             services.AddAuthentication().AddFacebook(options =>
-            {
-                options.AppId = "886221468838215";
+            {   options.AppId = "886221468838215";
                 options.AppSecret = "33c5819cb80ae5e5ab64b9043bbf9b9b";
+                options.Scope.Add("public_profile");
+
+                options.Fields.Add("picture");
 
 
             });
