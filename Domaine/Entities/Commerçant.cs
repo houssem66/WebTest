@@ -10,9 +10,8 @@ namespace Domaine.Entities
     {
 
         public int CIN { get; set; }
-        override
-        public string Adresse
-        { get; set; }
+        
+      
         public domaine DomainActivite { get; set; }
         public string FormeJuridique { get; set; }
         public int EffectFemme { get; set; }
