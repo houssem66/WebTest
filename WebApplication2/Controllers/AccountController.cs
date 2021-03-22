@@ -233,32 +233,67 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model)
+        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model, string returnUrl)
         {
+            ViewData["countries"] = AvailableCountries;
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new Utilisateur
+                try
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    Nom = model.Nom,
-                    Prenom = model.Prenom
+                    var numberDetails = await PhoneNumberResource.FetchAsync(
+                        pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
+                        countryCode: model.PhoneNumberCountryCode,
+                        type: new List<string> { "carrier" });
+
+                    // only allow user to set phone number if capable of receiving SMS
+                    if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
+                    {
+                        ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                            $"Le format du numero ne convient pas à votre pays");
+                        return View();
+                    }
+                    var numberToSave = numberDetails.PhoneNumber.ToString();
 
 
-                };
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+
+                    var user = new Utilisateur
+                    {
+
+                        UserName = model.Email,
+                        Email = model.Email,
+                        Nom = model.Nom,
+                        Prenom = model.Prenom,
+                        PhoneNumber = numberToSave
+
+
+
+                    };
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("index", "home");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(model);
                 }
-                foreach (var error in result.Errors)
+                catch (ApiException ex)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                        $"The number you entered was not valid (Twilio code {ex.Code}), please check it and try again");
+                    return View();
+
                 }
             }
             return View(model);
         }
+
 
 
         //sign In
