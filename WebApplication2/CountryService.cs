@@ -14,6 +14,7 @@ namespace TourMe.Web
         [Obsolete]
         private readonly IHostingEnvironment _environment;
         private readonly Lazy<List<SelectListItem>> _countries;
+      
 
         [Obsolete]
         public CountryService(IHostingEnvironment environment)
@@ -26,7 +27,7 @@ namespace TourMe.Web
         {
             return _countries.Value;
         }
-
+        
         [Obsolete]
         private List<SelectListItem> LoadCountries()
         {

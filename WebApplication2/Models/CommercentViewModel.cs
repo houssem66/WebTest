@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,13 +10,11 @@ namespace WebApplication2.Models
 {
     public class CommercentViewModel
     {
-
+        [Required]
+        public string PersAContact { get; set; }
         public string Type { get; set; }
+        public string TypeOrgan { get; set; }
 
-        [Required]
-        public string Nom { get; set; }
-        [Required]
-        public string PreNom { get; set; }
         [Required]
         [EmailAddress]
         public string Email { get; set; }
@@ -53,7 +52,8 @@ namespace WebApplication2.Models
         public string Telephone { get; set; }
         [Display(Name = "Phone number country")]
         public string PhoneNumberCountryCode { get; set; }
-
+        public IFormFile FileP { get; set; }
+       
 
     }
 }

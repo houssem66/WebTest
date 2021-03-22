@@ -193,17 +193,21 @@ namespace Finance.Controllers
 
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
-            ViewData["countries"] = AvailableCountries;
+            CountryService c = null;
+              ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
+              
 
                 //phone
                 try
                 {
-
+                   
+                   
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
+                       
                         type: new List<string> { "carrier" });
 
                     // only allow user to set phone number if capable of receiving SMS
@@ -218,15 +222,14 @@ namespace Finance.Controllers
 
 
 
-
+                   
 
                     var user = new Commerçant
                     {
                         UserName = model.Email,
-                        Nom = model.Nom,
-                        Prenom = model.PreNom,
+                   
                         PhoneNumber = numberToSave,
-                     
+                        PersAContact=model.PersAContact,
                         Email = model.Email,
                         FormeJuridique = model.Forme,
                         Secteur = model.Secteur,
@@ -241,7 +244,7 @@ namespace Finance.Controllers
 
                     if (result.Succeeded)
                     {
-                        System.Diagnostics.Debug.WriteLine("fafafa" + AvailableCountries);
+                        System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("index", "home");
                     }
@@ -251,7 +254,7 @@ namespace Finance.Controllers
                     }
 
                     return View(model);
-
+                   
 
                 }
                 catch (ApiException ex)
