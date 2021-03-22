@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210322174211_Date")]
-    partial class Date
+    [Migration("20210322191206_new2")]
+    partial class new2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -104,8 +104,8 @@ namespace TourMe.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<int>("carte")
-                        .HasColumnType("int");
+                    b.Property<string>("carte")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("gender")
                         .HasColumnType("int");
@@ -281,6 +281,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Patente")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersAContact")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");
 
@@ -288,6 +291,9 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeOrgan")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Commerçant");
