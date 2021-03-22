@@ -20,9 +20,9 @@ namespace WebApplication2.Models
         [EmailAddress]
         public string Email { get; set; }
 
-        public int CIN { get; set; }
+       
         [Display(Name = "Domaine d'activité")]
-        public domaine Domaine { get; set; }
+        public string Domaine { get; set; }
         [Display(Name = "Forme Juridique")]
         public string Forme { get; set; }
 
@@ -33,7 +33,7 @@ namespace WebApplication2.Models
         public string NomGerant { get; set; }
         public string Patente { get; set; }
         [Display(Name = "Secteur")]
-        public Secteur Secteur { get; set; }
+        public string Secteur { get; set; }
 
 
         [Required]
