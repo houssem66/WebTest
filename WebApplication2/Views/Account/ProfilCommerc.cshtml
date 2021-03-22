@@ -3,7 +3,7 @@
     ViewBag.Title = "Commerçant";
 }
 
-<h1>Profil  @Html.Raw(Model.Nom)</h1>
+<h1>Profil  @Html.Raw(Model.PersAContact)</h1>
 
 
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
@@ -302,59 +302,35 @@
                             <div class="tab-pane" id="settings">
                                 <form class="form-horizontal" method="post" asp-controller="Account" asp-action="EditUser">
                                     <div class="form-group row">
-                                        <label asp-for="Nom" class="col-sm-2 col-form-label">Nom</label>
+                                        <label asp-for="PersAContact" class="col-sm-2 col-form-label">Personne à contacter</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" asp-for="Nom" value="@Html.Raw(Model.Nom) ">
+                                            <input disabled class="form-control" asp-for="Nom" value="@Html.Raw(Model.PersAContact) ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label asp-for="PhoneNumber" class="col-sm-2 col-form-label">Email</label>
+                                        <div class="col-sm-10">
+                                            <input disabled  asp-for="PhoneNumber" class="form-control" value="@Html.Raw(Model.PhoneNumber) ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" asp-for="Email" class="form-control" value="@Html.Raw(Model.Email) ">
+                                            <input disabled type="email" asp-for="Email" class="form-control" value="@Html.Raw(Model.Email) ">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label asp-for="Prenom" class="col-sm-2 col-form-label">Prenom</label>
-                                        <div class="col-sm-10">
-                                            <input asp-for="Prenom" class="form-control" value="@Html.Raw(Model.Prenom) ">
-                                        </div>
-                                    </div>
+
                                     <div class="form-group row">
                                         <label asp-for="Type" class="col-sm-2 col-form-label">Type</label>
                                         <div class="col-sm-10">
-                                            <input asp-for="Type" class="form-control" value="@Html.Raw(Model.Type) ">
+                                            <input disabled asp-for="TypeOrgan" class="form-control" value="@Html.Raw(Model.TypeOrgan) ">
                                         </div>
                                     </div>
-                                    <script>
 
-               $(function () {
-
-                       var value = $("input[Name='Type']").val();
-
-
-
-
-
-                       $.ajax({
-
-                    url: '@Url.Action("test","Account")',
-                   data: { 'type': value },
-                           type: "post",
-                    success: function (data) {
-                    $("#loadpartial").html(data);
-                }
-            });
-
-    });
-
-                                    </script>
-                                    <div id="loadpartial">
-
-                                    </div>
 
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Edit</button>
+                                            <button disabled type="submit" class="btn btn-danger">Edit</button>
                                         </div>
                                     </div>
                                 </form>

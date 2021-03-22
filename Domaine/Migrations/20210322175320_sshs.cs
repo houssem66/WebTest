@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class nchallah : Migration
+    public partial class sshs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -39,6 +39,7 @@ namespace TourMe.Data.Migrations
                     Interet = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     gender = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PersAContact = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DomainActivite = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FormeJuridique = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -48,6 +49,7 @@ namespace TourMe.Data.Migrations
                     NomGerant = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Patente = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Secteur = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TypeOrgan = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),

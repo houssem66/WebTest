@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210322161929_nchallah")]
-    partial class nchallah
+    [Migration("20210322175320_sshs")]
+    partial class sshs
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -281,6 +281,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Patente")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("PersAContact")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");
 
@@ -288,6 +291,9 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeOrgan")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Commerçant");

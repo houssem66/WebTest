@@ -46,7 +46,7 @@ namespace WebApplication2.Models
         public string ConfirmPassword { get; set; }
 
 
-
+       
 
         [Phone]
         public string Telephone { get; set; }
