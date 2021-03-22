@@ -24,7 +24,7 @@
                         <h3 class="profile-username text-center">
                             @Html.Raw(Model.Nom)  @Html.Raw(Model.Prenom)
                         </h3>
-
+                        <h3>( @Html.Raw(Model.NickName))</h3>
                         
                         <ul class="list-group list-group-unbordered mb-3">
                         </ul>
@@ -52,7 +52,12 @@
                         <strong> Date de naissance</strong>
 
                         <p class="text-muted"> @Html.Raw(Model.BirthDate)</p>
-
+                        <strong>Country</strong>
+                        <p class="text-muted"> @Html.Raw(Model.Country)</p>
+                        <strong> Carte</strong>
+                        
+                        <strong> Carte</strong>
+                        <p class="text-muted"> @Html.Raw(Model.carte)</p>
 
                     </div>
                     <!-- /.card-body -->
@@ -281,13 +286,25 @@
                             </div>
                             <!-- /.tab-pane -->
 
-
                             <div class="tab-pane" id="settings">
-                                <form class="form-horizontal" method="post" asp-controller="Account" asp-action="EditUser">
+                                <form class="form-horizontal" method="post" asp-controller="Account" asp-action="Edit">
                                     <div class="form-group row">
                                         <label asp-for="Nom" class="col-sm-2 col-form-label">Nom</label>
                                         <div class="col-sm-10">
                                             <input class="form-control" asp-for="Nom" value="@Html.Raw(Model.Nom) ">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label asp-for="Prenom" class="col-sm-2 col-form-label">Prenom</label>
+                                        <div class="col-sm-10">
+                                            <input asp-for="Prenom" class="form-control" value="@Html.Raw(Model.Prenom) ">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label asp-for="NickName" class="col-sm-2 col-form-label">NickName</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" asp-for="NickName" value="@Html.Raw(Model.NickName) ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -296,44 +313,27 @@
                                             <input type="email" asp-for="Email" class="form-control" value="@Html.Raw(Model.Email) ">
                                         </div>
                                     </div>
+
                                     <div class="form-group row">
-                                        <label asp-for="Prenom" class="col-sm-2 col-form-label">Prenom</label>
+                                        <label asp-for="BirthDate" class="col-sm-2 col-form-label">BirthDate</label>
                                         <div class="col-sm-10">
-                                            <input asp-for="Prenom" class="form-control" value="@Html.Raw(Model.Prenom) ">
+                                            <input asp-for="BirthDate" class="form-control" value="@Model.BirthDate ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label asp-for="BirthDate" class="col-sm-2 col-form-label">Type</label>
+                                        <label asp-for="carte" class="col-sm-2 col-form-label">carte</label>
                                         <div class="col-sm-10">
-                                            <input asp-for="BirthDate" class="form-control" value="@Html.Raw(Model.BirthDate) ">
+                                            <input asp-for="carte" class="form-control" value="@Model.carte ">
+                                            
                                         </div>
                                     </div>
-                                    <script>
-
-               $(function () {
-
-                       var value = $("input[Name='Type']").val();
-
-
-
-
-
-                       $.ajax({
-
-                    url: '@Url.Action("test","Account")',
-                   data: { 'type': value },
-                           type: "post",
-                    success: function (data) {
-                    $("#loadpartial").html(data);
-                }
-            });
-
-    });
-
-                                    </script>
-                                    <div id="loadpartial">
-
+                                    <div class="form-group row">
+                                        <label asp-for="Country" class="col-sm-2 col-form-label">Country</label>
+                                        <div class="col-sm-10">
+                                            <input asp-for="Country" class="form-control" value="@Html.Raw(Model.Country) ">
+                                        </div>
                                     </div>
+
 
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
@@ -342,6 +342,8 @@
                                     </div>
                                 </form>
                             </div>
+                            <!-- /.tab-pane -->
+                        </div>
                         <!-- /.tab-content -->
                     </div><!-- /.card-body -->
                 </div>
