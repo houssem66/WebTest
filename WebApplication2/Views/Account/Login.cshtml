@@ -27,7 +27,7 @@
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-          <b>TouR</b>Me<
+            <b>TouR</b>Me<
         </div>
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
@@ -49,8 +49,11 @@
                     </label>
                 </div>
             </div>
+
+
             <button type="submit" class="btn btn-primary">Login</button>
-        </form></div>
+        </form>
+
         @{
             if (Model.ExternalLogins.Count == 0)
             {
@@ -73,5 +76,6 @@
                     </div>
                 </form>}
         }
+    </div>
 </body>
 </html>

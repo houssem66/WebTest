@@ -9,10 +9,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 using Services.Implementation;
+using Microsoft.AspNetCore.Hosting;
 using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
+using System.IO;
 
 namespace Finance.Controllers
 {
@@ -21,10 +23,15 @@ namespace Finance.Controllers
         private readonly UserManager<Utilisateur> userManager;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
+        private readonly IWebHostEnvironment hostingEnvironment;
+
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager,SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService)
+
+        
+        public AccountController(UserManager<Utilisateur> userManager,SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService, IWebHostEnvironment hostingEnvironment)
         {
             UserService = _UserService;
+            this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
             this.signInManager = signInManager;
             AvailableCountries = countryService.GetCountries();
@@ -33,6 +40,10 @@ namespace Finance.Controllers
 
 
         [HttpPost]
+        public ActionResult ModalPopUp()
+        {
+            return View();
+        }
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -46,9 +57,75 @@ namespace Finance.Controllers
            
             
         }
+
         [HttpGet]
+        public async  Task<ViewResult> ChangerPhoto(string id)
+        {
+            Utilisateur utilisateur = await UserService.GetById(id);
+            UtilisateurViewModel modelUser = new UtilisateurViewModel
+            {  Id=utilisateur.Id,
+               Nom= utilisateur.Nom,
+               Prenom= utilisateur.Prenom,
+               ExistingPhotoPath =utilisateur.ProfilePhoto
+            };
+
+            return View(modelUser);
+        }
+
+        private string ProcessUploadedFile(UtilisateurViewModel modelUser)
+        {
+            string uniqueFileName = null;
+
+            if (modelUser.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + modelUser.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    modelUser.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangerPhoto(UtilisateurViewModel modelUser)
+        {
+            Utilisateur utilisateur = await UserService.GetUtilisateurByIdAsync(modelUser.Id);
+
+           
+
+              
+                    
+                    // If a new photo is uploaded, the existing photo must be
+                    // deleted. So check if there is an existing photo and delete
+                    if (modelUser.ExistingPhotoPath != null)
+                    {
+                        string filePath = Path.Combine(hostingEnvironment.WebRootPath,
+                            "images", modelUser.ExistingPhotoPath);
+                        System.IO.File.Delete(filePath);
+                    }
+                    // Save the new photo in wwwroot/images folder and update
+                    // PhotoPath property of the employee object which will be
+                    // eventually saved in the database
+                    utilisateur.ProfilePhoto = ProcessUploadedFile(modelUser);
+                    utilisateur.Nom = modelUser.Nom;
+                
+
+                // Call update method on the repository service passing it the
+                // employee object to update the data in the database table
+                 await UserService.PutUtilisateurAsync(modelUser.Id, utilisateur);
+               
+                    
+
+                return View("Profil", utilisateur);
+        }
+
         public async Task<IActionResult> Delete(string id)
         {
+          
             if (id == null)
             {
                 return NotFound();
@@ -62,7 +139,7 @@ namespace Finance.Controllers
 
             return View(utilisateur);
         }
-
+        
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -89,11 +166,12 @@ namespace Finance.Controllers
 
 
         [HttpGet]
-        [AllowAnonymous]
 
         public async  Task<IActionResult> RegisterUser(string returnUrl)
         {
-            UtilisateurViewModel model = new UtilisateurViewModel { ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
+            ViewData["countries"] = AvailableCountries;
+            UtilisateurViewModel model = new UtilisateurViewModel {
+                ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
             return View(model);
         }
         [HttpGet]
@@ -135,7 +213,7 @@ namespace Finance.Controllers
 
 
                     var user = new Commerçant
-                    {
+                    {   
                         UserName = model.Email,
                         Nom = model.Nom,
                         Prenom = model.PreNom,
@@ -154,7 +232,7 @@ namespace Finance.Controllers
 
                     if (result.Succeeded)
                     {
-                        System.Diagnostics.Debug.WriteLine("fafafa" + AvailableCountries);
+                        
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("index", "home");
                     }
@@ -179,17 +257,40 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model)
+        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model,string returnUrl)
         {
+            ViewData["countries"] = AvailableCountries;
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ReturnUrl = returnUrl;
             if (ModelState.IsValid) {
-                var user = new Utilisateur {
+                try {
+                    var numberDetails = await PhoneNumberResource.FetchAsync(
+                        pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
+                        countryCode: model.PhoneNumberCountryCode,
+                        type: new List<string> { "carrier" });
+
+                    // only allow user to set phone number if capable of receiving SMS
+                    if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
+                    {
+                        ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                            $"Le format du numero ne convient pas à votre pays");
+                        return View();
+                    }
+                    var numberToSave = numberDetails.PhoneNumber.ToString();
+
+                  
+                 
+                       var user = new Utilisateur {
+                          
                     UserName = model.Email,
                     Email = model.Email,
                     Nom = model.Nom,
-                    Prenom = model.Prenom
-                
-                
-                };
+                    Prenom = model.Prenom,
+                    PhoneNumber = numberToSave
+
+
+
+                       };
              var result =  await userManager.CreateAsync(user, model.Password);
                 if(result.Succeeded)
                 {
@@ -199,6 +300,16 @@ namespace Finance.Controllers
                 foreach(var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
+                }
+
+                    return View(model);
+                }
+                catch (ApiException ex)
+                {
+                    ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                        $"The number you entered was not valid (Twilio code {ex.Code}), please check it and try again");
+                    return View();
+
                 }
             }
             return View(model);
@@ -211,14 +322,26 @@ namespace Finance.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            LoginViewModel model = new LoginViewModel { ReturnUrl= returnUrl ,ExternalLogins= (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()};
+            LoginViewModel model = new LoginViewModel
+
+            { ReturnUrl= returnUrl ,
+            
+              ExternalLogins= (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            
+            
+            };
             return View(model);
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model,string returUrl)
         {
+             
+             model.ExternalLogins= (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ReturnUrl = returUrl;
+
+             
             if (ModelState.IsValid)
             {
 
@@ -236,7 +359,8 @@ namespace Finance.Controllers
             }
             return View(model);
         }
-        [AllowAnonymous]
+        
+        
         [HttpPost]
         public IActionResult ExternalLogin(string provider, string returnUrl)
         {
@@ -255,7 +379,7 @@ public async Task<IActionResult>
 {
     returnUrl = returnUrl ?? Url.Content("~/");
 
-    LoginViewModel loginViewModel = new LoginViewModel
+    UtilisateurViewModel utilisateurViewModel = new UtilisateurViewModel
     {
         ReturnUrl = returnUrl,
         ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
@@ -265,7 +389,7 @@ public async Task<IActionResult>
     {
         ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
 
-        return View("Login", loginViewModel);
+        return View("Login", utilisateurViewModel);
     }
 
     var info = await signInManager.GetExternalLoginInfoAsync();
@@ -273,7 +397,7 @@ public async Task<IActionResult>
     {
         ModelState.AddModelError(string.Empty, "Error loading external login information.");
 
-        return View("Login", loginViewModel);
+        return View("Login", utilisateurViewModel);
     }
 
     var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
@@ -285,9 +409,19 @@ public async Task<IActionResult>
     }
     else
     {
-        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                //string uniqueFileName = null;
+                //if (model.Photo != null)
+                //{
+                //    string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                //    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                //    string FilePath = Path.Combine(uploadFolder, uniqueFileName);
+                //    model.Photo.CopyTo(new FileStream(FilePath, FileMode.Create));
+
+
+                    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
-                var photo = $"https://graph.facebook.com/{identifier}/picture";
+                var photo = $"https://graph.facebook.com/{identifier}/?fields=picture&type=large&access_token=EAAMmA4PXqUcBAJK4iZBGt3vjeGVLykTRgT54wbubJuNLC948ZAZCH03DrxMzyYNiMO5etScP3KKYd6iK5HqIcGuiCdp2ED0t5QwxeGwoZBbcOeZBdLVZCM6HuRc9Lo4uMf3IZBHXghkM2LGd72geEQW1WVXeZCJPUgkCtSSek6TszQZDZD";
+                 
                 if (email != null)
         {
             var user = await userManager.FindByEmailAsync(email);

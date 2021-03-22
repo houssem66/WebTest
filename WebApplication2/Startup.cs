@@ -1,4 +1,6 @@
 using Domaine.Entities;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -13,6 +15,7 @@ using Services.Implementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMe.Data;
 using TourMe.Web;
@@ -40,11 +43,22 @@ namespace WebApplication2
             services.AddSingleton<CountryService>();
             services.AddControllersWithViews();
             services.AddAuthentication().AddFacebook(options =>
-            {   options.AppId = "886221468838215";
+            {
+                options.AppId = "886221468838215";
                 options.AppSecret = "33c5819cb80ae5e5ab64b9043bbf9b9b";
                 options.Scope.Add("public_profile");
 
                 options.Fields.Add("picture");
+                options.Events = new OAuthEvents
+                {
+                    OnCreatingTicket = context =>
+                    {
+                        var identity = (ClaimsIdentity)context.Principal.Identity;
+                        var profileImg = context.User.GetProperty("picture").GetProperty("data").GetProperty("url").ToString();
+                        identity.AddClaim(new Claim(JwtClaimTypes.Picture, profileImg));
+                        return Task.CompletedTask;
+                    }
+                };
 
 
             });

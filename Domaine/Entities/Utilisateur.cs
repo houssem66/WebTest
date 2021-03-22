@@ -15,8 +15,9 @@ namespace Domaine.Entities
         public String Nom { get; set; }
       
         public String Prenom { get; set; }
-        
-       
+        public string Country { get; set; }
+
+
         public int? Telephone { get; set; }
         public String ProfilePhoto { get; set; }
        
