@@ -193,17 +193,35 @@ namespace Finance.Controllers
 
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
-            ViewData["countries"] = AvailableCountries;
+            CountryService c = null;
+              ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
+                string uniqueFileName = null;
+                if (model.FileP != null)
+                {
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
 
                 //phone
                 try
                 {
-
+                   
+                   
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
+                       
                         type: new List<string> { "carrier" });
 
                     // only allow user to set phone number if capable of receiving SMS
@@ -218,15 +236,14 @@ namespace Finance.Controllers
 
 
 
-
+                   
 
                     var user = new Commerçant
                     {
                         UserName = model.Email,
-                        Nom = model.Nom,
-                        Prenom = model.PreNom,
+                   
                         PhoneNumber = numberToSave,
-                     
+                        PersAContact=model.PersAContact,
                         Email = model.Email,
                         FormeJuridique = model.Forme,
                         Secteur = model.Secteur,
@@ -234,14 +251,15 @@ namespace Finance.Controllers
                         SituationEntreprise = model.SituationEntreprise,
                         EffectFemme = model.EffectFemme,
                         EffectHomme = model.EffectHomme,
-                        Type = model.Type
+                        Type = model.Type,
+                        Patente=uniqueFileName
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
 
                     if (result.Succeeded)
                     {
-                        System.Diagnostics.Debug.WriteLine("fafafa" + AvailableCountries);
+                        System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
                         await signInManager.SignInAsync(user, isPersistent: false);
 
                         return RedirectToAction("index", "home");
@@ -252,7 +270,7 @@ namespace Finance.Controllers
                     }
 
                     return View(model);
-
+                   
 
                 }
                 catch (ApiException ex)

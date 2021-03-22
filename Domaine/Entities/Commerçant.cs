@@ -9,8 +9,8 @@ namespace Domaine.Entities
    public  class Commerçant:Utilisateur
     {
 
-       
 
+        public string PersAContact { get; set; }
         public string Type { get; set; }
         public string DomainActivite { get; set; }
         public string FormeJuridique { get; set; }
@@ -20,5 +20,7 @@ namespace Domaine.Entities
         public string NomGerant { get; set; }
         public string Patente { get; set; }
         public string Secteur { get; set; }
+        public string TypeOrgan { get; set; }
+      
     }
 }

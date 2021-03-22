@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourMe.Data;
 
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    partial class TourMeContextModelSnapshot : ModelSnapshot
+    [Migration("20210322175320_sshs")]
+    partial class sshs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,8 +104,8 @@ namespace TourMe.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
-                    b.Property<string>("carte")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("carte")
+                        .HasColumnType("int");
 
                     b.Property<int>("gender")
                         .HasColumnType("int");
