@@ -9,10 +9,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 using Services.Implementation;
+using Microsoft.AspNetCore.Hosting;
 using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
+using System.IO;
 using TourMe.Data;
 
 namespace Finance.Controllers
@@ -22,10 +24,12 @@ namespace Finance.Controllers
         private readonly UserManager<Utilisateur> userManager;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
+        private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService,TourMeContext context)
+        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager,  IWebHostEnvironment hostingEnvironment,IUserService _UserService, CountryService countryService,TourMeContext context)
         {
             UserService = _UserService;
+            this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
             this.signInManager = signInManager;
             AvailableCountries = countryService.GetCountries();
@@ -50,6 +54,47 @@ namespace Finance.Controllers
         }
 
         //added 22/03/2021 houssem code
+        public async Task<IActionResult> Profil()
+        {
+            string id = userManager.GetUserId(User);
+
+            Utilisateur us = await UserService.GetById(id);
+            if (us == null)
+            { return RedirectToAction("index", "home"); }
+
+            return View(us);
+        }
+        [HttpGet]
+        public async Task<ViewResult> ChangerPhoto(string id)
+        {
+            Utilisateur utilisateur = await UserService.GetById(id);
+            UtilisateurViewModel modelUser = new UtilisateurViewModel
+            {
+                Id = utilisateur.Id,
+                Nom = utilisateur.Nom,
+                Prenom = utilisateur.Prenom,
+                ExistingPhotoPath = utilisateur.ProfilePhoto
+            };
+
+            return View(modelUser);
+        }
+        private string ProcessUploadedFile(UtilisateurViewModel modelUser)
+        {
+            string uniqueFileName = null;
+
+            if (modelUser.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + modelUser.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    modelUser.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
 
 
         [HttpGet]
