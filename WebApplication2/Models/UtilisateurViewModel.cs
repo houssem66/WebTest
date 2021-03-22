@@ -28,9 +28,9 @@ namespace WebApplication2.Models
             ErrorMessage = "Password and confirmation password do not match.")]
 
         public string ConfirmPassword { get; set; }
-       
+        [DataType(DataType.Date)]
 
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{dd/MM/yyyy}")]
+        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
         public string ReturnUrl { get; set; }
         public IFormFile Photo { get; set; }
@@ -39,6 +39,9 @@ namespace WebApplication2.Models
         public string PhoneNumberCountryCode { get; set; }
         public string ExistingPhotoPath { get; set; }
         public String Adresse { get; set; }
+        public int carte { get; set; }
+        public string NickName { get; set; }
+        public string Country { get; set; }
 
     }
 }

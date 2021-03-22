@@ -474,7 +474,7 @@ namespace Finance.Controllers
         [ValidateAntiForgeryToken]
         public  async Task<IActionResult> EditUser(Commerçant model)
         {
-            System.Diagnostics.Debug.WriteLine("Le name est" + model.Nom);
+            
             string id = userManager.GetUserId(User);
             Utilisateur user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
          
@@ -485,6 +485,31 @@ namespace Finance.Controllers
             await UserService.PutUtilisateurAsync(id, user);
           
                 return RedirectToAction("ProfilCommerc");
+
+
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(UtilisateurViewModel model)
+        {
+
+            string id = userManager.GetUserId(User);
+            Utilisateur user = await UserService.GetUtilisateurByIdAsync(id);
+
+            user.Nom = model.Nom;
+            user.Email = model.Email;
+            user.carte = model.carte;
+            user.Prenom = model.Prenom;
+            user.BirthDate = model.BirthDate;
+            user.NickName = model.NickName;
+            user.Country = model.Country;
+
+
+
+            await UserService.PutUtilisateurAsync(id, user);
+
+            return RedirectToAction("Profil");
 
 
 
