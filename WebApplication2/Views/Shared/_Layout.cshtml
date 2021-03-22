@@ -266,11 +266,15 @@
             <!-- /.content -->
             <div class="content">
                 <div class="container">
-                <div class="row">
+                    <div class="row">
 
-                    @RenderBody()
+                        @RenderBody()
+                    </div>
+                    @if (IsSectionDefined("Scripts"))
+                    {
+                        @await RenderSectionAsync("Scripts", required: true)
+                    }
                 </div>
-               </div>
             </div>
         </div>
         <!-- /.content-wrapper -->
@@ -309,6 +313,6 @@
     <script src="~/Theme/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <script src="~/Theme/dist/js/demo.js"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+   
 </body>
 </html>
