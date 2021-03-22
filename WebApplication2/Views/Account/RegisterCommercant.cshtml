@@ -1,4 +1,4 @@
-﻿@using TourMe.Data.Entities.Enum;
+﻿
 @model CommercentViewModel
 
 @{
@@ -11,8 +11,9 @@
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <div class="row">
+    <h1>Information de contact</h1>
     <div class="col-md-12">
-        <form method="post">
+        <form enctype="multipart/form-data" method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Type"></label>
@@ -45,15 +46,11 @@
             </script>
 
 
-            <div class="form-group">
-                <label asp-for="Nom"></label>
-                <input asp-for="Nom" class="form-control" />
 
-            </div>
             <div class="form-group">
-                <label asp-for="PreNom"></label>
-                <input asp-for="PreNom" class="form-control" />
-                <span asp-validation-for="Nom" class="text-danger"></span>
+                <label asp-for="PersAContact">Personne à contacter</label>
+                <input asp-for="PersAContact" class="form-control" />
+                <span asp-validation-for="PersAContact" class="text-danger"></span>
 
             </div>
 
@@ -72,16 +69,18 @@
                 <input asp-for="Telephone" class="form-control" />
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
-          
+            <div id="loadpartial">
+
+            </div>
+         
+
+            <h1>Information de securité</h1>
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div id="loadpartial">
-               
-            </div>
 
 
 
