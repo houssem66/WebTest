@@ -2,7 +2,7 @@
 
 namespace TourMe.Data.Migrations
 {
-    public partial class date2 : Migration
+    public partial class new2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
