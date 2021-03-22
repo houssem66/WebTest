@@ -48,6 +48,10 @@ namespace Finance.Controllers
 
 
         }
+
+        //added 22/03/2021 houssem code
+
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
