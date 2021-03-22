@@ -26,103 +26,123 @@
 </head>
 <body class="hold-transition register-page" style="min-height: 586.8px;">
     <div class="register-box">
-        
+
         <div class="register-logo">
             <b>TouR</b>Me
         </div>
-            <div class="card">
-                <div class="card-body register-card-body">
-                    <form method="post">
-                        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="card">
+            <div class="card-body register-card-body">
+                <form method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
+                    <div class="input-group mb-3">
+
+                        <input asp-for="Nom" placeholder="Nom" class="form-control" />
+                        <span asp-validation-for="Nom" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input asp-for="Prenom" placeholder="Prenom" class="form-control" />
+                        <span asp-validation-for="Prenom" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group mb-3">
+
+                        <input asp-for="Email" placeholder="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+
+                        <label>Pays</label>
+                    </div>
+                    <div class="input-group mb-3">
+
+                        <select asp-for="PhoneNumberCountryCode" placeholder="Choisir pays" asp-items="@ViewBag.countries" class="form-control"></select>
+                        <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
                         <div class="input-group mb-3">
-
-                            <input asp-for="Nom" placeholder="Nom" class="form-control" />
-                            <span asp-validation-for="Nom" class="text-danger"></span>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
-                            </div>
-
+                            <label asp-for="Telephone"></label>
                         </div>
+                        <input asp-for="Telephone" class="form-control" />
+                        <span asp-validation-for="Telephone" class="text-danger"></span>
+                    </div>
+                    <div class="input-group mb-3">
 
-                        <div class="input-group mb-3">
-                            <input asp-for="Prenom" placeholder="Prenom" class="form-control" />
-                            <span asp-validation-for="Prenom" class="text-danger"></span>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-user"></span>
-                                </div>
+                        <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
+                    </div>
+                    <div class="input-group mb-3">
 
-
-                        <div class="input-group mb-3">
-
-                            <input asp-for="Email" placeholder="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
-                                </div>
+                        <input asp-for="ConfirmPassword" placeholder="Confirmer mot de passe" class="form-control" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
                         </div>
-                        <div class="input-group mb-3">
 
-                            <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
+                    </div>
+
+
+
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="agreeTerms" name="terms" value="agree">
+                                <label for="agreeTerms">
+                                    I agree to the <a href="#">terms</a>
+                                </label>
                             </div>
                         </div>
-                        <div class="input-group mb-3">
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
 
-                            <input asp-for="ConfirmPassword" placeholder="Confirmer mot de passe" class="form-control" />
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-lock"></span>
-                                </div>
-                            </div>
+
+
+
+                </form>
+                <div class="input-group mb-3">
+                    <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                        <div class="social-auth-links text-center">
+                            <p>- ou -</p>
+                            @foreach (var provider in Model.ExternalLogins)
+                            {<button name="provider" value="@provider.Name" title="Login usin your @provider.DisplayName account" type="submit" class="btn btn-block btn-primary">
+                                    <i class="fab fa-facebook mr-2"></i>
+                                    Sign up using Facebook
+                                </button>}
+
+
 
                         </div>
-                        <div class="row">
-                            <div class="col-8">
-                                <div class="icheck-primary">
-                                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                                    <label for="agreeTerms">
-                                        I agree to the <a href="#">terms</a>
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- /.col -->
-                            <div class="col-4">
-                                <button type="submit" class="btn btn-primary btn-block">Register</button>
-                            </div>
-                            <!-- /.col -->
-                        </div>
+                    </form>
 
-
-                    </form >
-                  
-                        <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                    <div class="social-auth-links text-center">
-                          <p>- ou -</p>
-                        @foreach(var provider in Model.ExternalLogins) {<button  name="provider" value="@provider.Name" title="Login usin your @provider.DisplayName account" type="submit" class="btn btn-block btn-primary">
-                              <i class="fab fa-facebook mr-2" ></i>
-                 Sign up using Facebook
-                       </button> }
-        
-        
 
                 </div>
-                           </form>}
-                       
-                    </div>
-            </div>
-        </div>
 
 </body>
 </html>
