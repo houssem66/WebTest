@@ -5,6 +5,9 @@
 
 <h1>Profil  @Html.Raw(Model.Nom)</h1>
 
+@{var photoPath = "~/images/" + (Model.ProfilePhoto ?? "noimage.jpg");
+
+}
 
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
@@ -17,21 +20,19 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body box-profile">
                         <div class="text-center">
-                         
-                            <img class="profile-user-img img-fluid img-circle"
-                             
-                                 alt="User profile picture">
+
+                            <img class="profile-user-img img-fluid img-circle" src="@photoPath" asp-append-version="true" />
                         </div>
 
                         <h3 class="profile-username text-center">
-                          <label asp-for="Nom"></label>
+                            <label asp-for="Nom"></label>
                         </h3>
 
 
                         <ul class="list-group list-group-unbordered mb-3">
                         </ul>
 
-                        <a href="#" class="btn btn-primary btn-block"><b>Change photo</b></a>
+                        <a asp-action="ChangerPhoto" asp-controller="Account" asp-route-id="@Model.Id" class="btn btn-primary btn-block"><b>Change photo</b></a>
                     </div>
                     <!-- /.card-body -->
                 </div>
