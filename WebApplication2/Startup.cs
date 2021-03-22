@@ -47,6 +47,10 @@ namespace WebApplication2
                 options.Fields.Add("picture");
 
 
+            }).AddGoogle(options =>
+            {
+                options.ClientId = "472485709376-6kroqnpbdfmu8gp9k2dk1k3f6glhlcgl.apps.googleusercontent.com";
+                options.ClientSecret = "1Egum6FjRrIJzxv3W_d7zchi";
             });
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             //sprint 1

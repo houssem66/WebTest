@@ -8,17 +8,42 @@
 
 
 
-
+<script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <div class="row">
     <div class="col-md-12">
         <form method="post">
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Type"></label>
-                <input type="radio" name="Type" value="individu" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" /> individu
-                <input type="radio" name="Type" value="Organisme" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" /> Organisme
+                <input type="radio" name="Type" value="individu" class="radioBtnClass" /> individu
+                <input type="radio" name="Type" value="Organisme" class="radioBtnClass" /> Organisme
 
             </div>
+            <script>
+
+               $(function () {
+                   $("[name=Type]").on('change', function () {
+                       var value = $("input[type='radio'].radioBtnClass:checked").val();
+
+
+
+
+
+                       $.ajax({
+
+                    url: '@Url.Action("test","Account")',
+                   data: { 'type': value },
+                           type: "post",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });
+        });
+    });
+
+            </script>
+
 
             <div class="form-group">
                 <label asp-for="Nom"></label>
@@ -47,58 +72,18 @@
                 <input asp-for="Telephone" class="form-control" />
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CIN"></label>
-                <input asp-for="CIN" class="form-control" />
-                <span asp-validation-for="CIN" class="text-danger"></span>
-            </div>
+          
             <div class="form-group">
                 <label asp-for="Email"></label>
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Domaine"></label>
-                <select asp-for="Domaine" asp-items="Html.GetEnumSelectList<domaine>()"></select>
-
+            <div id="loadpartial">
+               
             </div>
 
 
-
-            <div class="form-group">
-                <label asp-for="Secteur"></label>
-                <select asp-for="Secteur" asp-items="Html.GetEnumSelectList<Secteur>()"></select>
-
-            </div>
-            <div class="form-group">
-                <label asp-for="Forme"></label>
-                <input type="radio" name="Forme" value="SUARL" /> SUARL
-                <input type="radio" name="Forme" value="SARL" /> SARL
-                <input type="radio" name="Forme" value="SA" /> SA
-                <input type="radio" name="Forme" value="SAS" /> SAS
-                <input type="radio" name="Forme" value="Autre" /> Autre
-
-
-            </div>
-            <div class="form-group">
-                <label asp-for="EffectHomme"></label>
-                <input asp-for="EffectHomme" class="form-control" />
-                <span asp-validation-for="EffectHomme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="EffectFemme"></label>
-                <input asp-for="EffectFemme" class="form-control" />
-                <span asp-validation-for="EffectFemme" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SituationEntreprise"></label>
-                <input type="radio" name="SituationEntreprise" value="EnActivite" /> En Activité
-                <input type="radio" name="SituationEntreprise" value="Endémarrage" /> En démarrage
-
-
-
-            </div>
 
             <div class="form-group">
                 <label asp-for="Password"></label>

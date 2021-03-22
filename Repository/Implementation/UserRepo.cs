@@ -36,14 +36,26 @@ namespace Repository.Implementation
         }
 
         
-        public Task PutUserAsync(string id, Utilisateur entity)
+        public async Task PutUserAsync(string id, Utilisateur entity)
         {
-            throw new NotImplementedException();
+            var user = await _dbContext.User.SingleAsync(user => user.Id == entity.Id);
+            _dbContext.Entry(user).State = EntityState.Detached;
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
+
         }
 
         public Task updateUser(string id, Utilisateur entity)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

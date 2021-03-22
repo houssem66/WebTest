@@ -45,7 +45,7 @@ namespace Services.Implementation
 
         public Task PutUtilisateurAsync(string id, Utilisateur entity)
         {
-            return GenericRepo.PutAsync(id, entity);
+            return UserRepo.PutUserAsync(id, entity);
         }
 
         public Task UpdateUtilisateurAsync(string id, Utilisateur entity)
