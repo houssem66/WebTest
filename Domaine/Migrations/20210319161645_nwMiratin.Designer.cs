@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourMe.Data;
 
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    partial class TourMeContextModelSnapshot : ModelSnapshot
+    [Migration("20210319161645_nwMiratin")]
+    partial class nwMiratin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -245,6 +247,9 @@ namespace TourMe.Data.Migrations
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
+
+                    b.Property<int>("CIN")
+                        .HasColumnType("int");
 
                     b.Property<string>("DomainActivite")
                         .HasColumnType("nvarchar(max)");

@@ -13,22 +13,24 @@ using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
+using TourMe.Data;
 
 namespace Finance.Controllers
 {
     public class AccountController : Controller
-    {
+    {   private readonly TourMeContext _context;
         private readonly UserManager<Utilisateur> userManager;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager,SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService)
+        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService,TourMeContext context)
         {
             UserService = _UserService;
             this.userManager = userManager;
             this.signInManager = signInManager;
             AvailableCountries = countryService.GetCountries();
 
+            _context = context;
         }
 
 
@@ -43,8 +45,8 @@ namespace Finance.Controllers
         public IActionResult GetAll()
         {
             return View(UserService.GetAllUtilisateurs());
-           
-            
+
+
         }
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
@@ -68,19 +70,20 @@ namespace Finance.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-          await  UserService.DeleteUtilisateurAsync(id);
-        //    var utilisateur = await _context.User.FindAsync(id);
-        //    _context.User.Remove(utilisateur);
-        //    await _context.SaveChangesAsync();
+            await UserService.DeleteUtilisateurAsync(id);
+            //    var utilisateur = await _context.User.FindAsync(id);
+            //    _context.User.Remove(utilisateur);
+            //    await _context.SaveChangesAsync();
             return RedirectToAction(nameof(GetAll));
         }
         [HttpGet]
-       
-        public async Task<IActionResult> Profil()
+
+        public async Task<IActionResult> ProfilCommerc()
         {
-            string id =  userManager.GetUserId(User);
-           
-           Utilisateur  us = await UserService.GetById(id);
+
+            string id = userManager.GetUserId(User);
+
+            Utilisateur us = await UserService.GetById(id);
             if (us == null)
             { return RedirectToAction("index", "home"); }
 
@@ -91,10 +94,11 @@ namespace Finance.Controllers
         [HttpGet]
         [AllowAnonymous]
 
-        public async  Task<IActionResult> RegisterUser(string returnUrl)
+        public async Task<IActionResult> RegisterUser(string returnUrl)
         {
             UtilisateurViewModel model = new UtilisateurViewModel { ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
             return View(model);
+
         }
         [HttpGet]
         public IActionResult RegisterCommercant()
@@ -104,7 +108,7 @@ namespace Finance.Controllers
             return View();
         }
         [HttpPost]
-       
+
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
             ViewData["countries"] = AvailableCountries;
@@ -140,14 +144,15 @@ namespace Finance.Controllers
                         Nom = model.Nom,
                         Prenom = model.PreNom,
                         PhoneNumber = numberToSave,
-                        CIN = model.CIN,
+                     
                         Email = model.Email,
                         FormeJuridique = model.Forme,
                         Secteur = model.Secteur,
                         DomainActivite = model.Domaine,
                         SituationEntreprise = model.SituationEntreprise,
                         EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme
+                        EffectHomme = model.EffectHomme,
+                        Type = model.Type
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
@@ -170,7 +175,7 @@ namespace Finance.Controllers
                 catch (ApiException ex)
                 {
                     ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
-                        $"The number you entered was not valid (Twilio code {ex.Code}), please check it and try again");
+                        $"Le numéro entré n'est pas valide  (Code d'erreur {ex.Code})");
                     return View();
                 }
 
@@ -181,22 +186,24 @@ namespace Finance.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterUser(UtilisateurViewModel model)
         {
-            if (ModelState.IsValid) {
-                var user = new Utilisateur {
+            if (ModelState.IsValid)
+            {
+                var user = new Utilisateur
+                {
                     UserName = model.Email,
                     Email = model.Email,
                     Nom = model.Nom,
                     Prenom = model.Prenom
-                
-                
+
+
                 };
-             var result =  await userManager.CreateAsync(user, model.Password);
-                if(result.Succeeded)
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
                 {
                     await signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToAction("index", "home");
                 }
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
@@ -211,28 +218,30 @@ namespace Finance.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            LoginViewModel model = new LoginViewModel { ReturnUrl= returnUrl ,ExternalLogins= (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()};
+            LoginViewModel model = new LoginViewModel { ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
             return View(model);
         }
 
         [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            model.ReturnUrl = returnUrl;
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
 
                 var result = await signInManager
-                .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
                 if (result.Succeeded)
                 {
-                    
+
                     return RedirectToAction("index", "home");
                 }
-             
-                
-                    ModelState.AddModelError(string.Empty,"Invalid Login Attempt");
-                
+
+
+                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+
             }
             return View(model);
         }
@@ -248,52 +257,52 @@ namespace Finance.Controllers
 
             return new ChallengeResult(provider, properties);
         }
-        
-[AllowAnonymous]
-public async Task<IActionResult>
-    ExternalLoginCallback(string returnUrl = null, string remoteError = null)
-{
-    returnUrl = returnUrl ?? Url.Content("~/");
 
-    LoginViewModel loginViewModel = new LoginViewModel
-    {
-        ReturnUrl = returnUrl,
-        ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
-    };
+        [AllowAnonymous]
+        public async Task<IActionResult>
+            ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
 
-    if (remoteError != null)
-    {
-        ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+            LoginViewModel loginViewModel = new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
 
-        return View("Login", loginViewModel);
-    }
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
 
-    var info = await signInManager.GetExternalLoginInfoAsync();
-    if (info == null)
-    {
-        ModelState.AddModelError(string.Empty, "Error loading external login information.");
+                return View("Login", loginViewModel);
+            }
 
-        return View("Login", loginViewModel);
-    }
+            var info = await signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError(string.Empty, "Error loading external login information.");
 
-    var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
-                                info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                return View("Login", loginViewModel);
+            }
 
-    if (signInResult.Succeeded)
-    {
-        return LocalRedirect(returnUrl);
-    }
-    else
-    {
-        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
+                                        info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+
+            if (signInResult.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
                 var photo = $"https://graph.facebook.com/{identifier}/picture";
                 if (email != null)
-        {
-            var user = await userManager.FindByEmailAsync(email);
+                {
+                    var user = await userManager.FindByEmailAsync(email);
 
-            if (user == null)
-            {
+                    if (user == null)
+                    {
                         user = new Utilisateur
                         {
                             UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
@@ -301,24 +310,64 @@ public async Task<IActionResult>
                             Nom = info.Principal.FindFirstValue(ClaimTypes.Name),
 
                             ProfilePhoto = photo
-                    };
+                        };
 
-                await userManager.CreateAsync(user);
+                        await userManager.CreateAsync(user);
+                    }
+
+                    await userManager.AddLoginAsync(user, info);
+                    await signInManager.SignInAsync(user, isPersistent: false);
+
+                    return LocalRedirect(returnUrl);
+                }
+
+                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
+                ViewBag.ErrorMessage = "Please contact support on Pragim@PragimTech.com";
+
+                return View("Error");
+            }
+        }
+        [HttpPost]
+
+        public ActionResult test(string type)
+        {
+
+
+
+            if (type.Equals("Organisme"))
+            {
+
+
+                System.Diagnostics.Debug.WriteLine("Le type est" + type);
+                return PartialView("_Organisme");
             }
 
-            await userManager.AddLoginAsync(user, info);
-            await signInManager.SignInAsync(user, isPersistent: false);
+            else
+            {
 
-            return LocalRedirect(returnUrl);
+                return new EmptyResult();
+            }
+
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public  async Task<IActionResult> EditUser(Commerçant model)
+        {
+            System.Diagnostics.Debug.WriteLine("Le name est" + model.Nom);
+            string id = userManager.GetUserId(User);
+            Utilisateur user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
+         
+            user.Nom = model.Nom;
+            user.Email = model.Email;
+            
+           
+            await UserService.PutUtilisateurAsync(id, user);
+          
+                return RedirectToAction("ProfilCommerc");
 
-        ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
-        ViewBag.ErrorMessage = "Please contact support on Pragim@PragimTech.com";
 
-        return View("Error");
-    }
-}
 
+        }
 
     }
 }

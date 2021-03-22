@@ -10,7 +10,7 @@ namespace Repository.Interfaces
     public interface IUserRepo
     {
         public Task<Utilisateur> GetUserDetailsAsync(string id);
-        public Task PutUserAsync(string id, Utilisateur entity);
+        public  Task PutUserAsync(string id, Utilisateur entity);
         public IEnumerable<Utilisateur> GetAllUserAsync();
         public Task updateUser(string id, Utilisateur entity);
     }

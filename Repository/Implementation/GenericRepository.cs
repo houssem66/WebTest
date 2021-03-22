@@ -91,6 +91,7 @@ namespace Repository.Interfaces
 
             try
             {
+                _dbContext.Update(entity);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -102,11 +103,14 @@ namespace Repository.Interfaces
         }
         public async Task PutAsync(string id, TEntity entity)
         {
+            
 
             _dbContext.Entry(entity).State = EntityState.Modified;
+           
 
             try
             {
+                   
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
@@ -155,6 +159,22 @@ namespace Repository.Interfaces
                 throw new NotImplementedException();
             }
 
+        }
+
+        public async Task<TEntity> UpdateAsync(TEntity entity)
+        {
+            
+            try
+            {
+                _dbContext.Update(entity);
+                await _dbContext.SaveChangesAsync();
+
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
+            }
         }
 
     }
