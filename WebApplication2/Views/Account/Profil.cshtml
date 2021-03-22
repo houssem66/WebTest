@@ -25,7 +25,7 @@
                             @Html.Raw(Model.Nom)  @Html.Raw(Model.Prenom)
                         </h3>
 
-
+                        
                         <ul class="list-group list-group-unbordered mb-3">
                         </ul>
 
@@ -49,9 +49,9 @@
 
                         <hr>
 
-                        <strong><i class="fas fa-map-marker-alt mr-1"></i> Adresse</strong>
+                        <strong> Date de naissance</strong>
 
-                        <p class="text-muted"> @Html.Raw(Model.Adresse)</p>
+                        <p class="text-muted"> @Html.Raw(Model.BirthDate)</p>
 
 
                     </div>
@@ -281,56 +281,67 @@
                             </div>
                             <!-- /.tab-pane -->
 
+
                             <div class="tab-pane" id="settings">
-                                <form class="form-horizontal">
+                                <form class="form-horizontal" method="post" asp-controller="Account" asp-action="EditUser">
                                     <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                                        <label asp-for="Nom" class="col-sm-2 col-form-label">Nom</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" value="@Html.Raw(Model.Nom)">
+                                            <input class="form-control" asp-for="Nom" value="@Html.Raw(Model.Nom) ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                                        <label asp-for="Email" class="col-sm-2 col-form-label">Email</label>
                                         <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" value="@Html.Raw(Model.Email) ">
+                                            <input type="email" asp-for="Email" class="form-control" value="@Html.Raw(Model.Email) ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
+                                        <label asp-for="Prenom" class="col-sm-2 col-form-label">Prenom</label>
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName2" placeholder="Name">
+                                            <input asp-for="Prenom" class="form-control" value="@Html.Raw(Model.Prenom) ">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
+                                        <label asp-for="BirthDate" class="col-sm-2 col-form-label">Type</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
+                                            <input asp-for="BirthDate" class="form-control" value="@Html.Raw(Model.BirthDate) ">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                                        </div>
+                                    <script>
+
+               $(function () {
+
+                       var value = $("input[Name='Type']").val();
+
+
+
+
+
+                       $.ajax({
+
+                    url: '@Url.Action("test","Account")',
+                   data: { 'type': value },
+                           type: "post",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });
+
+    });
+
+                                    </script>
+                                    <div id="loadpartial">
+
                                     </div>
+
                                     <div class="form-group row">
                                         <div class="offset-sm-2 col-sm-10">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Submit</button>
+                                            <button type="submit" class="btn btn-danger">Edit</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <!-- /.tab-pane -->
-                        </div>
                         <!-- /.tab-content -->
                     </div><!-- /.card-body -->
                 </div>

@@ -293,7 +293,8 @@ namespace Finance.Controllers
 
                     var user = new Utilisateur
                     {
-
+                        BirthDate=model.BirthDate,
+                        Country=model.PhoneNumberCountryCode,
                         UserName = model.Email,
                         Email = model.Email,
                         Nom = model.Nom,

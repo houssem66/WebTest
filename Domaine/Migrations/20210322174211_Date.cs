@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class nchallah : Migration
+    public partial class Date : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210322161929_nchallah")]
-    partial class nchallah
+    [Migration("20210322174211_Date")]
+    partial class Date
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
