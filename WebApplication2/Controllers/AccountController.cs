@@ -78,6 +78,38 @@ namespace Finance.Controllers
 
             return View(modelUser);
         }
+        [HttpPost]
+        public async Task<IActionResult> ChangerPhoto(UtilisateurViewModel modelUser)
+        {
+            Utilisateur utilisateur = await UserService.GetUtilisateurByIdAsync(modelUser.Id);
+
+
+
+
+
+            // If a new photo is uploaded, the existing photo must be
+            // deleted. So check if there is an existing photo and delete
+            if (modelUser.ExistingPhotoPath != null)
+            {
+                string filePath = Path.Combine(hostingEnvironment.WebRootPath,
+                    "images", modelUser.ExistingPhotoPath);
+                System.IO.File.Delete(filePath);
+            }
+            // Save the new photo in wwwroot/images folder and update
+            // PhotoPath property of the employee object which will be
+            // eventually saved in the database
+            utilisateur.ProfilePhoto = ProcessUploadedFile(modelUser);
+            utilisateur.Nom = modelUser.Nom;
+
+
+            // Call update method on the repository service passing it the
+            // employee object to update the data in the database table
+            await UserService.PutUtilisateurAsync(modelUser.Id, utilisateur);
+
+
+
+            return View("Profil", utilisateur);
+        }
         private string ProcessUploadedFile(UtilisateurViewModel modelUser)
         {
             string uniqueFileName = null;
@@ -145,6 +177,7 @@ namespace Finance.Controllers
 
         public async Task<IActionResult> RegisterUser(string returnUrl)
         {
+            ViewData["countries"] = AvailableCountries;
             UtilisateurViewModel model = new UtilisateurViewModel { ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
             return View(model);
 
