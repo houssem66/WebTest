@@ -1,4 +1,5 @@
 using Domaine.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,10 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc(options => {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            
+            });
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<TourMeContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("myconn")));

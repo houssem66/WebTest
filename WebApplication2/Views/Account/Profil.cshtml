@@ -19,13 +19,19 @@
                             <img class="profile-user-img img-fluid img-circle" src="@photoPath" asp-append-version="true" />
 
                         </div>
+                        @if (Model.NickName == null)
+                        {
+
+                            <h3 class="profile-username text-center">@Model.Nom </h3>
+                            <h3 class="profile-username text-center">@Model.Prenom </h3>
+                            
+                        }
+                        else
+                        { <h3 class="profile-username text-center">@Model.NickName</h3>
+                    }
 
 
-                        <h3 class="profile-username text-center">
-                            @Html.Raw(Model.Nom)  @Html.Raw(Model.Prenom)
-                        </h3>
-                        <h3>( @Html.Raw(Model.NickName))</h3>
-                        
+
                         <ul class="list-group list-group-unbordered mb-3">
                         </ul>
 
@@ -52,12 +58,15 @@
                         <strong> Date de naissance</strong>
 
                         <p class="text-muted"> @Html.Raw(Model.BirthDate)</p>
+                        <hr>
                         <strong>Country</strong>
                         <p class="text-muted"> @Html.Raw(Model.Country)</p>
+                        <hr>
                         <strong> Carte</strong>
-                        
+
                         <strong> Carte</strong>
                         <p class="text-muted"> @Html.Raw(Model.carte)</p>
+                        <hr>
 
                     </div>
                     <!-- /.card-body -->

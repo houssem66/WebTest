@@ -261,6 +261,7 @@ namespace Finance.Controllers
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
                         await signInManager.SignInAsync(user, isPersistent: false);
+
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)

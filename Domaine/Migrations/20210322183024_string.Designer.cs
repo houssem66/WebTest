@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TourMe.Data;
 
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    partial class TourMeContextModelSnapshot : ModelSnapshot
+    [Migration("20210322183024_string")]
+    partial class @string
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -279,9 +281,6 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Patente")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PersAContact")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");
 
@@ -289,9 +288,6 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TypeOrgan")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Commerçant");
