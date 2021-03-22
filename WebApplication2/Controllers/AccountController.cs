@@ -243,6 +243,7 @@ namespace Finance.Controllers
                     {
                         System.Diagnostics.Debug.WriteLine("fafafa" + AvailableCountries);
                         await signInManager.SignInAsync(user, isPersistent: false);
+
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)

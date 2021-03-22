@@ -13,7 +13,7 @@ namespace Domaine.Entities
     {
         public string NickName { get; set; }
         public Region region { get; set; }
-        public int carte { get; set; }
+        public string carte { get; set; }
 
         public String Nom { get; set; }
 

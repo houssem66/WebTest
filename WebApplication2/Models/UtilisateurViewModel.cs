@@ -39,7 +39,7 @@ namespace WebApplication2.Models
         public string PhoneNumberCountryCode { get; set; }
         public string ExistingPhotoPath { get; set; }
         public String Adresse { get; set; }
-        public int carte { get; set; }
+        public string carte { get; set; }
         public string NickName { get; set; }
         public string Country { get; set; }
 
