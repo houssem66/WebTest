@@ -9,10 +9,12 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using WebApplication2.Models;
 using Services.Implementation;
+using Microsoft.AspNetCore.Hosting;
 using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
+using System.IO;
 using TourMe.Data;
 
 namespace Finance.Controllers
@@ -22,10 +24,12 @@ namespace Finance.Controllers
         private readonly UserManager<Utilisateur> userManager;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
+        private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager, IUserService _UserService, CountryService countryService,TourMeContext context)
+        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager,  IWebHostEnvironment hostingEnvironment,IUserService _UserService, CountryService countryService,TourMeContext context)
         {
             UserService = _UserService;
+            this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
             this.signInManager = signInManager;
             AvailableCountries = countryService.GetCountries();
@@ -48,6 +52,83 @@ namespace Finance.Controllers
 
 
         }
+
+        //added 22/03/2021 houssem code
+        public async Task<IActionResult> Profil()
+        {
+            string id = userManager.GetUserId(User);
+
+            Utilisateur us = await UserService.GetById(id);
+            if (us == null)
+            { return RedirectToAction("index", "home"); }
+
+            return View(us);
+        }
+        [HttpGet]
+        public async Task<ViewResult> ChangerPhoto(string id)
+        {
+            Utilisateur utilisateur = await UserService.GetById(id);
+            UtilisateurViewModel modelUser = new UtilisateurViewModel
+            {
+                Id = utilisateur.Id,
+                Nom = utilisateur.Nom,
+                Prenom = utilisateur.Prenom,
+                ExistingPhotoPath = utilisateur.ProfilePhoto
+            };
+
+            return View(modelUser);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangerPhoto(UtilisateurViewModel modelUser)
+        {
+            Utilisateur utilisateur = await UserService.GetUtilisateurByIdAsync(modelUser.Id);
+
+
+
+
+
+            // If a new photo is uploaded, the existing photo must be
+            // deleted. So check if there is an existing photo and delete
+            if (modelUser.ExistingPhotoPath != null)
+            {
+                string filePath = Path.Combine(hostingEnvironment.WebRootPath,
+                    "images", modelUser.ExistingPhotoPath);
+                System.IO.File.Delete(filePath);
+            }
+            // Save the new photo in wwwroot/images folder and update
+            // PhotoPath property of the employee object which will be
+            // eventually saved in the database
+            utilisateur.ProfilePhoto = ProcessUploadedFile(modelUser);
+            utilisateur.Nom = modelUser.Nom;
+
+
+            // Call update method on the repository service passing it the
+            // employee object to update the data in the database table
+            await UserService.PutUtilisateurAsync(modelUser.Id, utilisateur);
+
+
+
+            return View("Profil", utilisateur);
+        }
+        private string ProcessUploadedFile(UtilisateurViewModel modelUser)
+        {
+            string uniqueFileName = null;
+
+            if (modelUser.Photo != null)
+            {
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + modelUser.Photo.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    modelUser.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
@@ -96,6 +177,7 @@ namespace Finance.Controllers
 
         public async Task<IActionResult> RegisterUser(string returnUrl)
         {
+            ViewData["countries"] = AvailableCountries;
             UtilisateurViewModel model = new UtilisateurViewModel { ReturnUrl = returnUrl, ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList() };
             return View(model);
 
@@ -187,32 +269,67 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model)
+        public async Task<IActionResult> RegisterUser(UtilisateurViewModel model, string returnUrl)
         {
+            ViewData["countries"] = AvailableCountries;
+            model.ExternalLogins = (await signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            model.ReturnUrl = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new Utilisateur
+                try
                 {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    Nom = model.Nom,
-                    Prenom = model.Prenom
+                    var numberDetails = await PhoneNumberResource.FetchAsync(
+                        pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
+                        countryCode: model.PhoneNumberCountryCode,
+                        type: new List<string> { "carrier" });
+
+                    // only allow user to set phone number if capable of receiving SMS
+                    if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
+                    {
+                        ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                            $"Le format du numero ne convient pas à votre pays");
+                        return View();
+                    }
+                    var numberToSave = numberDetails.PhoneNumber.ToString();
 
 
-                };
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await signInManager.SignInAsync(user, isPersistent: false);
-                    return RedirectToAction("index", "home");
+
+                    var user = new Utilisateur
+                    {
+
+                        UserName = model.Email,
+                        Email = model.Email,
+                        Nom = model.Nom,
+                        Prenom = model.Prenom,
+                        PhoneNumber = numberToSave
+
+
+
+                    };
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                        return RedirectToAction("index", "home");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+                    return View(model);
                 }
-                foreach (var error in result.Errors)
+                catch (ApiException ex)
                 {
-                    ModelState.AddModelError("", error.Description);
+                    ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                        $"The number you entered was not valid (Twilio code {ex.Code}), please check it and try again");
+                    return View();
+
                 }
             }
             return View(model);
         }
+
 
 
         //sign In
