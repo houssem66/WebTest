@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210317185512_First")]
-    partial class First
+    [Migration("20210322151108_conflict")]
+    partial class conflict
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -32,11 +32,14 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Adresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("BirthDate")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Discriminator")
@@ -50,11 +53,17 @@ namespace TourMe.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Interet")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("NickName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
@@ -96,6 +105,12 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<int>("carte")
+                        .HasColumnType("int");
+
+                    b.Property<int>("gender")
+                        .HasColumnType("int");
+
+                    b.Property<int>("region")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -248,11 +263,8 @@ namespace TourMe.Data.Migrations
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
 
-                    b.Property<int>("CIN")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DomainActivite")
-                        .HasColumnType("int");
+                    b.Property<string>("DomainActivite")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("EffectFemme")
                         .HasColumnType("int");
@@ -269,10 +281,13 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Patente")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Secteur")
-                        .HasColumnType("int");
+                    b.Property<string>("Secteur")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SituationEntreprise")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Commerçant");

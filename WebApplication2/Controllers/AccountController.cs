@@ -182,7 +182,7 @@ namespace Finance.Controllers
             return View();
         }
         [HttpPost]
-       
+
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
             ViewData["countries"] = AvailableCountries;
@@ -213,26 +213,27 @@ namespace Finance.Controllers
 
 
                     var user = new Commerçant
-                    {   
+                    {
                         UserName = model.Email,
                         Nom = model.Nom,
                         Prenom = model.PreNom,
                         PhoneNumber = numberToSave,
-                        CIN = model.CIN,
+
                         Email = model.Email,
                         FormeJuridique = model.Forme,
                         Secteur = model.Secteur,
                         DomainActivite = model.Domaine,
                         SituationEntreprise = model.SituationEntreprise,
                         EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme
+                        EffectHomme = model.EffectHomme,
+                        Type = model.Type
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
 
                     if (result.Succeeded)
                     {
-                        
+                        System.Diagnostics.Debug.WriteLine("fafafa" + AvailableCountries);
                         await signInManager.SignInAsync(user, isPersistent: false);
                         return RedirectToAction("index", "home");
                     }
@@ -248,7 +249,7 @@ namespace Finance.Controllers
                 catch (ApiException ex)
                 {
                     ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
-                        $"The number you entered was not valid (Twilio code {ex.Code}), please check it and try again");
+                        $"Le numéro entré n'est pas valide  (Code d'erreur {ex.Code})");
                     return View();
                 }
 
