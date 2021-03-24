@@ -23,12 +23,13 @@ namespace Finance.Controllers
 
     public class AccountController : Controller
     {   private readonly TourMeContext _context;
+        private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Utilisateur> userManager;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager,  IWebHostEnvironment hostingEnvironment,IUserService _UserService, CountryService countryService,TourMeContext context)
+        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager,  IWebHostEnvironment hostingEnvironment,IUserService _UserService, CountryService countryService,TourMeContext context,RoleManager<IdentityRole> roleManager)
         {
             UserService = _UserService;
             this.hostingEnvironment = hostingEnvironment;
@@ -37,6 +38,7 @@ namespace Finance.Controllers
             AvailableCountries = countryService.GetCountries();
 
             _context = context;
+            this.roleManager = roleManager;
         }
 
 
@@ -48,7 +50,7 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
-      
+      [Authorize(Roles = "Administrateur")]
         public IActionResult GetAll()
         {
             return View(UserService.GetAllUtilisateurs());
@@ -136,7 +138,7 @@ namespace Finance.Controllers
 
 
         [HttpGet]
-        [Authorize]
+       
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -270,6 +272,7 @@ namespace Finance.Controllers
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
                         await signInManager.SignInAsync(user, isPersistent: false);
+                        await userManager.AddToRoleAsync(user, "Commercant");
 
                         return RedirectToAction("index", "home");
                     }
@@ -337,6 +340,7 @@ namespace Finance.Controllers
                     if (result.Succeeded)
                     {
                         await signInManager.SignInAsync(user, isPersistent: false);
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)
@@ -463,6 +467,7 @@ namespace Finance.Controllers
                     }
 
                     await userManager.AddLoginAsync(user, info);
+                    await userManager.AddToRoleAsync(user, "Utilisateur");
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     return LocalRedirect(returnUrl);
