@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class @new : Migration
+    public partial class ssd : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -68,6 +68,28 @@ namespace TourMe.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Experience",
+                columns: table => new
+                {
+                    ExperienceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Titre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TypeExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Lieu = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    dateDebut = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateFin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Saison = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ImagesExperience = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Activité = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rating = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NbPlaces = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Experience", x => x.ExperienceId);
                 });
 
             migrationBuilder.CreateTable(
@@ -176,6 +198,26 @@ namespace TourMe.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Commentaires",
+                columns: table => new
+                {
+                    CommentaireId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ExperienceId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Commentaires", x => x.CommentaireId);
+                    table.ForeignKey(
+                        name: "FK_Commentaires_Experience_ExperienceId",
+                        column: x => x.ExperienceId,
+                        principalTable: "Experience",
+                        principalColumn: "ExperienceId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -214,6 +256,11 @@ namespace TourMe.Data.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Commentaires_ExperienceId",
+                table: "Commentaires",
+                column: "ExperienceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -234,10 +281,16 @@ namespace TourMe.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Commentaires");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Experience");
         }
     }
 }
