@@ -202,7 +202,7 @@ namespace Finance.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
-            CountryService c = null;
+           
               ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
