@@ -29,7 +29,7 @@
                 <div class="card-body">
                     <div class="callout callout-danger"><h5>No Roles created</h5></div>
                     <p>
-                        <a class="btn-block bg-gradient-primary btn-lg" asp-action="CreateRole">Create New</a>
+                        <a  asp-action="CreateRole" class="btn btn-primary btn-block">Create New</a>
                     </p>
                 </div>
             </div>
@@ -62,14 +62,17 @@
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
                     <td>
-                        <a class="accent-dark" asp-action="EditRole" asp-controller="Administration" asp-route-id="@item.Id">EditRole</a>
+                        <a asp-action="EditRole" asp-controller="Administration" asp-route-id="@item.Id" class="btn btn-primary btn-block">EditRole</a>
+                    </td>
+                    <td>
+                        <a asp-action="Delete" asp-controller="Administration" asp-route-id="@item.Id" class="btn btn-primary btn-block">DeleteRole</a>
                     </td>
                 </tr>
                 }
             </tbody>
         </table>
         <p>
-            <a asp-action="CreateRole">Create New</a>
+            <a class="btn btn-primary btn-block" asp-action="CreateRole" >Create New</a>
         </p>
     }
 </body>
