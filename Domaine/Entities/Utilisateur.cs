@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 using TourMe.Data.Entities.Enum;
+using TourMe.Data.Entities;
 
 namespace Domaine.Entities
 {
@@ -31,6 +32,7 @@ namespace Domaine.Entities
         public String Adresse { get; set; }
         public string Interet { get; set; }
         public Gender gender { get; set; }
+     //   public virtual ICollection<Experience> Experiences { get; set; }
 
     }
 }

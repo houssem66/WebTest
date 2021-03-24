@@ -15,10 +15,21 @@ namespace TourMe.Data
         }
         public DbSet<Utilisateur> User { get; set; }
         public DbSet<Commerçant> Commercant { get; set; }
+        public DbSet<Experience> Experience { get; set; }
+        public DbSet<Commentaire> Commentaires { get; set; }
+
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //Sprint 2
+            builder.Entity<Experience>().HasMany(e => e.Commentaires);
+        }
 
     }
-   
-   
+
+
 
 }
 
