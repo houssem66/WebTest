@@ -19,6 +19,8 @@ using TourMe.Data;
 
 namespace Finance.Controllers
 {
+   
+
     public class AccountController : Controller
     {   private readonly TourMeContext _context;
         private readonly UserManager<Utilisateur> userManager;
@@ -46,6 +48,7 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
+      
         public IActionResult GetAll()
         {
             return View(UserService.GetAllUtilisateurs());
@@ -54,6 +57,7 @@ namespace Finance.Controllers
         }
 
         //added 22/03/2021 houssem code
+        
         public async Task<IActionResult> Profil()
         {
             string id = userManager.GetUserId(User);
@@ -110,6 +114,8 @@ namespace Finance.Controllers
 
             return View("Profil", utilisateur);
         }
+        [Authorize]
+
         private string ProcessUploadedFile(UtilisateurViewModel modelUser)
         {
             string uniqueFileName = null;
@@ -130,6 +136,7 @@ namespace Finance.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -149,6 +156,7 @@ namespace Finance.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await UserService.DeleteUtilisateurAsync(id);
@@ -158,7 +166,7 @@ namespace Finance.Controllers
             return RedirectToAction(nameof(GetAll));
         }
         [HttpGet]
-
+        [Authorize]
         public async Task<IActionResult> ProfilCommerc()
         {
 
@@ -174,7 +182,7 @@ namespace Finance.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-
+       
         public async Task<IActionResult> RegisterUser(string returnUrl)
         {
             ViewData["countries"] = AvailableCountries;
@@ -183,6 +191,7 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult RegisterCommercant()
         {
             ViewData["countries"] = AvailableCountries;
@@ -190,7 +199,7 @@ namespace Finance.Controllers
             return View();
         }
         [HttpPost]
-
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
             CountryService c = null;
@@ -285,6 +294,7 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterUser(UtilisateurViewModel model, string returnUrl)
         {
             ViewData["countries"] = AvailableCountries;
