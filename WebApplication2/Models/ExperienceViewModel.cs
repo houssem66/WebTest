@@ -8,7 +8,7 @@ namespace TourMe.Web.Models
 {
     public class ExperienceViewModel
     {
-        public string ExperienceId { get; set; }
+    
         [Required]
         public string Titre { get; set; }
         [Required]
