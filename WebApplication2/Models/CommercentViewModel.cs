@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Data.Entities.Enum;
 
-namespace WebApplication2.Models
+namespace TourMe.Web.Models
 {
     public class CommercentViewModel
     {
