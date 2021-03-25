@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using WebApplication2.Models;
+
 using Services.Implementation;
 using Microsoft.AspNetCore.Hosting;
 using Twilio.Exceptions;
@@ -16,6 +16,7 @@ using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
 using System.IO;
 using TourMe.Data;
+using TourMe.Web.Models;
 
 namespace Finance.Controllers
 {
@@ -482,7 +483,7 @@ namespace Finance.Controllers
             }
         }
         [HttpPost]
-
+        [AllowAnonymous]
         public ActionResult test(string type)
         {
 

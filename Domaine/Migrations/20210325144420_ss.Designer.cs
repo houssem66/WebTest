@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210322191206_new2")]
-    partial class new2
+    [Migration("20210325144420_ss")]
+    partial class ss
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -259,6 +259,72 @@ namespace TourMe.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Commentaire", b =>
+                {
+                    b.Property<int>("CommentaireId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ExperienceId1")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("CommentaireId");
+
+                    b.HasIndex("ExperienceId1");
+
+                    b.ToTable("Commentaires");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
+                {
+                    b.Property<string>("ExperienceId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Activité")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagesExperience")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lieu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NbPlaces")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Saison")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeExperience")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("dateDebut")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("dateFin")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ExperienceId");
+
+                    b.ToTable("Experience");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
@@ -348,6 +414,18 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Commentaire", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", null)
+                        .WithMany("Commentaires")
+                        .HasForeignKey("ExperienceId1");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
+                {
+                    b.Navigation("Commentaires");
                 });
 #pragma warning restore 612, 618
         }

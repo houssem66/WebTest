@@ -1,0 +1,51 @@
+﻿
+@model ExperienceViewModel
+@{
+    ViewBag.Title = "Experience";
+
+}
+
+<div class="row">
+  
+    <div class="col-md-12">
+        <form enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+
+
+            <div class="form-group">
+                <label asp-for="Titre">Personne à contacter</label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label asp-for="TypeExperience">Personne à contacter</label>
+                <input asp-for="TypeExperience" class="form-control" />
+                <span asp-validation-for="TypeExperience" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Lieu">Personne à contacter</label>
+                <input asp-for="Lieu" class="form-control" />
+                <span asp-validation-for="Lieu" class="text-danger"></span>
+
+            </div>
+
+
+
+
+
+
+
+
+            <button type="submit" class="btn btn-primary">S'inscrire</button>
+
+        </form>
+    </div>
+</div>
