@@ -480,7 +480,7 @@ namespace Finance.Controllers
             }
         }
         [HttpPost]
-
+        [AllowAnonymous]
         public ActionResult test(string type)
         {
 
