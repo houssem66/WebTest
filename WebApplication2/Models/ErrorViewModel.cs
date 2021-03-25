@@ -1,6 +1,6 @@
 using System;
 
-namespace WebApplication2.Models
+namespace TourMe.Web.Models
 {
     public class ErrorViewModel
     {

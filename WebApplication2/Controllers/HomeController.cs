@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApplication2.Models;
+using TourMe.Web.Models;
 
 namespace WebApplication2.Controllers
 {
