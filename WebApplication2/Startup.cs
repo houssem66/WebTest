@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Implementation;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,9 @@ namespace WebApplication2
             //sprint 1 
             // add services 
             services.AddTransient<IUserService, UserService>();
+            //sprint 2
+            services.AddScoped(typeof(IExperienceRepo), typeof(ExperienceRepo));
+            services.AddTransient<IExperienceService, ExperienceService>();
             services.AddCors();
         }
 

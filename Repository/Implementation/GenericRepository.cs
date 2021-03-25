@@ -73,7 +73,7 @@ namespace Repository.Interfaces
         {
             try
             {
-                DbSet.Add(entity);
+                _dbContext.Add(entity);
                 await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
