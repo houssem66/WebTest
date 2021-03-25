@@ -11,7 +11,7 @@ namespace TourMe.Data.Entities
    public class Experience 
     {
 
-        public int ExperienceId { get; set; }
+        public string ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }
         [Required]
