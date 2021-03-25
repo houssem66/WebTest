@@ -53,7 +53,9 @@ namespace Finance.Controllers
         [HttpGet]
       [Authorize(Roles = "Administrateur")]
         public IActionResult GetAll()
+          
         {
+            //ViewBag.UsersRoles = userManager.GetUsersForClaimAsync();
             return View(UserService.GetAllUtilisateurs());
 
 
