@@ -8,7 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Web.Models;
 
-namespace WebApplication2.Controllers
+namespace TourMe.Web.Controllers
 {
     public class HomeController : Controller
     {
