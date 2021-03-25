@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WebApplication2.Models
+namespace TourMe.Web.Models
 {
     public class LoginViewModel
     {
