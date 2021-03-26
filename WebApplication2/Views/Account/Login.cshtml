@@ -63,6 +63,9 @@
 
                     <div>No external logins configured</div>
                 }
+
+
+
                 else
                 {<form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
                         <div class="social-auth-links text-center">
@@ -72,9 +75,6 @@
                                     <i class="fab fa-facebook mr-2"></i>
                                     @provider.DisplayName
                                 </button>}
-
-
-
                         </div>
                     </form>}
             }

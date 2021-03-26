@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace TourMe.Data.Entities
 {
    public class Experience 
-    {
+    {[Key]
 
-        public string ExperienceId { get; set; }
+        public int ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }
         [Required]

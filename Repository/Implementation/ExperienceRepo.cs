@@ -22,12 +22,12 @@ namespace Repository.Implementation
 
         public IEnumerable<Experience> GetAllExperienceAsync()
         {
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != "");
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0);
 
             return Experience;
         }
 
-        public async Task<Experience> GetExperienceDetailsAsync(string id)
+        public async Task<Experience> GetExperienceDetailsAsync(int id)
         {
             var Experience = await _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == id);
 
@@ -38,7 +38,7 @@ namespace Repository.Implementation
             return Experience;
         }
 
-        public async Task PutExperienceAsync(string id, Experience entity)
+        public async Task PutExperienceAsync(int id, Experience entity)
         {
             var Experience = await _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == entity.ExperienceId);
             _dbContext.Entry(Experience).State = EntityState.Detached;
