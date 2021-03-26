@@ -44,6 +44,7 @@ namespace Finance.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -161,7 +162,7 @@ namespace Finance.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await UserService.DeleteUtilisateurAsync(id);
@@ -171,7 +172,7 @@ namespace Finance.Controllers
             return RedirectToAction(nameof(GetAll));
         }
         [HttpGet]
-        [Authorize]
+        
         public async Task<IActionResult> ProfilCommerc()
         {
 
@@ -274,8 +275,9 @@ namespace Finance.Controllers
                     if (result.Succeeded)
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        await userManager.AddToRoleAsync(user, "Commercant");
+                        
 
                         return RedirectToAction("index", "home");
                     }
@@ -342,8 +344,9 @@ namespace Finance.Controllers
                     var result = await userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        await signInManager.SignInAsync(user, isPersistent: false);
                         await userManager.AddToRoleAsync(user, "Utilisateur");
+                        await signInManager.SignInAsync(user, isPersistent: false);
+                       
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)
@@ -377,6 +380,7 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             model.ReturnUrl = returnUrl;
@@ -470,7 +474,7 @@ namespace Finance.Controllers
                     }
 
                     await userManager.AddLoginAsync(user, info);
-                    await userManager.AddToRoleAsync(user, "Utilisateur");
+                   await userManager.AddToRoleAsync(user, "Utilisateur");
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     return LocalRedirect(returnUrl);

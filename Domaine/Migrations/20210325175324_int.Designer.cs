@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210325144420_ss")]
-    partial class ss
+    [Migration("20210325175324_int")]
+    partial class @int
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -272,20 +272,19 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("ExperienceId")
                         .HasColumnType("int");
 
-                    b.Property<string>("ExperienceId1")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("CommentaireId");
 
-                    b.HasIndex("ExperienceId1");
+                    b.HasIndex("ExperienceId");
 
                     b.ToTable("Commentaires");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
-                    b.Property<string>("ExperienceId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("ExperienceId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Activité")
                         .HasColumnType("nvarchar(max)");
@@ -420,7 +419,9 @@ namespace TourMe.Data.Migrations
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
                         .WithMany("Commentaires")
-                        .HasForeignKey("ExperienceId1");
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>

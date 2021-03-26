@@ -13,15 +13,15 @@ namespace Services.Interfaces
 
 
         public Task InsertExperienceAsync(Experience entity);
-        public Task DeleteExperienceAsync(string id);
+        public Task DeleteExperienceAsync(int id);
         public IEnumerable<Experience> GetAllExperienceDetails();
 
 
-        public Task PutExperienceAsync(string id, Experience entity);
+        public Task PutExperienceAsync(int id, Experience entity);
         
 
-        public Task<Experience> GetExperienceByIdAsync(string id);
-        public Task<Experience> GetById(string id);
+        public Task<Experience> GetExperienceByIdAsync(int id);
+        public Task<Experience> GetById(int id);
 
 
     }
