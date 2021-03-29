@@ -10,6 +10,7 @@ namespace Repository.Interfaces
    public interface IExperienceRepo
     {
         public Task<Experience> GetExperienceDetailsAsync(string id);
+     
         public Task PutExperienceAsync(string id, Experience entity);
         public IEnumerable<Experience> GetAllExperienceAsync();
       
