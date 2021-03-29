@@ -1,5 +1,4 @@
-﻿@model IEnumerable<Domaine.Entities.Utilisateur>
-
+﻿
 @{
     ViewData["Title"] = "Index";
 }
@@ -14,49 +13,45 @@
         <tr>
             
             <th>
-                @Html.DisplayNameFor(model => model.Nom)
+               Nom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Prenom)
+                Prenom
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+               Email
             </th>
           
+           
             <th>
-                @Html.DisplayNameFor(model => model.ProfilePhoto)
-            </th>
-            
-            <th>
-                @Html.DisplayNameFor(model => model.Adresse)
+               Role
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in ViewBag.users)
         {
-           
+          
             <tr>
                
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nom)
+                   @item.Nom
+
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Prenom)
+                   @item.Prenom
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Email)
+                    @item.Email
                 </td>
                
            
              
                 <td>
-                    @Html.DisplayFor(modelItem => item.Adresse)
+                    @item.role
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProfilePhoto)
-                </td>
+                
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                     <a asp-action="Details" asp-route-id="@item.Id">Details</a> |

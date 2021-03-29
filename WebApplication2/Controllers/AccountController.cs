@@ -52,14 +52,46 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
-      [Authorize(Roles = "Administrateur")]
-        public IActionResult GetAll()
-          
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> GetAll()
+
         {
+            IEnumerable<Utilisateur> utilisateurs = UserService.GetAllUtilisateurs();
+            List<UtilisateurViewModel> users= new List<UtilisateurViewModel>();
+            foreach (var user in utilisateurs) {
+
+                var mod = new UtilisateurViewModel
+                {
+                    Id = user.Id,
+                    Nom = user.Nom,
+                    Prenom = user.Prenom,
+                    Email = user.Email,
+
+                };
+                if (await userManager.IsInRoleAsync(user, "Administrateur"))
+                { mod.role = "Administrateur"; }
+                else
+                {
+                    if (await userManager.IsInRoleAsync(user, "Utilisateur"))
+                    {
+
+                        mod.role = "Utilisateur";
+
+                    }
+                    else
+                    { mod.role = "Commercant"; }
+
+               
+            }
+                users.Add(mod);
+          
+            }
+
+            ViewBag.users = users;
             //ViewBag.UsersRoles = userManager.GetUsersForClaimAsync();
-            return View(UserService.GetAllUtilisateurs());
+            return View();
 
-
+           
         }
 
         //added 22/03/2021 houssem code
@@ -275,7 +307,21 @@ namespace Finance.Controllers
                     if (result.Succeeded)
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
-                        await userManager.AddToRoleAsync(user, "Utilisateur");
+                        if (await roleManager.RoleExistsAsync("Commercant"))
+                        {
+                            await userManager.AddToRoleAsync(user, "Commercant");
+                        }
+                        else
+                        {
+                            IdentityRole identityrole = new IdentityRole
+                            {
+                                Name = "Commercant"
+
+                            };
+                             await roleManager.CreateAsync(identityrole);
+                            await userManager.AddToRoleAsync(user, "Commercant");
+
+                        }
                         await signInManager.SignInAsync(user, isPersistent: false);
                         
 
@@ -344,7 +390,21 @@ namespace Finance.Controllers
                     var result = await userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
-                        await userManager.AddToRoleAsync(user, "Utilisateur");
+                        if (await roleManager.RoleExistsAsync("Utilisateur"))
+                        {
+                            await userManager.AddToRoleAsync(user, "Utilisateur");
+                        }
+                        else
+                        {
+                            IdentityRole identityrole = new IdentityRole
+                            {
+                                Name = "Utilisateur"
+
+                            };
+                            await roleManager.CreateAsync(identityrole);
+                            await userManager.AddToRoleAsync(user, "Utilisateur");
+
+                        }
                         await signInManager.SignInAsync(user, isPersistent: false);
                        
                         return RedirectToAction("index", "home");
@@ -474,7 +534,21 @@ namespace Finance.Controllers
                     }
 
                     await userManager.AddLoginAsync(user, info);
-                   await userManager.AddToRoleAsync(user, "Utilisateur");
+                    if (await roleManager.RoleExistsAsync("Utilisateur"))
+                    {
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
+                    }
+                    else
+                    {
+                        IdentityRole identityrole = new IdentityRole
+                        {
+                            Name = "Utilisateur"
+
+                        };
+                        await roleManager.CreateAsync(identityrole);
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
+
+                    }
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     return LocalRedirect(returnUrl);

@@ -42,6 +42,7 @@ namespace TourMe.Web.Models
         public string carte { get; set; }
         public string NickName { get; set; }
         public string Country { get; set; }
+        public string role { get; set; }
 
     }
 }

@@ -28,7 +28,7 @@ namespace TourMe.Data.Entities
         public int NbPlaces { get; set; }
         //navigation Property
         public virtual ICollection<Commentaire> Commentaires { get; set; }
-     //   public virtual ICollection<Utilisateur> Utilisateurs { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
 
     }
 }
