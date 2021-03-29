@@ -32,7 +32,8 @@ namespace Domaine.Entities
         public String Adresse { get; set; }
         public string Interet { get; set; }
         public Gender gender { get; set; }
-     //   public virtual ICollection<Experience> Experiences { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
+
 
     }
 }

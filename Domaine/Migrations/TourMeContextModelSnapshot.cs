@@ -322,6 +322,24 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Experience");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Rating", b =>
+                {
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UtilisateurId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("note")
+                        .HasColumnType("int");
+
+                    b.HasKey("ExperienceId", "UtilisateurId");
+
+                    b.HasIndex("UtilisateurId");
+
+                    b.ToTable("Ratings");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
@@ -422,9 +440,35 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Rating", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", "experience")
+                        .WithMany("Ratings")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domaine.Entities.Utilisateur", "utilisateur")
+                        .WithMany("Ratings")
+                        .HasForeignKey("UtilisateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("experience");
+
+                    b.Navigation("utilisateur");
+                });
+
+            modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
+                {
+                    b.Navigation("Ratings");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
                     b.Navigation("Commentaires");
+
+                    b.Navigation("Ratings");
                 });
 #pragma warning restore 612, 618
         }
