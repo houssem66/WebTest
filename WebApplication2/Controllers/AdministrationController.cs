@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Web.Models;
-using TourMe.Web.Models;
 
 namespace TourMe.Web.Controllers
 {
@@ -174,7 +173,7 @@ namespace TourMe.Web.Controllers
 
                     return RedirectToAction("GetAllRoles", "Administration");
                 }
-
+              
 
             }
             return View(model);

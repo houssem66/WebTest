@@ -17,6 +17,7 @@ namespace TourMe.Data
         public DbSet<Commerçant> Commercant { get; set; }
         public DbSet<Experience> Experience { get; set; }
         public DbSet<Commentaire> Commentaires { get; set; }
+        public DbSet<Rating> Ratings { get; set; }
 
 
 
@@ -25,6 +26,17 @@ namespace TourMe.Data
             base.OnModelCreating(builder);
             //Sprint 2
             builder.Entity<Experience>().HasMany(e => e.Commentaires);
+            builder.Entity<Rating>().HasKey(e => new { e.ExperienceId, e.UtilisateurId });
+            builder.Entity<Rating>()
+             .HasOne(bc => bc.experience)
+             .WithMany(b => b.Ratings)
+             .HasForeignKey(bc => bc.ExperienceId);
+            builder.Entity<Rating>()
+            .HasOne(bc => bc.utilisateur)
+            .WithMany(b => b.Ratings)
+            .HasForeignKey(bc => bc.UtilisateurId);
+
+
         }
 
     }

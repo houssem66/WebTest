@@ -21,7 +21,7 @@ namespace Services.Implementation
             ExperienceRepo = experienceRepo;
         }
 
-        public Task DeleteExperienceAsync(string id)
+        public Task DeleteExperienceAsync(int id)
         {
             return GenericRepo.DeleteAsync(id);
         }
@@ -36,12 +36,12 @@ namespace Services.Implementation
             return GenericRepo.GetAll();
         }
 
-        public Task<Experience> GetById(string id)
+        public Task<Experience> GetById(int id)
         {
             return ExperienceRepo.GetExperienceDetailsAsync(id);
         }
 
-        public Task<Experience> GetExperienceByIdAsync(string id)
+        public Task<Experience> GetExperienceByIdAsync(int id)
         {
             return GenericRepo.GetByIdAsync(id);
         }
@@ -51,7 +51,7 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(entity);
         }
 
-        public Task PutExperienceAsync(string id, Experience entity)
+        public Task PutExperienceAsync(int id, Experience entity)
         {
             return ExperienceRepo.PutExperienceAsync(id, entity);
         }

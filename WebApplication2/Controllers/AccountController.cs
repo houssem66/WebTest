@@ -44,6 +44,7 @@ namespace Finance.Controllers
 
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
             await signInManager.SignOutAsync();
@@ -51,12 +52,46 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
-      [Authorize(Roles = "Administrateur")]
-        public IActionResult GetAll()
+        [Authorize(Roles = "Administrateur")]
+        public async Task<IActionResult> GetAll()
+
         {
-            return View(UserService.GetAllUtilisateurs());
+            IEnumerable<Utilisateur> utilisateurs = UserService.GetAllUtilisateurs();
+            List<UtilisateurViewModel> users= new List<UtilisateurViewModel>();
+            foreach (var user in utilisateurs) {
 
+                var mod = new UtilisateurViewModel
+                {
+                    Id = user.Id,
+                    Nom = user.Nom,
+                    Prenom = user.Prenom,
+                    Email = user.Email,
 
+                };
+                if (await userManager.IsInRoleAsync(user, "Administrateur"))
+                { mod.role = "Administrateur"; }
+                else
+                {
+                    if (await userManager.IsInRoleAsync(user, "Utilisateur"))
+                    {
+
+                        mod.role = "Utilisateur";
+
+                    }
+                    else
+                    { mod.role = "Commercant"; }
+
+               
+            }
+                users.Add(mod);
+          
+            }
+
+            ViewBag.users = users;
+            //ViewBag.UsersRoles = userManager.GetUsersForClaimAsync();
+            return View();
+
+           
         }
 
         //added 22/03/2021 houssem code
@@ -159,7 +194,7 @@ namespace Finance.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize]
+        
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await UserService.DeleteUtilisateurAsync(id);
@@ -169,7 +204,7 @@ namespace Finance.Controllers
             return RedirectToAction(nameof(GetAll));
         }
         [HttpGet]
-        [Authorize]
+        
         public async Task<IActionResult> ProfilCommerc()
         {
 
@@ -272,8 +307,23 @@ namespace Finance.Controllers
                     if (result.Succeeded)
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
+                        if (await roleManager.RoleExistsAsync("Commercant"))
+                        {
+                            await userManager.AddToRoleAsync(user, "Commercant");
+                        }
+                        else
+                        {
+                            IdentityRole identityrole = new IdentityRole
+                            {
+                                Name = "Commercant"
+
+                            };
+                             await roleManager.CreateAsync(identityrole);
+                            await userManager.AddToRoleAsync(user, "Commercant");
+
+                        }
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        await userManager.AddToRoleAsync(user, "Commercant");
+                        
 
                         return RedirectToAction("index", "home");
                     }
@@ -340,8 +390,23 @@ namespace Finance.Controllers
                     var result = await userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
+                        if (await roleManager.RoleExistsAsync("Utilisateur"))
+                        {
+                            await userManager.AddToRoleAsync(user, "Utilisateur");
+                        }
+                        else
+                        {
+                            IdentityRole identityrole = new IdentityRole
+                            {
+                                Name = "Utilisateur"
+
+                            };
+                            await roleManager.CreateAsync(identityrole);
+                            await userManager.AddToRoleAsync(user, "Utilisateur");
+
+                        }
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        await userManager.AddToRoleAsync(user, "Utilisateur");
+                       
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)
@@ -375,6 +440,7 @@ namespace Finance.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             model.ReturnUrl = returnUrl;
@@ -468,7 +534,21 @@ namespace Finance.Controllers
                     }
 
                     await userManager.AddLoginAsync(user, info);
-                    await userManager.AddToRoleAsync(user, "Utilisateur");
+                    if (await roleManager.RoleExistsAsync("Utilisateur"))
+                    {
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
+                    }
+                    else
+                    {
+                        IdentityRole identityrole = new IdentityRole
+                        {
+                            Name = "Utilisateur"
+
+                        };
+                        await roleManager.CreateAsync(identityrole);
+                        await userManager.AddToRoleAsync(user, "Utilisateur");
+
+                    }
                     await signInManager.SignInAsync(user, isPersistent: false);
 
                     return LocalRedirect(returnUrl);

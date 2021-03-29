@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <input asp-for="BirthDate" class="form-control" />
+                        <input asp-for="BirthDate" value="@DateTime.Today" class="form-control" />
                         <span asp-validation-for="BirthDate" class="text-danger"></span>
                         <div class="input-group-append">
                             <div class="input-group-text">
