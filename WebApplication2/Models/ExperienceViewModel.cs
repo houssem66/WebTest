@@ -15,8 +15,8 @@ namespace TourMe.Web.Models
         public string TypeExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
-        public string dateDebut { get; set; }
-        public string dateFin { get; set; }
+        public DateTime dateDebut { get; set; }
+        public DateTime dateFin { get; set; }
         public string Saison { get; set; }
         public string ImagesExperience { get; set; }
         public string Activité { get; set; }

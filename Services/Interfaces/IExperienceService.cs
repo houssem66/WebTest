@@ -11,7 +11,7 @@ namespace Services.Interfaces
     {
         public IEnumerable<Experience> GetAllExperiences();
 
-
+        IEnumerable<Experience> Search(string searchTerm);
         public Task InsertExperienceAsync(Experience entity);
         public Task DeleteExperienceAsync(int id);
         public IEnumerable<Experience> GetAllExperienceDetails();

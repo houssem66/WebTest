@@ -50,5 +50,17 @@ namespace TourMe.Web.Controllers
             return View(model);
 
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult GetAllExperience(string searchTerm)
+        {
+          
+            return View(ExperienceService.Search(searchTerm));
+
+        }
+
+
+
     }
     }
