@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210329162817_rating")]
-    partial class rating
+    [Migration("20210329192939_nw")]
+    partial class nw
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class rating : Migration
+    public partial class nw : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
