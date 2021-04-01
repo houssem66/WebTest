@@ -311,11 +311,11 @@ namespace TourMe.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("dateDebut")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dateDebut")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("dateFin")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dateFin")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ExperienceId");
 

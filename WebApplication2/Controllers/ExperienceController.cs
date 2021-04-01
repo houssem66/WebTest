@@ -111,7 +111,5 @@ namespace TourMe.Web.Controllers
 
             return RedirectToAction("GetAll");
         }
-
-
     }
 }

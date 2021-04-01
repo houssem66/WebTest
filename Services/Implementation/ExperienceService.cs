@@ -56,6 +56,16 @@ namespace Services.Implementation
             return ExperienceRepo.PutExperienceAsync(id, entity);
         }
 
-     
+        public IEnumerable<Experience> Search(string searchTerm=null)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return GenericRepo.GetAll();
+            }
+
+            return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
+                                            e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) ||e.Saison.ToLower().Contains(searchTerm.ToLower()) ).ToList();
+        }
+
     }
 }
