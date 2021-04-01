@@ -19,7 +19,7 @@ namespace Repository.Implementation
             _dbContext = dbContext;
 
         }
-        public async Task<Rating> Rater(Rating entity, int idE, string IdU,int rate)
+        public async Task<Rating> Rater( int idE, string IdU,int rate)
         {
             var rating = await _dbContext.Ratings.SingleAsync(rat=>rat.ExperienceId==idE&&rat.UtilisateurId==IdU);
             if (rating==null) { 
@@ -27,7 +27,7 @@ namespace Repository.Implementation
             {
                 ExperienceId = idE,
                 UtilisateurId = IdU,
-                note = rate
+                note = ""
             };
                 try
                 {
@@ -51,7 +51,7 @@ namespace Repository.Implementation
 
             return rating;
         }
-        public async Task<Decimal> AverageRating(Rating rating, int idExperience)
+        public async Task<Decimal> AverageRating( int idExperience)
         {
             
 
