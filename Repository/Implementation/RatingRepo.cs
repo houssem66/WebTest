@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domaine.Entities;
+using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,18 @@ namespace Repository.Implementation
     public class RatingRepo : IRatingRepo
     {
         protected readonly TourMeContext _dbContext;
+        private readonly IGenericRepository<Rating> genericRepoRate;
         protected DbSet<Rating> DbSet;
-        public RatingRepo(TourMeContext dbContext)
+
+        public RatingRepo(TourMeContext dbContext,IGenericRepository<Rating> _GenericRepoRate)
         {
             _dbContext = dbContext;
-
+            genericRepoRate = _GenericRepoRate;
         }
         public async Task Rater(Rating entity, int idE, string IdU, string rate)
         {
-            var rating = await _dbContext.Ratings.SingleAsync(rat => rat.ExperienceId == entity.ExperienceId && rat.UtilisateurId == entity.UtilisateurId);
+            var rating = await _dbContext.Ratings.SingleOrDefaultAsync(rat => rat.ExperienceId == entity.ExperienceId && rat.UtilisateurId == entity.UtilisateurId);
+            rating.note = rate;
             _dbContext.Entry(rating).State = EntityState.Detached;
             _dbContext.Entry(entity).State = EntityState.Modified;
 
@@ -47,23 +51,24 @@ namespace Repository.Implementation
 
         public async Task<Rating> GetByIDasync(int IDE,string IDU)
         {
-            var rating = await _dbContext.Ratings.SingleAsync(rat => rat.ExperienceId == IDE && rat.UtilisateurId == IDU);
+            var rating = await _dbContext.Ratings.SingleOrDefaultAsync(rat => rat.ExperienceId == IDE && rat.UtilisateurId == IDU);
 
             return rating;
         }
-        public async Task<Rating> CreateRating(int IdExperience, string IdUtilisateur)
+        public async Task<Rating> CreateRating(Experience exp, Utilisateur user)
         {
             Rating rating = new Rating
             {
-                ExperienceId = IdExperience,
-                UtilisateurId = IdUtilisateur,
+                ExperienceId = exp.ExperienceId,
+                UtilisateurId = user.Id,
+                utilisateur=user,
+                experience=exp
                
 
             };
             try
             {
-                DbSet.Add(rating);
-                await _dbContext.SaveChangesAsync();
+              await  genericRepoRate.InsertAsync(rating);
             }
             catch (Exception)
             {
