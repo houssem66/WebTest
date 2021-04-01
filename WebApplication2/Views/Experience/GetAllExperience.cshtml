@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TourMe.Data.Entities.Experience>
+
+<table class="table">
+    <thead>
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Titre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TypeExperience)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lieu)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.dateDebut)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.dateFin)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Titre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TypeExperience)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lieu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dateDebut)
+            </td>
+
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.dateFin)
+            </td>
+
+
+        </tr>
+        }
+    </tbody>
+</table>
