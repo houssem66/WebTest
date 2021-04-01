@@ -9,7 +9,10 @@ namespace Repository.Interfaces
 {
     public interface IRatingRepo
     {
-        public Task<Rating> Rater(int idExperience, string IdUtilisateur, int note);
+        public Task Rater(Rating entity,int idExperience, string IdUtilisateur, string note);
         public Task<Decimal> AverageRating(int IdExperience);
+
+        public Task<Rating> GetByIDasync( int IdExperience,string IdUtilisateur);
+        public Task<Rating> CreateRating(int IdExperience, string IdUtilisateur);
     }
 }

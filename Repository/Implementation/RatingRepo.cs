@@ -19,38 +19,22 @@ namespace Repository.Implementation
             _dbContext = dbContext;
 
         }
-        public async Task<Rating> Rater(int idE, string IdU, int rate)
+        public async Task Rater(Rating entity, int idE, string IdU, string rate)
         {
-            var rating = await _dbContext.Ratings.SingleAsync(rat => rat.ExperienceId == idE && rat.UtilisateurId == IdU);
-            if (rating == null)
-            {
-                Rating rating2 = new Rating
-                {
-                    ExperienceId = idE,
-                    UtilisateurId = IdU,
-                    note = ""
-                };
-                try
-                {
-                    DbSet.Add(rating);
-                    await _dbContext.SaveChangesAsync();
-                }
-                catch (Exception)
-                {
+            var rating = await _dbContext.Ratings.SingleAsync(rat => rat.ExperienceId == entity.ExperienceId && rat.UtilisateurId == entity.UtilisateurId);
+            _dbContext.Entry(rating).State = EntityState.Detached;
+            _dbContext.Entry(entity).State = EntityState.Modified;
 
-                    throw new NotImplementedException();
-                }
+            try
+            {
+                await _dbContext.SaveChangesAsync();
             }
-            else
+            catch (Exception)
             {
-                _dbContext.Entry(rating).State = EntityState.Detached;
-
+                throw new NotImplementedException();
             }
 
 
-
-
-            return rating;
         }
         public async Task<Decimal> AverageRating(int idExperience)
         {
@@ -59,6 +43,34 @@ namespace Repository.Implementation
 
 
             return (0);
+        }
+
+        public async Task<Rating> GetByIDasync(int IDE,string IDU)
+        {
+            var rating = await _dbContext.Ratings.SingleAsync(rat => rat.ExperienceId == IDE && rat.UtilisateurId == IDU);
+
+            return rating;
+        }
+        public async Task<Rating> CreateRating(int IdExperience, string IdUtilisateur)
+        {
+            Rating rating = new Rating
+            {
+                ExperienceId = IdExperience,
+                UtilisateurId = IdUtilisateur,
+               
+
+            };
+            try
+            {
+                DbSet.Add(rating);
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+
+                throw new NotImplementedException();
+            }
+            return rating;
         }
     }
 }

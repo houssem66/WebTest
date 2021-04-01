@@ -26,16 +26,27 @@ namespace Services.Implementation
             return GenericRepo.GetAll();
         }
 
-        public Task<Rating> GetExperienceByIdAsync(int id)
+        public Task<Rating> GetRatingByIdAsync(int id)
         {
 
 
             return GenericRepo.GetByIdAsync(id);
         }
-        public Task Rater(int idE, string IdU, int rate)
+        public async Task Rater(int idE, string IdU, string rate)
         {
+            var rating = await RatingRepo.GetByIDasync(idE,IdU);
+            if (rating==null)
+            {
+                rating = await RatingRepo.CreateRating(idE, IdU);
+            
+            }
+            else
+            {
+                await RatingRepo.Rater(rating,idE,IdU,rate);
 
-            return RatingRepo.Rater(idE, IdU, 00);
+
+            }
+           
         }
         public Task Moyen(int id)
         {
