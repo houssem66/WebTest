@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class date : Migration
+    public partial class note : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -74,7 +74,8 @@ namespace TourMe.Data.Migrations
                 name: "Experience",
                 columns: table => new
                 {
-                    ExperienceId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ExperienceId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Titre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lieu = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -204,18 +205,42 @@ namespace TourMe.Data.Migrations
                     CommentaireId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ExperienceId = table.Column<int>(type: "int", nullable: false),
-                    ExperienceId1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ExperienceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Commentaires", x => x.CommentaireId);
                     table.ForeignKey(
-                        name: "FK_Commentaires_Experience_ExperienceId1",
-                        column: x => x.ExperienceId1,
+                        name: "FK_Commentaires_Experience_ExperienceId",
+                        column: x => x.ExperienceId,
                         principalTable: "Experience",
                         principalColumn: "ExperienceId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Ratings",
+                columns: table => new
+                {
+                    UtilisateurId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ExperienceId = table.Column<int>(type: "int", nullable: false),
+                    note = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Ratings", x => new { x.ExperienceId, x.UtilisateurId });
+                    table.ForeignKey(
+                        name: "FK_Ratings_AspNetUsers_UtilisateurId",
+                        column: x => x.UtilisateurId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Ratings_Experience_ExperienceId",
+                        column: x => x.ExperienceId,
+                        principalTable: "Experience",
+                        principalColumn: "ExperienceId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -258,9 +283,14 @@ namespace TourMe.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Commentaires_ExperienceId1",
+                name: "IX_Commentaires_ExperienceId",
                 table: "Commentaires",
-                column: "ExperienceId1");
+                column: "ExperienceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Ratings_UtilisateurId",
+                table: "Ratings",
+                column: "UtilisateurId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -282,6 +312,9 @@ namespace TourMe.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Commentaires");
+
+            migrationBuilder.DropTable(
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

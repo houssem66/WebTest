@@ -21,15 +21,15 @@ namespace TourMe.Web.Controllers
         readonly private IExperienceService ExperienceService;
         private readonly UserManager<Utilisateur> userManager;
         private readonly IUserService userService;
-        private readonly IRatingService ratingService;
+       // private readonly IRatingService ratingService;
         
-        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, UserManager<Utilisateur> userManager, IUserService _UserService,IRatingService ratingService)
+        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, UserManager<Utilisateur> userManager, IUserService _UserService/*IRatingService ratingService*/)
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
             this.userManager = userManager;
             userService = _UserService;
-            this.ratingService = ratingService;
+            //this.ratingService = ratingService;
         }
 
         [HttpGet]
@@ -103,7 +103,7 @@ namespace TourMe.Web.Controllers
 
 
             var experience = await ExperienceService.GetById(exp.ExperienceId);
-            ratingService.Rater(experience.ExperienceId, idu, 0);
+            //ratingService.Rater(experience.ExperienceId, idu, 0);
             if (exp == experience)
             {
                 return NotFound();
