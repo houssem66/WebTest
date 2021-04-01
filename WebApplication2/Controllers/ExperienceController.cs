@@ -29,7 +29,7 @@ namespace TourMe.Web.Controllers
             ExperienceService = experienceService;
             this.userManager = userManager;
             userService = _UserService;
-            //this.ratingService = ratingService;
+            this.ratingService = ratingService;
         }
 
         [HttpGet]
@@ -103,7 +103,8 @@ namespace TourMe.Web.Controllers
 
 
             var experience = await ExperienceService.GetById(exp.ExperienceId);
-           await ratingService.Rater(experience.ExperienceId, idu, rating);
+           await  ratingService.Rater(experience, user, rating);
+
             if (exp == experience)
             {
                 return NotFound();

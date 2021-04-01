@@ -1,4 +1,5 @@
-﻿using Repository.Implementation;
+﻿using Domaine.Entities;
+using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Interfaces;
 using System;
@@ -32,17 +33,17 @@ namespace Services.Implementation
 
             return GenericRepo.GetByIdAsync(id);
         }
-        public async Task Rater(int idE, string IdU, string rate)
+        public async Task Rater(Experience exp, Utilisateur user, string rate)
         {
-            var rating = await RatingRepo.GetByIDasync(idE,IdU);
+            var rating = await RatingRepo.GetByIDasync(exp.ExperienceId,user.Id);
             if (rating==null)
             {
-                rating = await RatingRepo.CreateRating(idE, IdU);
-            
+                rating = await RatingRepo.CreateRating(exp, user);
+                await RatingRepo.Rater(rating, exp.ExperienceId, user.Id, rate);
             }
             else
             {
-                await RatingRepo.Rater(rating,idE,IdU,rate);
+                await RatingRepo.Rater(rating, exp.ExperienceId, user.Id, rate);
 
 
             }

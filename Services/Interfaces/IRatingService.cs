@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domaine.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +13,7 @@ namespace Services.Interfaces
         public IEnumerable<Rating> GetAllExperiences();
 
         public Task<Rating> GetRatingByIdAsync(int id);
-        public Task Rater( int idE, string IdU, string rate);
+        public Task Rater( Experience exp, Utilisateur user, string rate);
         public Task Moyen(int idE);
        
     }

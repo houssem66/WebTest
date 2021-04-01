@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domaine.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace Repository.Interfaces
         public Task<Decimal> AverageRating(int IdExperience);
 
         public Task<Rating> GetByIDasync( int IdExperience,string IdUtilisateur);
-        public Task<Rating> CreateRating(int IdExperience, string IdUtilisateur);
+        public Task<Rating> CreateRating(Experience exp, Utilisateur user);
     }
 }
