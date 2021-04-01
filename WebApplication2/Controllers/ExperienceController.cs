@@ -42,7 +42,11 @@ namespace TourMe.Web.Controllers
                 {
                     Titre = model.Titre,
                     Lieu = model.Lieu,
-                    TypeExperience = model.TypeExperience
+                    TypeExperience = model.TypeExperience,
+                    dateDebut=model.dateDebut,
+                    dateFin=model.dateFin,
+                    Saison=model.Saison
+                    
 
                 };
                 await ExperienceService.InsertExperienceAsync(experience);
