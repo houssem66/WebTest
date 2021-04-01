@@ -37,6 +37,12 @@
 
             </div>
             <div class="form-group">
+                <label asp-for="Saison">Saison</label>
+                <input asp-for="Saison" class="form-control" />
+                <span asp-validation-for="Saison" class="text-danger"></span>
+
+            </div>
+            <div class="form-group">
                 <label asp-for="dateDebut">date Debut</label>
                 <input asp-for="dateDebut" class="form-control" />
                 <span asp-validation-for="dateDebut" class="text-danger"></span>
