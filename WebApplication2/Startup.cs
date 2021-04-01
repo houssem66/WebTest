@@ -71,6 +71,8 @@ namespace WebApplication2
             //sprint 2
             services.AddScoped(typeof(IExperienceRepo), typeof(ExperienceRepo));
             services.AddTransient<IExperienceService, ExperienceService>();
+            services.AddScoped(typeof(IRatingRepo), typeof(RatingRepo));
+            services.AddTransient<IRatingService, RatingService>();
             services.AddCors();
         }
 
