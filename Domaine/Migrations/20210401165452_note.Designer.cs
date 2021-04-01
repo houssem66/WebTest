@@ -10,8 +10,8 @@ using TourMe.Data;
 namespace TourMe.Data.Migrations
 {
     [DbContext(typeof(TourMeContext))]
-    [Migration("20210329192939_nw")]
-    partial class nw
+    [Migration("20210401165452_note")]
+    partial class note
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -313,11 +313,11 @@ namespace TourMe.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("dateDebut")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dateDebut")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("dateFin")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("dateFin")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("ExperienceId");
 
@@ -332,8 +332,8 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("UtilisateurId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("note")
-                        .HasColumnType("int");
+                    b.Property<string>("note")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ExperienceId", "UtilisateurId");
 

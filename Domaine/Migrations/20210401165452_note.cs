@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TourMe.Data.Migrations
 {
-    public partial class nw : Migration
+    public partial class note : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -79,8 +79,8 @@ namespace TourMe.Data.Migrations
                     Titre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TypeExperience = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Lieu = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    dateDebut = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    dateFin = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    dateDebut = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    dateFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Saison = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImagesExperience = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Activité = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -224,7 +224,7 @@ namespace TourMe.Data.Migrations
                 {
                     UtilisateurId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ExperienceId = table.Column<int>(type: "int", nullable: false),
-                    note = table.Column<int>(type: "int", nullable: false)
+                    note = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {

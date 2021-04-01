@@ -27,7 +27,7 @@ namespace Repository.Implementation
             {
                 ExperienceId = idE,
                 UtilisateurId = IdU,
-                note = rate
+                note = ""
             };
                 try
                 {
