@@ -7,9 +7,9 @@ using TourMe.Data.Entities;
 
 namespace Repository.Interfaces
 {
-   public interface IRatingRepo
+    public interface IRatingRepo
     {
-        public Task<Rating> Rater(Rating rating, int idExperience, string IdUtilisateur,int note);
-        public  Task<Decimal> AverageRating(Rating rating,int IdExperience);
+        public Task<Rating> Rater(int idExperience, string IdUtilisateur, int note);
+        public Task<Decimal> AverageRating(int IdExperience);
     }
 }
