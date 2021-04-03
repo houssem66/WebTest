@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,13 +41,35 @@ namespace Repository.Implementation
 
 
         }
+        public IEnumerable<Rating> GetListRatingByExp(Experience exp)
+        {
+            
+
+            return _dbContext.Ratings.ToList().Where(x=>x.experience==exp);
+        }
         public async Task<Decimal> AverageRating(int idExperience)
         {
 
 
+            var x =  _dbContext.Ratings.ToList().Where(x => x.ExperienceId == idExperience);
+           
+            decimal s = 0;
+            string ch = "";
+            char c ='1';
+            int c1 = 0;
+           foreach (var item in x)
+            {
+                ch = item.note;
+                c = ch[0];
+                c1 = c - '0';
+                s = s + c1;
+
+              
 
 
-            return (0);
+            }
+            
+            return s/x.Count();
         }
 
         public async Task<Rating> GetByIDasync(int IDE,string IDU)
