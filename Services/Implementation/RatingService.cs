@@ -26,7 +26,12 @@ namespace Services.Implementation
 
             return GenericRepo.GetAll();
         }
+        public IEnumerable<Rating> GetListByeEXp(Experience entity)
+        {
 
+
+            return RatingRepo.GetListRatingByExp(entity);
+        }
         public Task<Rating> GetRatingByIdAsync(int id)
         {
 
@@ -49,7 +54,7 @@ namespace Services.Implementation
             }
            
         }
-        public Task Moyen(int id)
+        public Task<decimal> Moyen(int id)
         {
 
 

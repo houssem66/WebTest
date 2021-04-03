@@ -55,7 +55,7 @@ namespace TourMe.Web.Controllers
                     TypeExperience = model.TypeExperience,
                     Saison = model.Saison
 
-
+                   
                 };
                 await ExperienceService.InsertExperienceAsync(experience);
             }
@@ -85,25 +85,37 @@ namespace TourMe.Web.Controllers
             }
             var exp = await ExperienceService.GetById(id);
 
-
+           var x = ratingService.GetListByeEXp(exp);
             if (exp == null)
             {
+                
                 return NotFound();
             }
 
+      var    s= ratingService.Moyen(exp.ExperienceId).Result;
+            for(int i=0;i<s;i++)
+            {
+                Debug.WriteLine("this number is " + i);
+
+            }
+            ViewBag.avg = s;
+               
+          
+           
             return View(exp);
         }
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Details(string rating, Experience exp)
         {
-            Debug.WriteLine("id" + exp.ExperienceId);
+           
             string idu = userManager.GetUserId(User);
             Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
 
-
+            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
             var experience = await ExperienceService.GetById(exp.ExperienceId);
            await  ratingService.Rater(experience, user, rating);
+           
 
             if (exp == experience)
             {

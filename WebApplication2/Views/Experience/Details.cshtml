@@ -27,30 +27,47 @@
     <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <div>
-    
+
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Lieu)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Lieu)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Titre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Titre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Saison)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Saison)
-        </dd>
-        
-    </dl>
-</div>
+    <div class="tour_head">
+        <span class="tour_star">
+            @{ int i = 1;
+                        decimal s = ViewBag.avg;
+                        for (i = 1; i <= ViewBag.avg; i++)
+                        { 
+        <i class="fa fa-star" aria-hidden="true">
+        </i> }
+                s =Math.Abs(( s - i));
+                if ((s<1)&&(s>0))
+                {<i class="fa fa-star-half-o" aria-hidden="true">
+        </i> } }
+        </span><h2>Average Rating </h2>
+        <span class="tour_rat">@ViewBag.avg</span>
+    </div>
+
+
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Lieu)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Lieu)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Titre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Titre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Saison)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Saison)
+            </dd>
+
+        </dl>
+    </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.ExperienceId">Edit</a> |
     <a asp-action="GetAll">Back to List</a>
