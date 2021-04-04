@@ -307,6 +307,8 @@ namespace Finance.Controllers
                     if (result.Succeeded)
                     {
                         System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
+
+
                         if (await roleManager.RoleExistsAsync("Commercant"))
                         {
                             await userManager.AddToRoleAsync(user, "Commercant");
