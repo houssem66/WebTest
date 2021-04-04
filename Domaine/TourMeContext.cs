@@ -37,6 +37,18 @@ namespace TourMe.Data
             .HasForeignKey(bc => bc.UtilisateurId);
 
 
+
+
+            builder.Entity<Experience>()
+           .HasMany<Activite>(E => E.Activites);
+          
+           
+
+
+
+
+
+
         }
 
     }
