@@ -20,6 +20,8 @@ namespace Repository.Implementation
             _dbContext = dbContext;
         }
 
+      
+
         public IEnumerable<Experience> GetAllExperienceAsync()
         {
             var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0);

@@ -21,6 +21,7 @@ namespace Services.Implementation
             ExperienceRepo = experienceRepo;
         }
 
+   
         public Task DeleteExperienceAsync(int id)
         {
             return GenericRepo.DeleteAsync(id);
@@ -67,5 +68,6 @@ namespace Services.Implementation
                                             e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) ||e.Saison.ToLower().Contains(searchTerm.ToLower()) ).ToList();
         }
 
+     
     }
 }

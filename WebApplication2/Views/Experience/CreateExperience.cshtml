@@ -5,65 +5,134 @@
 
 }
 
-<div class="row">
-  
-    <div class="col-md-12">
-        <form enctype="multipart/form-data" method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication2</title>
+    <!-- Font Awesome -->
+    <!-- Ionicons -->
+    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+    <!-- overlayScrollbars -->
+    <link href="~/Theme/dist/css/adminlte.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
+   
+</head>
 
-
-
-
-            <div class="form-group">
-                <label asp-for="Titre">Titre Experience</label>
-                <input asp-for="Titre" class="form-control" />
-                <span asp-validation-for="Titre" class="text-danger"></span>
-
-            </div>
-
-
-
-            <div class="form-group">
-                <label asp-for="TypeExperience">Type Experience</label>
-                <input asp-for="TypeExperience" class="form-control" />
-                <span asp-validation-for="TypeExperience" class="text-danger"></span>
-
-            </div>
-            <div class="form-group">
-                <label asp-for="Lieu">Lieu</label>
-                <input asp-for="Lieu" class="form-control" />
-                <span asp-validation-for="Lieu" class="text-danger"></span>
-
-            </div>
-            <div class="form-group">
-                <label asp-for="Saison">Saison</label>
-                <input asp-for="Saison" class="form-control" />
-                <span asp-validation-for="Saison" class="text-danger"></span>
-
-            </div>
-            <div class="form-group">
-                <label asp-for="dateDebut">date Debut</label>
-                <input asp-for="dateDebut" class="form-control" />
-                <span asp-validation-for="dateDebut" class="text-danger"></span>
-
-            </div>
-            <div class="form-group">
-                <label asp-for="dateFin">date Fin</label>
-                <input asp-for="dateFin" class="form-control" />
-                <span asp-validation-for="dateFin" class="text-danger"></span>
-
-            </div>
-
-
-
-
-
-
-
-
-            <button type="submit" class="btn btn-primary">S'inscrire</button>
-
-        </form>
+<script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<div class="card card-warning" style="float: right; width: 50%">
+    <div class="card-header">
+        <h1 class="card-title">Expérience</h1>
     </div>
+    <div class="card card-info col-md-auto accent-green">
+
+        <div class="col-md-12">
+            <form enctype="multipart/form-data" method="post" asp-action="CreateExperience">
+                <div asp-validation-summary="All" class="text-danger"></div>
+
+
+
+
+
+                <div class="bootstrap-switch-gray-dark">
+                    <label asp-for="Titre">Titre Experience</label>
+                    <input asp-for="Titre" class="form-control" />
+                    <span asp-validation-for="Titre" class="text-danger"></span>
+
+                </div>
+
+
+
+                <div class="form-group">
+                    <label asp-for="TypeExperience">Type Experience</label>
+                    <input asp-for="TypeExperience" class="form-control" />
+                    <span asp-validation-for="TypeExperience" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lieu">Lieu</label>
+                    <input asp-for="Lieu" class="form-control" />
+                    <span asp-validation-for="Lieu" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="Saison">Saison</label>
+                    <input asp-for="Saison" class="form-control" />
+                    <span asp-validation-for="Saison" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="dateDebut">date Debut</label>
+                    <input asp-for="dateDebut" class="form-control" />
+                    <span asp-validation-for="dateDebut" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="dateFin">date Fin</label>
+                    <input asp-for="dateFin" class="form-control" />
+                    <span asp-validation-for="dateFin" class="text-danger"></span>
+
+                </div>
+
+
+         
+
+
+
+                <button type="submit" class="btn btn-outline-success">Ajouter Expérience</button>
+
+
+            </form>
+        </div>
+    </div>
+    </div>
+<div class="card card-warning" style="float: right; width: 50%">
+    <div class="card-header">
+        <h2 class="card-title">Activité</h2>
+    </div>
+    <div>
+        <p>
+
+            <a href="#" class="btn btn-info btn-lg" name="Type" style="width:200px; margin:0 auto;">
+                <span class="glyphicon glyphicon-plus"></span> Ajouter Activité
+            </a>
+        </p>
+    </div>
+    <div id="loadpartial">
+
+    </div>
+    <script>
+
+               $(function () {
+                   $("[name=Type]").on('click', function () {
+                      // var value = $("input[type='radio'].radioBtnClass:checked").val();
+
+
+
+
+
+                       $.ajax({
+
+                    url: '@Url.Action("test","Experience")',
+                   data: 0,
+                           type: "post",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });
+        });
+    });
+
+    </script>
+
 </div>
