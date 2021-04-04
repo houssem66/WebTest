@@ -15,8 +15,8 @@ namespace TourMe.Data.Entities
 
         public int ExperienceId { get; set; }
         public virtual Experience experience { get; set; }
-        [Range(0,5)]
-        public int note { get; set; }
+        
+        public string note { get; set; }
 
         
     }
