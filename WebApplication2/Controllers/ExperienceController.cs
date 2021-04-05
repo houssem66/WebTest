@@ -1,8 +1,11 @@
+using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Services.Implementation;
 using Services.Interfaces;
 using System;
 using System.Collections;
@@ -23,13 +26,20 @@ namespace TourMe.Web.Controllers
 
         public ICollection<Activite> Activites = new Collection<Activite>();
         readonly private IActiviteService ActiviteService;
+        private readonly UserManager<Utilisateur> userManager;
 
-        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService)
+        private readonly IUserService userService;
+        private readonly IRatingService ratingService;
+
+        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IUserService _UserService, IRatingService ratingService)
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
            
             ActiviteService = activiteService;
+            this.userManager = userManager;
+            userService = _UserService;
+            this.ratingService = ratingService;
         }
 
 
@@ -112,11 +122,31 @@ namespace TourMe.Web.Controllers
             return View(ExperienceService.Search(searchTerm));
 
         }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string rating, Experience exp)
+        {
 
+            string idu = userManager.GetUserId(User);
+            Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
+
+            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
+            var experience = await ExperienceService.GetById(exp.ExperienceId);
+            await ratingService.Rater(experience, user, rating);
+
+
+            if (exp == experience)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("GetAll");
+        }
 
 
         [HttpPost]
         [AllowAnonymous]
+
         public ActionResult CreateActivite(Activite activite)
         {
           //  ExperienceViewModel model = new ExperienceViewModel();
