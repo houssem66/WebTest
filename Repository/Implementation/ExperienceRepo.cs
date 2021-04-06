@@ -24,16 +24,16 @@ namespace Repository.Implementation
 
         public IEnumerable<Experience> GetAllExperienceAsync()
         {
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0);
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings);
 
             return Experience;
         }
 
         public async Task<Experience> GetExperienceDetailsAsync(int id)
         {
-            var Experience = await _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == id);
+            var Experience = await _dbContext.Experience.Include(x=>x.Activites).SingleAsync(Experience => Experience.ExperienceId == id);
 
-            _dbContext.Entry(Experience);
+            _dbContext.Entry(Experience).Collection(experience=>experience.Activites).Query();
 
 
 
