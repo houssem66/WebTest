@@ -11,6 +11,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -41,7 +42,21 @@ namespace TourMe.Web.Controllers
             userService = _UserService;
             this.ratingService = ratingService;
         }
+        public IActionResult GetAll()
 
+        {
+
+            IEnumerable<Experience> x = ExperienceService.GetAllExperienceDetails();
+
+            foreach (var item in x) 
+            {
+                var s = ratingService.Moyen(item.ExperienceId).Result;
+                item.Rating = s.ToString();
+            }
+            return View(ExperienceService.GetAllExperienceDetails());
+
+
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -121,6 +136,32 @@ namespace TourMe.Web.Controllers
 
             return View(ExperienceService.Search(searchTerm));
 
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var exp = await ExperienceService.GetById(id);
+
+            var x = ratingService.GetListByeEXp(exp);
+            if (exp == null)
+            {
+
+                return NotFound();
+            }
+
+            var s = ratingService.Moyen(exp.ExperienceId).Result;
+           
+            ViewBag.avg = s;
+
+
+
+            return View(exp);
         }
         [HttpPost]
         [AllowAnonymous]

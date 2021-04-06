@@ -16,5 +16,7 @@ namespace Repository.Interfaces
         public Task<Rating> GetByIDasync( int IdExperience,string IdUtilisateur);
         public Task<Rating> CreateRating(Experience exp, Utilisateur user);
         public IEnumerable<Rating> GetListRatingByExp(Experience exp);
+
+
     }
 }

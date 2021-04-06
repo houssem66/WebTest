@@ -52,7 +52,10 @@ namespace Repository.Implementation
 
 
             var x =  _dbContext.Ratings.ToList().Where(x => x.ExperienceId == idExperience);
-           
+           if (x.Count() == 0)
+            {
+                return 0;
+            }
             decimal s = 0;
             string ch = "";
             char c ='1';
