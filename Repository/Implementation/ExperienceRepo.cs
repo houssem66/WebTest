@@ -58,6 +58,27 @@ namespace Repository.Implementation
 
         }
 
+        public Experience BestExperience() 
+        {
+
+
+            var Experiences = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings);
+            int best = 0;
+            Experience exp = new Experience();
+            foreach(var item in Experiences)
+            {
+                if (item.Rating[0]>best)
+                {
+                    best = item.Rating[0];
+
+                    exp = item;
+                }
+
+
+            }
+
+            return exp;
+        }
 
     }
 }
