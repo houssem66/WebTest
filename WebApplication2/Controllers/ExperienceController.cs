@@ -53,6 +53,9 @@ namespace TourMe.Web.Controllers
                 var s = ratingService.Moyen(item.ExperienceId).Result;
                 item.Rating = s.ToString();
             }
+          
+            ViewBag.Best= ExperienceService.BestExperience();
+
             return View(ExperienceService.GetAllExperienceDetails());
 
 

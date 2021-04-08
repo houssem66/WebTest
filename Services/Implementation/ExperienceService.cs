@@ -68,6 +68,11 @@ namespace Services.Implementation
                                             e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) ||e.Saison.ToLower().Contains(searchTerm.ToLower()) ).ToList();
         }
 
-     
+        public Experience BestExperience()
+        {
+
+            return ExperienceRepo.BestExperience();
+
+        }
     }
 }

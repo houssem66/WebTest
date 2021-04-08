@@ -21,6 +21,7 @@ namespace Domaine.Entities
         public string Patente { get; set; }
         public string Secteur { get; set; }
         public string TypeOrgan { get; set; }
+
       
     }
 }
