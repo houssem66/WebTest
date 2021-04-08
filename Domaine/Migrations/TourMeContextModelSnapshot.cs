@@ -310,6 +310,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Activité")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("AvgRating")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ImagesExperience")
                         .HasColumnType("nvarchar(max)");
 

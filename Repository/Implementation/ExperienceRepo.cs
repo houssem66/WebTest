@@ -2,6 +2,7 @@
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,15 +15,19 @@ namespace Repository.Implementation
     {
 
         protected readonly TourMeContext _dbContext;
+        readonly private IGenericRepository<Experience> genericRepoUser;
 
-        public ExperienceRepo(TourMeContext dbContext)
+        public ExperienceRepo(TourMeContext dbContext, IGenericRepository<Experience> _GenericRepoExperience)
         {
+           
             _dbContext = dbContext;
+            genericRepoUser = _GenericRepoExperience;
         }
 
       
 
-        public IEnumerable<Experience> GetAllExperienceAsync()
+
+        public IQueryable<Experience> GetAllExperienceAsync()
         {
             var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings);
 
@@ -44,7 +49,7 @@ namespace Repository.Implementation
 
         public async Task PutExperienceAsync(int id, Experience entity)
         {
-            var Experience = await _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == entity.ExperienceId);
+            var Experience = await _dbContext.Experience.SingleAsync(e => e.ExperienceId == entity.ExperienceId);
             _dbContext.Entry(Experience).State = EntityState.Detached;
             _dbContext.Entry(entity).State = EntityState.Modified;
             try
@@ -58,22 +63,33 @@ namespace Repository.Implementation
 
         }
 
-        public Experience BestExperience() 
+        public  Experience BestExperience() 
         {
 
 
-            var Experiences = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings);
+            var Experiences = genericRepoUser.GetAll();
+            
             int best = 0;
+            int i = 0;
             Experience exp = new Experience();
-            foreach(var item in Experiences)
+            //Debug.WriteLine("experience.count :" + Experiences.Count());
+            var list = Experiences.ToList();
+            foreach(var item in list)
             {
-                if (item.Rating[0]>best)
-                {
-                    best = item.Rating[0];
+               
+                //Debug.WriteLine("value of normal: " + item.Rating);
+                //Debug.WriteLine("value of i " + i);
+                i++;
+                
+                //if (!(Experiences.ElementAt(i).Rating==null)) { 
+                //if (Experiences.ElementAt(i).Rating [0]> best)
+                //{ 
+                //    best = Experiences.ElementAt(i).Rating[0];
 
-                    exp = item;
-                }
-
+                //    exp = Experiences.ElementAt(i);
+                //        Debug.WriteLine("rating value for best exp " + exp.Rating);
+                //    }
+                //}
 
             }
 

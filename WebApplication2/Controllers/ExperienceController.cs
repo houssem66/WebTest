@@ -42,21 +42,26 @@ namespace TourMe.Web.Controllers
             userService = _UserService;
             this.ratingService = ratingService;
         }
-        public IActionResult GetAll()
+        [AllowAnonymous]
+        public async Task< IActionResult> GetAll(string searchTerm)
 
         {
+            var list2 = ExperienceService.BestExperience();
 
-            IEnumerable<Experience> x = ExperienceService.GetAllExperienceDetails();
+            IQueryable<Experience> x = ExperienceService.GetAllExperienceDetails(searchTerm);
 
             foreach (var item in x) 
-            {
+            {if (item.Rating == null) { Debug.WriteLine("rating was null"); }
                 var s = ratingService.Moyen(item.ExperienceId).Result;
-                item.Rating = s.ToString();
+               
+                Experience exp = await ExperienceService.GetExperienceByIdAsync(item.ExperienceId);
+                exp.Rating = s.ToString();
+               await ExperienceService.PutExperienceAsync(exp.ExperienceId,exp);
             }
-          
-            ViewBag.Best= ExperienceService.BestExperience();
+            var list = ExperienceService.BestExperience();
+            ViewBag.Best = ExperienceService.BestExperience();
 
-            return View(ExperienceService.GetAllExperienceDetails());
+            return View(ExperienceService.GetAllExperienceDetails(searchTerm));
 
 
         }
