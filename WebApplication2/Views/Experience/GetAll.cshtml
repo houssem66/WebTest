@@ -402,7 +402,7 @@
                                     <label for="select-city">Enter city</label>
                                 </div>
                                 <div class="input-field">
-                                    <input type="text" id="select-search" class="autocomplete">
+                                    <input type="search" name="searchTerm" id="select-search" class="autocomplete">
                                     <label for="select-search" class="search-hotel-type">Search over a million tour and travels, sight seeings, hotels and more</label>
                                 </div>
                                 <div class="input-field">
@@ -490,36 +490,41 @@
                                     <ul>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp41" class="styled" type="checkbox" checked="">
-                                                <label for="chp41"> Nashville, USA </label>
+                                                <input id="chp41" class="styled" type="checkbox" value="camping" name="searchTerm" >
+                                                <label for="chp41">camping </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp42" class="styled" type="checkbox">
-                                                <label for="chp42"> Hull, England </label>
+                                                <input id="chp42" class="styled" name="searchTerm"value="doura" type="checkbox">
+                                                <label for="chp42"> Centre</label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp43" class="styled" type="checkbox">
+                                                <input id="chp43" class="styled" name="searchTerm" type="checkbox">
                                                 <label for="chp43"> Seoul, South Korea </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp44" class="styled" type="checkbox">
+                                                <input id="chp44" class="styled" name="searchTerm" type="checkbox">
                                                 <label for="chp44"> Ljubljana, Slovenia </label>
                                             </div>
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp45" class="styled" type="checkbox">
+                                                <input id="chp45" class="styled" name="searchTerm" type="checkbox">
                                                 <label for="chp45"> Wroclaw, Poland </label>
                                             </div>
                                         </li>
-                                    </ul>
-                                </form> <a href="javascript:void(0);" class="hot-page2-alp-p4-btn-s">view more</a>
+                                    </ul> <button type="submit" class="btn btn-outline-success">search</button>
+                                </form><script>$(function () {
+                                        $("#searchTerm").onclick(function () {
+                                            var data = { searchString: $(this).val() };
+                                            $("#catList > tbody").load("/Admin/ViewCategory #catList > tbody", data);
+                                        });
+                                    });</script> <a href="javascript:void(0);" class="hot-page2-alp-p4-btn-s">view more</a>
                             </div>
                         </div>
                         <!--END PART 4 : LEFT LISTINGS-->
@@ -572,7 +577,7 @@
                                     <ul>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp61" class="styled" type="checkbox" checked="">
+                                                <input id="chp61" class="styled" name="searchTerm" value="5" type="checkbox">
                                                 <label for="chp61">
                                                     <span class="ho-hot-rat-star-list">
                                                         <span class="hot-list-left-part-rat">5.0</span> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i>
@@ -582,7 +587,7 @@
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp62" class="styled" type="checkbox">
+                                                <input id="chp62" class="styled" type="checkbox" value="4" name="searchTerm">
                                                 <label for="chp62">
                                                     <span class="ho-hot-rat-star-list">
                                                         <span class="hot-list-left-part-rat">4.0</span> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
@@ -592,7 +597,7 @@
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp63" class="styled" type="checkbox">
+                                                <input id="chp63" class="styled" type="checkbox" value="3" name="searchTerm">
                                                 <label for="chp63">
                                                     <span class="ho-hot-rat-star-list">
                                                         <span class="hot-list-left-part-rat">3.0</span> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
@@ -602,7 +607,7 @@
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp64" class="styled" type="checkbox">
+                                                <input id="chp64" class="styled" type="checkbox" value="2" name="searchTerm">
                                                 <label for="chp64">
                                                     <span class="ho-hot-rat-star-list">
                                                         <span class="hot-list-left-part-rat">2.0</span> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
@@ -612,7 +617,7 @@
                                         </li>
                                         <li>
                                             <div class="checkbox checkbox-info checkbox-circle">
-                                                <input id="chp65" class="styled" type="checkbox">
+                                                <input id="chp65" class="styled" type="checkbox" value="1" name="searchTerm">
                                                 <label for="chp65">
                                                     <span class="ho-hot-rat-star-list">
                                                         <span class="hot-list-left-part-rat">1.0</span> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i>
@@ -621,6 +626,7 @@
                                             </div>
                                         </li>
                                     </ul>
+                                    <button type="submit" class="btn btn-outline-success">search</button>
                                 </form> <a href="javascript:void(0);" class="hot-page2-alp-p5-btn-s">view more</a>
                             </div>
                         </div>
