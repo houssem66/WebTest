@@ -43,16 +43,24 @@ namespace TourMe.Web.Controllers
             this.ratingService = ratingService;
         }
         [AllowAnonymous]
-        public IActionResult GetAll(string searchTerm)
+
+        
+        public IActionResult GetAll(string[] searchTerm)
 
         {
-          string[]  search = new string[10];
-           
-            
-            var list = ExperienceService.BestExperience();
             ViewBag.Best = ExperienceService.BestExperience();
-
-            return View(ExperienceService.GetAllExperienceDetails(searchTerm));
+            string[]  search = new string[10];
+            List<Experience> list =new List<Experience>();
+            if (!(searchTerm.Count()==0))
+            { foreach(var ch in searchTerm) 
+                {var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+                    list = list.Concat(list2).ToList();
+                }
+                ;
+               
+            return View(list);
+            }
+            return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
 
         }
