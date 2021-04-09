@@ -184,7 +184,7 @@ namespace TourMe.Web.Controllers
         }
    
 
-        [HttpPost]
+      [HttpGet]
         [AllowAnonymous]
         public ActionResult test(string type)
         {
@@ -199,7 +199,7 @@ namespace TourMe.Web.Controllers
 
 
         }
-
+    
 
     }
 }
