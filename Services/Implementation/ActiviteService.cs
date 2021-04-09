@@ -22,5 +22,11 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(activite);
         }
 
+        public IEnumerable<Activite> GetActivite(int id)
+        { 
+            return GenericRepo.GetAll().Where(e => e.ExperienceId==id).ToList();
+        }
+
     }
 }
+

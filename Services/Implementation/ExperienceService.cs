@@ -37,14 +37,24 @@ namespace Services.Implementation
             return GenericRepo.GetAll();
         }
 
-        public Task<Experience> GetById(int id)
+        public async Task<Experience> GetById(int id)
         {
-            return ExperienceRepo.GetExperienceDetailsAsync(id);
+            Experience Experience = await ExperienceRepo.GetExperienceDetailsAsync(id);
+
+           
+
+
+            return Experience;
         }
 
         public Task<Experience> GetExperienceByIdAsync(int id)
         {
             return GenericRepo.GetByIdAsync(id);
+        }
+
+        public async Task<int> InsertExperience(Experience entity)
+        {
+            return await ExperienceRepo.InsertExperience(entity);
         }
 
         public Task InsertExperienceAsync(Experience entity)

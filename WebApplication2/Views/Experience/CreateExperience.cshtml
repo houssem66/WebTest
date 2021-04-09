@@ -1,4 +1,4 @@
-
+﻿
 @model ExperienceViewModel
 @{
     ViewBag.Title = "Experience";
@@ -72,10 +72,10 @@
 
                 </div>
                 <div class="form-group">
-                    <label asp-for="dateDebut">date Debut</label>
+                    <label asp-for="dateDebut" >date Debut</label>
                     <input asp-for="dateDebut" class="form-control" />
                     <span asp-validation-for="dateDebut" class="text-danger"></span>
-
+                    
                 </div>
                 <div class="form-group">
                     <label asp-for="dateFin">date Fin</label>
@@ -96,43 +96,4 @@
         </div>
     </div>
     </div>
-<div class="card card-warning" style="float: right; width: 50%">
-    <div class="card-header">
-        <h2 class="card-title">Activité</h2>
-    </div>
-    <div>
-        <p>
 
-            <a href="#" class="btn btn-info btn-lg" name="Type" style="width:200px; margin:0 auto;">
-                <span class="glyphicon glyphicon-plus"></span> Ajouter Activité
-            </a>
-        </p>
-    </div>
-    <div id="loadpartial">
-
-    </div>
-    <script>
-
-               $(function () {
-                   $("[name=Type]").on('click', function () {
-                      // var value = $("input[type='radio'].radioBtnClass:checked").val();
-
-
-
-
-
-                       $.ajax({
-
-                    url: '@Url.Action("test","Experience")',
-                   data: 0,
-                           type: "post",
-                    success: function (data) {
-                    $("#loadpartial").html(data);
-                }
-            });
-        });
-    });
-
-    </script>
-
-</div>

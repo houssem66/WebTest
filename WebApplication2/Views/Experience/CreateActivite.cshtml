@@ -1,0 +1,220 @@
+﻿@model ActiviteViewModel
+
+
+<!-- /.card-header -->
+
+<head>
+    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApplication2</title>
+    <!-- Font Awesome -->
+    <!-- Ionicons -->
+    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+    <!-- overlayScrollbars -->
+    <link href="~/Theme/dist/css/adminlte.min.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="#">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
+
+</head>
+
+<script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<div class="card card-warning" style="float: right; width: 50%">
+    <div class="card-header">
+        <h1 class="card-title">Activite de l'experience @ViewBag.exp.Titre </h1>
+    </div>
+    <div class="card card-info col-md-auto accent-green">
+
+        <div class="col-md-6">
+            <form method="post" enctype="multipart/form-data" asp-action="CreateActivite" asp-controller="Experience">
+
+
+
+
+
+                <div class="bootstrap-switch-gray-dark">
+                    <label>Titre</label>
+                    <input disabled value="@ViewBag.exp.Titre" />
+                </div>
+
+
+
+                <div class="form-group">
+                    <label>Type d'experience</label>
+                    <input disabled value="@ViewBag.exp.TypeExperience" />
+
+                </div>
+
+
+
+                <div class="col-sm-12">
+                    <!-- textarea -->
+                    <div class="form-group">
+                        <label>Description Activité</label>
+
+
+
+                        <textarea asp-for="Details" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-sm-12">
+                        <label>Image</label>
+                        <div class="custom-file">
+                            <span>
+
+
+                            </span>
+                            <input multiple asp-for="FileP" class="form-control custom-file-input" />
+                            <label class="custom-file-label">choisir votre fichier</label>
+                        </div>
+                    </div>
+                </div>
+
+                @section Scripts {
+                    <script>
+                        $(document).ready(function () {
+                            $('.custom-file-input').on("change", function () {
+                                var fileLabel = $(this).next('.custom-file-label');
+                                var files = $(this)[0].files;
+                                if (files.length > 1) {
+                                    fileLabel.html(files.length + ' files selected');
+                                }
+                                else if (files.length == 1) {
+                                    fileLabel.html(files[0].name);
+                                }
+                            });
+                        });
+                    </script>
+                }
+                <button type="submit" class="btn btn-outline-success">Ajouter Activité</button>
+
+
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-6">
+    @{var photoPath = "~/images/noimage.jpg";
+
+    }
+    @if (ViewBag.ListeActivite == null)
+
+    {
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        Details Activité
+                    </th>
+                    <th>
+                        Images Activité
+                    </th>
+
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+                <tr>
+
+                    <td>
+                        Vide
+                    </td>
+
+
+                    <td>
+                        <img class="profile-user-img img-fluid img-circle" src="@photoPath" />
+                    </td>
+
+
+
+                </tr>
+
+            </tbody>
+        </table>
+    }
+
+
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        Details Activite
+                    </th>
+                    <th>
+                        Images Activite
+                    </th>
+
+
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+                @foreach (var item in ViewBag.ListeActivite)
+                {
+
+                    <tr>
+
+                        <td>
+                            @item.Details
+                        </td>
+
+
+                        <td>
+                            @{var photoPath1 = "~/images/" + (item.Image ?? "noimage.jpg");
+
+                            }
+                            <img class="profile-user-img img-fluid img-circle" src="@photoPath1" asp-append-version="true" />
+                        </td>
+                    
+
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+
+    }
+
+</div>
+
+
+

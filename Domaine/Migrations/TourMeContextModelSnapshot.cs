@@ -257,6 +257,29 @@ namespace TourMe.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Activite", b =>
+                {
+                    b.Property<int>("activiteId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Details")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("activiteId");
+
+                    b.HasIndex("ExperienceId");
+
+                    b.ToTable("Activite");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Commentaire", b =>
                 {
                     b.Property<int>("CommentaireId")
@@ -431,6 +454,15 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Activite", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", null)
+                        .WithMany("Activites")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Commentaire", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
@@ -466,6 +498,8 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
+                    b.Navigation("Activites");
+
                     b.Navigation("Commentaires");
 
                     b.Navigation("Ratings");

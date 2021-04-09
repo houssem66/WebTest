@@ -13,6 +13,6 @@ namespace TourMe.Data.Entities
         public int activiteId { get; set; }
         public string Details { get; set; }
         public string Image { get; set; }
-    
+        public int ExperienceId { get; set; }
     }
 }
