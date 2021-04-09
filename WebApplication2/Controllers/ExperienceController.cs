@@ -43,21 +43,12 @@ namespace TourMe.Web.Controllers
             this.ratingService = ratingService;
         }
         [AllowAnonymous]
-        public async Task< IActionResult> GetAll(string searchTerm)
+        public IActionResult GetAll(string searchTerm)
 
         {
-            var list2 = ExperienceService.BestExperience();
-
-            IQueryable<Experience> x = ExperienceService.GetAllExperienceDetails(searchTerm);
-
-            foreach (var item in x) 
-            {if (item.Rating == null) { Debug.WriteLine("rating was null"); }
-                var s = ratingService.Moyen(item.ExperienceId).Result;
-               
-                Experience exp = await ExperienceService.GetExperienceByIdAsync(item.ExperienceId);
-                exp.Rating = s.ToString();
-               await ExperienceService.PutExperienceAsync(exp.ExperienceId,exp);
-            }
+          string[]  search = new string[10];
+           
+            
             var list = ExperienceService.BestExperience();
             ViewBag.Best = ExperienceService.BestExperience();
 
@@ -179,11 +170,14 @@ namespace TourMe.Web.Controllers
             string idu = userManager.GetUserId(User);
             Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
 
-            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
             var experience = await ExperienceService.GetById(exp.ExperienceId);
             await ratingService.Rater(experience, user, rating);
 
-
+            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
+            
+            var x = await ratingService.Moyen(exp.ExperienceId);
+            experience.AvgRating = x.ToString();
+            await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
             if (exp == experience)
             {
                 return NotFound();

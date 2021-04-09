@@ -28,17 +28,28 @@ namespace Services.Implementation
             return GenericRepo.DeleteAsync(id);
         }
 
-        public IQueryable<Experience> GetAllExperienceDetails(string searchTerm = null)
+        public IEnumerable<Experience> GetAllExperienceDetails(string searchTerm = null)
         {
             if (!(string.IsNullOrEmpty(searchTerm)))
             {if (searchTerm.Length == 1)
-                {
-                    return null;
+                { var ch = searchTerm[0];
 
+
+                    Debug.WriteLine("the value of searchSterm is : " + ch);
+                    return ExperienceRepo.GetAllExperienceAsync().Where(e => e.AvgRating.StartsWith (searchTerm));
+                    //return from Experience in ExperienceRepo.GetAllExperienceAsync()
+                    //       where Experience.AvgRating.First().Equals(ch)
+                    //       select Experience;
                 }
                 return ExperienceRepo.GetAllExperienceAsync().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                            e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower()));
+                                            e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
             }
+
+            return ExperienceRepo.GetAllExperienceAsync();
+        }
+        public IEnumerable<Experience> GetAllExperienceDetails()
+        {
+            
 
             return ExperienceRepo.GetAllExperienceAsync();
         }
@@ -74,14 +85,22 @@ namespace Services.Implementation
             {
                 return GenericRepo.GetAll();
             }
-            if (searchTerm.Length==1)
+            var l = searchTerm.Length;
+            if (l>1)
             {
                 Debug.WriteLine("the value of searchSterm is : "+searchTerm );
-                return GenericRepo.GetAll(); 
+                return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
+                                           e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
+            }
+            else
+            {
+                
+                return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
+                                           e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
+
             }
 
-            return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                            e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) ||e.Saison.ToLower().Contains(searchTerm.ToLower()) ).ToList();
+           
         }
 
         public Experience BestExperience()
