@@ -1,13 +1,17 @@
+using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Services.Implementation;
 using Services.Interfaces;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,15 +28,43 @@ namespace TourMe.Web.Controllers
         public ICollection<Activite> Activites = new Collection<Activite>();
 
         readonly private IActiviteService ActiviteService;
+        private readonly UserManager<Utilisateur> userManager;
 
-        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService)
+        private readonly IUserService userService;
+        private readonly IRatingService ratingService;
+
+        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IUserService _UserService, IRatingService ratingService)
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
            
             ActiviteService = activiteService;
+            this.userManager = userManager;
+            userService = _UserService;
+            this.ratingService = ratingService;
         }
+        [AllowAnonymous]
 
+        
+        public IActionResult GetAll(string[] searchTerm)
+
+        {
+            ViewBag.Best = ExperienceService.BestExperience();
+            string[]  search = new string[10];
+            List<Experience> list =new List<Experience>();
+            if (!(searchTerm.Count()==0))
+            { foreach(var ch in searchTerm) 
+                {var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+                    list = list.Concat(list2).ToList();
+                }
+                ;
+               
+            return View(list);
+            }
+            return View(ExperienceService.GetAllExperienceDetails("").ToList());
+
+
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -98,8 +130,12 @@ namespace TourMe.Web.Controllers
             return View(ExperienceService.Search(searchTerm));
 
         }
+        [HttpGet]
+        [AllowAnonymous]
+
 
         [HttpGet]
+            [HttpGet]
         [AllowAnonymous]
         public IActionResult CreateActivite()
         {
@@ -112,6 +148,58 @@ namespace TourMe.Web.Controllers
 
              ViewData["ListeActivite"]= ActiviteService.GetActivite(experience.ExperienceId);
             System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
+
+             return View();
+
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var exp = await ExperienceService.GetById(id);
+
+            var x = ratingService.GetListByeEXp(exp);
+            if (exp == null)
+            {
+
+                return NotFound();
+            }
+
+            var s = ratingService.Moyen(exp.ExperienceId).Result;
+           
+            ViewBag.avg = s;
+
+
+
+            return View(exp);
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details(string rating, Experience exp)
+        {
+
+            string idu = userManager.GetUserId(User);
+            Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
+
+            var experience = await ExperienceService.GetById(exp.ExperienceId);
+            await ratingService.Rater(experience, user, rating);
+
+            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
+            
+            var x = await ratingService.Moyen(exp.ExperienceId);
+            experience.AvgRating = x.ToString();
+            await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+            if (exp == experience)
+            {
+                return NotFound();
+            }
+
+            return RedirectToAction("GetAll");
+        }
+
 
              return View();
 
@@ -182,7 +270,6 @@ namespace TourMe.Web.Controllers
             return RedirectToAction("CreateActivite","Experience");
 
         }
-   
 
       [HttpGet]
         [AllowAnonymous]

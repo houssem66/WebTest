@@ -11,9 +11,15 @@ namespace Repository.Interfaces
     {
         public Task<Experience> GetExperienceDetailsAsync(int id);
         public Task PutExperienceAsync(int id, Experience entity);
-        public IEnumerable<Experience> GetAllExperienceAsync();
+
+      
         public Task<int> InsertExperience(Experience entity);
         public Task<Experience> ExperienceGet(Experience entity);
+
+        public IQueryable<Experience> GetAllExperienceAsync();
+        public Experience BestExperience();
+         
+
 
     }
 }
