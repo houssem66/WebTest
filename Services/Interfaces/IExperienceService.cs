@@ -22,6 +22,9 @@ namespace Services.Interfaces
 
         public Task<Experience> GetExperienceByIdAsync(int id);
         public Task<Experience> GetById(int id);
+
+        public Task<int> InsertExperience(Experience entity);
+
         public Experience BestExperience();
 
 
