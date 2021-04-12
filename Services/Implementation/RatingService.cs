@@ -61,6 +61,21 @@ namespace Services.Implementation
             return RatingRepo.AverageRating(id);
 
         }
-        
+
+        public async Task Commenter(Experience exp, Utilisateur user, string commentaire)
+        {
+            var rating = await RatingRepo.GetByIDasync(exp.ExperienceId, user.Id);
+            if (rating == null)
+            {
+                rating = await RatingRepo.CreateRating(exp, user);
+                await RatingRepo.Commenter(rating, exp.ExperienceId, user.Id, commentaire);
+            }
+            else
+            {
+                await RatingRepo.Commenter(rating, exp.ExperienceId, user.Id, commentaire);
+
+
+            }
+        }
     }
 }
