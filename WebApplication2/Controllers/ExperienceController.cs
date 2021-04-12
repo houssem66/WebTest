@@ -31,8 +31,9 @@ namespace TourMe.Web.Controllers
 
         private readonly IUserService userService;
         private readonly IRatingService ratingService;
+        private readonly SignInManager<Utilisateur> signInManager;
 
-        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IUserService _UserService, IRatingService ratingService)
+        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IUserService _UserService, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
@@ -41,6 +42,7 @@ namespace TourMe.Web.Controllers
             this.userManager = userManager;
             userService = _UserService;
             this.ratingService = ratingService;
+            this.signInManager = signInManager;
         }
         [AllowAnonymous]
 
@@ -172,13 +174,14 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string rating, Experience exp)
+        public async Task<IActionResult> Details(string rating, Experience exp,string comment)
         {
 
             string idu = userManager.GetUserId(User);
             Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
 
             var experience = await ExperienceService.GetById(exp.ExperienceId);
+           if (rating != null) { 
             await ratingService.Rater(experience, user, rating);
 
             ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
@@ -186,6 +189,13 @@ namespace TourMe.Web.Controllers
             var x = await ratingService.Moyen(exp.ExperienceId);
             experience.AvgRating = x.ToString();
             await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+            }
+           if (comment != null)
+            {
+                await ratingService.Commenter(experience, user, comment);
+
+
+            }
             if (exp == experience)
             {
                 return NotFound();

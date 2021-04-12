@@ -356,6 +356,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("UtilisateurId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Commentaire")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("note")
                         .HasColumnType("nvarchar(max)");
 

@@ -17,6 +17,6 @@ namespace Repository.Interfaces
         public Task<Rating> CreateRating(Experience exp, Utilisateur user);
         public IEnumerable<Rating> GetListRatingByExp(Experience exp);
 
-
+        public Task Commenter(Rating entity, int idExperience, string IdUtilisateur, string Commentaire);
     }
 }
