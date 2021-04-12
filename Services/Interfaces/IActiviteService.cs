@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Services.Interfaces
     public interface IActiviteService
     {
         public  Task Ajout(Activite activite);
-      
+        public IEnumerable<Activite> GetActivite(int id); 
+
 
 
     }
