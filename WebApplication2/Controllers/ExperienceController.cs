@@ -38,7 +38,7 @@ namespace TourMe.Web.Controllers
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
-           
+
             ActiviteService = activiteService;
             this.userManager = userManager;
             userService = _UserService;
@@ -47,21 +47,21 @@ namespace TourMe.Web.Controllers
         }
         [AllowAnonymous]
 
-        
+
         public IActionResult GetAll(string[] searchTerm)
 
         {
             ViewBag.Best = ExperienceService.BestExperience();
-            string[]  search = new string[10];
-            List<Experience> list =new List<Experience>();
-            if (!(searchTerm.Count()==0))
-            { foreach(var ch in searchTerm) 
-                {var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+            string[] search = new string[10];
+            List<Experience> list = new List<Experience>();
+            if (!(searchTerm.Count() == 0))
+            { foreach (var ch in searchTerm)
+                { var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
                     list = list.Concat(list2).ToList();
                 }
                 ;
-               
-            return View(list);
+
+                return View(list);
             }
             return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
@@ -80,7 +80,7 @@ namespace TourMe.Web.Controllers
 
 
 
-         [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
@@ -89,7 +89,7 @@ namespace TourMe.Web.Controllers
             //Activites = (ICollection<Activite>)ViewData["Message"];
             if (ModelState.IsValid)
             {
-              
+
                 Experience experience = new Experience
                 {
                     Titre = model.Titre,
@@ -108,18 +108,18 @@ namespace TourMe.Web.Controllers
                 //    await ActiviteService.Ajout(item);
 
                 //}
-               
-               int a = await ExperienceService.InsertExperience(experience);
-                Experience experience1 = await ExperienceService.GetById(a); 
-              
+
+                int a = await ExperienceService.InsertExperience(experience);
+                Experience experience1 = await ExperienceService.GetById(a);
+
                 TempData["experience"] = JsonConvert.SerializeObject(experience1);
-                System.Diagnostics.Debug.WriteLine( "idezeeeeeeeeeeee est" +experience1.ExperienceId);
+                System.Diagnostics.Debug.WriteLine("idezeeeeeeeeeeee est" + experience1.ExperienceId);
                 TempData["exp"] = JsonConvert.SerializeObject(model);
                 ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            
+
             }
-            
-            
+
+
             return View("CreateActivite");
 
         }
@@ -133,11 +133,8 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpGet]
-        [AllowAnonymous]
-
-
-        [HttpGet]
-            [HttpGet]
+       
+       
         [AllowAnonymous]
         public IActionResult CreateActivite()
         {
@@ -148,10 +145,10 @@ namespace TourMe.Web.Controllers
             ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
             TempData.Keep("exp");
 
-             ViewData["ListeActivite"]= ActiviteService.GetActivite(experience.ExperienceId);
+            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
             System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
 
-             return View();
+            return View();
 
         }
 
@@ -171,7 +168,7 @@ namespace TourMe.Web.Controllers
             }
 
             var s = ratingService.Moyen(exp.ExperienceId).Result;
-           
+
             ViewBag.avg = s;
 
 
@@ -180,23 +177,23 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string rating, Experience exp,string comment)
+        public async Task<IActionResult> Details(string rating, Experience exp, string comment)
         {
 
             string idu = userManager.GetUserId(User);
             Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
 
             var experience = await ExperienceService.GetById(exp.ExperienceId);
-           if (rating != null) { 
-            await ratingService.Rater(experience, user, rating);
+            if (rating != null) {
+                await ratingService.Rater(experience, user, rating);
 
-            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
-            
-            var x = await ratingService.Moyen(exp.ExperienceId);
-            experience.AvgRating = x.ToString();
-            await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+                ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
+
+                var x = await ratingService.Moyen(exp.ExperienceId);
+                experience.AvgRating = x.ToString();
+                await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
             }
-           if (comment != null)
+            if (comment != null)
             {
                 await ratingService.Commenter(experience, user, comment);
 
@@ -211,92 +208,88 @@ namespace TourMe.Web.Controllers
         }
 
 
-             return View();
-
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> CreateActivite(ActiviteViewModel model)
-        {
-            ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            TempData.Keep("exp");
-
-            ViewData["experience"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience"));
-            TempData.Keep("experience");
-            Experience experience = (Experience)ViewData["experience"];
-            System.Diagnostics.Debug.WriteLine(experience.ExperienceId);
-          
-            if (ModelState.IsValid)
-            {   
-                //if (ViewData["Message"] != null) 
-                //{
-                //    ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData["Message"]);
-                //    Activites = (ICollection<Activite>)ViewData["Message"];
-                //    TempData.Keep("Message");
-
-                //}
-               
-                string uniqueFileName = null;
-                if (model.FileP != null && model.FileP.Count > 0)
-                {
-                    // Loop thru each selected file
-                    foreach (IFormFile photo in model.FileP)
-                    {
-                        // The file must be uploaded to the images folder in wwwroot
-                        // To get the path of the wwwroot folder we are using the injected
-                        // IHostingEnvironment service provided by ASP.NET Core
-                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                        // To make sure the file name is unique we are appending a new
-                        // GUID value and and an underscore to the file name
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        // Use CopyTo() method provided by IFormFile interface to
-                        // copy the file to wwwroot/images folder
-                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
-                }
-
-                Activite activite = new Activite
-
-                {
-                    Details = model.Details,
-                    Image = uniqueFileName
-                };
-
-              
 
 
-                Activites.Add(activite);
-
-                experience.Activites = Activites;
-           await      ExperienceService.PutExperienceAsync(experience.ExperienceId,experience);
-                await ActiviteService.Ajout(activite);
-                TempData["experience1"] = JsonConvert.SerializeObject(experience);
-                ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
-                System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
-            }
-
-            return RedirectToAction("CreateActivite","Experience");
-
-        }
-
-      [HttpGet]
-        [AllowAnonymous]
-        public ActionResult test(string type)
-        {
-
-
-
-        
-
-                System.Diagnostics.Debug.WriteLine("Le type est" + type);
-                return PartialView("_Activité");
-           
-
-
-        }
     
 
+    [HttpPost]
+    [AllowAnonymous]
+    public async Task<IActionResult> CreateActivite(ActiviteViewModel model)
+    {
+        ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
+        TempData.Keep("exp");
+
+        ViewData["experience"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience"));
+        TempData.Keep("experience");
+        Experience experience = (Experience)ViewData["experience"];
+        System.Diagnostics.Debug.WriteLine(experience.ExperienceId);
+
+        if (ModelState.IsValid)
+        {
+            //if (ViewData["Message"] != null) 
+            //{
+            //    ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData["Message"]);
+            //    Activites = (ICollection<Activite>)ViewData["Message"];
+            //    TempData.Keep("Message");
+
+            //}
+
+            string uniqueFileName = null;
+            if (model.FileP != null && model.FileP.Count > 0)
+            {
+                // Loop thru each selected file
+                foreach (IFormFile photo in model.FileP)
+                {
+                    // The file must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the injected
+                    // IHostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+            }
+
+            Activite activite = new Activite
+
+            {
+                Details = model.Details,
+                Image = uniqueFileName
+            };
+
+
+
+
+            Activites.Add(activite);
+
+            experience.Activites = Activites;
+            await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+            await ActiviteService.Ajout(activite);
+            TempData["experience1"] = JsonConvert.SerializeObject(experience);
+            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
+            System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
+        }
+
+        return RedirectToAction("CreateActivite", "Experience");
+
     }
-}
+
+    [HttpGet]
+    [AllowAnonymous]
+    public ActionResult test(string type)
+    {
+
+        System.Diagnostics.Debug.WriteLine("Le type est" + type);
+        return PartialView("_Activité");
+
+
+
+    }
+}}
+
+   
+
