@@ -24,7 +24,7 @@ namespace TourMe.Web.Models
         public string Saison { get; set; }
         public string ImagesExperience { get; set; }
         public string Activité { get; set; }
-        public string Rating { get; set; }
+        public string AvGRating { get; set; }
 
         public int NbPlaces { get; set; }
         public List<IFormFile> FileP { get; set; }

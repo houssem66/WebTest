@@ -28,6 +28,7 @@ namespace TourMe.Data.Entities
         public string Rating { get; set; }
         
         public int NbPlaces { get; set; }
+        public string AvgRating { get; set; }
         //navigation Property
         public virtual ICollection<Commentaire> Commentaires { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
