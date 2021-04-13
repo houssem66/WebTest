@@ -163,7 +163,9 @@ namespace TourMe.Web.Controllers
 
                 {
                     Details = model.Details,
-                    Image = uniqueFileName
+                    Image = uniqueFileName,
+                    dateDebut=model.dateDebut,
+                    dateFin=model.dateFin
                 };
 
               
@@ -171,7 +173,7 @@ namespace TourMe.Web.Controllers
 
                 Activites.Add(activite);
 
-                experience.Activites = Activites;
+                experience.Activites = (IList<Activite>)Activites;
            await      ExperienceService.PutExperienceAsync(experience.ExperienceId,experience);
                 await ActiviteService.Ajout(activite);
                 TempData["experience1"] = JsonConvert.SerializeObject(experience);
@@ -182,24 +184,33 @@ namespace TourMe.Web.Controllers
             return RedirectToAction("CreateActivite","Experience");
 
         }
-   
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AffichageExperience()
+        {
+            ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
+            TempData.Keep("experience1");
+            ViewData["ListeActivite"] = (ICollection <Activite>) ActiviteService.GetActivite(ViewBag.experience1.ExperienceId);
+            return View("ExperienceAffichage");
+        }
+
+            [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AffichageExperience(Experience model)
+        {
+            await ExperienceService.PutExperienceAsync(model.ExperienceId, model);
+              
+            return RedirectToAction("Index","Home");
+        }
       [HttpGet]
         [AllowAnonymous]
         public ActionResult test(string type)
         {
 
-
-
-        
-
                 System.Diagnostics.Debug.WriteLine("Le type est" + type);
                 return PartialView("_Activité");
-           
-
-
+         
         }
-    
-
     }
 }

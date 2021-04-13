@@ -37,9 +37,10 @@ namespace Repository.Implementation
         {
             Experience Experience = await _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == id);
 
-            _dbContext.Entry(Experience);
-
-
+            _dbContext.Entry(Experience).Collection(experience => experience.Activites).Query().Load();
+            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
+            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Include(x => x.utilisateur).Load();
+            _dbContext.Entry(Experience).State = EntityState.Detached;
 
             return Experience;
         }

@@ -14,5 +14,9 @@ namespace TourMe.Data.Entities
         public string Details { get; set; }
         public string Image { get; set; }
         public int ExperienceId { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
+        public DateTime dateDebut { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
+        public DateTime dateFin { get; set; }
     }
 }
