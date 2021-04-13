@@ -61,13 +61,13 @@ namespace Repository.Implementation
             char c ='1';
             int c1 = 0;
            foreach (var item in x)
-            {
+            {if (item.note != null) { 
                 ch = item.note;
                 c = ch[0];
                 c1 = c - '0';
                 s = s + c1;
+                }
 
-              
 
 
             }
@@ -102,6 +102,25 @@ namespace Repository.Implementation
                 throw new NotImplementedException();
             }
             return rating;
+        }
+
+        public async Task Commenter(Rating entity, int idExperience, string IdUtilisateur, string Commentaire)
+        {
+
+            var rating = await _dbContext.Ratings.SingleOrDefaultAsync(rat => rat.ExperienceId == entity.ExperienceId && rat.UtilisateurId == entity.UtilisateurId);
+            rating.Commentaire = Commentaire;
+            _dbContext.Entry(rating).State = EntityState.Detached;
+            _dbContext.Entry(entity).State = EntityState.Modified;
+
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
+
         }
     }
 }

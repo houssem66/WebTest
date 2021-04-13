@@ -14,6 +14,7 @@ namespace Services.Interfaces
 
         public Task<Rating> GetRatingByIdAsync(int id);
         public Task Rater( Experience exp, Utilisateur user, string rate);
+        public Task Commenter(Experience exp, Utilisateur user, string commentaire);
         public Task<decimal> Moyen(int idE);
         public IEnumerable<Rating> GetListByeEXp(Experience entity);
 

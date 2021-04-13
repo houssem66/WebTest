@@ -37,7 +37,7 @@ namespace TourMe.Web.Controllers
         {
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
-           
+
             ActiviteService = activiteService;
             this.userManager = userManager;
             userService = _UserService;
@@ -45,21 +45,23 @@ namespace TourMe.Web.Controllers
         }
         [AllowAnonymous]
 
-        
+
         public IActionResult GetAll(string[] searchTerm)
 
         {
             ViewBag.Best = ExperienceService.BestExperience();
-            string[]  search = new string[10];
-            List<Experience> list =new List<Experience>();
-            if (!(searchTerm.Count()==0))
-            { foreach(var ch in searchTerm) 
-                {var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+            string[] search = new string[10];
+            List<Experience> list = new List<Experience>();
+            if (!(searchTerm.Count() == 0))
+            {
+                foreach (var ch in searchTerm)
+                {
+                    var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
                     list = list.Concat(list2).ToList();
                 }
                 ;
-               
-            return View(list);
+
+                return View(list);
             }
             return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
@@ -78,7 +80,7 @@ namespace TourMe.Web.Controllers
 
 
 
-         [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
@@ -87,7 +89,7 @@ namespace TourMe.Web.Controllers
             //Activites = (ICollection<Activite>)ViewData["Message"];
             if (ModelState.IsValid)
             {
-              
+
                 Experience experience = new Experience
                 {
                     Titre = model.Titre,
@@ -106,18 +108,18 @@ namespace TourMe.Web.Controllers
                 //    await ActiviteService.Ajout(item);
 
                 //}
-               
-               int a = await ExperienceService.InsertExperience(experience);
-                Experience experience1 = await ExperienceService.GetById(a); 
-              
+
+                int a = await ExperienceService.InsertExperience(experience);
+                Experience experience1 = await ExperienceService.GetById(a);
+
                 TempData["experience"] = JsonConvert.SerializeObject(experience1);
-                System.Diagnostics.Debug.WriteLine( "idezeeeeeeeeeeee est" +experience1.ExperienceId);
+                System.Diagnostics.Debug.WriteLine("idezeeeeeeeeeeee est" + experience1.ExperienceId);
                 TempData["exp"] = JsonConvert.SerializeObject(model);
                 ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            
+
             }
-            
-            
+
+
             return View("CreateActivite");
 
         }
@@ -130,12 +132,11 @@ namespace TourMe.Web.Controllers
             return View(ExperienceService.Search(searchTerm));
 
         }
-        [HttpGet]
-        [AllowAnonymous]
+
+
 
 
         [HttpGet]
-            [HttpGet]
         [AllowAnonymous]
         public IActionResult CreateActivite()
         {
@@ -146,10 +147,10 @@ namespace TourMe.Web.Controllers
             ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
             TempData.Keep("exp");
 
-             ViewData["ListeActivite"]= ActiviteService.GetActivite(experience.ExperienceId);
+            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
             System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
 
-             return View();
+            return View();
 
         }
 
@@ -169,7 +170,7 @@ namespace TourMe.Web.Controllers
             }
 
             var s = ratingService.Moyen(exp.ExperienceId).Result;
-           
+
             ViewBag.avg = s;
 
 
@@ -188,7 +189,7 @@ namespace TourMe.Web.Controllers
             await ratingService.Rater(experience, user, rating);
 
             ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
-            
+
             var x = await ratingService.Moyen(exp.ExperienceId);
             experience.AvgRating = x.ToString();
             await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
@@ -201,9 +202,9 @@ namespace TourMe.Web.Controllers
         }
 
 
-             return View();
 
-        }
+
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -216,9 +217,9 @@ namespace TourMe.Web.Controllers
             TempData.Keep("experience");
             Experience experience = (Experience)ViewData["experience"];
             System.Diagnostics.Debug.WriteLine(experience.ExperienceId);
-          
+
             if (ModelState.IsValid)
-            {   
+            {
                 //if (ViewData["Message"] != null) 
                 //{
                 //    ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData["Message"]);
@@ -226,7 +227,7 @@ namespace TourMe.Web.Controllers
                 //    TempData.Keep("Message");
 
                 //}
-               
+
                 string uniqueFileName = null;
                 if (model.FileP != null && model.FileP.Count > 0)
                 {
@@ -252,24 +253,24 @@ namespace TourMe.Web.Controllers
                 {
                     Details = model.Details,
                     Image = uniqueFileName,
-                    dateDebut=model.dateDebut,
-                    dateFin=model.dateFin
+                    dateDebut = model.dateDebut,
+                    dateFin = model.dateFin
                 };
 
-              
+
 
 
                 Activites.Add(activite);
 
                 experience.Activites = (IList<Activite>)Activites;
-           await      ExperienceService.PutExperienceAsync(experience.ExperienceId,experience);
+                await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
                 await ActiviteService.Ajout(activite);
                 TempData["experience1"] = JsonConvert.SerializeObject(experience);
                 ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
                 System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
             }
 
-            return RedirectToAction("CreateActivite","Experience");
+            return RedirectToAction("CreateActivite", "Experience");
 
         }
 
@@ -279,26 +280,27 @@ namespace TourMe.Web.Controllers
         {
             ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
             TempData.Keep("experience1");
-            ViewData["ListeActivite"] = (ICollection <Activite>) ActiviteService.GetActivite(ViewBag.experience1.ExperienceId);
+            ViewData["ListeActivite"] = (ICollection<Activite>)ActiviteService.GetActivite(ViewBag.experience1.ExperienceId);
             return View("ExperienceAffichage");
         }
 
-            [HttpPost]
+        [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> AffichageExperience(Experience model)
         {
             await ExperienceService.PutExperienceAsync(model.ExperienceId, model);
-              
-            return RedirectToAction("Index","Home");
+
+            return RedirectToAction("Index", "Home");
         }
-      [HttpGet]
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult test(string type)
         {
 
-                System.Diagnostics.Debug.WriteLine("Le type est" + type);
-                return PartialView("_Activité");
-         
+            System.Diagnostics.Debug.WriteLine("Le type est" + type);
+            return PartialView("_Activité");
+
         }
     }
 }
+
