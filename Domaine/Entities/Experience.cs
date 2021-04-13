@@ -18,7 +18,9 @@ namespace TourMe.Data.Entities
         public string TypeExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateDebut { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateFin { get; set; }
         public string Saison { get; set; }
         public string ImagesExperience { get; set; }
@@ -30,6 +32,6 @@ namespace TourMe.Data.Entities
         //navigation Property
         public virtual ICollection<Commentaire> Commentaires { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
-        public virtual ICollection<Activite> Activites { get; set; }
+        public virtual IList<Activite> Activites { get; set; }
     }
 }

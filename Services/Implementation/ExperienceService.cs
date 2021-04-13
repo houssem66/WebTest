@@ -71,7 +71,7 @@ namespace Services.Implementation
 
         public Task<Experience> GetExperienceByIdAsync(int id)
         {
-            return GenericRepo.GetByIdAsync(id);
+            return ExperienceRepo.GetExperienceDetailsAsync(id);
         }
 
         public async Task<int> InsertExperience(Experience entity)

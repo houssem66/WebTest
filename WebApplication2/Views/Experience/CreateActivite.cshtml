@@ -73,6 +73,19 @@
 
                     </div>
                 </div>
+                <div class="form-group">
+                    <label asp-for="dateDebut">date Debut</label>
+                    <input asp-for="dateDebut" class="form-control" />
+                    <span asp-validation-for="dateDebut" class="text-danger"></span>
+
+                </div>
+                <div class="form-group">
+                    <label asp-for="dateFin">date Fin</label>
+                    <input asp-for="dateFin" class="form-control" />
+                    <span asp-validation-for="dateFin" class="text-danger"></span>
+
+                </div>
+
 
                 <div class="row">
 
@@ -175,7 +188,12 @@
                         Images Activite
                     </th>
 
-
+                    <th>
+                        Date Debut
+                    </th>
+                    <th>
+                        Date Fin
+                    </th>
 
                     <th></th>
                 </tr>
@@ -188,23 +206,27 @@
                 @foreach (var item in ViewBag.ListeActivite)
                 {
 
-                    <tr>
+                <tr>
 
-                        <td>
-                            @item.Details
-                        </td>
-
-
-                        <td>
-                            @{var photoPath1 = "~/images/" + (item.Image ?? "noimage.jpg");
-
-                            }
-                            <img class="profile-user-img img-fluid img-circle" src="@photoPath1" asp-append-version="true" />
-                        </td>
+                    <td>
+                        @item.Details
+                    </td>
 
 
+                    <td>
+                        @{var photoPath1 = "~/images/" + (item.Image ?? "noimage.jpg");
 
-                    </tr>
+                        }
+                        <img class="profile-user-img img-fluid img-circle" src="@photoPath1" asp-append-version="true" />
+                    </td>
+                    <td>
+                        @item.dateDebut
+                    </td>
+                    <td>
+                        @item.dateFin
+                    </td>
+
+                </tr>
                 }
             </tbody>
         </table>
@@ -222,7 +244,7 @@
         <ul>
             <li>
 
-                <input type="submit" asp-controller="Home" asp-action="Index" onclick="showAlert()" />
+                <input type="submit" asp-controller="Experience" asp-action="AffichageExperience" onclick="showAlert()" />
 
             </li>
         </ul>

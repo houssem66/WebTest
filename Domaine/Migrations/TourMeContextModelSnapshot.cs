@@ -275,6 +275,12 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime>("dateDebut")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateFin")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("activiteId");
 
                     b.HasIndex("ExperienceId");
