@@ -87,8 +87,7 @@ namespace Repository.Implementation
             {
                 ExperienceId = exp.ExperienceId,
                 UtilisateurId = user.Id,
-                utilisateur=user,
-                experience=exp
+               
                
 
             };
