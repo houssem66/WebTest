@@ -153,7 +153,7 @@ namespace TourMe.Web.Controllers
             return View();
 
         }
-
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             if (id == 0)

@@ -74,12 +74,12 @@ namespace Repository.Interfaces
             try
             {
                 DbSet.Add(entity);
-                await _dbContext.SaveChangesAsync();
+               await _dbContext.SaveChangesAsync();
             }
             catch (Exception)
             {
 
-                throw new NotImplementedException();
+               
             }
 
         }
