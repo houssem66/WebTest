@@ -554,6 +554,22 @@ namespace Finance.Controllers
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
 
+                    if (UserService.GetAllUtilisateurs().Count()==1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("the count of :"+ UserService.GetAllUtilisateurs().Count());
+
+                        IdentityRole identityrole2 = new IdentityRole
+                        {
+                            Name = "Administrateur"
+
+                        };
+                        await roleManager.CreateAsync(identityrole2);
+
+                        await userManager.AddToRoleAsync(user, "Administrateur");
+
+                    }
+                   
+
                     return LocalRedirect(returnUrl);
                 }
 
