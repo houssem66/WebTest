@@ -484,7 +484,12 @@
                     <div class="tour_head1 hotel-com-color">
                         <h3>About @Model.Titre</h3>
                         @{ foreach (var item in Model.Activites)
-                            { <p>@item.Details  </p> }
+                            {
+
+
+                                var photoPath = "~/images/" + item.Image;
+                                <p>@item.Image.ToString()  </p>
+                            }
                         }
 
                     </div>
@@ -494,50 +499,58 @@
                         <div id="myCarousel1" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
                             <ol class="carousel-indicators carousel-indicators-1">
-                                <li data-target="#myCarousel1" data-slide-to="0">
-                                    <img src="~/Theme/Template2/images/gallery/s1.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="1">
-                                    <img src="~/Theme/Template2/images/gallery/s2.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="2">
-                                    <img src="~/Theme/Template2/images/gallery/s3.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="3">
-                                    <img src="~/Theme/Template2/images/gallery/s4.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="4">
-                                    <img src="~/Theme/Template2/images/gallery/s5.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="5">
-                                    <img src="~/Theme/Template2/images/gallery/s6.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="6">
-                                    <img src="~/Theme/Template2/images/gallery/s7.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="7">
-                                    <img src="~/Theme/Template2/images/gallery/s8.jpg" alt="Chania">
-                                </li>
-                                <li data-target="#myCarousel1" data-slide-to="8">
-                                    <img src="~/Theme/Template2/images/gallery/s9.jpg" alt="Chania">
-                                </li>
+                                @{int x = 0;
+                                    foreach (var item in Model.Activites)
+                                    {
+                                        <li data-target="#myCarousel1" data-slide-to="@x">
+                                            <img src="~/images/@item.Image" alt="Chania">
+                                        </li>
+
+                                        x++;
+                                    }
+
+
+                                }
                             </ol>
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner carousel-inner1" role="listbox">
-                                <div class="item active"> <img src="~/Theme/Template2/images/gallery/s1.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s2.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s3.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s4.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s5.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s6.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s7.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s8.jpg" alt="Chania" width="460" height="345"> </div>
-                                <div class="item"> <img src="~/Theme/Template2/images/gallery/s9.jpg" alt="Chania" width="460" height="345"> </div>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner carousel-inner1" role="listbox">
+                                    @{ if (Model.Activites.Count() == 1)
+                                        {
+                                            foreach (var item in Model.Activites)
+                                            {
+                                                <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            int j = 1;
+                                            foreach (var item in Model.Activites)
+                                            {
+
+                                                if (j == 1)
+                                                {
+                                                    <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="item"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
+
+
+                                                }
+                                                j++;
+                                            }
+
+
+                                        }
+
+                                    }
+                                </div>
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+                                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
                             </div>
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
-                            <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
-                        </div>
                     </div>
                     <!--====== ABOUT THE TOUR ==========-->
                     <div class="tour_head1">
@@ -576,7 +589,7 @@
                         </table>
                     </div>
                     <!--====== HOTEL ROOM TYPES ==========-->
-                    
+
                     <!--====== AMENITIES ==========-->
                     <div class="tour_head1 hot-ameni">
                         <h3>Liste de services</h3>
@@ -665,7 +678,7 @@
                                     <div class="row">
                                         <div class="col-md-3 dir-rat-left">
                                             <img src="images/reviewer/4.jpg" alt="">
-                                            <p>@item.utilisateur.Nom <span>19th January, 2017</span> </p>
+                                            <p>@item.utilisateur.Nom </p>
                                         </div>
                                         <div class="col-md-9 dir-rat-right">
                                             <!--calculatign number of stars-->

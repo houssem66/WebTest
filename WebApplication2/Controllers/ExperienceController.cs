@@ -309,6 +309,28 @@ namespace TourMe.Web.Controllers
             return PartialView("_Activité");
 
         }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Description(string type)
+        {
+
+
+
+            if (type.Equals("Organisme"))
+            {
+
+
+                System.Diagnostics.Debug.WriteLine("Le type est" + type);
+                return PartialView("_Organisme");
+            }
+
+            else
+            {
+
+                return new EmptyResult();
+            }
+
+        }
     }
 }
 
