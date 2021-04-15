@@ -43,9 +43,9 @@ namespace TourMe.Web.Controllers
             userService = _UserService;
             this.ratingService = ratingService;
         }
-        [AllowAnonymous]
+        
 
-
+        
         public IActionResult GetAll(string[] searchTerm)
 
         {
@@ -69,7 +69,8 @@ namespace TourMe.Web.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
+        
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience(int ActiviteId)
         {
             TempData.Keep("Message");
@@ -77,11 +78,9 @@ namespace TourMe.Web.Controllers
             return View();
         }
 
-
-
-
         [HttpPost]
-        [AllowAnonymous]
+       
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
             //ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData.Peek("Message"));
