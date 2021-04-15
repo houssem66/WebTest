@@ -178,20 +178,29 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Details(string rating, Experience exp)
+        public async Task<IActionResult> Details(string rating, Experience exp, string comment)
         {
 
             string idu = userManager.GetUserId(User);
             Utilisateur user = await userService.GetUtilisateurByIdAsync(idu);
 
             var experience = await ExperienceService.GetById(exp.ExperienceId);
-            await ratingService.Rater(experience, user, rating);
+            if (rating != null)
+            {
+                await ratingService.Rater(experience, user, rating);
 
-            ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
+                ViewBag.avg = ratingService.Moyen(exp.ExperienceId);
 
-            var x = await ratingService.Moyen(exp.ExperienceId);
-            experience.AvgRating = x.ToString();
-            await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+                var x = await ratingService.Moyen(exp.ExperienceId);
+                experience.AvgRating = x.ToString();
+                await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
+            }
+            if (comment != null)
+            {
+                await ratingService.Commenter(experience, user, comment);
+
+
+            }
             if (exp == experience)
             {
                 return NotFound();
