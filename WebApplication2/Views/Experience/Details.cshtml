@@ -503,10 +503,11 @@
                                     foreach (var item in Model.Activites)
                                     {
                                         <li data-target="#myCarousel1" data-slide-to="@x">
-                                            <img src="~/images/@item.Image" alt="Chania">
+                                            <img src="~/images/@item.Image" alt="Chania"><h3>@item.Details</h3>
                                         </li>
 
                                         x++;
+                                      
                                     }
 
 
@@ -514,80 +515,63 @@
                             </ol>
 
                                 <!-- Wrapper for slides -->
-                                <div class="carousel-inner carousel-inner1" role="listbox">
-                                    @{ if (Model.Activites.Count() == 1)
-                                        {
-                                            foreach (var item in Model.Activites)
-                                            {
-                                                <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
-
-                                            }
-                                        }
-                                        else
-                                        {
-                                            int j = 1;
-                                            foreach (var item in Model.Activites)
-                                            {
-
-                                                if (j == 1)
-                                                {
-                                                    <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="item"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"> </div>
-
-
-                                                }
-                                                j++;
-                                            }
-
+                            <div class="carousel-inner carousel-inner1" role="listbox">
+                                @{ if (Model.Activites.Count() == 1)
+                                    {
+                                        foreach (var item in Model.Activites)
+                                        {<div></div>
+                                            <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3> </div>
 
                                         }
+                                    }
+                                    else
+                                    {
+                                        int j = 1;
+                                        foreach (var item in Model.Activites)
+                                        {
+
+                                            if (j == 1)
+                                            {
+                            <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3> </div>
+                                               
+                                            }
+                                            else
+                                            {
+                            <div class="item"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3></div>
+
+                                            
+                                            }
+                                            j++;
+                                        }
+
 
                                     }
-                                </div>
+
+                                }
+                            </div>
                                 <!-- Left and right controls -->
                                 <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
                                 <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
                             </div>
                     </div>
                     <!--====== ABOUT THE TOUR ==========-->
-                    <div class="tour_head1">
-                        <h3>Description des Activité</h3>
-                        <table>
-                            <tr>
-                                <th>Places covered</th>
-                                <th class="event-res">Inclusions</th>
-                                <th class="event-res">Exclusions</th>
-                                <th>Event Date</th>
-                            </tr>
-                            <tr>
-                                <td>Rio De Janeiro ,Brazil</td>
-                                <td class="event-res">Accommodation</td>
-                                <td class="event-res">Return Airfare & Taxes</td>
-                                <td>Nov 12, 2017</td>
-                            </tr>
-                            <tr>
-                                <td>Iguassu Falls </td>
-                                <td class="event-res">8 Breakfast, 3 Dinners</td>
-                                <td class="event-res">Arrival & Departure transfers</td>
-                                <td>Nov 14, 2017</td>
-                            </tr>
-                            <tr>
-                                <td>Peru,Lima </td>
-                                <td class="event-res">First-class Travel</td>
-                                <td class="event-res">travel insurance</td>
-                                <td>Nov 16, 2017</td>
-                            </tr>
-                            <tr>
-                                <td>Cusco & Buenos Aires </td>
-                                <td class="event-res">Free Sightseeing</td>
-                                <td class="event-res">Service tax of 4.50%</td>
-                                <td>Nov 18, 2017</td>
-                            </tr>
-                        </table>
-                    </div>
+                    <script>
+                        function imageLoaded() {
+                            ++imageCount;
+                            var value = document.getElementById("myCarousel1").value;
+                                     $.ajax({
+
+                                         url: '@Url.Action("Description", "Experience")',
+                                         data: {
+                                             'Activite': value
+                               },
+                           type: "post",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });
+                        }
+                    </script>
                     <!--====== HOTEL ROOM TYPES ==========-->
 
                     <!--====== AMENITIES ==========-->
