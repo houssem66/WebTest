@@ -29,12 +29,12 @@
                        var value = $("input[type='radio'].radioBtnClass:checked").val();
 
 
-
+                       alert(value);
 
 
                        $.ajax({
 
-                    url: '@Url.Action("test","Account")',
+                    url: '@Url.Action("test", "Account")',
                    data: { 'type': value },
                            type: "post",
                     success: function (data) {

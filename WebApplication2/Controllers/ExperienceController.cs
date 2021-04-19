@@ -43,9 +43,10 @@ namespace TourMe.Web.Controllers
             userService = _UserService;
             this.ratingService = ratingService;
         }
-        
 
-        
+        [HttpGet]
+        [AllowAnonymous]
+
         public IActionResult GetAll(string[] searchTerm)
 
         {
@@ -311,23 +312,23 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Description(string type)
+        public ActionResult Description(string Activite)
         {
 
 
 
-            if (type.Equals("Organisme"))
+            if (Activite.Equals(""))
             {
 
 
-                System.Diagnostics.Debug.WriteLine("Le type est" + type);
-                return PartialView("_Organisme");
+                System.Diagnostics.Debug.WriteLine("Le type est" + Activite);
+                return PartialView("_Description");
             }
 
             else
             {
 
-                return new EmptyResult();
+                return PartialView("_Description");
             }
 
         }
