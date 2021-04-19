@@ -1,4 +1,5 @@
 ﻿using Repository.Implementation;
+using Repository.Interfaces;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,11 @@ namespace Services.Implementation
   public   class ActiviteService : IActiviteService
     {
         private readonly IGenericRepository<Activite> GenericRepo;
-
-        public ActiviteService(IGenericRepository<Activite> genericRepo)
+        readonly private IActiviteRepo ActiviteRepo;
+        public ActiviteService(IGenericRepository<Activite> genericRepo, IActiviteRepo activiteRepo)
         {
             GenericRepo = genericRepo;
+          ActiviteRepo = activiteRepo ;
         }
         public  Task Ajout(Activite activite)
         {
@@ -27,6 +29,17 @@ namespace Services.Implementation
             return GenericRepo.GetAll().Where(e => e.ExperienceId==id).ToList();
         }
 
+        public async Task<Activite> GetActiviteById(int id)
+        {
+           Activite a = await GenericRepo.GetByIdAsync(id);
+            return a;
+        }
+
+
+        public Task Update(Activite activite)
+        {
+            return  ActiviteRepo.Update(activite);
+        }
     }
 }
 

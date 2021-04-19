@@ -4,142 +4,202 @@
     ViewBag.Title = "Experience";
 
 }
-@using System.Linq;
 
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication2</title>
-    <!-- Font Awesome -->
-    <!-- Ionicons -->
-    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
-    <!-- overlayScrollbars -->
-    <link href="~/Theme/dist/css/adminlte.min.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="#">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
-
-</head>
 
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<div class="card card-warning" style="float: right; width: 50%">
-    <div class="card-header">
-        <h1 class="card-title">Expérience</h1>
-    </div>
-    <div class="card card-info col-md-auto accent-green">
+<div class="col-md-6">
+    <div class="db-2-com db-2-main">
+        <h4>Créer éxperience<span class="db-pay-amount"></span></h4>
+        <div class="db-2-main-com db2-form-pay db2-form-com">
 
-        <div class="col-md-12">
-            <form enctype="multipart/form-data" method="post" asp-action="AffichageExperience">
-                <div asp-validation-summary="All" class="text-danger"></div>
+            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="AffichageExperience">
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <label asp-for="Titre">Titre Experience</label>
+                        <input asp-for="Titre" value="@ViewBag.experience1.Titre" class="form-control" />
+                        <span asp-validation-for="Titre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label asp-for="TypeExperience">Type Experience</label>
+                        <input asp-for="TypeExperience" value="@ViewBag.experience1.TypeExperience" class="form-control" />
+                        <span asp-validation-for="TypeExperience" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label asp-for="Lieu">Type Experience</label>
+                        <input asp-for="Lieu" value="@ViewBag.experience1.Lieu" class="form-control" />
+                        <span asp-validation-for="Lieu" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label asp-for="tarif">Tarif de l' Experience</label>
+                        <input asp-for="tarif" value="@ViewBag.experience1.tarif" class="form-control" />
+                        <span asp-validation-for="tarif" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label asp-for="NbPlaces">Nombre de places de l' Experience</label>
+                        <input asp-for="NbPlaces" value="@ViewBag.experience1.NbPlaces" class="form-control" />
+                        <span asp-validation-for="NbPlaces" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <select asp-for="Saison" placeholder="Choisir pays">
+                            <option value="@ViewBag.experience1.Saison" disabled selected>@ViewBag.experience1.Saison</option>
+                            <option value="HIVER">HIVER</option>
+                            <option value="PRINTEMPS">PRINTEMPS</option>
+                            <option value="ÉTÉ">ÉTÉ </option>
+                            <option value="AUTOMNE">AUTOMNE </option>
 
 
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
 
+                    <div class="input-field col s12">
+                        <label>Date Début</label>
+                        <br />
+                        <br />
 
+                        <input asp-for="dateDebut" value="@ViewBag.experience1.dateDebut" class="form-control" />
+                        <span asp-validation-for="dateDebut" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label>Date Fin</label>
+                        <br />
+                        <br />
 
-                <div class="bootstrap-switch-gray-dark">
-                    <label asp-for="Titre">Titre Experience</label>
-                    <input asp-for="Titre" value="@ViewBag.experience1.Titre" class="form-control" />
-                    <span asp-validation-for="Titre" class="text-danger"></span>
-
+                        <input asp-for="dateFin" value="@ViewBag.experience1.dateFin" class="form-control" />
+                        <span asp-validation-for="dateFin" class="text-danger"></span>
+                    </div>
                 </div>
 
 
 
-                <div class="form-group">
-                    <label asp-for="TypeExperience">Type Experience</label>
-                    <input asp-for="TypeExperience" value="@ViewBag.experience1.TypeExperience" class="form-control" />
-                    <span asp-validation-for="TypeExperience" class="text-danger"></span>
 
-                </div>
-                <div class="form-group">
-                    <label asp-for="Lieu">Lieu</label>
-                    <input asp-for="Lieu" value="@ViewBag.experience1.Lieu" class="form-control" />
-                    <span asp-validation-for="Lieu" class="text-danger"></span>
 
-                </div>
-                <div class="form-group">
-                    <label asp-for="Saison">Saison</label>
-                    <input asp-for="Saison" value="@ViewBag.experience1.Saison" class="form-control" />
-                    <span asp-validation-for="Saison" class="text-danger"></span>
-                </div>
+                <div class="row">
 
 
 
 
-                <div class="form-group">
-                    <label asp-for="dateDebut">date Debut</label>
-                    <input asp-for="dateDebut" value="@ViewBag.experience1.dateDebut" class="form-control" />
-                    <span asp-validation-for="dateDebut" class="text-danger"></span>
 
-                </div>
-                <div class="form-group">
-                    <label asp-for="dateFin">date Fin</label>
-                    <input asp-for="dateFin" value="@ViewBag.experience1.dateFin" class="form-control" />
-                    <span asp-validation-for="dateFin" class="text-danger"></span>
-
+                    <div class="input-field col s12">
+                        <input type="submit" value="Modifier l'éxperience" class="waves-effect waves-light full-btn">
+                    </div>
                 </div>
                 <input type="hidden" asp-for="ExperienceId" value="@ViewBag.experience1.ExperienceId" />
-                <div class="form-group">
-
-
-
-
-                </div>
-                <table class="table">
-                    <thead>
-                        <tr>
-
-                            <th>
-                                Details Activité
-                            </th>
-                            <th>
-                                Image Activité
-                            </th>
-
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < @ViewBag.ListeActivite.Count; i++)
-                        {
-                            <tr>
-
-                                <td>
-                                    <input asp-for="Activites[i].Details" value="@ViewBag.ListeActivite[i].Details" />
-                                </td>
-                                <td>
-                                    @{var photoPath1 = "~/images/" + (@ViewBag.ListeActivite[i].Image ?? "noimage.jpg");
-                                    }
-                                    <img class="profile-user-img img-fluid img-circle" src="@photoPath1" asp-append-version="true" />
-                                </td>
-
-
-                                @*<td>
-                            <a asp-action="Edit" asp-route-id="@item.ExperienceId">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ExperienceId">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ExperienceId">Delete</a>
-                        </td>*@
-                            </tr>
-
-                        }
-                    </tbody>
-                </table>
-
-
-                <button type="submit" class="btn btn-outline-success">Valider Expérience</button>
-
 
             </form>
+            <div class="input-field col s12">
+               <form method="get">
+
+                   <input type="submit" value="Valider L'experience" asp-action="GetAll" asp-controller="Experience" />
+
+               </form>
+            </div>
         </div>
     </div>
+
 </div>
 
+
+   
+
+
+   
+<div class="col-md-6">
+
+    @for (int i = 0; i < @ViewBag.ListeActivite.Count; i++)
+    {
+        <form method="post" name="redirect" enctype="multipart/form-data">
+
+            <ul>
+                <li>
+                    <label> Details de l'activité </label>
+                    <input type="text" name="details" value="@ViewBag.ListeActivite[i].Details" />
+
+                </li>
+
+                <li>
+                    <label> Image de l'activité</label>
+                    @{var photoPath1 = "~/images/" + (@ViewBag.ListeActivite[i].Image ?? "noimage.jpg");
+
+                    }
+
+                    <img class="profile-user-img img-fluid img-circle" src="@photoPath1" style="height:50px; width:100px;" alt="" asp-append-version="true" />
+                    <input type="file" name="FileP"  class="form-control" accept="image/jpeg,image/jpg,image/png" />
+                </li>
+
+
+
+                <li>
+
+                    <input type="hidden" name="activiteId" value="@ViewBag.ListeActivite[i].activiteId" />
+                    <input type="hidden" asp-for="TypeExperience" value="@ViewBag.experience1.TypeExperience" class="form-control" />
+                    <input type="hidden" asp-for="Titre" value="@ViewBag.experience1.Titre" class="form-control" />
+                    <input type="hidden" asp-for="Lieu" value="@ViewBag.experience1.Lieu" class="form-control" />
+                    <input type="hidden" asp-for="Saison" value="@ViewBag.experience1.Saison" class="form-control" />
+                    <input type="hidden" asp-for="dateDebut" value="@ViewBag.experience1.dateDebut" class="form-control" />
+                    <input type="hidden" asp-for="dateFin" value="@ViewBag.experience1.dateFin" class="form-control" />
+                    <input type="hidden" asp-for="ExperienceId" value="@ViewBag.experience1.ExperienceId" />
+
+                    <ul>
+                        <li>
+
+                            <input type="submit" class="waves-effect waves-light full-btn" asp-controller="Experience" asp-action="AffichageExperience" value="Modifier" />
+
+                        </li>
+                    </ul>
+
+
+                </li>
+
+
+                @*<td>
+                        <a asp-action="Edit" asp-route-id="@item.ExperienceId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ExperienceId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ExperienceId">Delete</a>
+                    </td>*@
+            </ul>
+        </form>
+    }
+
+
+
+
+
+    @section Scripts {
+        <script>
+            $(document).ready(function () {
+                $('.custom-file-input').on("change", function () {
+                    var fileLabel = $(this).next('.custom-file-label');
+                    var files = $(this)[0].files;
+                    if (files.length > 1) {
+                        fileLabel.html(files.length + ' files selected');
+                    }
+                    else if (files.length == 1) {
+                        fileLabel.html(files[0].name);
+                    }
+                });
+            });
+        </script>
+    }
+
+</div>
