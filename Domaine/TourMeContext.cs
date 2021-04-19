@@ -18,6 +18,7 @@ namespace TourMe.Data
         public DbSet<Experience> Experience { get; set; }
         public DbSet<Commentaire> Commentaires { get; set; }
         public DbSet<Rating> Ratings { get; set; }
+        public DbSet<Activite> Activite { get; set; }
 
 
 
