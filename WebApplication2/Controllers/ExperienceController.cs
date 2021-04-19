@@ -312,12 +312,12 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Description(string Activite)
+        public ActionResult Description(IFormFile Activite)
         {
 
 
 
-            if (Activite.Equals(""))
+            if (Activite.Equals("a"))
             {
 
 
