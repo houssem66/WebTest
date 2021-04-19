@@ -18,6 +18,7 @@ namespace TourMe.Data.Entities
         
         public string note { get; set; }
 
-        
+        public string Commentaire { get; set; }
+
     }
 }

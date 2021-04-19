@@ -1,4 +1,7 @@
 ﻿@model TourMe.Data.Entities.Experience
+@using Microsoft.AspNetCore.Identity;
+@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+
 @{
     Layout = null;
 }
@@ -458,29 +461,32 @@
             <div class="container inn-page-con-bg tb-space">
                 <div class="col-md-9">
                     <!--====== TOUR TITLE ==========-->
-                   
-        <div class="tour_head"><h2>@Model.Titre
-            <span class="tour_star">
-                @{ int i = 1;
-                    decimal s = ViewBag.avg;
-                    for (i = 1; i <= ViewBag.avg; i++)
-                    {
-                        <i class="fa fa-star" aria-hidden="true">
-                        </i> }
-                    s = Math.Abs((s - i));
-                    if ((s < 1) && (s > 0))
-                    {<i class="fa fa-star-half-o" aria-hidden="true">
-                        </i> } }
-            </span><span class="tour_rat">@ViewBag.avg</span> </h2>
-            
-        </div>
+
+                    <div class="tour_head">
+                        <h2>
+                            @Model.Titre
+                            <span class="tour_star">
+                                @{ int i = 1;
+                                    decimal s = ViewBag.avg;
+                                    for (i = 1; i <= ViewBag.avg; i++)
+                                    {
+                                        <i class="fa fa-star" aria-hidden="true">
+                                        </i> }
+                                    s = Math.Abs((s - i));
+                                    if ((s < 1) && (s > 0))
+                                    {<i class="fa fa-star-half-o" aria-hidden="true">
+                                        </i> } }
+                            </span><span class="tour_rat">@ViewBag.avg</span>
+                        </h2>
+
+                    </div>
                     <!--====== TOUR DESCRIPTION ==========-->
                     <div class="tour_head1 hotel-com-color">
                         <h3>About @Model.Titre</h3>
-                     @{ foreach (var item in Model.Activites)
-                         {  <p>@item.Details  </p>           }                            
-                     }
-                      
+                        @{ foreach (var item in Model.Activites)
+                            { <p>@item.Details  </p> }
+                        }
+
                     </div>
                     <!--====== ROOMS: HOTEL BOOKING ==========-->
                     <div class="tour_head1 hotel-book-room">
@@ -659,6 +665,9 @@
                         <iframe src="~/Theme/Template2/https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6290415.157581651!2d-93.99661009218904!3d39.661150926343694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880b2d386f6e2619%3A0x7f15825064115956!2sIllinois%2C+USA!5e0!3m2!1sen!2sin!4v1467884030780" allowfullscreen></iframe>
                     </div>
                     <div>
+                        @if (signInManager.IsSignedIn(User))
+                        {
+
                         <div class="dir-rat">
                             <form method="post" asp-controller="Experience" asp-action="Details">
                                 <div class="dir-rat-inn dir-rat-title">
@@ -688,20 +697,9 @@
                                 </div>
                                 <div class="dir-rat-inn">
 
-                                    <div class="form-group col-md-6 pad-left-o">
-                                        <input type="text" class="form-control" id="email11" placeholder="Enter Name">
-                                    </div>
-                                    <div class="form-group col-md-6 pad-left-o">
-                                        <input type="number" class="form-control" id="email12" placeholder="Enter Mobile">
-                                    </div>
-                                    <div class="form-group col-md-6 pad-left-o">
-                                        <input type="email" class="form-control" id="email13" placeholder="Enter Email id">
-                                    </div>
-                                    <div class="form-group col-md-6 pad-left-o">
-                                        <input type="text" class="form-control" id="email14" placeholder="Enter your City">
-                                    </div>
+
                                     <div class="form-group col-md-12 pad-left-o">
-                                        <textarea placeholder="Write your message"></textarea>
+                                        <textarea name="comment" placeholder="Write your message"></textarea>
                                     </div>
                                     <div class="form-group col-md-12 pad-left-o">
                                         <input type="submit" value="SUBMIT" class="link-btn">
@@ -712,10 +710,40 @@
                                 </div>
 
                                 <!--COMMENT RATING-->
+                                @{ foreach (var item in Model.Ratings)
+                                    { 
+
+
+                                        if (item.Commentaire != null) { 
+                                <div class="dir-rat-inn dir-rat-review">
+                                    <div class="row">
+                                        <div class="col-md-3 dir-rat-left">
+                                            <img src="images/reviewer/4.jpg" alt="">
+                                            <p>@item.utilisateur.Nom <span>19th January, 2017</span> </p>
+                                        </div>
+                                        <div class="col-md-9 dir-rat-right">
+                                            <!--calculatign number of stars-->
+                                            <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                                            <p>@item.Commentaire</p>
+                                            <ul>
+                                                <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>}}
+                                    }
                                 <!--COMMENT RATING-->
                                 <!--COMMENT RATING-->
                             </form>
-                        </div>
+                        </div> }
                     </div>
                 </div>
                 <div class="col-md-3 tour_r">

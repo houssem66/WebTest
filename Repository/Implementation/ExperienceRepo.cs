@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,7 +27,7 @@ namespace Repository.Implementation
         public Task<Experience> ExperienceGet(Experience entity)
         {
             return _dbContext.Experience.SingleAsync(Experience => Experience.ExperienceId == entity.ExperienceId);
-          
+
         }
 
 
@@ -40,31 +40,30 @@ namespace Repository.Implementation
 
         public async Task<Experience> GetExperienceDetailsAsync(int id)
         {
-
             var Experience = await _dbContext.Experience.Include(x=>x.Activites).SingleAsync(Experience => Experience.ExperienceId == id);
 
-
-            _dbContext.Entry(Experience).Collection(experience=>experience.Activites).Query();
-
-
+            _dbContext.Entry(Experience).Collection(experience=>experience.Activites).Query().Load();
+            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
+            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Include(x => x.utilisateur).Load();
+            _dbContext.Entry(Experience).State = EntityState.Detached;
 
             return Experience;
         }
 
+
         public async Task<int> InsertExperience(Experience entity)
         {
-         
-                _dbContext.Add(entity);
-                
-              await _dbContext.SaveChangesAsync();
-                Experience experience =  _dbContext.Experience.SingleOrDefault(x => x.Titre == entity.Titre && x.Saison == entity.Saison&&x.Lieu==entity.Lieu&&x.TypeExperience==entity.TypeExperience);
 
-                return experience.ExperienceId;
+            _dbContext.Add(entity);
 
-         
-        
+            await _dbContext.SaveChangesAsync();
+            Experience experience = _dbContext.Experience.SingleOrDefault(x => x.Titre == entity.Titre && x.Saison == entity.Saison && x.Lieu == entity.Lieu && x.TypeExperience == entity.TypeExperience);
+
+            return experience.ExperienceId;
+
+
+
         }
-
         public async Task PutExperienceAsync(int id, Experience entity)
         {
             var Experience = await _dbContext.Experience.SingleAsync(e => e.ExperienceId == entity.ExperienceId);
