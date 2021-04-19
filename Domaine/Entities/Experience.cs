@@ -2,15 +2,19 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities
 {
-   public class Experience 
+   public class Experience
     {
-
+        [Range(1, 2000)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+          public decimal tarif { get; set; }
         public int ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }

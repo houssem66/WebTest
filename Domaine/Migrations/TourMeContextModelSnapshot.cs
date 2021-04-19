@@ -349,6 +349,9 @@ namespace TourMe.Data.Migrations
                     b.Property<DateTime>("dateFin")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal>("tarif")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("ExperienceId");
 
                     b.ToTable("Experience");

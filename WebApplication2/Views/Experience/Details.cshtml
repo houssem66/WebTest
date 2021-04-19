@@ -1,4 +1,4 @@
-﻿@model TourMe.Data.Entities.Experience
+@model TourMe.Data.Entities.Experience
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 
@@ -538,21 +538,28 @@
                     <!--====== ABOUT THE TOUR ==========-->
                    
                     <script>
+
                         $(document).ready(function () {
 
 
-                            $("#myCarousel1").on('slid.bs.carousel', function () {
-                                var value = $('.carousel-inner .item .active')
+                            $("#myCarousel1").on('slide.bs.carousel', function () {
 
+                                var ele = $('.carousel-inner .item .active').val('.carousel - inner.item.active').toString();
+                                var totalItems = $('.item').text().length;
+                                //for (var i = 0; i < totalItems; i++) {
+                                //    var valeur = $('.item').index(i);
+                                //    console.log('balkchi n: ' + valeur
+                                //    );
 
-                                alert("xD");
-
-
+                                //}
+                                console.log('target: ' + totalItems
+                                    );
+                                alert(totalItems);
 
                                              $.ajax({
 
                     url: '@Url.Action("Description", "Experience")',
-                   data: { 'Activite':"zab" },
+                                                 data: { 'Activite': totalItems },
                            type: "post",
                     success: function (data) {
                     $("#loadpartial").html(data);

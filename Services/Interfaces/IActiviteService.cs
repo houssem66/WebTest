@@ -11,9 +11,9 @@ namespace Services.Interfaces
     public interface IActiviteService
     {
         public  Task Ajout(Activite activite);
-        public IEnumerable<Activite> GetActivite(int id); 
-
-
+        public IEnumerable<Activite> GetActivite(int id);
+        public Task Update(Activite activite);
+        public Task<Activite> GetActiviteById(int id);
 
     }
 }

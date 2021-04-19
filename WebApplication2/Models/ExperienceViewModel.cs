@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Data.Entities;
@@ -10,6 +11,10 @@ namespace TourMe.Web.Models
 {
     public class ExperienceViewModel
     {
+        [Range(1, 2000)]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18, 2)")]
+        public decimal tarif { get; set; }
         public int ExperienceId { get; set; }
         public int ActiviteId { get; set; }
 

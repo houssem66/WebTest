@@ -3,333 +3,391 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
+
+<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:01:37 GMT -->
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication2</title>
-    <!-- Font Awesome -->
-    <!-- Ionicons -->
-    <link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <title>The Travel - Tour Travel</title>
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!-- overlayScrollbars -->
-    <link href="~/Theme/dist/css/adminlte.min.css" rel="stylesheet" />
-    <link rel="shortcut icon" href="#">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
+    <!-- FONT-AWESOME ICON CSS -->
+    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
+    <!--== ALL CSS FILES ==-->
+    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="~/Theme/Template2/~/Theme/Template2/js/html5shiv.js"></script>
+    <script src="~/Theme/Template2/~/Theme/Template2/js/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body class="hold-transition layout-top-nav">
-    <div class="wrapper">
 
-        <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand-md navbar-dark navbar-dark">
-            <div class="container">
-                <a asp-action="Index" asp-controller="Home" class="navbar-brand">
-                    <img src="~/Theme/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-                         style="opacity: .8">
-                    <span class="brand-text font-weight-light">TouRME</span>
-                </a>
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
 
-                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse order-3" id="navbarCollapse">
-
-                    <!-- Left navbar links -->
-                    <ul class="navbar-nav">
-
-
-
-
-
-                        @if (signInManager.IsSignedIn(User) && (User.IsInRole("Administrateur")))
-                        {
-                            <li class="nav-item dropdown">
-                                <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Admin Functions</a>
-                                <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                    <li> <a class="dropdown-item" asp-controller="Administration" asp-action="GetAllRoles">Roles</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="GetAll">Users</a></li>
-
-                                    <li class="dropdown-divider"></li>
-
-                                    <!-- Level two dropdown-->
-                                    <li class="dropdown-submenu dropdown-hover">
-                                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Expérience</a>
-                                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                                            <li>
-                                                <a tabindex="-1" href="#" class="dropdown-item">Validation</a>
-                                            </li>
-
-                                            <!-- Level three dropdown-->
-                                            @*<li class="dropdown-submenu">
-                                <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                                <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                                    <li><a href="#" class="dropdown-item">Modification Request</a></li>
-                                    <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                </ul>
-                            </li>*@
-                                            <!-- End Level three -->
-
-                                            <li><a href="#" class="dropdown-item">Modification Request</a></li>
-                                            <li><a href="#" class="dropdown-item">level 2</a></li>
-                                        </ul>
-                                    </li>
-                                    <!-- End Level two -->
-                                </ul>
-                            </li>
-                        }
-                       
-                        
-                    </ul>
-                   
-                   
-
-                    <!-- SEARCH FORM -->
-                    <form class="form-inline ml-0 ml-md-3" method="get" asp-controller="Experience" asp-action="GetAllExperience">
-                        <div class="input-group input-group-sm">
-                            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="searchTerm">
-                            <div class="input-group-append">
-                                <button class="btn btn-navbar" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- Right navbar links -->
-
-
-                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    @if (signInManager.IsSignedIn(User))
-                    {
-                        <li class="nav-item">
-                            <form method="post" asp-action="logout" asp-controller="account">
-                                <button type="submit" class="nav-link btn btn-link py-0 " style="width:auto">
-                                    Logout @User.Identity.Name
-
-                                </button>
-
-                            </form>
-                        </li>
-                        @if (User.IsInRole("Commercant"))
-                        {
-                            <li class="nav-item">
-                                <a asp-controller="Account" asp-action="ProfilCommerc" class="nav-link">ProfilCommerc</a>
-
-                            </li>
-                            <li><a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a></li>
-                        }
-                        else
-                        {
-                            if (User.IsInRole("Utilisateur"))
-                            {
-                                <li class="nav-item">
-                                    <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
-
-                                </li>
-                            }
-                        }
-                    }
-                    else
-
-                    {
-                        <li class="nav-item dropdown">
-                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Inscription</a>
-                            <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
-                                <li><a asp-controller="account" asp-action="RegisterUser" class="dropdown-item">Utilisateur </a></li>
-                                <li><a asp-controller="account" asp-action="RegisterCommercant" class="dropdown-item">Commercant</a></li>
-                            </ul>
-                        </li>
-
-
-
-
-
-                        <li><a class="nav-link" asp-controller="Account" asp-action="Login">Connexion</a></li>
-
-
-
-
-
-
-
-
-                        <!-- Level two dropdown-->
-                        <!-- End Level two -->
-
-                    }
-
-
-
-                    <!-- Messages Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="fas fa-comments"></i>
-                            <span class="badge badge-danger navbar-badge">3</span>
+    <!-- MOBILE MENU -->
+    <section>
+        <div class="ed-mob-menu">
+            <div class="ed-mob-menu-con">
+                <div class="ed-mm-left">
+                    <div class="wed-logo">
+                        <a asp-action="Index" asp-controller="Home">
+                            <img src="~/Theme/Template2/~/Theme/Template2/images/logo.png" alt="" />
                         </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="~/Theme/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-                                    <div class="media-body">
-                                        <h3 class="dropdown-item-title">
-                                            Brad Diesel
-                                            <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                                        </h3>
-                                        <p class="text-sm">Call me whenever you can...</p>
-                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                    </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="~/Theme/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                    <div class="media-body">
-                                        <h3 class="dropdown-item-title">
-                                            John Pierce
-                                            <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                                        </h3>
-                                        <p class="text-sm">I got your message bro</p>
-                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                    </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <!-- Message Start -->
-                                <div class="media">
-                                    <img src="~/Theme/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-                                    <div class="media-body">
-                                        <h3 class="dropdown-item-title">
-                                            Nora Silvester
-                                            <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                                        </h3>
-                                        <p class="text-sm">The subject goes here</p>
-                                        <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-                                    </div>
-                                </div>
-                                <!-- Message End -->
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-                        </div>
-                    </li>
-                    <!-- Notifications Dropdown Menu -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">15</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-envelope mr-2"></i> 4 new messages
-                                <span class="float-right text-muted text-sm">3 mins</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-users mr-2"></i> 8 friend requests
-                                <span class="float-right text-muted text-sm">12 hours</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-file mr-2"></i> 3 new reports
-                                <span class="float-right text-muted text-sm">2 days</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                        </div>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                            <i class="fas fa-th-large"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-        <!-- /.navbar -->
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container">
-
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0 text-dark"> <small></small></h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                                <li class="breadcrumb-item active">Top Navigation</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-            <!-- Main content -->
-            <!-- /.content -->
-            <div class="content">
-                <div class="container">
-                    <div class="row">
-
-                        @RenderBody()
                     </div>
-                    @if (IsSectionDefined("Scripts"))
-                    {
-                        @await RenderSectionAsync("Scripts", required: true)
-                    }
+                </div>
+                <div class="ed-mm-right">
+                    <div class="ed-mm-menu">
+                        <a href="#!" class="ed-micon"><i class="fa fa-bars"></i></a>
+                        <div class="ed-mm-inn">
+                            <a href="#!" class="ed-mi-close"><i class="fa fa-times"></i></a>
+                            <h4>Home pages</h4>
+                            <ul>
+                                <li><a href="booking-all.html">Home page 1</a></li>
+                                <li><a href="booking-all.html">Home page 2</a></li>
+
+                            </ul>
+
+
+                            <h4>User Dashboard</h4>
+                            <ul>
+                                <li><a href="dashboard.html">My Bookings</a></li>
+                                <li><a href="db-my-profile.html">My Profile</a></li>
+                                <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
+                                <li><a href="db-travel-booking.html">Tour Packages</a></li>
+                                <li><a href="db-hotel-booking.html">Hotel Bookings</a></li>
+                                <li><a href="db-event-booking.html">Event bookings</a></li>
+                                <li><a href="db-payment.html">Make Payment</a></li>
+                                <li><a href="db-refund.html">Cancel Bookings</a></li>
+                                <li><a href="db-all-payment.html">Prient E-Tickets</a></li>
+                                <li><a href="db-event-details.html">Event booking details</a></li>
+                                <li><a href="db-hotel-details.html">Hotel booking details</a></li>
+                                <li><a href="db-travel-details.html">Travel booking details</a></li>
+                            </ul>
+
+                            <h4 class="ed-dr-men-mar-top">User login pages</h4>
+                            <ul>
+                                <li><a href="register.html">Register</a></li>
+                                <li><a href="login.html">Login and Sign in</a></li>
+                                <li><a href="forgot-pass.html">Forgot pass</a></li>
+                            </ul>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <!-- /.content-wrapper -->
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-            <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
+    </section>
+    <!--HEADER SECTION-->
+    <section>
+        <!-- TOP BAR -->
+        <div class="ed-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="ed-com-t1-left">
+                            <ul>
+                                <li>
+                                    <a href="#">Contact: Lake Road, Suite 180 Farmington Hills, U.S.A.</a>
+                                </li>
+                                <li>
+                                    <a href="#">Phone: +101-1231-1231</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="ed-com-t1-right">
+                            @if (signInManager.IsSignedIn(User))
+                            {
+                                <form method="post" asp-controller="Account" asp-action="logout">
+                               
+                                    <button type="submit" class="btn btn-link" style="width:auto">
+                                        Logout @User.Identity.Name
+
+                                    </button>
+                                    
+                                </form>
+                                @if (User.IsInRole("Commercant"))
+                                {<ul>
+                                        
+                                        <li>
+                                            <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                        </li>
+                                    </ul>
+                                }
+                    
+                            }
+                            else
+
+                            {
+
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Login">Se Connecter</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
+                                    </li>
+                                    <li>
+                                                <a  style=" color:azure;
+                                                    padding: 7px 12px;
+                                                    line-height: 30px;
+                                                    font-size: 12px;
+                                                    background-color:darkturquoise;
+    " asp-controller="account" asp-action="RegisterCommercant">Devenir Hôte</a>
+                                    </li>
+                                </ul>}
+                        </div>
+                        <div class="ed-com-t1-social">
+                            <ul>
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </aside>
-        <!-- /.control-sidebar -->
-        <!-- Main Footer -->
+        </div>
 
 
+        <!-- LOGO AND MENU SECTION -->
 
-        <footer class="main-footer">
-            <div class="float-right d-none d-sm-block">
-                <b>Version</b> 3.0.5
+        <div class="top-logo" data-spy="affix" data-offset-top="250">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wed-logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                <img src="~/Theme/Template2/images/logo.png" alt="" />
+                            </a>
+                        </div>
+                        <div class="main-menu">
+                            <ul>
+                                <li>
+                                    <a href="main.html">Home</a>
+                                </li>
+                                <li class="about-menu">
+                                    <a href="family-package.html" class="mm-arr">Packages</a>
+                                    <!-- MEGA MENU 1 -->
+                                    <div class="mm-pos">
+                                        <div class="about-mm m-menu">
+                                            <div class="m-menu-inn">
+                                                <div class="mm1-com mm1-s1">
+                                                    <div class="ed-course-in">
+                                                        <a class="course-overlay menu-about" href="all-package.html">
+                                                            <img src="~/Theme/Template2/images/sight/5.jpg" alt="">
+                                                            <span>Popular Package</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="mm1-com mm1-s2">
+                                                    <p>Want to change the world? At Berkeley we’re doing just that. When you join the Golden Bear community, you’re part of an institution that shifts the global conversation every single day.</p>
+                                                    <a href="all-package.html" class="mm-r-m-btn">Read more</a>
+                                                </div>
+                                                <div class="mm1-com mm1-s3">
+                                                    <ul>
+                                                        <li><a href="booking-all.html">All Booking</a></li>
+                                                        <li><a href="booking-tour-package.html">Tour Package Booking</a></li>
+                                                        <li><a href="booking-hotel.html">Hotel Booking</a></li>
+                                                        <li><a href="booking-car-rentals.html">Car Rentals Booking</a></li>
+                                                        <li><a href="booking-flight.html">Flight Booking</a></li>
+                                                        <li><a href="booking-slider.html">Slider Booking</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="mm1-com mm1-s4">
+                                                    <ul>
+                                                        <li><a href="all-package.html">All Package</a></li>
+                                                        <li><a href="family-package.html">Family Package</a></li>
+                                                        <li><a href="honeymoon-package.html">Honeymoon Package</a></li>
+                                                        <li><a href="group-package.html">Group Package</a></li>
+                                                        <li><a href="weekend-package.html">WeekEnd Package</a></li>
+                                                        <li><a href="regular-package.html">Regular Package</a></li>
+                                                        <li><a href="custom-package.html">Custom Package</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="admi-menu">
+
+                                </li>
+                                <li><a href="hotels-list.html">Hotels</a></li>
+                                <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
+                                <li class="cour-menu">
+                                    <a href="#!" class="mm-arr">All Pages</a>
+                                    <!-- MEGA MENU 1 -->
+                                    <div class="mm-pos">
+                                        <div class="cour-mm m-menu">
+                                            <div class="m-menu-inn">
+                                                <div class="mm1-com mm1-cour-com mm1-s3">
+
+                                                </div>
+                                                <div class="mm1-com mm1-cour-com mm1-s3">
+
+
+                                                </div>
+                                                <div class="mm1-com mm1-cour-com mm1-s3">
+                                                    <h4>User Dashboard</h4>
+                                                    <ul>
+                                                        <li><a href="dashboard.html">My Bookings</a></li>
+                                                        <li><a href="db-my-profile.html">My Profile</a></li>
+                                                        <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
+                                                        <li><a href="db-travel-booking.html">Tour Packages</a></li>
+                                                        <li><a href="db-hotel-booking.html">Hotel Bookings</a></li>
+                                                        <li><a href="db-event-booking.html">Event bookings</a></li>
+                                                        <li><a href="db-payment.html">Make Payment</a></li>
+                                                        <li><a href="db-refund.html">Cancel Bookings</a></li>
+                                                        <li><a href="db-all-payment.html">Prient E-Tickets</a></li>
+                                                        <li><a href="db-event-details.html">Event booking details</a></li>
+                                                        <li><a href="db-hotel-details.html">Hotel booking details</a></li>
+                                                        <li><a href="db-travel-details.html">Travel booking details</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="mm1-com mm1-cour-com mm1-s3">
+                                                    <h4>Other pages:1</h4>
+                                                    <ul>
+                                                        <li><a href="tour-details.html">Travel details</a></li>
+                                                        <li><a href="hotel-details.html">Hotel details</a></li>
+                                                        <li><a href="all-package.html">All package</a></li>
+                                                        <li><a href="hotels-list.html">All hotels</a></li>
+                                                        <li><a href="booking.html">Booking page</a></li>
+                                                    </ul>
+                                                    <h4 class="ed-dr-men-mar-top">User login pages</h4>
+                                                    <ul>
+                                                        <li><a href="register.html">Register</a></li>
+                                                        <li><a href="login.html">Login and Sign in</a></li>
+                                                        <li><a href="forgot-pass.html">Forgot pass</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="mm1-com mm1-cour-com mm1-s4">
+                                                    <h4>Other pages:2</h4>
+                                                    <ul>
+                                                        <li><a href="about.html">About Us</a></li>
+                                                        <li><a href="testimonials.html">Testimonials</a></li>
+                                                        <li><a href="events.html">Events</a></li>
+                                                        <li><a href="blog.html">Blog</a></li>
+                                                        <li><a href="tips.html">Tips Before Travel</a></li>
+                                                        <li><a href="price-list.html">Price List</a></li>
+                                                        <li><a href="discount.html">Discount</a></li>
+                                                        <li><a href="faq.html">FAQ</a></li>
+                                                        <li><a href="sitemap.html">Site map</a></li>
+                                                        <li><a href="404.html">404 Page</a></li>
+                                                        <li><a href="contact.html">Contact Us</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="events.html">Events</a>
+                                </li>
+                                @if (User.IsInRole("Commercant"))
+                                {
+                                    <li>
+
+                                        <a asp-controller="Account" asp-action="ProfilCommerc" class="nav-link">Profil</a>
+
+
+                                    </li>
+                                    <li>
+                                        <a  asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                    </li>
+                                        }
+                                        @if (User.IsInRole("Utilisateur"))
+                                        {
+                                        <li>
+
+                                            <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
+
+
+                                        </li>
+                                    }
+
+                                    </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-            reserved.
-        </footer>
+        </div>
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+        <!-- TOP SEARCH BOX -->
+        <div class="search-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="search-form">
+                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAllExperience">
+                                <div class="input-field">
+                                    <input type="text" id="select-city" class="autocomplete">
+                                    <label for="select-city">Enter city</label>
+                                </div>
+                                <div class="input-field">
 
-    <!-- Bootstrap 4 -->
-    <script src="~/Theme/plugins/bootstrap/js/bootstrap.bundle.js"></script>
-    <!-- AdminLTE App -->
-    <script src="~/Theme/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="~/Theme/dist/js/demo.js"></script>
+                                    <input type="text" id="select-search" class="autocomplete" name="searchTerm">
+                                    <label for="select-search" class="search-hotel-type">Trouvez L'expérience que vous plaît!</label>
 
+
+                                </div>
+                                <div class="input-field">
+                                    <input type="submit" value="search" class="waves-effect waves-light tourz-sear-btn">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END TOP SEARCH BOX -->
+    <!--END HEADER SECTION-->
+    <!--====== BANNER ==========-->
+
+
+
+
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="container">
+                <div class="row">
+
+                    @RenderBody()
+                </div>
+                @if (IsSectionDefined("Scripts"))
+                {
+                    @await RenderSectionAsync("Scripts", required: true)
+                }
+            </div>
+        </div>
+        </div>
+        <!--====== FOOTER - COPYRIGHT ==========-->
+        <!--========= Scripts ===========-->
+        <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+        <script src="~/Theme/Template2/js/bootstrap.js"></script>
+        <script src="~/Theme/Template2/js/wow.min.js"></script>
+        <script src="~/Theme/Template2/js/materialize.min.js"></script>
+        <script src="~/Theme/Template2/js/custom.js"></script>
+        <script src="~/Theme/Template2/~/Theme/Template2/js/bootstrap.js"></script>
 </body>
+
+
+<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
 </html>
