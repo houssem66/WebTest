@@ -6,12 +6,14 @@
     Layout = null;
 }
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 
 <!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:01:37 GMT -->
 <head>
+
     <title>The Travel - Tour Travel</title>
     <!--== META TAGS ==-->
     <meta charset="utf-8">
@@ -29,6 +31,10 @@
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+
+   
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,6 +44,7 @@
 </head>
 
 <body>
+
     <!-- Preloader -->
     <div id="preloader">
         <div id="status">&nbsp;</div>
@@ -50,7 +57,7 @@
                 <div class="ed-mm-left">
                     <div class="wed-logo">
                         <a href="main.html">
-                            <img src="~/Theme/Template2/~/Theme/Template2/images/logo.png" alt="" />
+                            <img src="~/Theme/Template2/images/logo.png" alt="" />
                         </a>
                     </div>
                 </div>
@@ -483,97 +490,79 @@
                     <!--====== TOUR DESCRIPTION ==========-->
                     <div class="tour_head1 hotel-com-color">
                         <h3>About @Model.Titre</h3>
-                        @{ foreach (var item in Model.Activites)
-                            {
 
-
-                                var photoPath = "~/images/" + item.Image;
-                                <p>@item.Image.ToString()  </p>
-                            }
-                        }
 
                     </div>
                     <!--====== ROOMS: HOTEL BOOKING ==========-->
                     <div class="tour_head1 hotel-book-room">
                         <h3>Photo Gallery</h3>
-                        <div id="myCarousel1" class="carousel slide" data-ride="carousel">
+                        <div id="myCarousel1" class="carousel slide">
                             <!-- Indicators -->
                             <ol class="carousel-indicators carousel-indicators-1">
                                 @{int x = 0;
                                     foreach (var item in Model.Activites)
                                     {
                                         <li data-target="#myCarousel1" data-slide-to="@x">
-                                            <img src="~/images/@item.Image" alt="Chania"><h3>@item.Details</h3>
+                                            <img src="~/images/@item.Image" alt="Chania">
                                         </li>
 
                                         x++;
-                                      
+
                                     }
 
 
                                 }
                             </ol>
 
-                                <!-- Wrapper for slides -->
-                            <div class="carousel-inner carousel-inner1" role="listbox">
-                                @{ if (Model.Activites.Count() == 1)
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner carousel-inner1">
+                                @{
+                                    foreach (var item in Model.Activites)
                                     {
-                                        foreach (var item in Model.Activites)
-                                        {<div></div>
-                                            <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3> </div>
 
-                                        }
-                                    }
-                                    else
-                                    {
-                                        int j = 1;
-                                        foreach (var item in Model.Activites)
-                                        {
 
-                                            if (j == 1)
-                                            {
-                            <div class="item active"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3> </div>
-                                               
-                                            }
-                                            else
-                                            {
-                            <div class="item"> <img src="~/images/@item.Image" alt="Chania" width="460" height="345"><h3>@item.Details</h3></div>
-
-                                            
-                                            }
-                                            j++;
-                                        }
+                                        <div class="item @(item == Model.Activites.First() ? " active":" ")">
+                                            <img src="~/images/@item.Image" alt="Chania" width="460" height="345">
+                                        </div>
 
 
                                     }
 
                                 }
                             </div>
-                                <!-- Left and right controls -->
-                                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
-                                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
-                            </div>
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+                            <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
+                        </div>
                     </div>
                     <!--====== ABOUT THE TOUR ==========-->
+                   
                     <script>
-                        function imageLoaded() {
-                            ++imageCount;
-                            var value = document.getElementById("myCarousel1").value;
-                                     $.ajax({
+                        $(document).ready(function () {
 
-                                         url: '@Url.Action("Description", "Experience")',
-                                         data: {
-                                             'Activite': value
-                               },
+
+                            $("#myCarousel1").on('slid.bs.carousel', function () {
+                                var value = $('.carousel-inner .item .active')
+
+
+                                alert("xD");
+
+
+
+                                             $.ajax({
+
+                    url: '@Url.Action("Description", "Experience")',
+                   data: { 'Activite':"zab" },
                            type: "post",
                     success: function (data) {
                     $("#loadpartial").html(data);
                 }
             });
-                        }
+
+                                      });
+                        });
                     </script>
                     <!--====== HOTEL ROOM TYPES ==========-->
-
                     <!--====== AMENITIES ==========-->
                     <div class="tour_head1 hot-ameni">
                         <h3>Liste de services</h3>
@@ -611,82 +600,84 @@
                         @if (signInManager.IsSignedIn(User))
                         {
 
-                        <div class="dir-rat">
-                            <form method="post" asp-controller="Experience" asp-action="Details">
-                                <div class="dir-rat-inn dir-rat-title">
-                                    <h3>Write Your Rating Here</h3>
-                                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
+                            <div class="dir-rat">
+                                <form method="post" asp-controller="Experience" asp-action="Details">
+                                    <div class="dir-rat-inn dir-rat-title">
+                                        <h3>Write Your Rating Here</h3>
+                                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
 
-                                    <fieldset class="rating">
-                                        <input type="radio" id="star5" name="Rating" value="5" />
-                                        <label class="full" for="star5" title="Awesome - 5 stars"></label>
-
-
-                                        <input type="radio" id="star4" name="Rating" value="4" />
-                                        <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                        <input type="radio" id="star3half" name="Rating" value="3 and a half" />
-                                        <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                        <input type="radio" id="star3" name="Rating" value="3" />
-                                        <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                        <input type="radio" id="star2half" name="Rating" value="2 and a half" />
-                                        <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                        <input type="radio" id="star2" name="Rating" value="2" />
-                                        <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-
-                                        <input type="radio" id="star1" name="Rating" value="1" />
-                                        <label class="full" for="star1" title="Sucks big time - 1 star"></label>
-
-                                    </fieldset>
-                                </div>
-                                <div class="dir-rat-inn">
+                                        <fieldset class="rating">
+                                            <input type="radio" id="star5" name="Rating" value="5" />
+                                            <label class="full" for="star5" title="Awesome - 5 stars"></label>
 
 
-                                    <div class="form-group col-md-12 pad-left-o">
-                                        <textarea name="comment" placeholder="Write your message"></textarea>
+                                            <input type="radio" id="star4" name="Rating" value="4" />
+                                            <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                            <input type="radio" id="star3half" name="Rating" value="3 and a half" />
+                                            <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                            <input type="radio" id="star3" name="Rating" value="3" />
+                                            <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                            <input type="radio" id="star2half" name="Rating" value="2 and a half" />
+                                            <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                            <input type="radio" id="star2" name="Rating" value="2" />
+                                            <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                            <input type="radio" id="star1" name="Rating" value="1" />
+                                            <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+
+                                        </fieldset>
                                     </div>
-                                    <div class="form-group col-md-12 pad-left-o">
-                                        <input type="submit" value="SUBMIT" class="link-btn">
-                                    </div>
-                                    <input type="hidden" asp-for="ExperienceId" />
+                                    <div class="dir-rat-inn">
 
 
-                                </div>
-
-                                <!--COMMENT RATING-->
-                                @{ foreach (var item in Model.Ratings)
-                                    { 
-
-
-                                        if (item.Commentaire != null) { 
-                                <div class="dir-rat-inn dir-rat-review">
-                                    <div class="row">
-                                        <div class="col-md-3 dir-rat-left">
-                                            <img src="images/reviewer/4.jpg" alt="">
-                                            <p>@item.utilisateur.Nom </p>
+                                        <div class="form-group col-md-12 pad-left-o">
+                                            <textarea name="comment" placeholder="Write your message"></textarea>
                                         </div>
-                                        <div class="col-md-9 dir-rat-right">
-                                            <!--calculatign number of stars-->
-                                            <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
-                                            <p>@item.Commentaire</p>
-                                            <ul>
-                                                <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                            </ul>
+                                        <div class="form-group col-md-12 pad-left-o">
+                                            <input type="submit" value="SUBMIT" class="link-btn">
                                         </div>
+                                        <input type="hidden" asp-for="ExperienceId" />
+
+
                                     </div>
-                                </div>}}
+
+                                    <!--COMMENT RATING-->
+                                    @{ foreach (var item in Model.Ratings)
+                                        {
+
+
+                                            if (item.Commentaire != null)
+                                            {
+                                                <div class="dir-rat-inn dir-rat-review">
+                                                    <div class="row">
+                                                        <div class="col-md-3 dir-rat-left">
+
+                                                            <p>@item.utilisateur.Nom </p>
+                                                        </div>
+                                                        <div class="col-md-9 dir-rat-right">
+                                                            <!--calculatign number of stars-->
+                                                            <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                                                            <p>@item.Commentaire</p>
+                                                            <ul>
+                                                                <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>}
+                                        }
                                     }
-                                <!--COMMENT RATING-->
-                                <!--COMMENT RATING-->
-                            </form>
-                        </div> }
+                                    <!--COMMENT RATING-->
+                                    <!--COMMENT RATING-->
+                                </form>
+                            </div>}
                     </div>
                 </div>
                 <div class="col-md-3 tour_r">
@@ -925,12 +916,13 @@
         </div>
     </section>
     <!--========= Scripts ===========-->
+
     <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
     <script src="~/Theme/Template2/js/bootstrap.js"></script>
     <script src="~/Theme/Template2/js/wow.min.js"></script>
     <script src="~/Theme/Template2/js/materialize.min.js"></script>
     <script src="~/Theme/Template2/js/custom.js"></script>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/bootstrap.js"></script>
+   
 </body>
 
 
