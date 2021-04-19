@@ -86,11 +86,8 @@ namespace Repository.Implementation
             Rating rating = new Rating
             {
                 ExperienceId = exp.ExperienceId,
-                UtilisateurId = user.Id,
-                utilisateur=user,
-                experience=exp
+                UtilisateurId = user.Id
                
-
             };
             try
             {
