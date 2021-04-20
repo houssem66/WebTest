@@ -35,6 +35,10 @@ namespace Services.Implementation
             return a;
         }
 
+        public Task<Activite> GetActiviteByImage(string src)
+        {
+            return ActiviteRepo.GetActiviteByImage(src);
+        }
 
         public Task Update(Activite activite)
         {

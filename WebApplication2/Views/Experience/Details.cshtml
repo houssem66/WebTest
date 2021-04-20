@@ -552,14 +552,16 @@
                                 //    );
 
                                 //}
+                                var imageSrc = $('.active').find('img').attr('src');
+                                console.log(imageSrc);
                                 console.log('target: ' + totalItems
                                     );
-                                alert(totalItems);
+                               
 
                                              $.ajax({
 
                     url: '@Url.Action("Description", "Experience")',
-                                                 data: { 'Activite': totalItems },
+                                                 data: { 'src': imageSrc },
                            type: "post",
                     success: function (data) {
                     $("#loadpartial").html(data);
