@@ -14,6 +14,7 @@ namespace Services.Interfaces
         public IEnumerable<Activite> GetActivite(int id);
         public Task Update(Activite activite);
         public Task<Activite> GetActiviteById(int id);
+        public Task<Activite> GetActiviteByImage(string src);
 
     }
 }
