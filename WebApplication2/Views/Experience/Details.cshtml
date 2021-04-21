@@ -32,9 +32,9 @@
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
 
-   
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -493,6 +493,20 @@
 
 
                     </div>
+                    @Model.Activites.First().Image
+                    @{ foreach (var item in Model.Activites)
+                        {
+
+                            <h3>@item.Details</h3>
+
+                        }}
+                    @Model.Activites.First().Image
+                    @{ foreach (var item in Model.Activites)
+                        {
+
+                            <h3>@item.Image And ID : @item.activiteId</h3>
+
+                        }}
                     <!--====== ROOMS: HOTEL BOOKING ==========-->
                     <div class="tour_head1 hotel-book-room">
                         <h3>Photo Gallery</h3>
@@ -503,14 +517,10 @@
                                     foreach (var item in Model.Activites)
                                     {
                                         <li data-target="#myCarousel1" data-slide-to="@x">
-                                            <img src="~/images/@item.Image" alt="Chania">
+                                            <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
                                         </li>
-
                                         x++;
-
                                     }
-
-
                                 }
                             </ol>
 
@@ -519,15 +529,10 @@
                                 @{
                                     foreach (var item in Model.Activites)
                                     {
-
-
                                         <div class="item @(item == Model.Activites.First() ? " active":" ")">
-                                            <img src="~/images/@item.Image" alt="Chania" width="460" height="345">
+                                            <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
                                         </div>
-
-
                                     }
-
                                 }
                             </div>
                             <!-- Left and right controls -->
@@ -536,33 +541,28 @@
                         </div>
                     </div>
                     <!--====== ABOUT THE TOUR ==========-->
-                   
+
                     <script>
 
                         $(document).ready(function () {
 
 
-                            $("#myCarousel1").on('slide.bs.carousel', function () {
+                            $("#myCarousel1").on('slid.bs.carousel', function () {
 
                                 var ele = $('.carousel-inner .item .active').val('.carousel - inner.item.active').toString();
                                 var totalItems = $('.item').text().length;
-                                //for (var i = 0; i < totalItems; i++) {
-                                //    var valeur = $('.item').index(i);
-                                //    console.log('balkchi n: ' + valeur
-                                //    );
 
-                                //}
                                 var imageSrc = $('.active').find('img').attr('src');
                                 console.log(imageSrc);
                                 console.log('target: ' + totalItems
                                     );
-                               
+
 
                                              $.ajax({
 
                     url: '@Url.Action("Description", "Experience")',
                                                  data: { 'src': imageSrc },
-                           type: "post",
+                                                 type: "Get",
                     success: function (data) {
                     $("#loadpartial").html(data);
                 }
@@ -571,40 +571,13 @@
                                       });
                         });
                     </script>
+                    <div id="loadpartial">
+                        
+                    </div>
                     <!--====== HOTEL ROOM TYPES ==========-->
                     <!--====== AMENITIES ==========-->
-                    <div class="tour_head1 hot-ameni">
-                        <h3>Liste de services</h3>
-                        <ul>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Airport transportation (surcharge)</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Number of floors - 9 </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Coffee shop or café </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Dry cleaning/laundry service</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Health club </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Billiards or pool table</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Total number of rooms - 108</li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Bar/lounge </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Air Conditioner </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Mini Bar (with liquor) </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Separate Bedroom </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Living Room Space </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Smoking Rooms Available </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Internet </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Transport to / from Hotel </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Concierge </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Rental Car Service Desk On Site </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Room Service </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Beauty Salon </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Business Centre </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Fitness Centre </li>
-                            <li><i class="fa fa-check" aria-hidden="true"></i> Spa and Pool </li>
-                        </ul>
-                    </div>
                     <!--====== TOUR LOCATION ==========-->
-                    <div class="tour_head1 tout-map map-container">
-                        <h3>Location</h3>
-                        <iframe src="~/Theme/Template2/https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6290415.157581651!2d-93.99661009218904!3d39.661150926343694!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880b2d386f6e2619%3A0x7f15825064115956!2sIllinois%2C+USA!5e0!3m2!1sen!2sin!4v1467884030780" allowfullscreen></iframe>
-                    </div>
+
                     <div>
                         @if (signInManager.IsSignedIn(User))
                         {
@@ -931,7 +904,7 @@
     <script src="~/Theme/Template2/js/wow.min.js"></script>
     <script src="~/Theme/Template2/js/materialize.min.js"></script>
     <script src="~/Theme/Template2/js/custom.js"></script>
-   
+
 </body>
 
 

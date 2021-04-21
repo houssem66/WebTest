@@ -357,11 +357,12 @@ namespace TourMe.Web.Controllers
             return PartialView("_Activité");
 
         }
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
         public ActionResult Description(string src)
         {
-            var activite = ActiviteService.GetActiviteByImage(src).Result;
+            var ch = src.Remove(0,8);
+            var activite = ActiviteService.GetActiviteByImage(ch).Result;
 
 
             

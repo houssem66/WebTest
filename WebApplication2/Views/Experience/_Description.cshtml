@@ -1,35 +1,17 @@
-﻿<div class="tour_head1">
-    <h3>Description des Activité</h3>
-    <table>
-        <tr>
-            <th>Places covered</th>
-            <th class="event-res">Inclusions</th>
-            <th class="event-res">Exclusions</th>
-            <th>Event Date</th>
-        </tr>
-        <tr>
-            <td>Rio De Janeiro ,Brazil</td>
-            <td class="event-res">Accommodation</td>
-            <td class="event-res">Return Airfare & Taxes</td>
-            <td>Nov 12, 2017</td>
-        </tr>
-        <tr>
-            <td>Iguassu Falls </td>
-            <td class="event-res">8 Breakfast, 3 Dinners</td>
-            <td class="event-res">Arrival & Departure transfers</td>
-            <td>Nov 14, 2017</td>
-        </tr>
-        <tr>
-            <td>Peru,Lima </td>
-            <td class="event-res">First-class Travel</td>
-            <td class="event-res">travel insurance</td>
-            <td>Nov 16, 2017</td>
-        </tr>
-        <tr>
-            <td>Cusco & Buenos Aires </td>
-            <td class="event-res">Free Sightseeing</td>
-            <td class="event-res">Service tax of 4.50%</td>
-            <td>Nov 18, 2017</td>
-        </tr>
-    </table>
+﻿@model TourMe.Data.Entities.Activite
+
+
+
+<div class="tour_head1 l-info-pack-days days">
+    <h3>Description de l'Activité</h3>
+    <ul>
+        <li class="l-info-pack-plac">
+            <i class="fa fa-clock-o" aria-hidden="true"></i>
+            <h4><span>Du @Model.dateDebut.Date.ToString("d") A @Model.dateDebut.Date.ToString("d") </span> @Model.activiteId</h4>
+            <p>
+                @Model.Details
+                    </p>
+        </li>
+      
+    </ul>
 </div>
