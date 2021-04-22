@@ -38,7 +38,12 @@ namespace WebApplication2
             services.AddMvc(options => {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
-            
+
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("CreateExperiencePolicy",
+                    policy => policy.RequireClaim("Create Experience"));
             });
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddDbContext<TourMeContext>(options =>

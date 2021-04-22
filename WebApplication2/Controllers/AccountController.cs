@@ -554,6 +554,22 @@ namespace Finance.Controllers
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
 
+                    if (UserService.GetAllUtilisateurs().Count()==1)
+                    {
+                        System.Diagnostics.Debug.WriteLine("the count of :"+ UserService.GetAllUtilisateurs().Count());
+
+                        IdentityRole identityrole2 = new IdentityRole
+                        {
+                            Name = "Administrateur"
+
+                        };
+                        await roleManager.CreateAsync(identityrole2);
+
+                        await userManager.AddToRoleAsync(user, "Administrateur");
+
+                    }
+                   
+
                     return LocalRedirect(returnUrl);
                 }
 
@@ -629,6 +645,91 @@ namespace Finance.Controllers
 
 
         }
+        [HttpGet]
+       
+        public async Task<IActionResult> Details(string id)
+        {
+            var user = await UserService.GetById(id);
+            var User = await userManager.FindByIdAsync(id);
+            var existingUserClaims = await userManager.GetClaimsAsync(User);
+            ViewBag.Claims = existingUserClaims;
+            
+            return View(user);
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> ManageUserClaims(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {id} cannot be found";
+                return View("NotFound");
+            }
+
+            // UserManager service GetClaimsAsync method gets all the current claims of the user
+            var existingUserClaims = await userManager.GetClaimsAsync(user);
+
+            var model = new UserClaimsViewModel
+            {
+                id = id
+            };
+
+            // Loop through each claim we have in our application
+            foreach (Claim claim in ClaimsStore.AllClaims)
+            {
+                UserClaim userClaim = new UserClaim
+                {
+                    ClaimType = claim.Type
+                };
+
+                // If the user has the claim, set IsSelected property to true, so the checkbox
+                // next to the claim is checked on the UI
+                if (existingUserClaims.Any(c => c.Type == claim.Type))
+                {
+                    userClaim.IsSelected = true;
+                }
+
+                model.Cliams.Add(userClaim);
+            }
+
+            return View(model);
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> ManageUserClaims(UserClaimsViewModel model)
+        {
+            var user = await userManager.FindByIdAsync(model.id);
+
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"User with Id = {model.id} cannot be found";
+                return View("NotFound");
+            }
+
+            // Get all the user existing claims and delete them
+            var claims = await userManager.GetClaimsAsync(user);
+            var result = await userManager.RemoveClaimsAsync(user, claims);
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot remove user existing claims");
+                return View(model);
+            }
+
+            // Add all the claims that are selected on the UI
+            result = await userManager.AddClaimsAsync(user,
+                model.Cliams.Where(c => c.IsSelected).Select(c => new Claim(c.ClaimType, c.ClaimType)));
+
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError("", "Cannot add selected claims to user");
+                return View(model);
+            }
+
+            return RedirectToAction("Details", new { Id = model.id });
+
+        }
     }
 }
