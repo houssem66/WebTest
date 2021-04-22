@@ -335,7 +335,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="search-form">
-                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAllExperience">
+                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAll">
                                 <div class="input-field">
                                     <input type="text" id="select-city" class="autocomplete">
                                     <label for="select-city">Enter city</label>
@@ -364,20 +364,16 @@
 
 
 
-    <div class="content-wrapper">
-        <div class="content">
-            <div class="container">
-                <div class="row">
+
 
                     @RenderBody()
-                </div>
+           
                 @if (IsSectionDefined("Scripts"))
                 {
                     @await RenderSectionAsync("Scripts", required: true)
                 }
-            </div>
-        </div>
-        </div>
+          
+       
         <!--====== FOOTER - COPYRIGHT ==========-->
         <!--========= Scripts ===========-->
         <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
