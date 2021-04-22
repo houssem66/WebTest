@@ -27,6 +27,6 @@ namespace Services.Interfaces
 
         public Experience BestExperience();
 
-
+        public IList<Experience> BestExperiences();
     }
 }

@@ -109,27 +109,24 @@
                         <div class="ed-com-t1-right">
                             @if (signInManager.IsSignedIn(User))
                             {
-                                <form method="post" asp-controller="Account" asp-action="logout">
-                               
-                                    <button type="submit" class="btn btn-link" style="width:auto">
-                                        Logout @User.Identity.Name
+                <form method="post" asp-controller="Account" asp-action="logout">
 
-                                    </button>
-                                    
-                                </form>
+                    <button type="submit" class="btn btn-link" style="width:auto">
+                        Logout @User.Identity.Name
+
+                    </button>
+
+                </form>
                                 @if (User.IsInRole("Commercant"))
                                 {<ul>
-                                        
+
                                         <li>
                                             <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
                                         </li>
-                                    </ul>
-                                }
-                    
-                            }
-                            else
+                                    </ul>} }
+                                            else
 
-                            {
+                                            {
 
                                 <ul>
                                     <li>
@@ -139,7 +136,7 @@
                                         <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
                                     </li>
                                     <li>
-                                                <a  style=" color:azure;
+                                        <a style=" color:azure;
                                                     padding: 7px 12px;
                                                     line-height: 30px;
                                                     font-size: 12px;
@@ -302,27 +299,25 @@
                                 </li>
                                 @if (User.IsInRole("Commercant"))
                                 {
+                    <li>
+
+                        <a asp-controller="Account" asp-action="ProfilCommerc" class="nav-link">Profil</a>
+
+
+                    </li>
                                     <li>
+                                        <a asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                    </li>}
+                                @if (User.IsInRole("Utilisateur"))
+                                {
+                    <li>
 
-                                        <a asp-controller="Account" asp-action="ProfilCommerc" class="nav-link">Profil</a>
-
-
-                                    </li>
-                                    <li>
-                                        <a  asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                    </li>
-                                        }
-                                        @if (User.IsInRole("Utilisateur"))
-                                        {
-                                        <li>
-
-                                            <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
+                        <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
 
 
-                                        </li>
-                                    }
+                    </li>}
 
-                                    </ul>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -367,25 +362,24 @@
     <div class="content-wrapper">
         <div class="content">
             <div class="container">
-                
+                <div class="row">
 
                     @RenderBody()
                 </div>
                 @if (IsSectionDefined("Scripts"))
                 {
-                    @await RenderSectionAsync("Scripts", required: true)
-                }
-           
+    @await RenderSectionAsync("Scripts", required: true)}
+            </div>
         </div>
-        </div>
-        <!--====== FOOTER - COPYRIGHT ==========-->
-        <!--========= Scripts ===========-->
-        <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
-        <script src="~/Theme/Template2/js/bootstrap.js"></script>
-        <script src="~/Theme/Template2/js/wow.min.js"></script>
-        <script src="~/Theme/Template2/js/materialize.min.js"></script>
-        <script src="~/Theme/Template2/js/custom.js"></script>
-        <script src="~/Theme/Template2/js/bootstrap.js"></script>
+    </div>
+    <!--====== FOOTER - COPYRIGHT ==========-->
+    <!--========= Scripts ===========-->
+    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+    <script src="~/Theme/Template2/js/bootstrap.js"></script>
+    <script src="~/Theme/Template2/js/wow.min.js"></script>
+    <script src="~/Theme/Template2/js/materialize.min.js"></script>
+    <script src="~/Theme/Template2/js/custom.js"></script>
+    <script src="~/Theme/Template2/~/Theme/Template2/js/bootstrap.js"></script>
 </body>
 
 

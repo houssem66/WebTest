@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -12,16 +13,18 @@ namespace TourMe.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IExperienceService experienceService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IExperienceService experienceService, ILogger<HomeController> logger)
         {
+            this.experienceService = experienceService;
             _logger = logger;
         }
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View();
+            return View(experienceService.BestExperiences());
         }
 
         public IActionResult Privacy()

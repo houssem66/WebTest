@@ -10,7 +10,8 @@
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <!--DASHBOARD-->
-<section>
+
+<div class="row">
     <div class="tr-register">
         <div class="tr-regi-form">
             <h4>Devenir Hôte</h4>
@@ -19,19 +20,19 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="input-field col m6 s12">
-                        <input class="form-check-input" type="radio" name="Type"  value="individu">
+                        <input class="form-check-input" type="radio" name="Type" value="individu">
                         <label asp-for="Type" class="form-check-label">
                             individu
                         </label>
                     </div>
                     <div class="input-field col m6 s12">
-                        <input class="form-check-input" type="radio" name="Type"  value="Organisme">
-                        <label asp-for="Type" class="form-check-label" >
+                        <input class="form-check-input" type="radio" name="Type" value="Organisme">
+                        <label asp-for="Type" class="form-check-label">
                             Organisme
                         </label>
                     </div>
-                    </div>
-                    <script>
+                </div>
+                <script>
 
                $(function () {
                    $("[name=Type]").on('change', function () {
@@ -53,75 +54,75 @@
         });
     });
 
-                    </script>
+                </script>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="PersAContact" placeholder="Personne à contacter" class="form-control" />
-                            <span asp-validation-for="PersAContact" class="text-danger"></span>
-
-                        </div>
-                    </div>
-                    <div id="loadpartial">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="PersAContact" placeholder="Personne à contacter" class="form-control" />
+                        <span asp-validation-for="PersAContact" class="text-danger"></span>
 
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Email" placeholder="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                            <label>Email</label>
-                        </div>
+                </div>
+                <div id="loadpartial">
+
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="Email" placeholder="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                        <label>Email</label>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <select asp-for="PhoneNumberCountryCode" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
-                            <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select asp-for="PhoneNumberCountryCode" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
+                        <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
 
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label> Téléphone</label>
-                            <br />
-                            <br />
-                            <input asp-for="Telephone" class="form-control" />
-                            <span asp-validation-for="Telephone" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label> Téléphone</label>
+                        <br />
+                        <br />
+                        <input asp-for="Telephone" class="form-control" />
+                        <span asp-validation-for="Telephone" class="text-danger"></span>
 
-                        </div>
                     </div>
+                </div>
 
 
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                            <label>Password</label>
-                        </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                        <label>Password</label>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input asp-for="ConfirmPassword" placeholder="Confirmer mot de passe" class="form-control" />
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="ConfirmPassword" placeholder="Confirmer mot de passe" class="form-control" />
 
-                        </div>
                     </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="submit" value="submit" class="waves-effect waves-light btn-large full-btn">
-                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" value="submit" class="waves-effect waves-light btn-large full-btn">
                     </div>
+                </div>
 
-                    @section Scripts {
-                        <script>
-                            $(document).ready(function () {
-                                $('.custom-file-input').on("change", function () {
-                                    var fileName = $(this).val().split("\\").pop();
-                                    $(this).next('.custom-file-label').html(fileName);
-                                });
+                @section Scripts {
+                    <script>
+                        $(document).ready(function () {
+                            $('.custom-file-input').on("change", function () {
+                                var fileName = $(this).val().split("\\").pop();
+                                $(this).next('.custom-file-label').html(fileName);
                             });
-                        </script>
-                    }
+                        });
+                    </script>
+                }
 
             </form>
             <p>
@@ -129,7 +130,8 @@
             </p>
         </div>
     </div>
-</section>
+</div>
+
 
 <!--END DASHBOARD-->
 <!--END DASHBOARD-->
