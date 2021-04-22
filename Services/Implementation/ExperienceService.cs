@@ -119,5 +119,10 @@ namespace Services.Implementation
             return ExperienceRepo.BestExperience();
 
         }
+
+        public IList<Experience> BestExperiences()
+        {
+            return ExperienceRepo.GetThreeBest();
+        }
     }
 }

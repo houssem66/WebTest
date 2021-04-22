@@ -10,5 +10,6 @@ namespace Repository.Interfaces
   public  interface IActiviteRepo
     {
         public Task Update(Activite activite);
+        public Task<Activite> GetActiviteByImage(string src);
     }
 }

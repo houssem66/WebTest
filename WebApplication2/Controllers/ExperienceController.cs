@@ -357,27 +357,19 @@ namespace TourMe.Web.Controllers
             return PartialView("_Activité");
 
         }
-        [HttpPost]
+        [HttpGet]
         [AllowAnonymous]
-        public ActionResult Description(IFormFile Activite)
+        public ActionResult Description(string src)
         {
+            var ch = src.Remove(0,8);
+            var activite = ActiviteService.GetActiviteByImage(ch).Result;
 
 
-
-            if (Activite.Equals("a"))
-            {
+            
 
 
-                System.Diagnostics.Debug.WriteLine("Le type est" + Activite);
-                return PartialView("_Description");
-            }
-
-            else
-            {
-
-                return PartialView("_Description");
-            }
-
+                return PartialView("_Description", activite);
+       
         }
     }
 }

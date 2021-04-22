@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- FAV ICON -->
 
-    <img src="~/Theme/Template2/images/fav.ico" />
+    
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
     <!-- FONT-AWESOME ICON CSS -->
@@ -181,7 +181,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="wed-logo">
-                            <a href="https://localhost:44326/experience/Getall">
+                            <a href="https://localhost:44326">
                                 <img src="~/Theme/Template2/images/logo.png" alt="" />
                             </a>
                         </div>
@@ -683,37 +683,38 @@
                             <!--LISTINGS-->
                             <div class="row">
                                 <!--LISTINGS START-->
-                                <!--END LISTINGS-->
+                                <!--END LISTINGS--> 
                                 <!--LISTINGS START-->
                                 <!--LISTINGS START-->
                                 @{ foreach (var item in Model)
+
                                     {
-                                        <div class="hot-page2-alp-r-list">
-                                            <div class="col-md-3 hot-page2-alp-r-list-re-sp">
-                                                <a href="javascript:void(0);">
-                                                    <div class="hotel-list-score">@item.AvgRating</div>
-                                                    <div class="hot-page2-hli-1"> <img src="~/Theme/Template2/images/hotels/l1.jpg" alt=""> </div>
-                                                    <div class="hom-hot-av-tic hom-hot-av-tic-list">Nombre de place  @item.NbPlaces </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="hot-page2-alp-ri-p2">
-                                                    <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId"><h3>@item.Titre</h3></a>
-                                                    <ul>
-                                                        <li>@item.Lieu </li>
-                                                        <li>+101-1231-1231, +61 6541-4561-12</li>
-                                                    </ul>
+                                            <div class="hot-page2-alp-r-list">
+                                                <div class="col-md-3 hot-page2-alp-r-list-re-sp">
+                                                    <a href="javascript:void(0);">
+                                                        <div class="hotel-list-score">@item.AvgRating</div>
+                                                        <div class="hot-page2-hli-1"> <img src="~/images/@item.Activites.First().Image" alt=""> </div>
+                                                        <div class="hom-hot-av-tic hom-hot-av-tic-list">Nombre de place   @item.NbPlaces </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="hot-page2-alp-ri-p2">
+                                                        <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId"><h3>@item.Titre</h3></a>
+                                                        <ul>
+                                                            <li>@item.Lieu </li>
+                                                            <li>+101-1231-1231, +61 6541-4561-12</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="hot-page2-alp-ri-p3">
+                                                        <span class="hot-list-p3-1">Prix Par person</span> <span class="hot-list-p3-2">@item.tarif Dt</span><span class="hot-list-p3-4">
+                                                            <a href="hotel-details.html" class="hot-page2-alp-quot-btn">Reserver</a>
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="hot-page2-alp-ri-p3">
-                                                    <span class="hot-list-p3-1">Price Per Night</span> <span class="hot-list-p3-2">$650</span><span class="hot-list-p3-4">
-                                                        <a href="hotel-details.html" class="hot-page2-alp-quot-btn">Reserver</a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+                                        }
 
                                 } <!--END LISTINGS-->
                             </div>
