@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,20 +12,24 @@ namespace TourMe.Web.Models
 {
     public class ExperienceViewModel
     {
-        [Range(1, 2000)]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18, 2)")]
+        [Required(ErrorMessage = "Tarif est obligatoire")]
+        [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
+        [DisplayName("Tarif (dt)")]
         public decimal tarif { get; set; }
         public int ExperienceId { get; set; }
         public int ActiviteId { get; set; }
 
         [Required]
+        [MinLength(2)]
         public string Titre { get; set; }
         [Required]
+  
         public string TypeExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
+        [DataType(DataType.Date)]
         public DateTime dateDebut { get; set; }
+        [DataType(DataType.Date)]
         public DateTime dateFin { get; set; }
         public string Saison { get; set; }
         public string ImagesExperience { get; set; }

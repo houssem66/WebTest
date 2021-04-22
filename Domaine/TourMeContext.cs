@@ -42,8 +42,11 @@ namespace TourMe.Data
 
             builder.Entity<Experience>()
            .HasMany<Activite>(E => E.Activites);
-          
-           
+            builder.Entity<Experience>().Property(p => p.tarif)
+      .HasColumnType("decimal(18,4)");
+
+
+
 
 
 
