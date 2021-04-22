@@ -18,7 +18,7 @@ namespace Repository.Interfaces
 
         public IQueryable<Experience> GetAllExperienceAsync();
         public Experience BestExperience();
-         
+        public IList<Experience> GetThreeBest();
 
 
     }

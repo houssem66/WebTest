@@ -33,7 +33,7 @@ namespace Repository.Implementation
 
         public IQueryable<Experience> GetAllExperienceAsync()
         {
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings);
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings).Include(x=>x.Activites);
 
             return Experience;
         }
@@ -86,7 +86,7 @@ namespace Repository.Implementation
 
             var Experiences = genericRepoUser.GetAll();
             
-            int best = 0;
+            
             int i = 0;
             Experience exp = new Experience();
             //Debug.WriteLine("experience.count :" + Experiences.Count());
@@ -113,5 +113,17 @@ namespace Repository.Implementation
             return exp;
         }
 
+        public IList<Experience> GetThreeBest()
+        {
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings).Include(x => x.Activites);
+            if (Experience.Count()<=3)
+            {
+                return Experience.ToList();
+
+            }
+            
+
+            return Experience.OrderBy(x => x.AvgRating).Take(3).ToList(); ;
+        }
     }
 }
