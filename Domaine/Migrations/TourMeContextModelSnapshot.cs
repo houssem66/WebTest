@@ -357,6 +357,43 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Experience");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Logement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adresse")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<int>("ExperienceFk")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NbrNuit")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Photo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrixParNuit")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("Titre")
+                        .HasColumnType("varchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExperienceFk")
+                        .IsUnique();
+
+                    b.ToTable("Logement");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Rating", b =>
                 {
                     b.Property<int>("ExperienceId")
@@ -487,6 +524,17 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Logement", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", "Experience")
+                        .WithOne("Logement")
+                        .HasForeignKey("TourMe.Data.Entities.Logement", "ExperienceFk")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Rating", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", "experience")
@@ -516,6 +564,8 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Activites");
 
                     b.Navigation("Commentaires");
+
+                    b.Navigation("Logement");
 
                     b.Navigation("Ratings");
                 });
