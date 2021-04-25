@@ -350,7 +350,7 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("tarif")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ExperienceId");
 

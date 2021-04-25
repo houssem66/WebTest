@@ -1,4 +1,4 @@
-﻿
+
 @model CommercentViewModel
 
 @{
@@ -10,28 +10,37 @@
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
 <!--DASHBOARD-->
-
-<div class="row">
+<section>
     <div class="tr-register">
         <div class="tr-regi-form">
             <h4>Devenir Hôte</h4>
             <p>C'est toujours gratuit</p>
             <form class="col s12" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="row">
-                    <div class="input-field col m6 s12">
-                        <input class="form-check-input" type="radio" name="Type" value="individu">
-                        <label asp-for="Type" class="form-check-label">
-                            individu
-                        </label>
-                    </div>
-                    <div class="input-field col m6 s12">
-                        <input class="form-check-input" type="radio" name="Type" value="Organisme">
-                        <label asp-for="Type" class="form-check-label">
-                            Organisme
-                        </label>
-                    </div>
+                @*<div class="form-group">
+            <label asp-for="Type"></label>
+            <input asp-for="Type" type="radio" name="Type" value="individu" class="radioBtnClass" /> individu
+            <input type="radio" name="Type" value="Organisme" class="radioBtnClass" /> Organisme
+
+        </div>*@
+
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="Type"
+                           id="flexRadioDefault1"
+                           value="Organisme" />
+                    <label asp-for="Type" class="form-check-label" for="flexRadioDefault1"> Organisme </label>
+                    <input class="form-check-input"
+                           type="radio"
+                           name="Type"
+                           id="flexRadioDefault2"
+                           value="Individu" />
+                    <label class="form-check-label" for="flexRadioDefault2"> Individu </label>
                 </div>
+
+
+
                 <script>
 
                $(function () {
@@ -92,7 +101,14 @@
                 </div>
 
 
-
+                <div class="form-group">
+              
+                    <div class="custom-file">
+                        <label>Document</label>
+                        <input asp-for="FileP"  class="form-control custom-file-input" />
+                        <label class="custom-file-label">Upload CIN/Patente</label>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
@@ -130,8 +146,7 @@
             </p>
         </div>
     </div>
-</div>
-
+</section>
 
 <!--END DASHBOARD-->
 <!--END DASHBOARD-->

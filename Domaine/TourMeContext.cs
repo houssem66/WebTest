@@ -1,4 +1,4 @@
-﻿using Domaine.Entities;
+using Domaine.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -42,6 +42,8 @@ namespace TourMe.Data
 
             builder.Entity<Experience>()
            .HasMany<Activite>(E => E.Activites);
+            builder.Entity<Experience>().Property(p => p.tarif)
+      .HasColumnType("decimal(18,4)");
 
             //sprint3
             builder.Entity<Experience>().HasOne(e => e.Logement).WithOne(l => l.Experience).HasForeignKey<Logement>(x => x.ExperienceFk);
