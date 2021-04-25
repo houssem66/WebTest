@@ -1,4 +1,4 @@
-﻿using Domaine.Entities;
+using Domaine.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,7 +20,7 @@ namespace TourMe.Data
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Activite> Activite { get; set; }
 
-
+        public DbSet<Logement> Logement { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,9 +45,17 @@ namespace TourMe.Data
             builder.Entity<Experience>().Property(p => p.tarif)
       .HasColumnType("decimal(18,4)");
 
+            //sprint3
+            builder.Entity<Experience>().HasOne(e => e.Logement).WithOne(l => l.Experience).HasForeignKey<Logement>(x => x.ExperienceFk);
+            builder.Entity<Logement>(eb =>
+            {
+                eb.Property(l => l.PrixParNuit).HasColumnType("decimal(5, 2)");
+                eb.Property(l => l.Titre).HasColumnType("varchar(50)");
+                eb.Property(l => l.Adresse).HasColumnType("varchar(100)");
+                eb.Property(l => l.Description).HasColumnType("varchar(100)");
+                
 
-
-
+            });
 
 
 

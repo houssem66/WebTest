@@ -14,7 +14,6 @@ using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
-using Twilio.Rest.Lookups.V1;
 using System.IO;
 using TourMe.Data;
 using TourMe.Web.Models;
