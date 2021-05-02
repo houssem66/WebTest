@@ -19,6 +19,8 @@ namespace TourMe.Data
         public DbSet<Commentaire> Commentaires { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Activite> Activite { get; set; }
+        public DbSet<Nourriture> Nourritures { get; set; }
+        public DbSet<Logement> Logements { get; set; }
 
 
 
@@ -40,14 +42,23 @@ namespace TourMe.Data
 
 
 
-            builder.Entity<Experience>()
-           .HasMany<Activite>(E => E.Activites);
-            builder.Entity<Experience>().Property(p => p.tarif)
+      builder.Entity<Experience>()
+      .HasMany(E => E.Activites);
+      builder.Entity<Experience>().Property(p => p.tarif)
       .HasColumnType("decimal(18,4)");
+      builder.Entity<Experience>()
+      .HasMany(E => E.Nourritures);
+       builder.Entity<Experience>()
+      .HasMany(E => E.Logements);
+
+            builder.Entity<Nourriture>().Property(p => p.Prix)
+     .HasColumnType("decimal(18,4)");
+     builder.Entity<Logement>().Property(p => p.Prix)
+    .HasColumnType("decimal(18,4)");
 
 
 
-
+            builder.Entity<Commerçant>().HasMany(e => e.Experiences);
 
 
 

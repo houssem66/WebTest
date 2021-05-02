@@ -124,5 +124,11 @@ namespace Services.Implementation
         {
             return ExperienceRepo.GetThreeBest();
         }
+
+        public  IList<Experience> GetExperienceByUser(string id)
+        {
+            return ExperienceRepo.GetAllExperienceAsync().Where(e => e.CommerçantId.Equals(id)).ToList();
+          
+        }
     }
 }

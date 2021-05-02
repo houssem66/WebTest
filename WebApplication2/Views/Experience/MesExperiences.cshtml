@@ -1,0 +1,108 @@
+﻿@model List<TourMe.Data.Entities.Experience>
+@{var photoPath = "~/images/" + (ViewBag.user.ProfilePhoto ?? "noimage.jpg");
+
+}
+<!--DASHBOARD-->
+<section>
+    <div class="db">
+        <!--LEFT SECTION-->
+        <div class="db-l">
+            <div class="db-l-1">
+                <ul>
+                    <li>
+                        <img src="@photoPath" asp-append-version="true" alt="" />
+                    </li>
+
+                </ul>
+            </div>
+            <div class="db-l-2">
+                <ul>
+                    <li>
+                        <a asp-controller="Experience" asp-action="MesExperiences"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Expériences</a>
+                    </li>
+                    <li>
+                        <a href="db-travel-booking.html"><img src="~/Theme/Template2/images/icon/dbl2.png" alt="" /> Travel Bookings</a>
+                    </li>
+                    <li>
+                        <a href="db-hotel-booking.html"><img src="~/Theme/Template2/images/icon/dbl3.png" alt="" /> Hotel Bookings</a>
+                    </li>
+                    <li>
+                        <a href="db-event-booking.html"><img src="~/Theme/Template2/images/icon/dbl4.png" alt="" /> Event Bookings</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="ProfilCommerc"><img src="~/Theme/Template2/images/icon/dbl6.png" alt="" /> My Profile</a>
+                    </li>
+                    <li>
+                        <a href="db-all-payment.html"><img src="~/Theme/Template2/images/icon/dbl9.png" alt="" /> Payments</a>
+                    </li>
+                    <li>
+                        <a href="db-refund.html"><img src="~/Theme/Template2/images/icon/dbl7.png" alt="" /> Claim & Refund</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--CENTER SECTION-->
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <h4>Mes Expériences</h4>
+               
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Titre</th>
+                                <th>Type</th>
+                                <th>nb Places</th>
+                                <th>Date Debut</th>
+                                <th>Date Fin</th>
+                                <th>Nourriture</th>
+                                <th>logement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var item in Model)
+                            { 
+                            <tr>
+                                <td>  <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:black"><h3>@item.Titre</h3></a></td>
+
+                                <td>@item.TypeExperience</td>
+                                <td>@item.NbPlaces</td>
+                                <td>@item.dateDebut</td>
+                                <td>@item.dateFin</td>
+                                @if (item.Nourritures.Count == 0)
+                                {
+                                    <td>
+                                        <span class="db-not-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
+                                    </td>
+                                }
+                                @if (item.Nourritures.Count != 0)
+                                {
+                                    <td>
+                                        <span class="db-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
+                                    </td>
+                                }
+                                @if (item.Logements.Count == 0)
+                                {
+                                    <td>
+                                        <span class="db-not-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
+                                    </td>
+                                }
+                                @if (item.Logements.Count != 0)
+                                {
+                                    <td>
+                                        <span class="db-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
+                                    </td>
+                                }
+
+
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+         
+        </div>
+        <!--RIGHT SECTION-->
+     
+    </div>
+</section>
+<!--END DASHBOARD-->

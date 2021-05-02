@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TourMe.Data.Entities;
 using TourMe.Data.Entities.Enum;
 
 namespace Domaine.Entities
@@ -21,7 +22,7 @@ namespace Domaine.Entities
         public string Patente { get; set; }
         public string Secteur { get; set; }
         public string TypeOrgan { get; set; }
-
-      
+         
+        public virtual IList<Experience> Experiences { get; set; }
     }
 }

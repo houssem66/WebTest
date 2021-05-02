@@ -1,6 +1,7 @@
 ﻿using Domaine.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace TourMe.Data.Entities
 {
    public class Experience
     {
-        [RegularExpression(@"^\d+\.\d{0,2}$")]
-        [Range(0, 9999999999999999.99)]
+        [Required(ErrorMessage = "Tarif est obligatoire")]
+        [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
+        [DisplayName("Tarif (dt)")]
         public decimal tarif { get; set; }
         public int ExperienceId { get; set; }
         [Required]
@@ -36,5 +38,8 @@ namespace TourMe.Data.Entities
         public virtual ICollection<Commentaire> Commentaires { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual IList<Activite> Activites { get; set; }
+        public virtual IList<Nourriture> Nourritures { get; set; }
+        public virtual IList<Logement> Logements { get; set; }
+        public string CommerçantId { get; set; }
     }
 }

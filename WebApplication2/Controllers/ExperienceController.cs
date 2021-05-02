@@ -25,35 +25,56 @@ namespace TourMe.Web.Controllers
     {
         private readonly IWebHostEnvironment hostingEnvironment;
         readonly private IExperienceService ExperienceService;
-        
+    
+        private readonly SignInManager<Utilisateur> signInManager;
 
         public ICollection<Activite> Activites = new Collection<Activite>();
 
         readonly private IActiviteService ActiviteService;
+        readonly private INourritureService NourritureService;
+        readonly private ILogementService LogementService;
+
         private readonly UserManager<Utilisateur> userManager;
 
         private readonly IUserService userService;
         private readonly IRatingService ratingService;
-        
-        
-        public ExperienceController(IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IUserService _UserService, IRatingService ratingService)
+        readonly private IUserService UserService;
+
+        public ExperienceController(ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
         {
+            LogementService = _LogementService;
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
-
+            UserService = _UserService;
+            NourritureService = _NourritureService;
             ActiviteService = activiteService;
             this.userManager = userManager;
+            this.signInManager = signInManager;
             userService = _UserService;
             this.ratingService = ratingService;
 
         }
-
         [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult MesExperiences()
+
+        {
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+           // ViewBag.Best = ExperienceService.BestExperience();
+            var list = ExperienceService.GetExperienceByUser(userManager.GetUserId(User));
+            return View(list);
+        
+        }
+
+            [HttpGet]
         [AllowAnonymous]
 
         public IActionResult GetAll(string[] searchTerm)
 
         {
+            
+
             ViewBag.Best = ExperienceService.BestExperience();
             string[] search = new string[10];
             List<Experience> list = new List<Experience>();
@@ -93,9 +114,9 @@ namespace TourMe.Web.Controllers
             //TempData.Keep("Message");
             //Activites = (ICollection<Activite>)ViewData["Message"];
             if (ModelState.IsValid)
-            {
-
-                Experience experience = new Experience
+            { 
+                  string id = userManager.GetUserId(User);
+                  Experience experience = new Experience
                 {
                     Titre = model.Titre,
                     Lieu = model.Lieu,
@@ -103,9 +124,10 @@ namespace TourMe.Web.Controllers
                     dateDebut = model.dateDebut,
                     dateFin = model.dateFin,
                     Saison = model.Saison,
-                    NbPlaces=model.NbPlaces,
-                    tarif=model.tarif,
-                    Activites = new Collection<Activite>()
+                    NbPlaces = model.NbPlaces,
+                    tarif = model.tarif,
+                    Activites = new Collection<Activite>(),
+                   CommerçantId=id
 
 
                 };
@@ -217,9 +239,123 @@ namespace TourMe.Web.Controllers
             return RedirectToAction("GetAll");
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult CreateNourriture(int id)
+        {
+            ViewData["Id"] = id;
+            return View();
+        }
+
+       
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateNourriture (NourritureViewModel model,int id)
+        {
+            Experience experience = await ExperienceService.GetById(id);
+            if (ModelState.IsValid)
+            {
+            
+                string uniqueFileName = null;
+                if (model.FileP != null)
+                {
+                    
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
 
 
+                Nourriture nourriture = new Nourriture
 
+                {
+                   Description=model.Description,
+                   Image=uniqueFileName,
+                   Plat=model.Plat,
+                   Prix=model.Prix,
+                   ExperienceId=id,
+                   Type=model.Type
+                };
+
+
+                experience.Nourritures = new List<Nourriture>();
+
+                experience.Nourritures.Add(nourriture);
+
+                await ExperienceService.PutExperienceAsync(id, experience);
+                await NourritureService.Ajout(nourriture);
+
+            return RedirectToAction("MesExperiences");
+
+            }
+
+
+            return View(model);
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult CreateLogement(int id)
+        {
+            ViewData["Id"] = id;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> CreateLogement(LogementViewmodel model, int id)
+        {
+            Experience experience = await ExperienceService.GetById(id);
+            if (ModelState.IsValid)
+            {
+
+                string uniqueFileName = null;
+                if (model.FileP != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
+
+
+                Logement logement = new Logement
+
+                { Datedebut = model.Datedebut,
+                    DateFin = model.DateFin,
+                    Lieu = model.Lieu,
+                    Image=uniqueFileName,
+                    NbJours=model.NbJours,
+                    Prix=model.Prix,
+                    Type=model.Type,
+                    ExperienceId = id
+                };
+
+
+                experience.Logements = new List<Logement>();
+
+                experience.Logements.Add(logement);
+
+                await ExperienceService.PutExperienceAsync(id, experience);
+                await LogementService.Ajout(logement);
+
+                return RedirectToAction("MesExperiences");
+
+            }
+
+
+            return View(model);
+        }
 
 
         [HttpPost]
@@ -316,7 +452,7 @@ namespace TourMe.Web.Controllers
                     // The image must be uploaded to the images folder in wwwroot
                     // To get the path of the wwwroot folder we are using the inject
                     // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
                     // To make sure the file name is unique we are appending a new
                     // GUID value and and an underscore to the file name
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + FileP.FileName;
