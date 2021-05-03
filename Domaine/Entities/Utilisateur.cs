@@ -24,9 +24,10 @@ namespace Domaine.Entities
 
         public int? Telephone { get; set; }
         public String ProfilePhoto { get; set; }
-        [DataType(DataType.Date)]
+
 
         //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         public String Adresse { get; set; }

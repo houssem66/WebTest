@@ -1,27 +1,28 @@
-﻿using Domaine.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 
 namespace TourMe.Data.Entities
 {
    public class Logement
     {
-        public int Id { get; set; }
-        
-        public string  Titre { get; set; }
-        public string Description { get; set; }
-        public decimal PrixParNuit { get; set; }
-        public int Adresse { get; set; }
-        public string Photo { get; set; }
-        public int NbrNuit { get; set; }
-        public int ExperienceFk { get; set; }
-        public Experience Experience { get; set; }
+        public int LogementId { get; set; }
+        public string Lieu { get; set; }
+        public string Type { get; set; }
+        public string Image { get; set; }
+        public int NbJours { get; set; }
+        public DateTime Datedebut { get; set; }
+        public DateTime DateFin { get; set; }
+        [Required(ErrorMessage = "Prix est obligatoire")]
+        [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
+        [DisplayName("Tarif (dt)")]
+        public decimal Prix { get; set; }
+        public int ExperienceId { get; set; }
+
 
     }
 }

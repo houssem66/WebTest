@@ -110,7 +110,7 @@
             <div class="input-field col s12">
                <form method="get">
 
-                   <input type="submit" value="Valider L'experience" asp-action="GetAll" asp-controller="Experience" />
+                   <input type="submit" value="Valider L'experience" asp-action="HoteExperiences" asp-controller="Experience" />
 
                </form>
             </div>
@@ -159,6 +159,9 @@
                     <input type="hidden" asp-for="dateDebut" value="@ViewBag.experience1.dateDebut" class="form-control" />
                     <input type="hidden" asp-for="dateFin" value="@ViewBag.experience1.dateFin" class="form-control" />
                     <input type="hidden" asp-for="ExperienceId" value="@ViewBag.experience1.ExperienceId" />
+                    <input type="hidden" asp-for="tarif" value="@ViewBag.experience1.tarif" />
+                    <input type="hidden" asp-for="NbPlaces" value="@ViewBag.experience1.NbPlaces" />
+
 
                     <ul>
                         <li>

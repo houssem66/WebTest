@@ -14,6 +14,7 @@ using Twilio.Exceptions;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TourMe.Web;
 using Twilio.Rest.Lookups.V1;
+
 using System.IO;
 using TourMe.Data;
 using TourMe.Web.Models;
@@ -94,10 +95,11 @@ namespace Finance.Controllers
            
         }
 
-        //added 22/03/2021 houssem code
+        
         
         public async Task<IActionResult> Profil()
         {
+            ViewData["countries"] = AvailableCountries;
             string id = userManager.GetUserId(User);
 
             Utilisateur us = await UserService.GetById(id);
@@ -299,7 +301,8 @@ namespace Finance.Controllers
                         EffectFemme = model.EffectFemme,
                         EffectHomme = model.EffectHomme,
                         Type = model.Type,
-                        Patente=uniqueFileName
+                        Patente=uniqueFileName,
+                        Country=model.PhoneNumberCountryCode
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
@@ -606,10 +609,11 @@ namespace Finance.Controllers
         {
             
             string id = userManager.GetUserId(User);
-            Utilisateur user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
+            Commerçant user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
          
-            user.Nom = model.Nom;
+            user.PersAContact = model.PersAContact;
             user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
             
            
             await UserService.PutUtilisateurAsync(id, user);
@@ -634,6 +638,7 @@ namespace Finance.Controllers
             user.BirthDate = model.BirthDate;
             user.NickName = model.NickName;
             user.Country = model.Country;
+            user.PhoneNumber = model.Telephone;
 
 
 

@@ -28,9 +28,10 @@ namespace TourMe.Web.Models
             ErrorMessage = "Password and confirmation password do not match.")]
 
         public string ConfirmPassword { get; set; }
-        [DataType(DataType.Date)]
 
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+
+
+        [DisplayFormat(DataFormatString = @"{0:dd\/MM\/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
         public string ReturnUrl { get; set; }
         public IFormFile Photo { get; set; }

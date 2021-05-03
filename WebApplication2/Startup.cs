@@ -80,6 +80,8 @@ namespace WebApplication2
             services.AddTransient<IActiviteService, ActiviteService>();
             services.AddScoped(typeof(IRatingRepo), typeof(RatingRepo));
             services.AddTransient<IRatingService, RatingService>();
+            services.AddTransient<INourritureService, NourritureService>();
+            services.AddTransient<ILogementService, LogementService>();
             services.AddCors();
             //sprint 3
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));

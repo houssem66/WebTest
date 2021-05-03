@@ -1,5 +1,4 @@
-﻿using Repository.Implementation;
-using Repository.Interfaces;
+using Repository.Implementation;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,40 +9,33 @@ using TourMe.Data.Entities;
 
 namespace Services.Implementation
 {
-   public class LogementService:ILogementService
+    public class LogementService : ILogementService
     {
         private readonly IGenericRepository<Logement> GenericRepo;
-        private readonly ILogementRepo LogementRepo;
-
-        public LogementService(IGenericRepository<Logement> genericRepo, ILogementRepo logementRepo)
+        public LogementService(IGenericRepository<Logement> genericRepo)
         {
             GenericRepo = genericRepo;
-            LogementRepo = logementRepo;
+
+        }
+        public Task Ajout(Logement entity)
+        {
+            return GenericRepo.InsertAsync(entity);
         }
 
-        public  Task Ajout(Logement logement)
+        public IEnumerable<Logement> GetLogement(int id)
         {
-           return  GenericRepo.InsertAsync(logement);
+            return GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList();
         }
 
-        public Task Delete(Logement logement)
+        public async Task<Logement> GetLogementById(int id)
         {
-            return GenericRepo.DeleteAsync(logement.Id);
+            Logement a = await GenericRepo.GetByIdAsync(id);
+            return a;
         }
 
-        public IList<Logement> GetAllLogements()
+        public Task Update(Logement entity)
         {
-            return GenericRepo.GetAll().ToList();
-        }
-
-        public Task<Logement> GetLogementById(int id)
-        {
-            return GenericRepo.GetByIdAsync(id);
-        }
-
-        public Task Update(Logement logement)
-        {
-            return GenericRepo.PutAsync(logement.Id,logement);
+            throw new NotImplementedException();
         }
     }
 }

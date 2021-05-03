@@ -19,8 +19,10 @@ namespace TourMe.Data
         public DbSet<Commentaire> Commentaires { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<Activite> Activite { get; set; }
+        public DbSet<Nourriture> Nourritures { get; set; }
+        public DbSet<Logement> Logements { get; set; }
 
-        public DbSet<Logement> Logement { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -40,22 +42,23 @@ namespace TourMe.Data
 
 
 
-            builder.Entity<Experience>()
-           .HasMany<Activite>(E => E.Activites);
-            builder.Entity<Experience>().Property(p => p.tarif)
+      builder.Entity<Experience>()
+      .HasMany(E => E.Activites);
+      builder.Entity<Experience>().Property(p => p.tarif)
       .HasColumnType("decimal(18,4)");
+      builder.Entity<Experience>()
+      .HasMany(E => E.Nourritures);
+       builder.Entity<Experience>()
+      .HasMany(E => E.Logements);
 
-            //sprint3
-            builder.Entity<Experience>().HasOne(e => e.Logement).WithOne(l => l.Experience).HasForeignKey<Logement>(x => x.ExperienceFk);
-            builder.Entity<Logement>(eb =>
-            {
-                eb.Property(l => l.PrixParNuit).HasColumnType("decimal(5, 2)");
-                eb.Property(l => l.Titre).HasColumnType("varchar(50)");
-                eb.Property(l => l.Adresse).HasColumnType("varchar(100)");
-                eb.Property(l => l.Description).HasColumnType("varchar(100)");
-                
+            builder.Entity<Nourriture>().Property(p => p.Prix)
+     .HasColumnType("decimal(18,4)");
+     builder.Entity<Logement>().Property(p => p.Prix)
+    .HasColumnType("decimal(18,4)");
 
-            });
+
+
+            builder.Entity<Commerçant>().HasMany(e => e.Experiences);
 
 
 
