@@ -38,8 +38,10 @@ namespace TourMe.Data.Entities
         public virtual ICollection<Commentaire> Commentaires { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual IList<Activite> Activites { get; set; }
+
         public virtual IList<Nourriture> Nourritures { get; set; }
         public virtual IList<Logement> Logements { get; set; }
         public string CommerçantId { get; set; }
+
     }
 }
