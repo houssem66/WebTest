@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using TourMe.Data.Entities;
 using TourMe.Web.Models;
 
 namespace TourMe.Web.Controllers
@@ -24,7 +25,13 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View(experienceService.BestExperiences());
+            List<Nourriture> nourritures = new List<Nourriture>();
+            List<Logement> logements = new List<Logement>();
+            List<Experience> experiences = new List<Experience>();
+            experiences = (List<Experience>)experienceService.BestExperiences();
+            HomeViewModel homeViewModel = new HomeViewModel();
+            homeViewModel.ListeExperience = experiences;
+            return View(homeViewModel);
         }
 
         public IActionResult Privacy()

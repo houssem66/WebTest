@@ -27,9 +27,9 @@
                         <span asp-validation-for="Type" class="text-danger"></span>
                     </div>
                 </div>
-
+               
                 <input type="hidden" value="@ViewBag.Id" name="id" class="form-control" />
-
+             
                 <div class="row">
                     <div class="input-field col s12">
 
@@ -100,10 +100,29 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="submit" value="Ajouter Nourriture" class="waves-effect waves-light full-btn">
+                        <input type="submit" value="Ajouter Logement" class="waves-effect waves-light full-btn">
                     </div>
                 </div>
             </form>
+
+
         </div>
     </div>
+</div>
+<div>
+    <ul>
+        <li>
+          
+                <a asp-action="CreateNourriture" class="hot-page2-alp-quot-btn" asp-route-id="@ViewBag.Id">
+                    Ajouter Nourriture
+                </a>
+   
+        </li>
+        <li>
+            <a asp-action="MesExperiences" class="hot-page2-alp-quot-btn">
+                Voir Mes Expériences
+            </a>
+        </li>
+
+    </ul>
 </div>

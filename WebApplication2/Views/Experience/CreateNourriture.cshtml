@@ -28,8 +28,16 @@
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
 
-                <input type="hidden" value="@ViewBag.Id"  name="id" class="form-control" />
+                        <input asp-for="Type" placeholder="Description" class="form-control" />
+
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <input type="hidden" value="@ViewBag.Id" name="id" class="form-control" />
 
                 <div class="row">
                     <div class="input-field col s12">
@@ -86,4 +94,17 @@
             </form>
         </div>
     </div>
+</div>
+
+<div>
+    <ul>
+        <li>
+        <li>
+            <a asp-action="MesExperiences" class="hot-page2-alp-quot-btn">
+                Voir Mes Expériences
+            </a>
+        </li>
+       
+
+    </ul>
 </div>

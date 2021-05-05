@@ -4,7 +4,7 @@
 }
 <!--DASHBOARD-->
 <section>
-    <div class="db">
+    <div class="db col-md-12">
         <!--LEFT SECTION-->
         <div class="db-l">
             <div class="db-l-1">
@@ -56,6 +56,7 @@
                                 <th>Date Fin</th>
                                 <th>Nourriture</th>
                                 <th>logement</th>
+                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,7 +94,13 @@
                                     </td>
                                 }
 
+                                <td>
+                                    <form method="post">
+                                        <button type="submit" asp-action="DeleteExperience" asp-controller="Experience" asp-route-id="@item.ExperienceId"> Delete</button>
+                                    </form>
 
+
+                                </td>
                             </tr>
                             }
                         </tbody>

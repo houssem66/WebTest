@@ -1,4 +1,4 @@
-﻿@model IList<TourMe.Data.Entities.Experience>
+﻿@model HomeViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -55,8 +55,10 @@
 <section>
     <div class="rows pad-bot-redu tb-space hom2-ban-pack">
         <div class="container">
+            @if(Model!=null)
+            { 
             <div>
-                @{ foreach (var item in Model)
+                @{ foreach (var item in Model.ListeExperience)
                     {
                         <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow fadeInUp animated" data-wow-duration="0.5s" style="visibility: visible;-webkit-animation-duration: 0.5s; -moz-animation-duration: 0.5s; animation-duration: 0.5s;">
                             <!-- OFFER BRAND -->
@@ -95,6 +97,7 @@
                         <!-- TOUR PLACE 3 -->
 
                     </div>
+                    }
         </div>
     </div>
 </section>

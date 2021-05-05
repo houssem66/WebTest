@@ -25,7 +25,7 @@
                             <br />
                             <br />
 
-                            <input disabled value="@ViewBag.exp.Titre" />
+                            <span> @ViewBag.exp.Titre </span>
                         </div>
                     </div>
 
@@ -35,7 +35,7 @@
                             <label>Type d'experience</label>
                             <br />
                             <br />
-                            <input disabled value="@ViewBag.exp.TypeExperience" />
+                            <span>@ViewBag.exp.TypeExperience </span> 
                         </div>
                     </div>
                     <div class="row">
@@ -119,7 +119,7 @@
         @if (ViewBag.ListeActivite == null)
 
         {
-            <table class="db-2-main-2">
+            <table id="myTable">
                 <thead>
                     <tr>
 
@@ -226,16 +226,16 @@
                 alert("Experience Ajouté avec succès");
             }
         </script>
-        <form method="get" name="redirect">
+
             <ul>
                 <li>
 
-                    <input type="submit" class="waves-effect waves-light full-btn" asp-controller="Experience" asp-action="AffichageExperience" onclick="showAlert()" />
+                    <a type="submit" class="hot-page2-alp-quot-btn" asp-controller="Experience" asp-action="CreateLogement" >Valider L'ajout</a>
 
                 </li>
             </ul>
 
-        </form>
+       
 
 
 
