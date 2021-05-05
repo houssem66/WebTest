@@ -42,12 +42,14 @@ namespace Finance.Controllers
             this.roleManager = roleManager;
         }
 
-
+       
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Logout()
         {
-            await signInManager.SignOutAsync();
+            
+
+              await signInManager.SignOutAsync();
             return RedirectToAction("index", "home");
 
         }

@@ -1,6 +1,9 @@
 ﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
-@using Microsoft.AspNetCore.Identity;
+@inject Services.Interfaces.IFournisseurService FournisseurService
+@inject UserManager<Domaine.Entities.Utilisateur> userManager;
 
+@using Microsoft.AspNetCore.Identity;
+@using Services.Implementation
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +15,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <!-- FAV ICON -->
+    <link rel="shortcut icon" href="~/Theme/Template2/images/fav.ico">
     <!-- GOOGLE FONTS -->
+
     <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
     <!-- FONT-AWESOME ICON CSS -->
     <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
@@ -109,6 +115,7 @@
                         <div class="ed-com-t1-right">
                             @if (signInManager.IsSignedIn(User))
                             {
+                                var x = FournisseurService.GetFournisseurById(userManager.GetUserId(User));
                 <form method="post" asp-controller="Account" asp-action="logout">
 
                     <button type="submit" class="btn btn-link" style="width:auto">
@@ -118,32 +125,49 @@
 
                 </form>
                                 @if (User.IsInRole("Commercant"))
-                                {<ul>
+                                {
+                <ul>
 
-                                        <li>
-                                            <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                        </li>
-                                    </ul>} }
-                                            else
+                    <li>
+                        <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                    </li>
+                    <li>
+                        @if (@x.Result.TypeService.ToString() == "Logement")
+                        {<a class="nav-link" asp-controller="Service" asp-action="AjouterLogement" asp-route-id="@User.Identity.Name">Creer Un @x.Result.TypeService </a>}
+                        @if (@x.Result.TypeService.ToString() == "Nourriture")
+                        {<a class="nav-link" asp-controller="Service" asp-action="AjouterNourriture" asp-route-id="@User.Identity.Name">Creer Un @x.Result.TypeService </a>}
+                    </li>
+                </ul>} }
+                            else
 
-                                            {
+                            {
 
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Account" asp-action="Login">Se Connecter</a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
-                                    </li>
-                                    <li>
-                                        <a style=" color:azure;
+                <ul>
+                    <li>
+                        <a asp-controller="Account" asp-action="Login">Se Connecter</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
+                    </li>
+
+                    <li>
+                        <a style=" color:azure;
                                                     padding: 7px 12px;
                                                     line-height: 30px;
                                                     font-size: 12px;
                                                     background-color:darkturquoise;
     " asp-controller="account" asp-action="RegisterCommercant">Devenir Hôte</a>
-                                    </li>
-                                </ul>}
+                    </li>
+                    <li>
+                        <a style=" color:azure;
+                                                    padding: 7px 12px;
+                                                    line-height: 30px;
+                                                    font-size: 12px;
+                                                    background-color:darkturquoise;
+    " class="nav-link" asp-controller="Service" asp-action="TypeService" asp-route-id="@User.Identity.Name">Devenir Un Fournisseur</a>
+                    </li>
+                </ul>}
                         </div>
                         <div class="ed-com-t1-social">
                             <ul>
@@ -307,7 +331,8 @@
                     </li>
                                     <li>
                                         <a asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                    </li>}
+                                    </li>
+}
                                 @if (User.IsInRole("Utilisateur"))
                                 {
                     <li>
@@ -315,7 +340,8 @@
                         <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
 
 
-                    </li>}
+                    </li>
+}
 
                             </ul>
                         </div>
@@ -330,7 +356,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="search-form">
-                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAllExperience">
+                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAll">
                                 <div class="input-field">
                                     <input type="text" id="select-city" class="autocomplete">
                                     <label for="select-city">Enter city</label>
@@ -359,19 +385,15 @@
 
 
 
-    <div class="content-wrapper">
-        <div class="content">
-            <div class="container">
-                <div class="row">
 
                     @RenderBody()
-                </div>
+               
                 @if (IsSectionDefined("Scripts"))
                 {
     @await RenderSectionAsync("Scripts", required: true)}
-            </div>
-        </div>
-    </div>
+           
+      
+    
     <!--====== FOOTER - COPYRIGHT ==========-->
     <!--========= Scripts ===========-->
     <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
@@ -379,7 +401,8 @@
     <script src="~/Theme/Template2/js/wow.min.js"></script>
     <script src="~/Theme/Template2/js/materialize.min.js"></script>
     <script src="~/Theme/Template2/js/custom.js"></script>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/bootstrap.js"></script>
+
+
 </body>
 
 

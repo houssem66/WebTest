@@ -2,7 +2,6 @@ using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +12,6 @@ using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Implementation;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TourMe.Data;
 using TourMe.Web;
 using Twilio;
@@ -35,7 +30,8 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => {
+            services.AddMvc(options =>
+            {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
 
@@ -82,8 +78,14 @@ namespace WebApplication2
             services.AddTransient<IRatingService, RatingService>();
             services.AddCors();
             //sprint 3
-            services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
-            services.AddTransient<ILogementService, LogementService>();
+            services.AddScoped(typeof(ILogementextRepo), typeof(LogementextRepo));
+            services.AddTransient<ILogementextService, LogementextService>();
+            services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
+            services.AddTransient<IFournisseurService, FournisseurService>();
+            services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
+            services.AddTransient<ICommercantService, CommercantService>();
+            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
+            services.AddTransient<INourritureExtService, NourritureExtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

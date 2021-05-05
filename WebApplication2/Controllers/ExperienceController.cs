@@ -324,7 +324,6 @@ namespace TourMe.Web.Controllers
 
                 }
 
-                System.Diagnostics.Debug.WriteLine("l'id ta3 l'activité est " + activiteId);
                 Activite a = await ActiviteService.GetActiviteById(activiteId);
 
 

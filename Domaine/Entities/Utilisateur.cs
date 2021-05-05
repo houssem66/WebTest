@@ -26,7 +26,7 @@ namespace Domaine.Entities
         public String ProfilePhoto { get; set; }
         [DataType(DataType.Date)]
 
-        //[DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
 
         public String Adresse { get; set; }

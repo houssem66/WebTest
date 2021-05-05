@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities.Enum
 {
-    class Class1
-    {
+    public enum TypeNourriture
+    {Traditionel,francais,FastFood,Italien,
     }
 }

@@ -9,12 +9,12 @@ using TourMe.Data.Entities;
 
 namespace Repository.Implementation
 {
-   public class LogementRepo :ILogementRepo
+   public class LogementextRepo :ILogementextRepo
     {
         private readonly TourMeContext dbContext;
-        private readonly IGenericRepository<Logement> genericRepoRate;
+        private readonly IGenericRepository<ServiceLogment> genericRepoRate;
 
-        public LogementRepo(TourMeContext dbContext, IGenericRepository<Logement> _GenericRepoRate)
+        public LogementextRepo(TourMeContext dbContext, IGenericRepository<ServiceLogment> _GenericRepoRate)
         {
             this.dbContext = dbContext;
             genericRepoRate = _GenericRepoRate;

@@ -1,0 +1,88 @@
+﻿@model CommercentViewModel
+
+<section>
+    <div class="tr-register">
+        <div class="tr-regi-form v2-search-form">
+            <h4>Devenir un Fournisseur <span>Logement</span></h4>
+            <p>Remplir les informations necessaire</p>
+            <form class="contact__form"name="new"id="1" method="post" action="DevnirFournisseurLogement">
+                <div class="alert alert-success contact__msg" style="display: none" role="alert">
+                    Thank you for arranging a wonderful trip for us! Our team will contact you shortly!
+                </div>@{if (Model!=null) { 
+                    <input type="hidden" name="TypseService" value="@Model.TypseService" />}}
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" class="validate" name="PersAContact" required>
+                        <label>Personne a Contacter ou Gerant</label>
+                        <span asp-validation-for="PersAContact" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" class="validate" name="TypeOrgan" required>
+                        <label>Entrer Votre Type d'organisme</label>
+                        <span asp-validation-for="Secteur" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" class="validate" name="SituationEntreprise" required>
+                        <label>Entrer Le titre d'entreprise</label>
+                        <span asp-validation-for="Secteur" class="text-danger"></span>
+                    </div>
+
+                </div><div class="row">
+                    <div class="input-field col s12">
+                        <input type="text" class="validate" name="Secteur" required>
+                        <label>Entrer Votre Secteur</label>
+                        <span asp-validation-for="Secteur" class="text-danger"></span>
+                    </div>
+
+                </div><div class="row">
+                    <div class="input-field col s6">
+                        <input type="number" class="validate" name="Patente" required>
+                        <label>Votre Patente</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select asp-for="PhoneNumberCountryCode" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
+                        <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="number" class="validate" name="Telephone" required>
+                        <label>Enter your phone</label>
+                        <span asp-validation-for="Telephone" class="text-danger"></span>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="email" class="validate" name="email" required>
+                        <label>Enter your email</label>
+                        <span asp-validation-for="Secteur" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="Password" class="validate" />
+                        <label>Saisir votre Mot de passe</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="ConfirmPassword" class="validate" />
+                        <label>Confirmer Votre mot de passe</label>
+                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" class="btn btn-primary btn-block" value="Inscription">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

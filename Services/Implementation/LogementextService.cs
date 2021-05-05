@@ -10,38 +10,38 @@ using TourMe.Data.Entities;
 
 namespace Services.Implementation
 {
-   public class LogementService:ILogementService
+   public class LogementextService:ILogementextService
     {
-        private readonly IGenericRepository<Logement> GenericRepo;
-        private readonly ILogementRepo LogementRepo;
+        private readonly IGenericRepository<ServiceLogment> GenericRepo;
+        private readonly ILogementextRepo LogementRepo;
 
-        public LogementService(IGenericRepository<Logement> genericRepo, ILogementRepo logementRepo)
+        public LogementextService(IGenericRepository<ServiceLogment> genericRepo, ILogementextRepo logementRepo)
         {
             GenericRepo = genericRepo;
             LogementRepo = logementRepo;
         }
 
-        public  Task Ajout(Logement logement)
+        public  Task Ajout(ServiceLogment logement)
         {
            return  GenericRepo.InsertAsync(logement);
         }
 
-        public Task Delete(Logement logement)
+        public Task Delete(ServiceLogment logement)
         {
             return GenericRepo.DeleteAsync(logement.Id);
         }
 
-        public IList<Logement> GetAllLogements()
+        public IList<ServiceLogment> GetAllLogements()
         {
             return GenericRepo.GetAll().ToList();
         }
 
-        public Task<Logement> GetLogementById(int id)
+        public Task<ServiceLogment> GetLogementById(int id)
         {
             return GenericRepo.GetByIdAsync(id);
         }
 
-        public Task Update(Logement logement)
+        public Task Update(ServiceLogment logement)
         {
             return GenericRepo.PutAsync(logement.Id,logement);
         }

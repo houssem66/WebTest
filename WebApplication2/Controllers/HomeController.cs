@@ -24,7 +24,8 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {
-            return View(experienceService.BestExperiences());
+            var x = experienceService.BestExperiences();
+            return View(x);
         }
 
         public IActionResult Privacy()
