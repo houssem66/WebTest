@@ -83,6 +83,9 @@ namespace WebApplication2
             services.AddTransient<INourritureService, NourritureService>();
             services.AddTransient<ILogementService, LogementService>();
             services.AddCors();
+            //sprint 3
+            services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
+            services.AddTransient<ILogementService, LogementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
