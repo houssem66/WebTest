@@ -595,12 +595,12 @@ namespace Finance.Controllers
                 return PartialView("_Organisme");
             }
 
-            else
+            else if(type.Equals("Individu"))
             {
 
                 return new EmptyResult();
             }
-
+            return null;
         }
         [HttpPost]
         [ValidateAntiForgeryToken]

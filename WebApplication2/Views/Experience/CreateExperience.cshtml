@@ -9,82 +9,6 @@
 
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-@*<div class="card card-warning" style="float: right; width: 50%">
-    <div class="card-header">
-        <h1 class="card-title">Expérience</h1>
-    </div>
-    <div class="card card-info col-md-auto accent-green">
-
-        <div class="col-md-12">
-            <form enctype="multipart/form-data" method="post" asp-action="CreateExperience">
-                <div asp-validation-summary="All" class="text-danger"></div>
-
-
-
-
-
-                <div class="bootstrap-switch-gray-dark">
-                    <label asp-for="Titre">Titre Experience</label>
-                    <input asp-for="Titre" class="form-control" />
-                    <span asp-validation-for="Titre" class="text-danger"></span>
-
-                </div>
-
-
-
-                <div class="form-group">
-                    <label asp-for="TypeExperience">Type Experience</label>
-                    <input asp-for="TypeExperience" class="form-control" />
-                    <span asp-validation-for="TypeExperience" class="text-danger"></span>
-
-                </div>
-                <div class="form-group">
-                    <label asp-for="Lieu">Lieu</label>
-                    <input asp-for="Lieu" class="form-control" />
-                    <span asp-validation-for="Lieu" class="text-danger"></span>
-
-                </div>
-                <div class="form-group">
-                    <select asp-for="Saison" placeholder="Choisir pays">
-                        <option value="" disabled selected>Selectionnez le saison</option>
-                        <option value="HIVER">HIVER</option>
-                        <option value="PRINTEMPS">PRINTEMPS</option>
-                        <option value="ÉTÉ">ÉTÉ </option>
-                        <option value="AUTOMNE">AUTOMNE </option>
-
-
-                    </select>
-                    <span asp-validation-for="Saison" class="text-danger"></span>
-                </div>
-
-
-
-
-                <div class="form-group">
-                    <label asp-for="dateDebut">date Debut</label>
-                    <input asp-for="dateDebut" class="form-control" />
-                    <span asp-validation-for="dateDebut" class="text-danger"></span>
-
-                </div>
-                <div class="form-group">
-                    <label asp-for="dateFin">date Fin</label>
-                    <input asp-for="dateFin" class="form-control" />
-                    <span asp-validation-for="dateFin" class="text-danger"></span>
-
-                </div>
-
-
-
-
-
-
-                <button type="submit" class="btn btn-outline-success">Ajouter Expérience</button>
-
-
-            </form>
-        </div>
-    </div>
-</div>*@
 
 
 <!--CENTER SECTION-->
@@ -94,22 +18,35 @@
         <div class="db-2-main-com db2-form-pay db2-form-com">
             
             <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateExperience">
+
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="input-field col s12">
 
                         <input asp-for="Titre" placeholder="Titre éxperience" class="form-control" />
-                        <span asp-validation-for="Titre"class="field-validation-error"></span>
+                        
+                        <span asp-validation-for="Titre" class="text-danger"></span>
                     </div>
                 </div>
 
+    
                 <div class="row">
                     <div class="input-field col s12">
 
-                        <input asp-for="TypeExperience" placeholder="Type Experience" class="form-control" />
-                        <span asp-validation-for="TypeExperience" class="text-danger"></span>
+                        <select asp-for="TypeExperience">
+                            <option value="" disabled selected>Selectionnez le Type de votre Experience</option>
+                            <option value="Tourisme balnéaire">tourisme balnéaire</option>
+                            <option value="Tourisme de culture">Tourisme de culture</option>
+                            <option value="Food Tourisme">Food tourism </option>
+                            <option value="Event Tourisme">Event Tourisme </option>
+                            <option value="Health Tourisme">Health Tourisme</option>
+
+
+
+                        </select>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="input-field col s12">
 
@@ -121,7 +58,7 @@
                     <div class="input-field col s12">
 
                         <input asp-for="tarif" placeholder="Saisir le Tarif" class="form-control" />
-                        <span asp-validation-for="tarif"class="field-validation-error"></span>
+                        <span asp-validation-for="tarif" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">

@@ -11,10 +11,9 @@ namespace TourMe.Data.Entities
 {
    public class Experience
     {
-        [Range(1, 2000)]
-        [DataType(DataType.Currency)]
-        [Column(TypeName = "decimal(18, 2)")]
-          public decimal tarif { get; set; }
+        [RegularExpression(@"^\d+\.\d{0,2}$")]
+        [Range(0, 9999999999999999.99)]
+        public decimal tarif { get; set; }
         public int ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }

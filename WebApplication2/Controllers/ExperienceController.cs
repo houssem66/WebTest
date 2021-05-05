@@ -112,19 +112,19 @@ namespace TourMe.Web.Controllers
                 //    await ActiviteService.Ajout(item);
 
                 //}
-
-                int a = await ExperienceService.InsertExperience(experience);
-                Experience experience1 = await ExperienceService.GetById(a);
-
+            
+                var result = await ExperienceService.InsertExperience(experience);
+                Experience experience1 = await ExperienceService.GetById((int)result);
+               
                 TempData["experience"] = JsonConvert.SerializeObject(experience1);
                 System.Diagnostics.Debug.WriteLine("idezeeeeeeeeeeee est" + experience1.ExperienceId);
                 TempData["exp"] = JsonConvert.SerializeObject(model);
                 ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-
+                return View("CreateActivite");
             }
 
 
-            return View("CreateActivite");
+            return View(model);
 
         }
 
