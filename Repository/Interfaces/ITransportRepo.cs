@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourMe.Data.Entities
+namespace Repository.Interfaces
 {
-    class ssd
+   public interface ITransportRepo
     {
     }
 }
