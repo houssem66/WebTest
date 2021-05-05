@@ -10,8 +10,9 @@
     <title>The Travel - Tour Travel</title>
     <!--== META TAGS ==-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
     <!-- GOOGLE FONTS -->
     <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
     <!-- FONT-AWESOME ICON CSS -->
@@ -361,19 +362,13 @@
 
 
 
-    <div class="content-wrapper">
-        <div class="content">
-            <div class="container">
-                <div class="row">
 
                     @RenderBody()
-                </div>
+              
                 @if (IsSectionDefined("Scripts"))
                 {
                     @await RenderSectionAsync("Scripts", required: true)}
-            </div>
-        </div>
-    </div>
+   
     <!--====== FOOTER - COPYRIGHT ==========-->
     <!--========= Scripts ===========-->
     <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>

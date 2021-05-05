@@ -330,7 +330,7 @@ namespace Finance.Controllers
                         await signInManager.SignInAsync(user, isPersistent: false);
                         
 
-                        return RedirectToAction("index", "home");
+                        return RedirectToAction("CreateExperience", "Experience");
                     }
                     foreach (var error in result.Errors)
                     {

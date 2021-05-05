@@ -4,12 +4,15 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using Services.Implementation;
 using Services.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -22,7 +25,7 @@ namespace TourMe.Web.Controllers
     {
         private readonly IWebHostEnvironment hostingEnvironment;
         readonly private IExperienceService ExperienceService;
-  
+    
         private readonly SignInManager<Utilisateur> signInManager;
 
         public ICollection<Activite> Activites = new Collection<Activite>();
@@ -35,7 +38,6 @@ namespace TourMe.Web.Controllers
 
         private readonly IUserService userService;
         private readonly IRatingService ratingService;
-
         readonly private IUserService UserService;
 
         public ExperienceController(ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
@@ -93,19 +95,19 @@ namespace TourMe.Web.Controllers
         }
 
         [HttpGet]
-
-        [Authorize(Policy = "CreateExperiencePolicy")]
-        public IActionResult CreateExperience(int ActiviteId)
+        
+        //[Authorize(Policy = "CreateExperiencePolicy")]
+        public IActionResult CreateExperience()
         {
-
+          
             TempData.Keep("Message");
             // ViewBag.Message = TempData["Message"];
             return View();
         }
 
         [HttpPost]
-
-        [Authorize(Policy = "CreateExperiencePolicy")]
+       
+        //[Authorize(Policy = "CreateExperiencePolicy")]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
             //ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData.Peek("Message"));
@@ -124,10 +126,8 @@ namespace TourMe.Web.Controllers
                     Saison = model.Saison,
                     NbPlaces = model.NbPlaces,
                     tarif = model.tarif,
-
                     Activites = new Collection<Activite>(),
                    CommerçantId=id
-
 
 
                 };
@@ -165,23 +165,7 @@ namespace TourMe.Web.Controllers
 
 
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult CreateActivite()
-        {
-            ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
-            TempData.Keep("experience1");
-            Experience experience = (Experience)ViewData["experience1"];
-
-            ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            TempData.Keep("exp");
-
-            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
-            System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
-
-            return View();
-
-        }
+     
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
@@ -242,8 +226,12 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         public IActionResult CreateNourriture(int id)
-        {
-            ViewData["Id"] = id;
+        {  if (id != 0) {
+                ViewData["Id"] = id;
+                         }
+            
+            else { ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
+                TempData.Keep("Id"); }
             return View();
         }
 
@@ -290,7 +278,7 @@ namespace TourMe.Web.Controllers
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await NourritureService.Ajout(nourriture);
 
-            return RedirectToAction("MesExperiences");
+                return RedirectToAction("MesExperiences");
 
             }
 
@@ -302,8 +290,12 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         [HttpGet]
         public IActionResult CreateLogement(int id)
-        {
-            ViewData["Id"] = id;
+        {   if (id != 0)
+            { ViewData["Id"] = id; }
+            else
+            { ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
+                TempData.Keep("Id");
+            }
             return View();
         }
 
@@ -348,8 +340,8 @@ namespace TourMe.Web.Controllers
 
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await LogementService.Ajout(logement);
-
-                return RedirectToAction("MesExperiences");
+                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
+                return RedirectToAction("CreateNourriture");
 
             }
 
@@ -357,7 +349,23 @@ namespace TourMe.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult CreateActivite()
+        {
+            ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
+            TempData.Keep("experience1");
+            Experience experience = (Experience)ViewData["experience1"];
 
+            ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
+            TempData.Keep("exp");
+
+            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
+            System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
+
+            return View();
+
+        }
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> CreateActivite(ActiviteViewModel model)
@@ -417,8 +425,9 @@ namespace TourMe.Web.Controllers
                 experience.Activites = (IList<Activite>)Activites;
                 await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
                 await ActiviteService.Ajout(activite);
-                TempData["experience1"] = JsonConvert.SerializeObject(experience);
-                TempData["ListeActivite"] = JsonConvert.SerializeObject(ActiviteService.GetActivite(experience.ExperienceId));
+             TempData["experience1"] = JsonConvert.SerializeObject(experience);
+              TempData["ListeActivite"] = JsonConvert.SerializeObject(ActiviteService.GetActivite(experience.ExperienceId));
+                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
                 System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
             }
 
@@ -432,19 +441,19 @@ namespace TourMe.Web.Controllers
         {
             ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
             TempData.Keep("experience1");
-            ViewData["ListeActivite"] = JsonConvert.DeserializeObject<ICollection<Activite>>((string)TempData.Peek("ListeActivite"));
-            // ViewData["ListeActivite"] = (ICollection<Activite>)ActiviteService.GetActivite(ViewBag.experience1.ExperienceId);
+            ViewData["ListeActivite"] = JsonConvert.DeserializeObject <ICollection<Activite>>((string)TempData.Peek("ListeActivite"));
+           // ViewData["ListeActivite"] = (ICollection<Activite>)ActiviteService.GetActivite(ViewBag.experience1.ExperienceId);
             return View("ExperienceAffichage");
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> AffichageExperience(Experience model, IFormFile FileP, string details, int activiteId)
-        {
-
-
+        public async Task<IActionResult> AffichageExperience(Experience model, IFormFile FileP,string details,int activiteId)
+        { 
+           
+          
             model.Activites = (IList<Activite>)ActiviteService.GetActivite(model.ExperienceId);
-            if (activiteId != 0)
+          if(activiteId!=0)
             {
                 string uniqueFileName = null;
                 if (FileP != null)
@@ -463,20 +472,20 @@ namespace TourMe.Web.Controllers
 
                 }
 
-                System.Diagnostics.Debug.WriteLine("l'id ta3 l'activité est " + activiteId);
+            System.Diagnostics.Debug.WriteLine("l'id ta3 l'activité est "+ activiteId);
                 Activite a = await ActiviteService.GetActiviteById(activiteId);
-
-
-                if (details != null)
-                    a.Details = details;
-                if (uniqueFileName != null)
-                    a.Image = uniqueFileName;
+           
+             
+                   if (details !=null)
+                   a.Details = details;
+                   if(uniqueFileName !=null)
+                   a.Image = uniqueFileName;
+                   await  ActiviteService.Update(a);
+            if(details is null && uniqueFileName is null)
+            {
                 await ActiviteService.Update(a);
-                if (details is null && uniqueFileName is null)
-                {
-                    await ActiviteService.Update(a);
-                }
-
+            }
+                
             }
             TempData["ListeActivite"] = JsonConvert.SerializeObject(ActiviteService.GetActivite(model.ExperienceId));
             TempData["experience1"] = JsonConvert.SerializeObject(model);
@@ -497,15 +506,24 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public ActionResult Description(string src)
         {
-            var ch = src.Remove(0, 8);
+            var ch = src.Remove(0,8);
             var activite = ActiviteService.GetActiviteByImage(ch).Result;
 
 
+            
 
 
+                return PartialView("_Description", activite);
+       
+        }
 
-            return PartialView("_Description", activite);
-
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [AllowAnonymous]
+        public async Task<IActionResult> DeleteExperience(int id)
+        {
+           await ExperienceService.DeleteExperienceAsync(id);
+            return RedirectToAction("MesExperiences");
         }
     }
 }
