@@ -1,0 +1,41 @@
+﻿@inject Services.Interfaces.IFournisseurService FournisseurService
+@inject UserManager<Domaine.Entities.Utilisateur> usermanager;
+
+<section>
+    <div class="tr-register">
+        <div class="tr-regi-form">
+            <h4>Create an Account</h4>
+            <p>Choisir qulle type de service</p>
+            <form class="col s12">
+                @{
+                            var x = FournisseurService.GetFournisseurById(usermanager.GetUserId(User)).Result;
+                    if (x != null)
+                    {<div class="row">
+
+                            <a asp-action="AjouterLogement" asp-controller="Service" asp-route-id="Logement" class="btn btn-primary btn-block">Creer Un logement</a>
+
+                        </div> }
+                    else
+                    {
+        <div class="row">
+
+            <a asp-action="DevnirFournisseurLogement" asp-controller="Service" asp-route-id="Nourriture" class="btn btn-primary btn-block">Devenir Un Fournisseur d'alimentaire</a>
+
+        </div><br>
+                        <div class="row">
+
+                            <a asp-action="DevnirFournisseurLogement" asp-controller="Service" asp-route-id="Logement" class="btn btn-primary btn-block">Devenir Un Fournisseur Transport</a>
+
+                        </div><br>
+                                        <div class="row">
+
+                                            <a asp-action="DevnirFournisseurLogement" asp-controller="Service" asp-route-id="Logement" class="btn btn-primary btn-block">Devenir un Fournisseur de logement</a>
+
+                                        </div> }}
+            </form>
+            <p>
+                Deja un Fournisseur ? <a href="login.html">Click Ici</a>
+            </p>
+        </div>
+    </div>
+</section>
