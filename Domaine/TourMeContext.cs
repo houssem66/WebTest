@@ -60,10 +60,6 @@ namespace TourMe.Data
 
             builder.Entity<Commerçant>().HasMany(e => e.Experiences);
 
-
-
-
-
         }
 
     }
