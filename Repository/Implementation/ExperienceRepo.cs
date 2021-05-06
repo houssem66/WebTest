@@ -31,7 +31,8 @@ namespace Repository.Implementation
 
         public IQueryable<Experience> GetAllExperienceAsync()
         {
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings).Include(x => x.Activites).Include(x => x.Nourriture).Include(x => x.Logement);
+
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings).Include(x=>x.Activites).Include(x=>x.Nourriture).Include(x=>x.Logement);
 
             return Experience;
         }
@@ -42,9 +43,10 @@ namespace Repository.Implementation
 
             _dbContext.Entry(Experience).Collection(experience => experience.Activites).Query().Load();
 
-            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
-            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Include(x => x.utilisateur).Load();
-            _dbContext.Entry(Experience).State = EntityState.Detached;
+
+            _dbContext.Entry(Experience).Collection(experience=>experience.Activites).Query().Load();
+            _dbContext.Entry(Experience).Reference(x=>x.Nourriture).Query().Load();
+            _dbContext.Entry(Experience).Reference(experience => experience.Logement).Query().Load();
 
             return Experience;
         }
