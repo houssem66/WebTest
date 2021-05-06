@@ -2,7 +2,6 @@ using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +12,6 @@ using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Implementation;
 using Services.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using TourMe.Data;
 using TourMe.Web;
 using Twilio;
@@ -35,7 +30,8 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => {
+            services.AddMvc(options =>
+            {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
 
@@ -74,18 +70,31 @@ namespace WebApplication2
             // add services 
             services.AddTransient<IUserService, UserService>();
             //sprint 2
+            //add Repositories 
             services.AddScoped(typeof(IExperienceRepo), typeof(ExperienceRepo));
-            services.AddTransient<IExperienceService, ExperienceService>();
             services.AddScoped(typeof(IActiviteRepo), typeof(ActiviteRepo));
-            services.AddTransient<IActiviteService, ActiviteService>();
             services.AddScoped(typeof(IRatingRepo), typeof(RatingRepo));
+            // add services
+            services.AddTransient<IExperienceService, ExperienceService>();
+            services.AddTransient<IActiviteService, ActiviteService>();
             services.AddTransient<IRatingService, RatingService>();
-            services.AddTransient<INourritureService, NourritureService>();
-            services.AddTransient<ILogementService, LogementService>();
+
             services.AddCors();
             //sprint 3
+            // add Repositories
+            services.AddScoped(typeof(ILogementextRepo), typeof(LogementextRepo));
+            services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
+            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureRepo));
+            services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
+            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
+            //add Services
+            services.AddTransient<INourritureService, NourritureService>();
             services.AddTransient<ILogementService, LogementService>();
+            services.AddTransient<ILogementextService, LogementextService>();
+            services.AddTransient<IFournisseurService, FournisseurService>();
+            services.AddTransient<ICommercantService, CommercantService>();
+            services.AddTransient<INourritureExtService, NourritureExtService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
