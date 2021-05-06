@@ -2,9 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TourMe.Data;
 using TourMe.Data.Entities;
@@ -19,7 +17,7 @@ namespace Repository.Implementation
 
         public ExperienceRepo(TourMeContext dbContext, IGenericRepository<Experience> _GenericRepoExperience)
         {
-           
+
             _dbContext = dbContext;
             genericRepoUser = _GenericRepoExperience;
         }
@@ -33,17 +31,17 @@ namespace Repository.Implementation
 
         public IQueryable<Experience> GetAllExperienceAsync()
         {
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings).Include(x=>x.Activites).Include(x=>x.Nourriture).Include(x=>x.Logement);
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings).Include(x => x.Activites).Include(x => x.Nourriture).Include(x => x.Logement);
 
             return Experience;
         }
 
         public async Task<Experience> GetExperienceDetailsAsync(int id)
         {
-            var Experience = await _dbContext.Experience.Include(x=>x.Activites).SingleAsync(Experience => Experience.ExperienceId == id);
+            var Experience = await _dbContext.Experience.Include(x => x.Activites).SingleAsync(Experience => Experience.ExperienceId == id);
 
-            _dbContext.Entry(Experience).Collection(experience=>experience.Activites).Query().Load();
-            
+            _dbContext.Entry(Experience).Collection(experience => experience.Activites).Query().Load();
+
             _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
             _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Include(x => x.utilisateur).Load();
             _dbContext.Entry(Experience).State = EntityState.Detached;
@@ -81,24 +79,24 @@ namespace Repository.Implementation
 
         }
 
-        public  Experience BestExperience() 
+        public Experience BestExperience()
         {
 
 
-            var Experiences =  genericRepoUser.GetAll();
-            
-            
+            var Experiences = genericRepoUser.GetAll();
+
+
             int i = 0;
             Experience exp = new Experience();
             //Debug.WriteLine("experience.count :" + Experiences.Count());
             var list = Experiences.ToList();
-            foreach(var item in list)
+            foreach (var item in list)
             {
-               
+
                 //Debug.WriteLine("value of normal: " + item.Rating);
                 //Debug.WriteLine("value of i " + i);
                 i++;
-                
+
                 //if (!(Experiences.ElementAt(i).Rating==null)) { 
                 //if (Experiences.ElementAt(i).Rating [0]> best)
                 //{ 
@@ -117,13 +115,10 @@ namespace Repository.Implementation
         public IList<Experience> GetThreeBest()
         {
             var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x => x.Ratings).Include(x => x.Activites);
-            if (Experience.Count()<=3)
+            if (Experience.Count() <= 3)
             {
                 return Experience.ToList();
-
             }
-            
-
             return Experience.OrderBy(x => x.AvgRating).Take(3).ToList(); ;
         }
     }
