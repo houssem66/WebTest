@@ -273,8 +273,6 @@ namespace TourMe.Web.Controllers
 
                 experience.Nourriture = nourriture;
 
-                //experience.Nourritures.Add(nourriture);
-
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await NourritureService.Ajout(nourriture);
 
@@ -355,7 +353,6 @@ namespace TourMe.Web.Controllers
 
                 experience.Logement = logement;
 
-               // experience.Logements.Add(logement);
 
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await LogementService.Ajout(logement);
