@@ -1,0 +1,57 @@
+﻿@model NourritureExtViewModel
+<section>
+    <div class="tr-register">
+        <div class="tr-regi-form">
+            <h4>Créer une Nourriture</h4>
+
+            <form class="col s12" method="post" action="AjouterNourriture">
+                <div class="text-danger"></div>
+                <div class="row">
+                    <div class="input-field col m6 s12">
+                        <input asp-for="Plat" placeholder="Nom de plat" class="form-control" />
+                        <span asp-validation-for="Plat" class="text-danger"></span>
+                        <label>Nom</label>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="Image" placeholder="Image" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select asp-for="Type" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
+                            <option>choisir  la category de Nourriture ...</option>
+                        </select>
+
+                        <span asp-validation-for="Type" class="text-danger"></span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input asp-for="Prix" placeholder="Prix" class="form-control" />
+                        <span asp-validation-for="Prix" class="text-danger"></span>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" value="submit" class="btn btn-primary btn-block">
+                    </div> <div class="input-field col s12">
+                        <a class="btn btn-primary btn-block" asp-controller="Service" asp-action="Annuler">Annuler</a>
+                    </div>
+                </div>
+            </form>
+            <p>
+              Creer
+            </p>
+
+        </div>
+    </div>
+</section>

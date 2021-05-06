@@ -1,0 +1,34 @@
+﻿@model CommercentViewModel
+
+<section>
+    <div class="tr-register">
+        <div class="tr-regi-form v2-search-form">
+            <h4>Devenir un Fournisseur <span>Logement</span></h4>
+            <p> Il faut confirmer votre Email et mot de passe</p>
+            <form class="contact__form" name="exist"id="x" method="post" action="ChangerEnFournisseur">
+                <div class="alert alert-success contact__msg" style="display: none" role="alert">
+                    Thank you for arranging a wonderful trip for us! Our team will contact you shortly!
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="email" class="validate" name="email" required>
+                        <label>Entrer Votre adresse mail </label>
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div> <input type="hidden" name="TypseService" value="@Model.TypseService" />
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="password" class="validate" name="passowrd" required>
+                        <label>Entrer Votre Password</label>
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" value="Book Now">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

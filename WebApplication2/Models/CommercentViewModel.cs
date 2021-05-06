@@ -10,6 +10,7 @@ namespace TourMe.Web.Models
 {
     public class CommercentViewModel
     {
+        public string TypseService { get; set; }
         [Required]
         public string PersAContact { get; set; }
         public string Type { get; set; }
