@@ -271,9 +271,9 @@ namespace TourMe.Web.Controllers
                 };
 
 
-                experience.Nourritures = new List<Nourriture>();
+                experience.Nourriture = nourriture;
 
-                experience.Nourritures.Add(nourriture);
+                //experience.Nourritures.Add(nourriture);
 
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await NourritureService.Ajout(nourriture);
@@ -289,6 +289,22 @@ namespace TourMe.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        public IActionResult UpdateLogement(int id )
+        {
+            Logement logement = LogementService.GetLogementById(id).Result;
+            ViewData["Id"] = id;
+            return View(logement);
+        }
+        //[AllowAnonymous]
+        //[HttpPost]
+        //public IActionResult UpdateLogement(int id,LogementViewmodel model)
+        //{
+        //    Logement logement = LogementService.GetLogementById(id).Result;
+        //}
+
+
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult CreateLogement(int id)
         {   if (id != 0)
             { ViewData["Id"] = id; }
@@ -298,6 +314,9 @@ namespace TourMe.Web.Controllers
             }
             return View();
         }
+
+
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -334,9 +353,9 @@ namespace TourMe.Web.Controllers
                 };
 
 
-                experience.Logements = new List<Logement>();
+                experience.Logement = logement;
 
-                experience.Logements.Add(logement);
+               // experience.Logements.Add(logement);
 
                 await ExperienceService.PutExperienceAsync(id, experience);
                 await LogementService.Ajout(logement);

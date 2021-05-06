@@ -1,4 +1,5 @@
 using Repository.Implementation;
+using Repository.Interfaces;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,9 +13,11 @@ namespace Services.Implementation
     public class LogementService : ILogementService
     {
         private readonly IGenericRepository<Logement> GenericRepo;
-        public LogementService(IGenericRepository<Logement> genericRepo)
+        readonly private ILogementRepo LogementRepo;
+        public LogementService(IGenericRepository<Logement> genericRepo, ILogementRepo logementRepo)
         {
             GenericRepo = genericRepo;
+            LogementRepo = logementRepo;
 
         }
         public Task Ajout(Logement entity)
@@ -35,7 +38,7 @@ namespace Services.Implementation
 
         public Task Update(Logement entity)
         {
-            throw new NotImplementedException();
+            return LogementRepo.Update(entity);
         }
     }
 }

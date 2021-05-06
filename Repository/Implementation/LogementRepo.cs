@@ -1,4 +1,5 @@
-﻿using Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,21 @@ namespace Repository.Implementation
         {
             this.dbContext = dbContext;
             genericRepoRate = _GenericRepoRate;
+        }
+
+        public async Task Update(Logement entity)
+        {
+            var Logement = await dbContext.Logements.FindAsync(entity.LogementId);
+            dbContext.Entry(Logement).State = EntityState.Detached;
+            dbContext.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
