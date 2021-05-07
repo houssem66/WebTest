@@ -69,25 +69,25 @@
                                 <td>@item.NbPlaces</td>
                                 <td>@item.dateDebut</td>
                                 <td>@item.dateFin</td>
-                                @if (item.Nourritures.Count == 0)
+                                @if (item.Nourriture ==null)
                                 {
                                     <td>
                                         <span class="db-not-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
                                     </td>
                                 }
-                                @if (item.Nourritures.Count != 0)
+                                @if (item.Nourriture != null)
                                 {
                                     <td>
                                         <span class="db-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
                                     </td>
                                 }
-                                @if (item.Logements.Count == 0)
+                                @if (item.Logement == null)
                                 {
                                     <td>
                                         <span class="db-not-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
                                     </td>
                                 }
-                                @if (item.Logements.Count != 0)
+                                @if (item.Logement!= null)
                                 {
                                     <td>
                                         <span class="db-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>

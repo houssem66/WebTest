@@ -1,4 +1,4 @@
-﻿@model TourMe.Data.Entities.Experience
+@model TourMe.Data.Entities.Experience
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 
@@ -569,35 +569,33 @@
                     <div class="tour_head1 l-info-pack-days days">
                         <h3>Logement</h3>
                         <ul>
-                            @foreach (var item in Model.ritLogements)
-                            {
+                          
                             <li class="l-info-pack-plac">
                                 <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                <h4> Du<span> @item.Datedebut.Date.ToString("d")</span> A  <span>@item.DateFin.Date.ToString("d")</span></h4>
-                                <h4> Type Logement<span> @item.Type</span>  </h4>
-                                <h4> Prix Par nuit<span> @item.Prix dt</span>  </h4>
-                                <img src="~/Files/@item.Image" alt="Chania" style="width:250px;height:250px;">
+                                <h4> Du<span> @Model.Logement.Datedebut.Date.ToString("d")</span> A  <span>@Model.Logement.DateFin.Date.ToString("d")</span></h4>
+                                <h4> Type Logement<span> @Model.Logement.Type</span>  </h4>
+                                <h4> Prix Par nuit<span> @Model.Logement.Prix dt</span>  </h4>
+                                <img src="~/Files/@Model.Logement.Image" alt="Chania" style="width:250px;height:250px;">
                             </li>
-                            }
+                          
                         </ul>
                     </div>
                     <div class="tour_head1 l-info-pack-days days">
                         <h3>Nourriture</h3>
                         <ul>
-                            @foreach (var item in Model.Nourritures)
-                            {
+                            
                             <li class="l-info-pack-plac">
                                 <i class="fa fa-10x" aria-hidden="true"></i>
 
-                                <h4> Type Nourriture<span> @item.Type</span>  </h4>
-                                <h4> Prix<span> @item.Prix dt</span>  </h4>
+                                <h4> Type Nourriture<span> @Model.Nourriture.Type</span>  </h4>
+                                <h4> Prix<span> @Model.Nourriture.Prix dt</span>  </h4>
                                 <p>
-                                    @item.Description
+                                    @Model.Nourriture.Description
                                 </p>
-                                <img src="~/Files/@item.Image" alt="Chania" style="width:250px;height:250px;">
+                                <img src="~/Files/@Model.Nourriture.Image" alt="Chania" style="width:250px;height:250px;">
 
                             </li>
-                            }
+                            
                         </ul>
                     </div>
 
