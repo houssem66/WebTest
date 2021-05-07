@@ -33,6 +33,9 @@ namespace TourMe.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Carte")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -101,9 +104,6 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<string>("carte")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("gender")
                         .HasColumnType("int");
@@ -455,6 +455,113 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Reservation", b =>
+                {
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UtilisateurId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CCV")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<int>("CardType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CodePostale")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("DateReservation")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NbrReservation")
+                        .HasColumnType("int");
+
+                    b.Property<int>("NumeroCarte")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Tariff")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.HasKey("ExperienceId", "UtilisateurId");
+
+                    b.HasIndex("UtilisateurId");
+
+                    b.ToTable("Reservations");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Adresse")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Category")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Documents")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FournisseurId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrixParNuit")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<string>("Titre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FournisseurId");
+
+                    b.ToTable("ServiceLogments");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FournisseurId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Plat")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FournisseurId");
+
+                    b.ToTable("ServiceNourittures");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
@@ -493,6 +600,16 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Commerçant");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Fournisseur", b =>
+                {
+                    b.HasBaseType("Domaine.Entities.Commerçant");
+
+                    b.Property<int>("TypeService")
+                        .HasColumnType("int");
+
+                    b.HasDiscriminator().HasValue("Fournisseur");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -608,9 +725,50 @@ namespace TourMe.Data.Migrations
                     b.Navigation("utilisateur");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Reservation", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", "Experience")
+                        .WithMany("Reservations")
+                        .HasForeignKey("ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domaine.Entities.Utilisateur", "Utilisateur")
+                        .WithMany("Reservations")
+                        .HasForeignKey("UtilisateurId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Experience");
+
+                    b.Navigation("Utilisateur");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
+                        .WithMany("ServiceLogments")
+                        .HasForeignKey("FournisseurId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Fournisseur");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
+                        .WithMany("ServiceNourittures")
+                        .HasForeignKey("FournisseurId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Fournisseur");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
                 {
                     b.Navigation("Ratings");
+
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
@@ -624,11 +782,20 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Nourriture");
 
                     b.Navigation("Ratings");
+
+                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.Navigation("Experiences");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Fournisseur", b =>
+                {
+                    b.Navigation("ServiceLogments");
+
+                    b.Navigation("ServiceNourittures");
                 });
 #pragma warning restore 612, 618
         }
