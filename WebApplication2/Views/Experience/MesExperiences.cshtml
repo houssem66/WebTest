@@ -56,6 +56,7 @@
                                 <th>Date Fin</th>
                                 <th>Nourriture</th>
                                 <th>logement</th>
+                                <th>Transport</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
@@ -69,7 +70,7 @@
                                 <td>@item.NbPlaces</td>
                                 <td>@item.dateDebut</td>
                                 <td>@item.dateFin</td>
-                                @if (item.Nourriture ==null)
+                                @if (item.Nourriture == null)
                                 {
                                     <td>
                                         <span class="db-not-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
@@ -78,7 +79,7 @@
                                 @if (item.Nourriture != null)
                                 {
                                     <td>
-                                        <span class="db-done"><a asp-action="CreateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
+                                        <span class="db-done"><a asp-action="UpdateNourriture" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
                                     </td>
                                 }
                                 @if (item.Logement == null)
@@ -87,12 +88,26 @@
                                         <span class="db-not-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
                                     </td>
                                 }
-                                @if (item.Logement!= null)
+                                @if (item.Logement != null)
                                 {
                                     <td>
-                                        <span class="db-done"><a asp-action="CreateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
+                                        <span class="db-done"><a asp-action="UpdateLogement" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
                                     </td>
                                 }
+                                @if (item.Transport == null)
+                                {
+                                    <td>
+                                        <span class="db-not-done"><a asp-action="CreateTransport" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Ajout</a></span>
+                                    </td>
+                                }
+                                @if (item.Transport != null)
+                                {
+                                    <td>
+                                        <span class="db-done"><a asp-action="CreateTransport" asp-controller="Experience" asp-route-id="@item.ExperienceId" style="color:white">Existe</a></span>
+                                    </td>
+                                }
+
+
 
                                 <td>
                                     <form method="post">

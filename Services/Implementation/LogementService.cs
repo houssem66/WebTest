@@ -25,9 +25,10 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(entity);
         }
 
-        public IEnumerable<Logement> GetLogement(int id)
+        public Logement GetLogement(int id)
         {
-            return GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList();
+            var a = GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList().First();
+            return a;
         }
 
         public async Task<Logement> GetLogementById(int id)

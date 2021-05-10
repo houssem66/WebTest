@@ -1,4 +1,5 @@
 ﻿using Repository.Implementation;
+using Repository.Interfaces;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,10 @@ namespace Services.Implementation
     public class NourritureService : INourritureService
     {
         private readonly IGenericRepository<Nourriture> GenericRepo;
-        public NourritureService(IGenericRepository<Nourriture> genericRepo)
+        readonly private INourritureRepo NourritureRepo;
+        public NourritureService(IGenericRepository<Nourriture> genericRepo, INourritureRepo nourritureRepo )
         {
+            NourritureRepo = nourritureRepo;
             GenericRepo = genericRepo;
         }
         public Task Ajout(Nourriture entity)
@@ -21,9 +24,10 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(entity);
         }
 
-        public IEnumerable<Nourriture> GetNourriture(int id)
+        public Nourriture GetNourriture(int id)
         {
-            return GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList();
+            var a = GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList().First();
+            return a ;
         }
 
         public async Task<Nourriture> GetNourritureById(int id)
@@ -34,7 +38,7 @@ namespace Services.Implementation
 
         public Task Update(Nourriture entity)
         {
-            throw new NotImplementedException();
+            return NourritureRepo.Update(entity);
         }
     }
 }

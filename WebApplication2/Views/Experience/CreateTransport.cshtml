@@ -1,7 +1,6 @@
-﻿
-@model NourritureViewModel
+﻿@model TransportViewModel
 @{
-    ViewBag.Title = "Experience";
+    ViewBag.Title = "Transport";
 
 }
 
@@ -14,26 +13,18 @@
 <!--CENTER SECTION-->
 <div class="db-2">
     <div class="db-2-com db-2-main">
-        <h4>Ajouter nourriture<span class="db-pay-amount"></span></h4>
+        <h4>Ajouter Logement<span class="db-pay-amount"></span></h4>
         <div class="db-2-main-com db2-form-pay db2-form-com">
 
-            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateNourriture">
+            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateTransport">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="input-field col s12">
 
-                        <input asp-for="Description" placeholder="Description" class="form-control" />
+                        <input asp-for="TypeVehicule" placeholder="Type Logement" class="form-control" />
 
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-
-                        <input asp-for="Type" placeholder="Type" class="form-control" />
-
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                        <span asp-validation-for="TypeVehicule" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -42,17 +33,26 @@
                 <div class="row">
                     <div class="input-field col s12">
 
-                        <input asp-for="Plat" placeholder="Plat" class="form-control" />
-                        <span asp-validation-for="Plat" class="text-danger"></span>
+                        <input asp-for="Prix" placeholder="Lieu" class="form-control" />
+                        <span asp-validation-for="Prix" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
 
-                        <input asp-for="Prix" placeholder="Saisir le Tarif" class="form-control" />
-                        <span asp-validation-for="Prix" class="text-danger"></span>
+                        <input asp-for="Periode" placeholder="Saisir le nombre des jours" class="form-control" />
+                        <span asp-validation-for="Periode" class="text-danger"></span>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <input asp-for="DateDisp" placeholder="Saisir le prix" class="form-control" />
+                        <span asp-validation-for="DateDisp" class="text-danger"></span>
+                    </div>
+                </div>
+             
+         
 
                 <div class="row">
                     <label>Image</label>
@@ -88,23 +88,23 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="submit" value="Ajouter Nourriture" class="waves-effect waves-light full-btn">
+                        <input type="submit" value="Ajouter Transport" class="waves-effect waves-light full-btn">
                     </div>
                 </div>
             </form>
+
+
         </div>
     </div>
 </div>
-
 <div>
     <ul>
-        <li>
+     
         <li>
             <a asp-action="MesExperiences" class="hot-page2-alp-quot-btn">
                 Voir Mes Expériences
             </a>
         </li>
-       
 
     </ul>
 </div>

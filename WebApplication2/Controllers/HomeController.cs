@@ -14,23 +14,32 @@ namespace TourMe.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IExperienceService experienceService;
+        private readonly IExperienceService ExperienceService;
+        private readonly INourritureExtService NourritureExtService;
+        private readonly ILogementextService LogementExtService;
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(IExperienceService experienceService, ILogger<HomeController> logger)
+        public HomeController(ILogementextService logementextService, INourritureExtService nourritureExtService, IExperienceService experienceService, ILogger<HomeController> logger)
         {
-            this.experienceService = experienceService;
+           ExperienceService = experienceService;
+            LogementExtService = logementextService;
+            NourritureExtService = nourritureExtService;
             _logger = logger;
         }
         [AllowAnonymous]
-        public IActionResult Index()
+        public  IActionResult Index()
         {
-            List<Nourriture> nourritures = new List<Nourriture>();
-            List<Logement> logements = new List<Logement>();
+            List<ServiceNouritture> nourritures = new List<ServiceNouritture>();
+            List<ServiceLogment> logements = new List<ServiceLogment>();
             List<Experience> experiences = new List<Experience>();
-            experiences = (List<Experience>)experienceService.BestExperiences();
+            experiences =  ExperienceService.GetAllExperienceDetails(null).OrderBy(x=>x.AvgRating).Take(5).ToList();
+            logements = LogementExtService.GetAllLogements().OrderBy(x => x.PrixParNuit).Take(6).ToList();
+            nourritures= NourritureExtService.GetAllLogements().OrderBy(x => x.Prix).Take(6).ToList();
             HomeViewModel homeViewModel = new HomeViewModel();
             homeViewModel.ListeExperience = experiences;
+            homeViewModel.ListeLogement = logements;
+            homeViewModel.ListeNourriture = nourritures;
+
             return View(homeViewModel);
         }
 
