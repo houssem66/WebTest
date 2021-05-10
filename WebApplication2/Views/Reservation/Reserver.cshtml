@@ -1,0 +1,216 @@
+﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@using Microsoft.AspNetCore.Identity;
+@model TourMe.Data.Entities.Experience
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:01:37 GMT -->
+<head>
+    <title>The Travel - Tour Travel</title>
+    <!--== META TAGS ==-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="HandheldFriendly" content="true">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
+    <!-- FONT-AWESOME ICON CSS -->
+    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
+    <!--== ALL CSS FILES ==-->
+    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
+    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="~/Theme/Template2/~/Theme/Template2/js/html5shiv.js"></script>
+    <script src="~/Theme/Template2/~/Theme/Template2/js/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        .card {
+            display: grid;
+            grid-template-rows: 210px 210px 80px;
+            grid-template-areas: "image" "text" "stats";
+            border-radius: 18px;
+            background: white;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
+            font-family: roboto;
+            text-align: center;
+            transition: 0.5s ease;
+            cursor: pointer;
+            margin: 30px;
+        }
+
+        .card-image {
+            grid-area: image;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            background-size: cover;
+        }
+
+        .card-text {
+            grid-area: text;
+            margin: 25px;
+        }
+
+            .card-text .date {
+                color: rgb(255, 7, 110);
+                font-size: 13px;
+            }
+
+            .card-text p {
+                color: grey;
+                font-size: 15px;
+                font-weight: 300;
+            }
+
+            .card-text h2 {
+                margin-top: 0px;
+                font-size: 28px;
+            }
+
+        .card-stats {
+            grid-area: stats;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-rows: 1fr;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            background: rgb(255, 7, 110);
+        }
+
+            .card-stats .stat {
+                padding: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                color: white;
+            }
+
+            .card-stats .border {
+                border-left: 1px solid rgb(172, 26, 87);
+                border-right: 1px solid rgb(172, 26, 87);
+            }
+
+            .card-stats .value {
+                font-size: 22px;
+                font-weight: 500;
+            }
+
+                .card-stats .value sup {
+                    font-size: 12px;
+                }
+
+            .card-stats .type {
+                font-size: 11px;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+
+        .card:hover {
+            transform: scale(1.15);
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+
+    <!-- MOBILE MENU -->
+    <!--HEADER SECTION-->
+    <section>
+        <!-- TOP BAR -->
+        <!-- LOGO AND MENU SECTION -->
+
+        <div class="top-logo" data-spy="affix" data-offset-top="250">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="wed-logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                <img src="~/Theme/Template2/images/logo.png" alt="" />
+                            </a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TOP SEARCH BOX -->
+
+    </section>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    cancel
+                    @{ var path = "~/images/" + @ViewBag.img;}
+                    @path
+                </div>
+                @{ var x = 3;
+                    var s = Model.tarif * x;}
+
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-image" style="background-image: url(@Url.Content(path ));"></div>
+                        <div class="card-text">
+                            <span class="date">@Model.dateDebut.ToString("d")</span>
+                            <h2>@Model.Titre</h2><br /><br />
+                            <b>best Review</b>
+                             <h2><b>Details des prix</b></h2>
+                            <p>@Model.tarif X @x Adultes dinar </p>
+                            <p>total(dinar)=@s</p>
+                        </div>
+                        <div class="card-stats">
+                            <div class="stat">
+                                <div class="value">@Model.AvgRating<sup>*</sup></div>
+                                <div class="type">Rating</div>
+                            </div>
+                            <div class="stat border">
+                                <div class="value">5123</div>
+                                <div class="type">views</div>
+                            </div>
+                            <div class="stat">
+                                <div class="value">@Model.Ratings.Where(x=>x.Commentaire!=null).Count()</div>
+                                <div class="type">comments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- END TOP SEARCH BOX -->
+    <!--END HEADER SECTION-->
+    <!--====== BANNER ==========-->
+    <!--====== FOOTER - COPYRIGHT ==========-->
+    <!--========= Scripts ===========-->
+    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+    <script src="~/Theme/Template2/js/bootstrap.js"></script>
+    <script src="~/Theme/Template2/js/wow.min.js"></script>
+    <script src="~/Theme/Template2/js/materialize.min.js"></script>
+    <script src="~/Theme/Template2/js/custom.js"></script>
+
+</body>
+
+
+<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
+</html>

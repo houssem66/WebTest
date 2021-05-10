@@ -85,7 +85,7 @@ namespace WebApplication2
             services.AddScoped(typeof(ILogementextRepo), typeof(LogementextRepo));
             services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
-            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureRepo));
+            services.AddScoped(typeof(NourritureRepo), typeof(NourritureRepo));
             services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
             services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
             //add Services

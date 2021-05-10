@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TourMe.Data.Entities.Enum
+namespace Services.Implementation
 {
-    class Class1
+  public  class ReservationService
     {
     }
 }
