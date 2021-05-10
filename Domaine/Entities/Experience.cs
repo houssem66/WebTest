@@ -37,6 +37,7 @@ namespace TourMe.Data.Entities
         //navigation Property
         public virtual ICollection<Commentaire> Commentaires { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
         public virtual IList<Activite> Activites { get; set; }
 
         //public virtual IList<Nourriture> Nourritures { get; set; }

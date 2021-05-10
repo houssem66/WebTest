@@ -1,4 +1,4 @@
-﻿@model TourMe.Data.Entities.Experience
+@model TourMe.Data.Entities.Experience
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 
@@ -456,7 +456,7 @@
                         <li class="dl1">@Model.Lieu</li>
                         <li class="dl2">@Model.tarif DT</li>
                         
-                        <li class="dl4"><a href="booking.html">Reserver</a> </li>
+                        <li class="dl4"><a asp-action="Reserver" asp-controller="Reservation" asp-route-id="@Model.ExperienceId" >Reserver</a> </li>
                     </ul>
                 </div>
             </div>
@@ -516,7 +516,7 @@
                                 @{
                                     foreach (var item in Model.Activites)
                                     {
-                                        <div class="item @(item == Model.Activites.First() ? " active":" ")">
+                                        <div class="item @(item == Model.Activites.First() ? " active" : " ")">
                                             <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
                                         </div>
                                     }
@@ -566,7 +566,6 @@
                     <div id="loadpartial">
 
                     </div>
-       
                     @{ if (Model.Logement != null)
                         { <div class="tour_head1 l-info-pack-days days">
                                 <h3>Logement</h3>
@@ -601,27 +600,6 @@
 
                                 </ul>
                             </div> } }
-
-                    @{ if (Model.Transport != null)
-                        {<div class="tour_head1 l-info-pack-days days">
-                                <h3>Transport</h3>
-                                <ul>
-
-                                                        <li class="l-info-pack-plac">
-                                                            <i class="fa fa-10x" aria-hidden="true"></i>
-
-                                                            <h4> Type Transport<span> @Model.Transport.TypeVehicule</span>  </h4>
-                                                            <h4> Prix<span> @Model.Transport.Prix dt</span>  </h4>
-                                                            <h4> Date Disponibilité<span> @Model.Transport.DateDisp </span>  </h4>
-                                                            <h4> Période<span> @Model.Transport.Periode Jours</span>  </h4>
-
-                                                            <img src="~/Files/@Model.Transport.Image" alt="Chania" style="width:250px;height:250px;">
-
-                                                        </li>
-
-                                </ul>
-                            </div> } }
-
 
 
 
@@ -676,38 +654,44 @@
                                     </div>
 
                                     <!--COMMENT RATING-->
-                                    @{ foreach (var item in Model.Ratings)
-                                        {
-
-
-                                            if (item.Commentaire != null)
+                                    @{ if (Model.Ratings != null)
+                                        {  foreach (var item in Model.Ratings)
                                             {
-                                                <div class="dir-rat-inn dir-rat-review">
-                                                    <div class="row">
-                                                        <div class="col-md-3 dir-rat-left">
 
-                                                            <p>@item.utilisateur.Nom </p>
-                                                        </div>
-                                                        <div class="col-md-9 dir-rat-right">
-                                                            <!--calculatign number of stars-->
-                                                            <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
-                                                            <p>@item.Commentaire</p>
-                                                            <ul>
-                                                                <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                                                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>}
+
+                                                if (item.Commentaire != null)
+                                                {
+                                                        <div class="dir-rat-inn dir-rat-review">
+                                                            <div class="row">
+                                                                <div class="col-md-3 dir-rat-left">
+
+                                                                    <p>@{ if (@item.utilisateur.Nom != null)
+                                                                        {@item.utilisateur.Nom }else { @item.utilisateur.Prenom}
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-9 dir-rat-right">
+                                                                    <!--calculatign number of stars-->
+                                                                    <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                                                                    <p>@item.Commentaire</p>
+                                                                    <ul>
+                                                                        <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>}
+                                                }
                                         }
                                     }
+
                                     <!--COMMENT RATING-->
                                     <!--COMMENT RATING-->
                                 </form>

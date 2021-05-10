@@ -554,11 +554,9 @@ namespace Finance.Controllers
                         await userManager.AddToRoleAsync(user, "Utilisateur");
 
                     }
-                    await signInManager.SignInAsync(user, isPersistent: false);
-
-                    if (UserService.GetAllUtilisateurs().Count()==1)
+                    if (!(roleManager.RoleExistsAsync("Administrateur").Result))
                     {
-                        System.Diagnostics.Debug.WriteLine("the count of :"+ UserService.GetAllUtilisateurs().Count());
+                        System.Diagnostics.Debug.WriteLine("the count of :" + UserService.GetAllUtilisateurs().Count());
 
                         IdentityRole identityrole2 = new IdentityRole
                         {
@@ -569,7 +567,10 @@ namespace Finance.Controllers
 
                         await userManager.AddToRoleAsync(user, "Administrateur");
 
+
                     }
+                    await signInManager.SignInAsync(user, isPersistent: false);
+                    
                    
 
                     return LocalRedirect(returnUrl);
@@ -633,7 +634,7 @@ namespace Finance.Controllers
 
             user.Nom = model.Nom;
             user.Email = model.Email;
-            user.carte = model.carte;
+            user.Carte = model.carte;
             user.Prenom = model.Prenom;
             user.BirthDate = model.BirthDate;
             user.NickName = model.NickName;

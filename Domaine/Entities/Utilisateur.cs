@@ -14,7 +14,7 @@ namespace Domaine.Entities
     {
         public string NickName { get; set; }
         public Region region { get; set; }
-        public string carte { get; set; }
+        public string Carte { get; set; }
 
         public String Nom { get; set; }
 
@@ -34,6 +34,7 @@ namespace Domaine.Entities
         public string Interet { get; set; }
         public Gender gender { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
+        public virtual ICollection<Reservation> Reservations { get; set; }
 
 
     }

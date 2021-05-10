@@ -24,6 +24,7 @@ namespace TourMe.Data
         public DbSet<ServiceLogment> ServiceLogments { get; set; }
         public DbSet<ServiceNouritture> ServiceNourittures { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -38,10 +39,6 @@ namespace TourMe.Data
             .HasOne(bc => bc.utilisateur)
             .WithMany(b => b.Ratings)
             .HasForeignKey(bc => bc.UtilisateurId);
-
-
-
-
             builder.Entity<Experience>()
             .HasMany(E => E.Activites);
             builder.Entity<Experience>().Property(p => p.tarif)
@@ -55,7 +52,7 @@ namespace TourMe.Data
            .HasOne(E => E.Transport);
             builder.Entity<Transport>().Property(p => p.ExperienceId).HasColumnName("ExperienceId").IsRequired();
             builder.Entity<Nourriture>().Property(p => p.Prix)
-     .HasColumnType("decimal(18,4)");
+              .HasColumnType("decimal(18,4)");
             builder.Entity<Logement>().Property(p => p.Prix)
            .HasColumnType("decimal(18,4)");
             builder.Entity<Transport>().Property(p => p.Prix)
@@ -81,9 +78,24 @@ namespace TourMe.Data
             }
 
          );
+            //reservation 
+            builder.Entity<Reservation>().HasKey(e => new { e.ExperienceId, e.UtilisateurId });
+            builder.Entity<Reservation>()
+            .HasOne(bc => bc.Experience)
+            .WithMany(b => b.Reservations)
+            .HasForeignKey(bc => bc.ExperienceId);
+            builder.Entity<Reservation>()
+            .HasOne(bc => bc.Utilisateur)
+            .WithMany(b => b.Reservations)
+            .HasForeignKey(bc => bc.UtilisateurId);
+            builder.Entity<Reservation>(eb =>
+            {
+                eb.Property(l => l.Tariff).HasColumnType("decimal(5, 2)");
+               
 
+            }
 
-
+         );
 
         }
 
