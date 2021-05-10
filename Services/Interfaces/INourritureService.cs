@@ -10,7 +10,7 @@ namespace Services.Interfaces
    public interface INourritureService
     {
         public Task Ajout(Nourriture entity);
-        public IEnumerable<Nourriture> GetNourriture(int id);
+        public Nourriture GetNourriture(int id);
         public Task Update(Nourriture entity);
         public Task<Nourriture> GetNourritureById(int id);
     }

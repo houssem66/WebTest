@@ -1,4 +1,5 @@
-﻿using Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,19 @@ namespace Repository.Implementation
 
         }
 
-        public Task Update(Nourriture nourriture)
+        public async Task Update(Nourriture entity)
         {
-            throw new NotImplementedException();
+            var nourriture = await _dbContext.Nourritures.FindAsync(entity.NourritureId);
+            _dbContext.Entry(nourriture).State = EntityState.Detached;
+            _dbContext.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                await _dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

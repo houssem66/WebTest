@@ -33,9 +33,6 @@ namespace TourMe.Data.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Carte")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -104,6 +101,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<string>("carte")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("gender")
                         .HasColumnType("int");
@@ -455,46 +455,6 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("TourMe.Data.Entities.Reservation", b =>
-                {
-                    b.Property<int>("ExperienceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UtilisateurId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CCV")
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
-
-                    b.Property<int>("CardType")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CodePostale")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("DateReservation")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpirationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("NbrReservation")
-                        .HasColumnType("int");
-
-                    b.Property<int>("NumeroCarte")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Tariff")
-                        .HasColumnType("decimal(5,2)");
-
-                    b.HasKey("ExperienceId", "UtilisateurId");
-
-                    b.HasIndex("UtilisateurId");
-
-                    b.ToTable("Reservations");
-                });
-
             modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
                 {
                     b.Property<int>("Id")
@@ -560,6 +520,40 @@ namespace TourMe.Data.Migrations
                     b.HasIndex("FournisseurId");
 
                     b.ToTable("ServiceNourittures");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
+                {
+                    b.Property<int>("TrasportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateDisp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int")
+                        .HasColumnName("ExperienceId");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Periode")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("TypeVehicule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TrasportId");
+
+                    b.HasIndex("ExperienceId")
+                        .IsUnique();
+
+                    b.ToTable("Transports");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
@@ -725,25 +719,6 @@ namespace TourMe.Data.Migrations
                     b.Navigation("utilisateur");
                 });
 
-            modelBuilder.Entity("TourMe.Data.Entities.Reservation", b =>
-                {
-                    b.HasOne("TourMe.Data.Entities.Experience", "Experience")
-                        .WithMany("Reservations")
-                        .HasForeignKey("ExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domaine.Entities.Utilisateur", "Utilisateur")
-                        .WithMany("Reservations")
-                        .HasForeignKey("UtilisateurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Experience");
-
-                    b.Navigation("Utilisateur");
-                });
-
             modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
@@ -764,11 +739,18 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Fournisseur");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", null)
+                        .WithOne("Transport")
+                        .HasForeignKey("TourMe.Data.Entities.Transport", "ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
                 {
                     b.Navigation("Ratings");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
@@ -783,7 +765,7 @@ namespace TourMe.Data.Migrations
 
                     b.Navigation("Ratings");
 
-                    b.Navigation("Reservations");
+                    b.Navigation("Transport");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>

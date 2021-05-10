@@ -20,6 +20,7 @@ namespace TourMe.Data
         public DbSet<Activite> Activite { get; set; }
         public DbSet<Nourriture> Nourritures { get; set; }
         public DbSet<Logement> Logements { get; set; }
+        public DbSet<Transport> Transports { get; set; }
         public DbSet<ServiceLogment> ServiceLogments { get; set; }
         public DbSet<ServiceNouritture> ServiceNourittures { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
@@ -46,12 +47,16 @@ namespace TourMe.Data
             builder.Entity<Experience>()
             .HasOne(E => E.Nourriture);
             builder.Entity<Experience>()
-           .HasOne(E => E.Logement);
-
+           .HasOne(E => E.Logement); 
+            builder.Entity<Experience>()
+           .HasOne(E => E.Transport);
+            builder.Entity<Transport>().Property(p => p.ExperienceId).HasColumnName("ExperienceId").IsRequired();
             builder.Entity<Nourriture>().Property(p => p.Prix)
               .HasColumnType("decimal(18,4)");
             builder.Entity<Logement>().Property(p => p.Prix)
            .HasColumnType("decimal(18,4)");
+            builder.Entity<Transport>().Property(p => p.Prix)
+        .HasColumnType("decimal(18,4)");
 
 
 
