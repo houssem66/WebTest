@@ -1,6 +1,8 @@
 ﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 @using Microsoft.AspNetCore.Identity;
-@model TourMe.Data.Entities.Experience
+@inject Services.Interfaces.IExperienceService experienceService;
+
+@model ReservationModel
 @{
     Layout = null;
 }
@@ -26,8 +28,7 @@
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -138,6 +139,7 @@
         <!-- LOGO AND MENU SECTION -->
 
         <div class="top-logo" data-spy="affix" data-offset-top="250">
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -154,48 +156,92 @@
         </div>
 
         <!-- TOP SEARCH BOX -->
+        @{ var x = 3;
+            var s = ViewBag.exp.tarif * x;}
+        @{ var path = "~/images/" + @ViewBag.img;
+            var ex = experienceService.GetExperienceByIdAsync(Model.idExp).Result;}
 
     </section>
     <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    cancel
-                    @{ var path = "~/images/" + @ViewBag.img;}
-                    @path
-                </div>
-                @{ var x = 3;
-                    var s = Model.tarif * x;}
 
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-image" style="background-image: url(@Url.Content(path ));"></div>
-                        <div class="card-text">
-                            <span class="date">@Model.dateDebut.ToString("d")</span>
-                            <h2>@Model.Titre</h2><br /><br />
-                            <b>best Review</b>
-                             <h2><b>Details des prix</b></h2>
-                            <p>@Model.tarif X @x Adultes dinar </p>
-                            <p>total(dinar)=@s</p>
-                        </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">@Model.AvgRating<sup>*</sup></div>
-                                <div class="type">Rating</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">views</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">@Model.Ratings.Where(x=>x.Commentaire!=null).Count()</div>
-                                <div class="type">comments</div>
+        <form method="post" action="Reserver">
+            <div id="wizard">
+                <button class="btn btn-danger pull-right">SAVE</button>
+                <!-- Tabstrip -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#Nourriture" role="tab" data-toggle="tab">Choisir Nourriture</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#Logement" role="tab" data-toggle="tab">Choisir Logement</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#Transport" role="tab" data-toggle="tab">Choisir Transport</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#Confirmation" role="tab" data-toggle="tab">Confirmation et Reservation</a>
+                    </li>
+                    :
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="Nourriture">
+                        <div class="db">
+                            <div class="db-2">
+                                <div class="db-2-com db-2-main">
+                                    <h4>Choisir  nourriture <span class="db-pay-amount"></span></h4>
+                                    <div class="db-2-main-com db2-form-pay db2-form-com">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane" id="Logement">
+                        <div class="db">
+                            <div class="db-2">
+                                <div class="db-2-com db-2-main">
+                                    <h4>Choisir  Logement <span class="db-pay-amount"></span></h4>
+                                    <div class="db-2-main-com db2-form-pay db2-form-com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="Transport">
+                        <div class="db">
+                            <div class="db-2">
+                                <div class="db-2-com db-2-main">
+                                    <h4>Choisir  Transport <span class="db-pay-amount"></span></h4>
+                                    <div class="db-2-main-com db2-form-pay db2-form-com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="Confirmation">
+                        <div class="db">
+                            <div class="db-2">
+                                <div class="db-2-com db-2-main">
+                                    <h4>Confirmer et Reserver <span class="db-pay-amount"></span></h4>
+                                    <div class="db-2-main-com db2-form-pay db2-form-com">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    :
                 </div>
             </div>
-        </div>
+        </form>
+
+
+
+
+
+
+
+
 
     </section>
     <!-- END TOP SEARCH BOX -->

@@ -88,6 +88,7 @@ namespace WebApplication2
             services.AddScoped(typeof(NourritureRepo), typeof(NourritureRepo));
             services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
             services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
+            services.AddScoped(typeof(IReservationRepo), typeof(ReservationRepo));
             //add Services
             services.AddTransient<INourritureService, NourritureService>();
             services.AddTransient<ILogementService, LogementService>();
@@ -95,6 +96,7 @@ namespace WebApplication2
             services.AddTransient<IFournisseurService, FournisseurService>();
             services.AddTransient<ICommercantService, CommercantService>();
             services.AddTransient<INourritureExtService, NourritureExtService>();
+            services.AddTransient<IReservationService, ReservationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

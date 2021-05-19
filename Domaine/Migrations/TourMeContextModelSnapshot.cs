@@ -482,8 +482,8 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("NbrReservation")
                         .HasColumnType("int");
 
-                    b.Property<int>("NumeroCarte")
-                        .HasColumnType("int");
+                    b.Property<long>("NumeroCarte")
+                        .HasColumnType("bigint");
 
                     b.Property<decimal>("Tariff")
                         .HasColumnType("decimal(5,2)");
