@@ -110,56 +110,58 @@
 <section>
     <div class="rows pad-bot-redu tb-space">
         <div class="container">
-            <!-- TITLE & DESCRIPTION -->
-            <div class="spe-title">
-                <h2>Top <span>TourMe Packages</span></h2>
-                <div class="title-line">
-                    <div class="tl-1"></div>
-                    <div class="tl-2"></div>
-                    <div class="tl-3"></div>
-                </div>
-                <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide.</p>
-            </div>
-
-            @if (Model.ListeExperience.Count <= 1) {
-
-            @foreach (var item in Model.ListeExperience)
+            @if (Model.ListeExperience.Count != 0)
             {
-            <div>
-                <!-- TOUR PLACE 1 -->
-                <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow slideInUp" data-wow-duration="0.5s">
-                    <!-- OFFER BRAND -->
-                    <div class="band"> <img src="images/band.png" alt="" /> </div>
-                    <!-- IMAGE -->
-                    <div class="v_place_img"> <img src="~/images/@item.Activites.First().Image" alt="Tour Booking" title="Tour Booking" /> </div>
-                    <!-- TOUR TITLE & ICONS -->
-                    <div class="b_pack rows">
-                        <!-- TOUR TITLE -->
-                        <div class="col-md-8 col-sm-8">
-                            <h4><a  asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId">@item.Titre<span class="v_pl_name">@item.Lieu</span> <span class="v_pl_name">@item.tarif Dt</span></a></h4>
-                        </div>
-                        <!-- TOUR ICONS -->
-                        <div class="col-md-4 col-sm-4 pack_icon">
-                            <ul>
-                                <li>
-                                    <a href="#"><img src="~/Theme/Template2/images/clock.png" alt="Date" title="Tour Timing" /> </a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="~/Theme/Template2/images/info.png" alt="Details" title="View more details" /> </a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="~/Theme/Template2/images/price.png" alt="Price" title="Price" /> </a>
-                                </li>
-                                <li>
-                                    <a href="#"><img src="~/Theme/Template2/images/map.png" alt="Location" title="Location" /> </a>
-                                </li>
-                            </ul>
-                        </div>
+                <!-- TITLE & DESCRIPTION -->
+                <div class="spe-title">
+                    <h2>Top <span>TourMe Packages</span></h2>
+                    <div class="title-line">
+                        <div class="tl-1"></div>
+                        <div class="tl-2"></div>
+                        <div class="tl-3"></div>
                     </div>
+                    <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide.</p>
                 </div>
 
-            </div>
-            } }
+
+
+                @foreach (var item in Model.ListeExperience)
+                {
+                    <div>
+                        <!-- TOUR PLACE 1 -->
+                        <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow slideInUp" data-wow-duration="0.5s">
+                            <!-- OFFER BRAND -->
+                            <div class="band"> <img src="images/band.png" alt="" /> </div>
+                            <!-- IMAGE -->
+                            <div class="v_place_img"> <img src="~/images/@item.Activites.First().Image" alt="Tour Booking" title="Tour Booking" /> </div>
+                            <!-- TOUR TITLE & ICONS -->
+                            <div class="b_pack rows">
+                                <!-- TOUR TITLE -->
+                                <div class="col-md-8 col-sm-8">
+                                    <h4><a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId">@item.Titre<span class="v_pl_name">@item.Lieu</span> <span class="v_pl_name">@item.tarif Dt</span></a></h4>
+                                </div>
+                                <!-- TOUR ICONS -->
+                                <div class="col-md-4 col-sm-4 pack_icon">
+                                    <ul>
+                                        <li>
+                                            <a href="#"><img src="~/Theme/Template2/images/clock.png" alt="Date" title="Tour Timing" /> </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="~/Theme/Template2/images/info.png" alt="Details" title="View more details" /> </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="~/Theme/Template2/images/price.png" alt="Price" title="Price" /> </a>
+                                        </li>
+                                        <li>
+                                            <a href="#"><img src="~/Theme/Template2/images/map.png" alt="Location" title="Location" /> </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                }}
         </div>
     </div>
 </section>
@@ -190,7 +192,7 @@
                         <div class="col-md-6">
                             <a href="tour-details.html">
                                 <div class="tour-mig-like-com">
-                                    <div class="tour-mig-lc-img"> <img src="~/images/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
                                     <div class="tour-mig-lc-con">
                                         <h5>@item.Type</h5>
                                         <p><span>@item.Plat</span> à partir de  @item.Prix dt</p>
@@ -199,21 +201,57 @@
                             </a>
                         </div>
                     }
-                    <div class="col-md-3">
-                        <a href="tour-details.html">
-                            <div class="tour-mig-like-com">
-                                <div class="tour-mig-lc-img"> <img src="~/Theme/Template2/images/listing/home3.jpg" alt=""> </div>
-                                <div class="tour-mig-lc-con tour-mig-lc-con2">
-                                    <h5>Dubai</h5>
-                                    <p>Starting from $2400</p>
+                    else
+                    {
+                        <div class="col-md-3">
+                            <a href="tour-details.html">
+                                <div class="tour-mig-like-com">
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-con tour-mig-lc-con2">
+                                        <h5>@item.Plat</h5>
+                                        <p> à partir de  @item.Prix dt</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
-                    </div>
-
+                            </a>
+                        </div>
+                    }
                 }
             </div>
 
         </div>
     }
-    </section>
+</section>
+
+
+<section>
+    <div class="rows pla pad-bot-redu tb-space">
+        @if(Model.ListeLogement.Count!=0)
+        {
+        <div class="pla1 p-home container">
+            <!-- TITLE & DESCRIPTION -->
+            <div class="spe-title spe-title-1">
+                <h2>Top <span>Logement</span></h2>
+                <div class="title-line">
+                    <div class="tl-1"></div>
+                    <div class="tl-2"></div>
+                    <div class="tl-3"></div>
+                </div>
+                <p>Cherchez Parmis les meilleurs logements</p>
+            </div>
+        @foreach (var item in Model.ListeLogement)
+        {
+            <div class="popu-places-home">
+              
+                <div class="col-md-6 col-sm-6 col-xs-12 place">
+                    <div class="col-md-6 col-sm-12 col-xs-12"> <img src="~/Files/@item.Documents" alt="" /> </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <h3><span>@item.Titre</span></h3>
+                        <h3>  Prix par nuit<span> @item.PrixParNuit DT </span></h3>
+                        <p>Adresse : @item.Adresse</p> <a href="tour-details.html" class="link-btn">more info</a>
+                    </div>
+                </div>
+
+            </div>}
+        </div> }
+    </div>
+</section>

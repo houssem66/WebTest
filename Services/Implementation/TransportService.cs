@@ -27,7 +27,7 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(entity);
         }
 
-        public Transport GetNourriture(int id)
+        public Transport GetTransport(int id)
         {
             var a = GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList().First();
             return a;

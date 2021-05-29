@@ -10,7 +10,7 @@ namespace Services.Interfaces
     public interface ITransportService
     {
         public Task Ajout(Transport entity);
-        public Transport GetNourriture(int id);
+        public Transport GetTransport(int id);
         public Task Update(Transport entity);
         public Task<Transport> GetTransportById(int id);
     }

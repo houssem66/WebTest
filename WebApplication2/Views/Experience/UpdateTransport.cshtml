@@ -1,4 +1,4 @@
-﻿@model TransportViewModel
+﻿@model TourMe.Data.Entities.Transport
 @{
     ViewBag.Title = "Transport";
 
@@ -13,10 +13,10 @@
 <!--CENTER SECTION-->
 <div class="db-2">
     <div class="db-2-com db-2-main">
-        <h4>Ajouter Transport<span class="db-pay-amount"></span></h4>
+        <h4>Modifier Transport<span class="db-pay-amount"></span></h4>
         <div class="db-2-main-com db2-form-pay db2-form-com">
 
-            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateTransport">
+            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="UpdateTransport">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
@@ -51,8 +51,9 @@
                         <span asp-validation-for="DateDisp" class="text-danger"></span>
                     </div>
                 </div>
-             
-         
+
+
+
 
                 <div class="row">
                     <label>Image</label>
@@ -61,7 +62,8 @@
 
 
                         </span>
-                        <input multiple asp-for="FileP" class="form-control custom-file-input" />
+                        <input multiple type="file" class="form-control custom-file-input" name="FileP" />
+                        <img width="460" height="345" src="~/Files/@Model.Image" alt="Chania">
                         <label class="custom-file-label"></label>
                     </div>
                 </div>
@@ -88,7 +90,7 @@
 
                 <div class="row">
                     <div class="input-field col s12">
-                        <input type="submit" value="Ajouter Transport" class="waves-effect waves-light full-btn">
+                        <input type="submit" value="Update Transport" class="waves-effect waves-light full-btn">
                     </div>
                 </div>
             </form>
@@ -99,7 +101,7 @@
 </div>
 <div>
     <ul>
-     
+
         <li>
             <a asp-action="MesExperiences" class="hot-page2-alp-quot-btn">
                 Voir Mes Expériences

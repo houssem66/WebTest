@@ -1,72 +1,92 @@
 ﻿@model LogementExtViewModel
-<section>
-    <div class="tr-register">
-        <div class="tr-regi-form">
-            <h4>Créer un Logement</h4>
-            
-            <form class="col s12" method="post" action="AjouterLogement">
-                <div  class="text-danger"></div>
-                <div class="row">
-                    <div class="input-field col m6 s12">
-                        <input asp-for="Titre" placeholder="Titre" class="form-control" />
-                        <span asp-validation-for="Titre" class="text-danger"></span>
-                        <label>Nom</label>
+    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <section>
+        <div class="tr-register">
+            <div class="tr-regi-form">
+                <h4>Créer un Logement</h4>
+
+                <form class="col s12"  enctype="multipart/form-data" method="post" action="AjouterLogement">
+                    <div class="text-danger"></div>
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            <input asp-for="Titre" placeholder="Titre" class="form-control" />
+                            <span asp-validation-for="Titre" class="text-danger"></span>
+                            <label>Nom</label>
+                        </div>
+                        <div class="input-field col m6 s12">
+                            <input asp-for="Adresse" placeholder="Adresse" class="form-control" />
+                            <span asp-validation-for="Adresse" class="text-danger"></span>
+                            <label>Prénom</label>
+                        </div>
                     </div>
-                    <div class="input-field col m6 s12">
-                        <input asp-for="Adresse" placeholder="Adresse" class="form-control" />
-                        <span asp-validation-for="Adresse" class="text-danger"></span>
-                        <label>Prénom</label>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Documents" placeholder="Documents" class="form-control" />
+                            <span asp-validation-for="Documents" class="text-danger"></span>
+
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select asp-for="Category" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Category>()">
+                                <option>choisir  la category de logement ...</option>
+                            </select>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Documents" placeholder="Documents" class="form-control" />
-                        <span asp-validation-for="Documents" class="text-danger"></span>
-                       
+                            <span asp-validation-for="Category" class="text-danger"></span>
+
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <select asp-for="Category" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Category>()">
-                            <option>choisir  la category de logement ...</option>
-                        </select>
 
-                        <span asp-validation-for="Category" class="text-danger"></span>
 
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="PrixParNuit" placeholder="PrixParNuit" class="form-control" />
+                            <span asp-validation-for="PrixParNuit" class="text-danger"></span>
+                            <label>PrixParNuit</label>
+                        </div>
                     </div>
-                </div>
-
-
-
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="PrixParNuit" placeholder="PrixParNuit" class="form-control" />
-                        <span asp-validation-for="PrixParNuit" class="text-danger"></span>
-                        <label>PrixParNuit</label>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Images" placeholder="Images" class="form-control" />
+                            <span asp-validation-for="Images" class="text-danger"></span>
+                            <label>Images</label>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Images" placeholder="Images" class="form-control" />
-                        <span asp-validation-for="Images" class="text-danger"></span>
-                        <label>Images</label>
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="submit" value="submit" class="btn btn-primary btn-block">
+                        </div> <div class="input-field col s12">
+                            <a class="btn btn-primary btn-block" asp-controller="Service" asp-action="Annuler">Annuler</a>
+                        </div>
                     </div>
-                </div>
+                </form>
+                <p>
+                    Déja un membre ? <a asp-controller="Account" asp-action="Login">Cliquez pour se connecter</a>
+                </p>
 
+            </div>
+        </div>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input type="submit" value="submit" class="btn btn-primary btn-block">
-                    </div> <div class="input-field col s12">
-                    <a class="btn btn-primary btn-block" asp-controller="Service" asp-action="Annuler">Annuler</a>
-                </div></div>
-            </form>
-        <p>
-            Déja un membre ? <a asp-controller="Account" asp-action="Login">Cliquez pour se connecter</a>
-        </p>
-
-    </div>
-    </div>
-</section>
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileLabel = $(this).next('.custom-file-label');
+                        var files = $(this)[0].files;
+                        if (files.length > 1) {
+                            fileLabel.html(files.length + ' files selected');
+                        }
+                        else if (files.length == 1) {
+                            fileLabel.html(files[0].name);
+                        }
+                    });
+                });
+            </script>
+        }
+    </section>
