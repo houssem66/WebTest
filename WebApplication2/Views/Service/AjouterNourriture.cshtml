@@ -1,57 +1,86 @@
 ﻿@model NourritureExtViewModel
-<section>
-    <div class="tr-register">
-        <div class="tr-regi-form">
-            <h4>Créer une Nourriture</h4>
 
-            <form class="col s12" method="post" action="AjouterNourriture">
-                <div class="text-danger"></div>
-                <div class="row">
-                    <div class="input-field col m6 s12">
-                        <input asp-for="Plat" placeholder="Nom de plat" class="form-control" />
-                        <span asp-validation-for="Plat" class="text-danger"></span>
-                        <label>Nom</label>
-                    </div>
+    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <section>
+        <div class="tr-register">
+            <div class="tr-regi-form">
+                <h4>Créer une Nourriture</h4>
 
-                </div>
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Image" placeholder="Image" class="form-control" />
-                        <span asp-validation-for="Image" class="text-danger"></span>
+                <form class="col s12" enctype="multipart/form-data" method="post" action="AjouterNourriture">
+                    <div class="text-danger"></div>
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            <input asp-for="Plat" placeholder="Nom de plat" class="form-control" />
+                            <span asp-validation-for="Plat" class="text-danger"></span>
+                            <label>Plat</label>
+                        </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <select asp-for="Type" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
-                            <option>choisir  la category de Nourriture ...</option>
-                        </select>
-
-                        <span asp-validation-for="Type" class="text-danger"></span>
+                    <div class="row">
+                        <div class="input-field col m6 s12">
+                            <input asp-for="Description" placeholder="Description" class="form-control" />
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                            <label>Description</label>
+                        </div>
 
                     </div>
-                </div>
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Prix" placeholder="Prix" class="form-control" />
-                        <span asp-validation-for="Prix" class="text-danger"></span>
 
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Image" placeholder="Image" class="form-control" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select asp-for="Type" placeholder="Type" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
+                                <option>choisir  la category de Nourriture ...</option>
+                            </select>
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input type="submit" value="submit" class="btn btn-primary btn-block">
-                    </div> <div class="input-field col s12">
-                        <a class="btn btn-primary btn-block" asp-controller="Service" asp-action="Annuler">Annuler</a>
+                            <span asp-validation-for="Type" class="text-danger"></span>
+
+                        </div>
                     </div>
-                </div>
-            </form>
-            <p>
-              Creer
-            </p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Prix" placeholder="Prix" class="form-control" />
+                            <span asp-validation-for="Prix" class="text-danger"></span>
 
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="submit" value="submit" class="btn btn-primary btn-block">
+                        </div> <div class="input-field col s12">
+                            <a class="btn btn-primary btn-block" asp-controller="Service" asp-action="Annuler">Annuler</a>
+                        </div>
+                    </div>
+                </form>
+                <p>
+                    Creer
+                </p>
+
+            </div>
         </div>
-    </div>
-</section>
+
+        @section Scripts {
+            <script>
+                $(document).ready(function () {
+                    $('.custom-file-input').on("change", function () {
+                        var fileLabel = $(this).next('.custom-file-label');
+                        var files = $(this)[0].files;
+                        if (files.length > 1) {
+                            fileLabel.html(files.length + ' files selected');
+                        }
+                        else if (files.length == 1) {
+                            fileLabel.html(files[0].name);
+                        }
+                    });
+                });
+            </script>
+        }
+
+    </section>

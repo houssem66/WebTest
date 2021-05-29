@@ -354,6 +354,59 @@ namespace TourMe.Web.Controllers
             return View(model);
         }
 
+           [AllowAnonymous]
+           [HttpGet]
+           public IActionResult UpdateTransport(int id )
+          {
+            Transport t = TransportService.GetTransport(id);
+            ViewData["Id"] = id;
+            return View(t);
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> UpdateTransport(int id, Transport model, IFormFile FileP)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                if (FileP != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
+                Transport l = TransportService.GetTransport(id);
+
+
+                l.ExperienceId = id;
+                l.DateDisp = model.DateDisp;
+                l.Periode = model.Periode;
+                l.Prix = model.Prix;
+                l.TypeVehicule = model.TypeVehicule;
+
+                if (uniqueFileName != null)
+                    l.Image = uniqueFileName;
+
+
+                await TransportService.Update(l);
+                return RedirectToAction("MesExperiences");
+
+            }
+            return View(model);
+
+
+
+        }
+
+
         [AllowAnonymous]
         [HttpGet]
         public  IActionResult UpdateNourriture(int id)
@@ -362,6 +415,9 @@ namespace TourMe.Web.Controllers
             ViewData["Id"] = id;
             return View(l);
         }
+
+
+
 
         [AllowAnonymous]
         [HttpPost]

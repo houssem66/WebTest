@@ -5,197 +5,160 @@
 
 <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<section>
+
+    <!--CENTER SECTION-->
+    <div class="row">
+        <div class="col-md-6">
 
 
-<!--CENTER SECTION-->
-<div class="row">
-    <div class="col-md-6">
+        </div>
+        <div class="db-2">
+            <div class="db-2-com db-2-main">
+                <h4>Activité de @ViewBag.exp.Titre"<span class="db-pay-amount"></span></h4>
+                <div class="db-2-main-com db2-form-pay db2-form-com">
 
+                    <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateActivite">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label>Titre</label>
+                                <br />
+                                <br />
 
-    </div>
-    <div class="db-2">
-        <div class="db-2-com db-2-main">
-            <h4>Activité de @ViewBag.exp.Titre"<span class="db-pay-amount"></span></h4>
-            <div class="db-2-main-com db2-form-pay db2-form-com">
-
-                <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateActivite">
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label>Titre</label>
-                            <br />
-                            <br />
-
-                            <span> @ViewBag.exp.Titre </span>
+                                <span> @ViewBag.exp.Titre </span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
 
-                            <label>Type d'experience</label>
-                            <br />
-                            <br />
-                            <span>@ViewBag.exp.TypeExperience </span> 
+                                <label>Type d'experience</label>
+                                <br />
+                                <br />
+                                <span>@ViewBag.exp.TypeExperience </span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
+                        <div class="row">
+                            <div class="input-field col s12">
 
-                            <textarea asp-for="Details" class="form-control" rows="3" placeholder="Description de l'Activité ..."></textarea>
-                            <span asp-validation-for="Details" class="text-danger"></span>
+                                <textarea asp-for="Details" class="form-control" rows="3" placeholder="Description de l'Activité ..."></textarea>
+                                <span asp-validation-for="Details" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
+                        <div class="row">
 
-                        <div class="input-field col s12">
-                            <label>Date Début</label>
-                            <br />
-                            <br />
+                            <div class="input-field col s12">
+                                <label>Date Début</label>
+                                <br />
+                                <br />
 
-                            <input asp-for="dateDebut" class="form-control" />
-                            <span asp-validation-for="dateDebut" class="text-danger"></span>
+                                <input asp-for="dateDebut" class="form-control" />
+                                <span asp-validation-for="dateDebut" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <label>Date Fin</label>
-                            <br />
-                            <br />
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label>Date Fin</label>
+                                <br />
+                                <br />
 
-                            <input asp-for="dateFin" class="form-control" />
-                            <span asp-validation-for="dateFin" class="text-danger"></span>
+                                <input asp-for="dateFin" class="form-control" />
+                                <span asp-validation-for="dateFin" class="text-danger"></span>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <label>Image</label>
-                        <div class="custom-file">
-                            <span>
+                        <div class="row">
+                            <label>Image</label>
+                            <div class="custom-file">
+                                <span>
 
 
-                            </span>
-                            <input multiple asp-for="FileP" class="form-control custom-file-input" />
-                            <label class="custom-file-label"></label>
+                                </span>
+                                <input multiple asp-for="FileP" class="form-control custom-file-input" />
+                                <label class="custom-file-label"></label>
+                            </div>
                         </div>
-                    </div>
 
-                    @section Scripts {
-                        <script>
-                            $(document).ready(function () {
-                                $('.custom-file-input').on("change", function () {
-                                    var fileLabel = $(this).next('.custom-file-label');
-                                    var files = $(this)[0].files;
-                                    if (files.length > 1) {
-                                        fileLabel.html(files.length + ' files selected');
-                                    }
-                                    else if (files.length == 1) {
-                                        fileLabel.html(files[0].name);
-                                    }
+                        @section Scripts {
+                            <script>
+                                $(document).ready(function () {
+                                    $('.custom-file-input').on("change", function () {
+                                        var fileLabel = $(this).next('.custom-file-label');
+                                        var files = $(this)[0].files;
+                                        if (files.length > 1) {
+                                            fileLabel.html(files.length + ' files selected');
+                                        }
+                                        else if (files.length == 1) {
+                                            fileLabel.html(files[0].name);
+                                        }
+                                    });
                                 });
-                            });
-                        </script>
-                    }
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="submit" value="Ajouter l'activité" class="waves-effect waves-light full-btn">
+                            </script>
+                        }
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="submit" value="Ajouter l'activité" class="waves-effect waves-light full-btn">
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
 
 
 
 
 
+                </div>
             </div>
         </div>
-    </div>
 
 
-    <div class="col-md-6">
-        @{var photoPath = ("~/images/noimage.jpg");
+        <div class="col-md-6">
+            @*@{var photoPath = ("~/images/noimage.jpg");
 
-        }
-        @if (ViewBag.ListeActivite == null)
+                }*@
+            @if (ViewBag.ListeActivite == null)
 
-        {
-            <table id="myTable">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Details Activité
-                        </th>
-                        <th>
-                            Images Activité
-                        </th>
+            {
+                <div></div>
+            }
 
 
-
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-
-
-
-                    <tr>
-
-                        <td>
-                            Vide
-                        </td>
-
-
-                        <td>
-                            <img class="img-thumbnail" style="height:20px; width:50px;" src="@photoPath" alt="" />
-                        </td>
-
-
-
-                    </tr>
-
-                </tbody>
-            </table>
-        }
-
-
-        else
-        {
-            <table class="table">
-                <thead>
-                    <tr>
-
-                        <th>
-                            Details Activite
-                        </th>
-                        <th>
-                            Images Activite
-                        </th>
-
-                        <th>
-                            Date Debut
-                        </th>
-                        <th>
-                            Date Fin
-                        </th>
-
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-
-
-
-
-                    @foreach (var item in ViewBag.ListeActivite)
-                    {
-
+            else
+            {
+                @*<table class="table">
+                    <thead>
                         <tr>
+
+                            <th>
+                                Details Activite
+                            </th>
+                            <th>
+                                Images Activite
+                            </th>
+
+                            <th>
+                                Date Debut
+                            </th>
+                            <th>
+                                Date Fin
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>*@
+
+
+
+
+                @foreach (var item in ViewBag.ListeActivite)
+                {
+
+                    @*<tr>
 
                             <td>
                                 <p> @item.Details</p>
-                               
+
                             </td>
 
 
@@ -212,32 +175,87 @@
                                 @item.dateFin
                             </td>
 
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        </tr>*@
+
+
+                    <section>
+
+                        <div class="col-md-9 hot-page2-alp-con-right">
+                            <div class="hot-page2-alp-con-right-1">
+                                <!--LISTINGS-->
+                                <div class="row">
+                                    <!--LISTINGS START-->
+                                    <div class="hot-page2-alp-r-list">
+                                        <div class="col-md-3 hot-page2-alp-r-list-re-sp">
+                                            <a href="javascript:void(0);">
+                                                <div class="hotel-list-score">4.5</div>
+                                                @{var photoPath1 = "~/images/" + (item.Image ?? "noimage.jpg");
+
+                                                }
+                                                <div class="hot-page2-hli-1"> <img src="@photoPath1" asp-append-version="true" alt=""> </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="trav-list-bod">
+                                                <a href="#"><h3>@ViewBag.exp.Titre</h3></a>
+                                                <p> @item.Details</p>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="trav-ami">
+                                                <h4>Detail and Includes</h4>
+                                                <ul>
+                                                    @*<li><img src="~/Theme/Template2/images/icon/a14.png" alt=""> <span>Sightseeing</span></li>
+                                                        <li><img src="~/Theme/Template2/images/icon/a15.png" alt=""> <span>Hotel</span></li>
+                                                        <li><img src="~/Theme/Template2/images/icon/a16.png" alt=""> <span>Transfer</span></li>
+                                                        <li><img src="~/Theme/Template2/images/icon/a17.png" alt=""> <span>Luggage</span></li>
+                                                        <li><img src="~/Theme/Template2/images/icon/a18.png" alt=""> <span>Duration 8N/9D</span></li>*@
+                                                    <li><img src="~/Theme/Template2/images/icon/a19.png" alt=""> <span>Location : @ViewBag.exp.Lieu</span></li>
+                                                    <li><img src="~/Theme/Template2/images/icon/dbl4.png" alt=""> <span>Date Debut : @item.dateDebut</span></li>
+                                                    <li><img src="~/Theme/Template2/images/icon/dbl4.png" alt=""> <span>Date Debut : @item.dateFin</span></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--END LISTINGS-->
+
+                                </div>
+                            </div>
+                        </div>
+                        <!--END RIGHT LISTINGS-->
+
+
+                    </section>
+
+
+                }
+                @*</tbody>
+                    </table>*@
 
 
 
-        }
-
-        <script>
-            function showAlert() {
-                alert("Experience Ajouté avec succès");
             }
-        </script>
 
-            <ul>
-                <li>
-
-                    <a type="submit" class="hot-page2-alp-quot-btn" asp-controller="Experience" asp-action="CreateLogement" >Valider L'ajout</a>
-
-                </li>
-            </ul>
-
-       
+            <script>
+                function showAlert() {
+                    alert("Experience Ajouté avec succès");
+                }
+            </script>
 
 
 
+
+
+
+        </div>
     </div>
-</div>
+</section>
+
+<ul>
+    <li>
+
+        <a type="submit" class="hot-page2-alp-quot-btn" asp-controller="Experience" asp-action="CreateLogement">Valider L'ajout</a>
+
+    </li>
+</ul>
