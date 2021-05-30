@@ -267,7 +267,7 @@ namespace TourMe.Web.Controllers
 
                 {
                     DateDisp = model.DateDisp,
-                    TypeVehicule = model.TypeVehicule,
+                    TypeTransport = model.TypeTransport,
                     Periode = model.Periode,
                     Image = uniqueFileName,
                    
@@ -390,7 +390,7 @@ namespace TourMe.Web.Controllers
                 l.DateDisp = model.DateDisp;
                 l.Periode = model.Periode;
                 l.Prix = model.Prix;
-                l.TypeVehicule = model.TypeVehicule;
+                l.TypeTransport = model.TypeTransport;
 
                 if (uniqueFileName != null)
                     l.Image = uniqueFileName;

@@ -21,10 +21,12 @@
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="row">
                     <div class="input-field col s12">
+                        <select asp-for="TypeTransport" placeholder="Type" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeTransport>()">
+                            <option>choisir  la category de TypeTransport ...</option>
+                        </select>
 
-                        <input asp-for="TypeVehicule" placeholder="Type Logement" class="form-control" />
+                        <span asp-validation-for="TypeTransport" class="text-danger"></span>
 
-                        <span asp-validation-for="TypeVehicule" class="text-danger"></span>
                     </div>
                 </div>
 

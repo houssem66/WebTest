@@ -5,12 +5,13 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Web.Models
 {
     public class TransportViewModel
     {
-        public string TypeVehicule { get; set; }
+        public TypeTransport TypeTransport { get; set; }
         public IFormFile FileP { get; set; }
         public DateTime DateDisp { get; set; }
         [Required(ErrorMessage = "Prix est obligatoire")]

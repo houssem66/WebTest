@@ -423,8 +423,8 @@ namespace TourMe.Data.Migrations
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("NourritureId");
 
@@ -562,6 +562,38 @@ namespace TourMe.Data.Migrations
                     b.ToTable("ServiceNourittures");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateDisp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("FournisseurId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Periode")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("TypeTransportExt")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("FournisseurId");
+
+                    b.ToTable("ServiceTransports");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
                 {
                     b.Property<int>("TrasportId")
@@ -585,8 +617,8 @@ namespace TourMe.Data.Migrations
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("TypeVehicule")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TypeTransport")
+                        .HasColumnType("int");
 
                     b.HasKey("TrasportId");
 
@@ -810,6 +842,16 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Fournisseur");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
+                        .WithMany("ServiceTransports")
+                        .HasForeignKey("FournisseurId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Fournisseur");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
@@ -853,6 +895,8 @@ namespace TourMe.Data.Migrations
                     b.Navigation("ServiceLogments");
 
                     b.Navigation("ServiceNourittures");
+
+                    b.Navigation("ServiceTransports");
                 });
 #pragma warning restore 612, 618
         }
