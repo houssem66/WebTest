@@ -566,6 +566,10 @@ namespace TourMe.Data.Migrations
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
 
+                    b.Property<string>("Cin")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<string>("DomainActivite")
                         .HasColumnType("nvarchar(max)");
 
@@ -578,6 +582,10 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("FormeJuridique")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Identifiant_fiscale")
+                        .HasMaxLength(8)
+                        .HasColumnType("nvarchar(8)");
+
                     b.Property<string>("NomGerant")
                         .HasColumnType("nvarchar(max)");
 
@@ -586,6 +594,10 @@ namespace TourMe.Data.Migrations
 
                     b.Property<string>("PersAContact")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Rib")
+                        .HasMaxLength(20)
+                        .HasColumnType("int");
 
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");

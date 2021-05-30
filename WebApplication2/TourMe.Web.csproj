@@ -24,6 +24,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="Twilio" Version="5.56.0" />
+    <PackageReference Include="twitter-bootstrap-wizard" Version="1.4.2" />
   </ItemGroup>
 
   <ItemGroup>
