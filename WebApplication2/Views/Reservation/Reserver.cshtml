@@ -1,216 +1,235 @@
-﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
-@using Microsoft.AspNetCore.Identity;
-@model TourMe.Data.Entities.Experience
-@{
+﻿@{
     Layout = null;
 }
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-
-<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:01:37 GMT -->
 <head>
-    <title>The Travel - Tour Travel</title>
-    <!--== META TAGS ==-->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=yes">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="HandheldFriendly" content="true">
-    <!-- GOOGLE FONTS -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">
-    <!-- FONT-AWESOME ICON CSS -->
-    <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
-    <!--== ALL CSS FILES ==-->
-    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Material Bootstrap Wizard by Creative Tim</title>
 
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
 
+    <link rel="apple-touch-icon" sizes="76x76" href="~/wizard/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="~/wizard/assets/img/favicon.png" />
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/html5shiv.js"></script>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/respond.min.js"></script>
-    <![endif]-->
+    <!--     Fonts and icons     -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
 
-    <style>
-        .card {
-            display: grid;
-            grid-template-rows: 210px 210px 80px;
-            grid-template-areas: "image" "text" "stats";
-            border-radius: 18px;
-            background: white;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.9);
-            font-family: roboto;
-            text-align: center;
-            transition: 0.5s ease;
-            cursor: pointer;
-            margin: 30px;
-        }
+    <!-- CSS Files -->
+    <link href="~/wizard/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/wizard/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/wizard/assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
 
-        .card-image {
-            grid-area: image;
-            border-top-left-radius: 15px;
-            border-top-right-radius: 15px;
-            background-size: cover;
-        }
-
-        .card-text {
-            grid-area: text;
-            margin: 25px;
-        }
-
-            .card-text .date {
-                color: rgb(255, 7, 110);
-                font-size: 13px;
-            }
-
-            .card-text p {
-                color: grey;
-                font-size: 15px;
-                font-weight: 300;
-            }
-
-            .card-text h2 {
-                margin-top: 0px;
-                font-size: 28px;
-            }
-
-        .card-stats {
-            grid-area: stats;
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-template-rows: 1fr;
-            border-bottom-left-radius: 15px;
-            border-bottom-right-radius: 15px;
-            background: rgb(255, 7, 110);
-        }
-
-            .card-stats .stat {
-                padding: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-direction: column;
-                color: white;
-            }
-
-            .card-stats .border {
-                border-left: 1px solid rgb(172, 26, 87);
-                border-right: 1px solid rgb(172, 26, 87);
-            }
-
-            .card-stats .value {
-                font-size: 22px;
-                font-weight: 500;
-            }
-
-                .card-stats .value sup {
-                    font-size: 12px;
-                }
-
-            .card-stats .type {
-                font-size: 11px;
-                font-weight: 300;
-                text-transform: uppercase;
-            }
-
-        .card:hover {
-            transform: scale(1.15);
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
-        }
-    </style>
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/wizard/assets/css/demo.css" rel="stylesheet" />
 </head>
 
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>
-
-    <!-- MOBILE MENU -->
-    <!--HEADER SECTION-->
-    <section>
-        <!-- TOP BAR -->
-        <!-- LOGO AND MENU SECTION -->
-
-        <div class="top-logo" data-spy="affix" data-offset-top="250">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="wed-logo">
-                            <a asp-action="Index" asp-controller="Home">
-                                <img src="~/Theme/Template2/images/logo.png" alt="" />
-                            </a>
-                        </div>
-
-
-                    </div>
+    @{ var path = "~/images/" + @ViewBag.img;}
+    <div class="image-container set-full-height" style="background-image: url(@Url.Content(path ));">
+        <!--   Creative Tim Branding   -->
+        <a href="http://creative-tim.com">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="~/Theme/Template2/images/logo.png">
+                </div>
+                <div class="brand">
+                    TourMe
                 </div>
             </div>
-        </div>
+        </a>
 
-        <!-- TOP SEARCH BOX -->
+        <!--  Made With Material Kit  -->
+        <a href="http://demos.creative-tim.com/material-kit/index.html?ref=material-bootstrap-wizard" class="made-with-mk">
+            <div class="brand">MK</div>
+            <div class="made-with">Made with <strong>Material Kit</strong></div>
+        </a>
 
-    </section>
-    <section>
+        <!--   Big container   -->
         <div class="container">
             <div class="row">
-                <div class="col-md-8">
-                    cancel
-                    @{ var path = "~/images/" + @ViewBag.img;}
-                    @path
-                </div>
-                @{ var x = 3;
-                    var s = Model.tarif * x;}
+                <div class="col-sm-8 col-sm-offset-2">
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card wizard-card" data-color="red" id="wizard">
+                            <form action="" method="">
+                                <!--        You can switch " data-color="blue" "  with one of the next bright colors: "green", "orange", "red", "purple"             -->
 
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-image" style="background-image: url(@Url.Content(path ));"></div>
-                        <div class="card-text">
-                            <span class="date">@Model.dateDebut.ToString("d")</span>
-                            <h2>@Model.Titre</h2><br /><br />
-                            <b>best Review</b>
-                             <h2><b>Details des prix</b></h2>
-                            <p>@Model.tarif X @x Adultes dinar </p>
-                            <p>total(dinar)=@s</p>
+                                <div class="wizard-header">
+                                    <h3 class="wizard-title">
+                                        Book a Room
+                                    </h3>
+                                    <h5>This information will let us know more about you.</h5>
+                                </div>
+                                <div class="wizard-navigation">
+                                    <ul>
+                                        <li><a href="#details" data-toggle="tab">Choisir Nourriture</a></li>
+                                        <li><a href="#captain" data-toggle="tab">Choisir Logement</a></li>
+                                        <li><a href="#description" data-toggle="tab">Choisir Transport</a></li>
+                                        <li><a href="#Reservation" data-toggle="tab">Confirmation et Reservation</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="details">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <h4 class="info-text"> Let's start with the basic details.</h4>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="material-icons">email</i>
+                                                    </span>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Your Email</label>
+                                                        <input name="name" type="text" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-group">
+                                                    <span class="input-group-addon">
+                                                        <i class="material-icons">lock_outline</i>
+                                                    </span>
+                                                    <div class="form-group label-floating">
+                                                        <label class="control-label">Your Password</label>
+                                                        <input name="name2" type="password" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Country</label>
+                                                    <select class="form-control">
+                                                        <option disabled="" selected=""></option>
+                                                        <option value="Afghanistan"> Afghanistan </option>
+                                                        <option value="Albania"> Albania </option>
+                                                        <option value="Algeria"> Algeria </option>
+                                                        <option value="American Samoa"> American Samoa </option>
+                                                        <option value="Andorra"> Andorra </option>
+                                                        <option value="Angola"> Angola </option>
+                                                        <option value="Anguilla"> Anguilla </option>
+                                                        <option value="Antarctica"> Antarctica </option>
+                                                        <option value="...">...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group label-floating">
+                                                    <label class="control-label">Daily Budget</label>
+                                                    <select class="form-control">
+                                                        <option disabled="" selected=""></option>
+                                                        <option value="Afghanistan"> < $100 </option>
+                                                        <option value="Albania"> $100 - $499 </option>
+                                                        <option value="Algeria"> $499 - $999 </option>
+                                                        <option value="American Samoa"> $999+ </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="captain">
+                                        <h4 class="info-text">What type of room would you want? </h4>
+                                        <div class="row">
+                                            <div class="col-sm-10 col-sm-offset-1">
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="This is good if you travel alone.">
+                                                        <input type="radio" name="job" value="Design">
+                                                        <div class="icon">
+                                                            <i class="material-icons">weekend</i>
+                                                        </div>
+                                                        <h6>Single</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this room if you're traveling with your family.">
+                                                        <input type="radio" name="job" value="Code">
+                                                        <div class="icon">
+                                                            <i class="material-icons">home</i>
+                                                        </div>
+                                                        <h6>Family</h6>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="choice" data-toggle="wizard-radio" rel="tooltip" title="Select this option if you are coming with your team.">
+                                                        <input type="radio" name="job" value="Code">
+                                                        <div class="icon">
+                                                            <i class="material-icons">business</i>
+                                                        </div>
+                                                        <h6>Business</h6>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="description">
+                                        <div class="row">
+                                            <h4 class="info-text"> Drop us a small description.</h4>
+                                            <div class="col-sm-6 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Room description</label>
+                                                    <textarea class="form-control" placeholder="" rows="6"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">Example</label>
+                                                    <p class="description">"The room really nice name is recognized as being a really awesome room. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="Reservation">
+                                        <div class="row">
+                                            <h4 class="info-text"> Drop us a small description.</h4>
+                                            <div class="col-sm-6 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Room description</label>
+                                                    <textarea class="form-control" placeholder="" rows="6"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label class="control-label">Example</label>
+                                                    <p class="description">"The room really nice name is recognized as being a really awesome room. We use it every sunday when we go fishing and we catch a lot. It has some kind of magic shield around it."</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="wizard-footer">
+                                    <div class="pull-right">
+                                        <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
+                                        <input type='button' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
+                                    </div>
+                                    <div class="pull-left">
+                                        <input type='button' class='btn btn-previous btn-fill btn-default btn-wd' name='previous' value='Previous' />
+
+
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </form>
                         </div>
-                        <div class="card-stats">
-                            <div class="stat">
-                                <div class="value">@Model.AvgRating<sup>*</sup></div>
-                                <div class="type">Rating</div>
-                            </div>
-                            <div class="stat border">
-                                <div class="value">5123</div>
-                                <div class="type">views</div>
-                            </div>
-                            <div class="stat">
-                                <div class="value">@Model.Ratings.Where(x=>x.Commentaire!=null).Count()</div>
-                                <div class="type">comments</div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> <!-- wizard container -->
                 </div>
-            </div>
-        </div>
+            </div> <!-- row -->
+        </div> <!--  big container -->
 
-    </section>
-    <!-- END TOP SEARCH BOX -->
-    <!--END HEADER SECTION-->
-    <!--====== BANNER ==========-->
-    <!--====== FOOTER - COPYRIGHT ==========-->
-    <!--========= Scripts ===========-->
-    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
-    <script src="~/Theme/Template2/js/bootstrap.js"></script>
-    <script src="~/Theme/Template2/js/wow.min.js"></script>
-    <script src="~/Theme/Template2/js/materialize.min.js"></script>
-    <script src="~/Theme/Template2/js/custom.js"></script>
 
+    </div>
+    <script src="~/wizard/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="~/wizard/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/wizard/assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+    <!--  Plugin for the Wizard -->
+    <script src="~/wizard/assets/js/material-bootstrap-wizard.js"></script>
+
+    <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+    <script src="~/wizard/assets/js/jquery.validate.min.js"></script>
 </body>
+<!--   Core JS Files   -->
 
-
-<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
 </html>

@@ -74,8 +74,6 @@ namespace WebApplication2
             services.AddScoped(typeof(IExperienceRepo), typeof(ExperienceRepo));
             services.AddScoped(typeof(IActiviteRepo), typeof(ActiviteRepo));
             services.AddScoped(typeof(IRatingRepo), typeof(RatingRepo));
-        
-
             // add services
             services.AddTransient<IExperienceService, ExperienceService>();
             services.AddTransient<IActiviteService, ActiviteService>();
@@ -84,26 +82,23 @@ namespace WebApplication2
             services.AddCors();
             //sprint 3
             // add Repositories
-
-         
-            
-            services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementextRepo), typeof(LogementextRepo));
+            services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
-            services.AddScoped(typeof(ITransportRepo), typeof(TransportRepo));
-
             services.AddScoped(typeof(INourritureRepo), typeof(NourritureRepo));
-            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
             services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
-       
+            services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
+            services.AddScoped(typeof(IReservationRepo), typeof(ReservationRepo));
+            services.AddScoped(typeof(ITransportRepo), typeof(TransportRepo));
             //add Services
             services.AddTransient<INourritureService, NourritureService>();
-            services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ILogementService, LogementService>();
             services.AddTransient<ILogementextService, LogementextService>();
             services.AddTransient<IFournisseurService, FournisseurService>();
             services.AddTransient<ICommercantService, CommercantService>();
             services.AddTransient<INourritureExtService, NourritureExtService>();
+            services.AddTransient<IReservationService, ReservationService>();
+            //services.AddTransient<ITransportService, TransportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
