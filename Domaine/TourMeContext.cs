@@ -23,6 +23,7 @@ namespace TourMe.Data
         public DbSet<Transport> Transports { get; set; }
         public DbSet<ServiceLogment> ServiceLogments { get; set; }
         public DbSet<ServiceNouritture> ServiceNourittures { get; set; }
+        public DbSet<ServiceTransport> ServiceTransports { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
@@ -64,6 +65,8 @@ namespace TourMe.Data
 
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceLogments).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceNourittures).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
+                builder.Entity<Fournisseur>().HasMany(f => f.ServiceTransports).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
+
             builder.Entity<ServiceLogment>(eb =>
             {
                 eb.Property(l => l.PrixParNuit).HasColumnType("decimal(5, 2)");
@@ -72,6 +75,13 @@ namespace TourMe.Data
 
           );
             builder.Entity<ServiceNouritture>(eb =>
+            {
+                eb.Property(l => l.Prix).HasColumnType("decimal(5, 2)");
+
+            }
+
+         );
+            builder.Entity<ServiceTransport>(eb =>
             {
                 eb.Property(l => l.Prix).HasColumnType("decimal(5, 2)");
 

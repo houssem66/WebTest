@@ -98,7 +98,7 @@ namespace WebApplication2
             services.AddTransient<ICommercantService, CommercantService>();
             services.AddTransient<INourritureExtService, NourritureExtService>();
             services.AddTransient<IReservationService, ReservationService>();
-            //services.AddTransient<ITransportService, TransportService>();
+            services.AddTransient<ITransportService, TransportService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

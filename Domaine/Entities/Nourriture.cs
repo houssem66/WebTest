@@ -5,13 +5,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Data.Entities
 {
   public class Nourriture
     {
         public int NourritureId { get; set; }
-        public string Type { get; set; }
+        public TypeNourriture Type { get; set; }
         public string Plat { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
