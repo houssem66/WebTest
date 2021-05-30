@@ -10,7 +10,7 @@ namespace Services.Interfaces
     public interface ILogementService
     {
         public Task Ajout(Logement entity);
-        public IEnumerable<Logement> GetLogement(int id);
+        public Logement GetLogement(int id);
         public Task Update(Logement entity);
         public Task<Logement> GetLogementById(int id);
     }

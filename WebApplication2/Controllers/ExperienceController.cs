@@ -33,6 +33,7 @@ namespace TourMe.Web.Controllers
         readonly private IActiviteService ActiviteService;
         readonly private INourritureService NourritureService;
         readonly private ILogementService LogementService;
+        readonly private ITransportService TransportService;
 
         private readonly UserManager<Utilisateur> userManager;
 
@@ -40,8 +41,9 @@ namespace TourMe.Web.Controllers
         private readonly IRatingService ratingService;
         readonly private IUserService UserService;
 
-        public ExperienceController(ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
+        public ExperienceController(ITransportService transportService, ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
         {
+            TransportService = transportService;
             LogementService = _LogementService;
             this.hostingEnvironment = hostingEnvironment;
             ExperienceService = experienceService;
@@ -225,6 +227,72 @@ namespace TourMe.Web.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        public IActionResult CreateTransport(int id)
+        {
+
+            if (id != 0)
+            {
+                ViewData["Id"] = id;
+            }
+
+            else
+            {
+                ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
+                TempData.Keep("Id");
+            }
+            return View();
+        }
+        public async Task<IActionResult> CreateTransport(TransportViewModel model, int id)
+        {
+            ViewData["Id"] = id;
+            Experience experience = await ExperienceService.GetById(id);
+            if (ModelState.IsValid)
+            {
+
+                string uniqueFileName = null;
+                if (model.FileP != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
+
+
+                Transport transport = new Transport
+
+                {
+                    DateDisp = model.DateDisp,
+                    TypeVehicule = model.TypeVehicule,
+                    Periode = model.Periode,
+                    Image = uniqueFileName,
+                   
+                    Prix=model.Prix,
+                    ExperienceId=id
+                  
+                };
+
+
+                experience.Transport = transport;
+
+                await ExperienceService.PutExperienceAsync(id, experience);
+                await TransportService.Ajout(transport);
+
+                return RedirectToAction("MesExperiences");
+
+            }
+
+
+            return View(model);
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
         public IActionResult CreateNourriture(int id)
         {  if (id != 0) {
                 ViewData["Id"] = id;
@@ -241,6 +309,7 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateNourriture (NourritureViewModel model,int id)
         {
+            ViewData["Id"] = id;
             Experience experience = await ExperienceService.GetById(id);
             if (ModelState.IsValid)
             {
@@ -274,9 +343,10 @@ namespace TourMe.Web.Controllers
                 experience.Nourriture = nourriture;
 
                 await ExperienceService.PutExperienceAsync(id, experience);
+                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
                 await NourritureService.Ajout(nourriture);
 
-                return RedirectToAction("MesExperiences");
+                return RedirectToAction("CreateTransport");
 
             }
 
@@ -284,21 +354,166 @@ namespace TourMe.Web.Controllers
             return View(model);
         }
 
+           [AllowAnonymous]
+           [HttpGet]
+           public IActionResult UpdateTransport(int id )
+          {
+            Transport t = TransportService.GetTransport(id);
+            ViewData["Id"] = id;
+            return View(t);
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> UpdateTransport(int id, Transport model, IFormFile FileP)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                if (FileP != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
+                Transport l = TransportService.GetTransport(id);
+
+
+                l.ExperienceId = id;
+                l.DateDisp = model.DateDisp;
+                l.Periode = model.Periode;
+                l.Prix = model.Prix;
+                l.TypeVehicule = model.TypeVehicule;
+
+                if (uniqueFileName != null)
+                    l.Image = uniqueFileName;
+
+
+                await TransportService.Update(l);
+                return RedirectToAction("MesExperiences");
+
+            }
+            return View(model);
+
+
+
+        }
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public  IActionResult UpdateNourriture(int id)
+        {    
+            Nourriture l =NourritureService.GetNourriture(id);
+            ViewData["Id"] = id;
+            return View(l);
+        }
+
+
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> UpdateNourriture(int id, Nourriture model, IFormFile FileP)
+        {
+
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                if (FileP != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                }
+                Nourriture l =  NourritureService.GetNourriture(id);
+
+
+                l.ExperienceId = id;
+                l.Description = model.Description;
+                l.Plat = model.Plat;
+                l.Prix = model.Prix;
+                l.Type = model.Type;
+             
+                if (uniqueFileName != null)
+                    l.Image = uniqueFileName;
+
+
+                await NourritureService.Update(l);
+                return RedirectToAction("MesExperiences");
+
+            }
+            return View(model);
+
+
+
+        }
+
+
 
         [AllowAnonymous]
         [HttpGet]
         public IActionResult UpdateLogement(int id )
         {
-            Logement logement = LogementService.GetLogementById(id).Result;
+            Logement logement = LogementService.GetLogement(id);
             ViewData["Id"] = id;
             return View(logement);
         }
-        //[AllowAnonymous]
-        //[HttpPost]
-        //public IActionResult UpdateLogement(int id,LogementViewmodel model)
-        //{
-        //    Logement logement = LogementService.GetLogementById(id).Result;
-        //}
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> UpdateLogement(int id, Logement model, IFormFile FileP)
+        {
+           
+        if(ModelState.IsValid)
+            { 
+            string uniqueFileName = null;
+            if (FileP != null)
+            {
+
+                string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + FileP.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+
+            }
+               Logement l =   LogementService.GetLogement(id);
+                System.Diagnostics.Debug.WriteLine(" l'id du logement est "+ l.LogementId);
+
+                l.ExperienceId = id;
+                l.Datedebut = model.Datedebut;
+                l.DateFin = model.DateFin;
+                l.Lieu = model.Lieu;
+                l.NbJours = model.NbJours;
+                l.Prix = model.Prix;
+                l.Type = model.Type;
+
+                if (uniqueFileName!=null)
+                l.Image = uniqueFileName;
+
+
+                await  LogementService.Update(l);
+                return RedirectToAction("MesExperiences");
+
+            }
+            return View(model);
+
+
+
+        }
 
 
         [AllowAnonymous]
@@ -320,6 +535,7 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateLogement(LogementViewmodel model, int id)
         {
+            ViewData["Id"] = id;
             Experience experience = await ExperienceService.GetById(id);
             if (ModelState.IsValid)
             {

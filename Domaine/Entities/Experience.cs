@@ -44,6 +44,7 @@ namespace TourMe.Data.Entities
         //  public virtual IList<Logement> Logements { get; set; }
         public Logement Logement { get; set; }
         public Nourriture Nourriture { get; set; }
+        public Transport Transport { get; set; }
         public string CommerçantId { get; set; }
 
     }

@@ -562,6 +562,40 @@ namespace TourMe.Data.Migrations
                     b.ToTable("ServiceNourittures");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
+                {
+                    b.Property<int>("TrasportId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("DateDisp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ExperienceId")
+                        .HasColumnType("int")
+                        .HasColumnName("ExperienceId");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Periode")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<string>("TypeVehicule")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("TrasportId");
+
+                    b.HasIndex("ExperienceId")
+                        .IsUnique();
+
+                    b.ToTable("Transports");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
@@ -776,6 +810,15 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Fournisseur");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.Experience", null)
+                        .WithOne("Transport")
+                        .HasForeignKey("TourMe.Data.Entities.Transport", "ExperienceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
                 {
                     b.Navigation("Ratings");
@@ -796,6 +839,8 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Ratings");
 
                     b.Navigation("Reservations");
+
+                    b.Navigation("Transport");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>

@@ -1,0 +1,112 @@
+﻿@model TourMe.Data.Entities.Transport
+@{
+    ViewBag.Title = "Transport";
+
+}
+
+
+
+<script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+
+<!--CENTER SECTION-->
+<div class="db-2">
+    <div class="db-2-com db-2-main">
+        <h4>Modifier Transport<span class="db-pay-amount"></span></h4>
+        <div class="db-2-main-com db2-form-pay db2-form-com">
+
+            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="UpdateTransport">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <input asp-for="TypeVehicule" placeholder="Type Logement" class="form-control" />
+
+                        <span asp-validation-for="TypeVehicule" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <input type="hidden" value="@ViewBag.Id" name="id" class="form-control" />
+
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <input asp-for="Prix" placeholder="Lieu" class="form-control" />
+                        <span asp-validation-for="Prix" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <input asp-for="Periode" placeholder="Saisir le nombre des jours" class="form-control" />
+                        <span asp-validation-for="Periode" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+
+                        <input asp-for="DateDisp" placeholder="Saisir le prix" class="form-control" />
+                        <span asp-validation-for="DateDisp" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+
+
+                <div class="row">
+                    <label>Image</label>
+                    <div class="custom-file">
+                        <span>
+
+
+                        </span>
+                        <input multiple type="file" class="form-control custom-file-input" name="FileP" />
+                        <img width="460" height="345" src="~/Files/@Model.Image" alt="Chania">
+                        <label class="custom-file-label"></label>
+                    </div>
+                </div>
+
+                @section Scripts {
+                    <script>
+                        $(document).ready(function () {
+                            $('.custom-file-input').on("change", function () {
+                                var fileLabel = $(this).next('.custom-file-label');
+                                var files = $(this)[0].files;
+                                if (files.length > 1) {
+                                    fileLabel.html(files.length + ' files selected');
+                                }
+                                else if (files.length == 1) {
+                                    fileLabel.html(files[0].name);
+                                }
+                            });
+                        });
+                    </script>
+                }
+
+
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input type="submit" value="Update Transport" class="waves-effect waves-light full-btn">
+                    </div>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<div>
+    <ul>
+
+        <li>
+            <a asp-action="MesExperiences" class="hot-page2-alp-quot-btn">
+                Voir Mes Expériences
+            </a>
+        </li>
+
+    </ul>
+</div>

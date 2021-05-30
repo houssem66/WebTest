@@ -55,49 +55,203 @@
 <section>
     <div class="rows pad-bot-redu tb-space hom2-ban-pack">
         <div class="container">
-            @if(Model!=null)
-            { 
-            <div>
-                @{ foreach (var item in Model.ListeExperience)
-                    {
-                        <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow fadeInUp animated" data-wow-duration="0.5s" style="visibility: visible;-webkit-animation-duration: 0.5s; -moz-animation-duration: 0.5s; animation-duration: 0.5s;">
+            @if (Model != null)
+            {
+                <div>
+                    @{ foreach (var item in Model.ListeExperience)
+                        {
+                            <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow fadeInUp animated" data-wow-duration="0.5s" style="visibility: visible;-webkit-animation-duration: 0.5s; -moz-animation-duration: 0.5s; animation-duration: 0.5s;">
+                                <!-- OFFER BRAND -->
+                                <div class="band"> <img src="~/Theme/Template2/images/band.png" alt=""> </div>
+                                <!-- IMAGE -->
+                                <div class="v_place_img"> <img src="~/images/@item.Activites.First().Image" alt="Tour Booking" title="Tour Booking"> </div>
+                                <!-- TOUR TITLE & ICONS -->
+                                <div class="b_pack rows">
+
+                                    <!-- TOUR TITLE -->
+                                    <div class="col-md-8 col-sm-8">
+                                        <h4><a href="tour-details.html">@item.Titre<span class="v_pl_name">@item.Lieu</span></a></h4>
+                                    </div>
+                                    <!-- TOUR ICONS -->
+                                    <div class="col-md-4 col-sm-4 pack_icon">
+                                        <ul>
+                                            <li>
+                                                <a href="#"><img src="~/Theme/Template2/images/clock.png" alt="Date" title="Tour Timing"> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><img src="~/Theme/Template2/images/info.png" alt="Details" title="View more details"> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><img src="~/Theme/Template2/images/price.png" alt="Price" title="Price"> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><img src="~/Theme/Template2/images/map.png" alt="Location" title="Location"> </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        }}
+                    <!-- TOUR PLACE 1 -->
+                    <!-- TOUR PLACE 2 -->
+                    <!-- TOUR PLACE 3 -->
+
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+<!--====== HOME HOTELS ==========-->
+
+
+<section>
+    <div class="rows pad-bot-redu tb-space">
+        <div class="container">
+            @if (Model.ListeExperience.Count != 0)
+            {
+                <!-- TITLE & DESCRIPTION -->
+                <div class="spe-title">
+                    <h2>Top <span>TourMe Packages</span></h2>
+                    <div class="title-line">
+                        <div class="tl-1"></div>
+                        <div class="tl-2"></div>
+                        <div class="tl-3"></div>
+                    </div>
+                    <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide.</p>
+                </div>
+
+
+
+                @foreach (var item in Model.ListeExperience)
+                {
+                    <div>
+                        <!-- TOUR PLACE 1 -->
+                        <div class="col-md-4 col-sm-6 col-xs-12 b_packages wow slideInUp" data-wow-duration="0.5s">
                             <!-- OFFER BRAND -->
-                            <div class="band"> <img src="~/Theme/Template2/images/band.png" alt=""> </div>
+                            <div class="band"> <img src="images/band.png" alt="" /> </div>
                             <!-- IMAGE -->
-                            <div class="v_place_img"> <img src="~/images/@item.Activites.First().Image" alt="Tour Booking" title="Tour Booking"> </div>
+                            <div class="v_place_img"> <img src="~/images/@item.Activites.First().Image" alt="Tour Booking" title="Tour Booking" /> </div>
                             <!-- TOUR TITLE & ICONS -->
                             <div class="b_pack rows">
-
                                 <!-- TOUR TITLE -->
                                 <div class="col-md-8 col-sm-8">
-                                    <h4><a href="tour-details.html">@item.Titre<span class="v_pl_name">@item.Lieu</span></a></h4>
+                                    <h4><a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId">@item.Titre<span class="v_pl_name">@item.Lieu</span> <span class="v_pl_name">@item.tarif Dt</span></a></h4>
                                 </div>
                                 <!-- TOUR ICONS -->
                                 <div class="col-md-4 col-sm-4 pack_icon">
                                     <ul>
                                         <li>
-                                            <a href="#"><img src="~/Theme/Template2/images/clock.png" alt="Date" title="Tour Timing"> </a>
+                                            <a href="#"><img src="~/Theme/Template2/images/clock.png" alt="Date" title="Tour Timing" /> </a>
                                         </li>
                                         <li>
-                                            <a href="#"><img src="~/Theme/Template2/images/info.png" alt="Details" title="View more details"> </a>
+                                            <a href="#"><img src="~/Theme/Template2/images/info.png" alt="Details" title="View more details" /> </a>
                                         </li>
                                         <li>
-                                            <a href="#"><img src="~/Theme/Template2/images/price.png" alt="Price" title="Price"> </a>
+                                            <a href="#"><img src="~/Theme/Template2/images/price.png" alt="Price" title="Price" /> </a>
                                         </li>
                                         <li>
-                                            <a href="#"><img src="~/Theme/Template2/images/map.png" alt="Location" title="Location"> </a>
+                                            <a href="#"><img src="~/Theme/Template2/images/map.png" alt="Location" title="Location" /> </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                    }}
-                        <!-- TOUR PLACE 1 -->
-                        <!-- TOUR PLACE 2 -->
-                        <!-- TOUR PLACE 3 -->
 
                     </div>
-                    }
+                }}
         </div>
+    </div>
+</section>
+
+
+<section>
+    @if (Model.ListeNourriture.Count != 0)
+    {
+
+        <div class="rows tb-space pad-top-o pad-bot-redu">
+            <div class="container">
+                <!-- TITLE & DESCRIPTION -->
+                <div class="spe-title">
+                    <h2>Top <span>Nourriture</span> </h2>
+                    <div class="title-line">
+                        <div class="tl-1"></div>
+                        <div class="tl-2"></div>
+                        <div class="tl-3"></div>
+                    </div>
+                    <p>World's leading Hotel Booking website,Over 30,000 Hotel rooms worldwide. Book Hotel rooms and enjoy your holidays with distinctive experience</p>
+                </div>
+
+                @foreach (var item in Model.ListeNourriture)
+                {
+                    <!-- CITY -->
+                    @if ((Model.ListeNourriture.First() == item))
+                    {
+                        <div class="col-md-6">
+                            <a href="tour-details.html">
+                                <div class="tour-mig-like-com">
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-con">
+                                        <h5>@item.Type</h5>
+                                        <p><span>@item.Plat</span> à partir de  @item.Prix dt</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-3">
+                            <a href="tour-details.html">
+                                <div class="tour-mig-like-com">
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-con tour-mig-lc-con2">
+                                        <h5>@item.Plat</h5>
+                                        <p> à partir de  @item.Prix dt</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+    }
+</section>
+
+
+<section>
+    <div class="rows pla pad-bot-redu tb-space">
+        @if(Model.ListeLogement.Count!=0)
+        {
+        <div class="pla1 p-home container">
+            <!-- TITLE & DESCRIPTION -->
+            <div class="spe-title spe-title-1">
+                <h2>Top <span>Logement</span></h2>
+                <div class="title-line">
+                    <div class="tl-1"></div>
+                    <div class="tl-2"></div>
+                    <div class="tl-3"></div>
+                </div>
+                <p>Cherchez Parmis les meilleurs logements</p>
+            </div>
+        @foreach (var item in Model.ListeLogement)
+        {
+            <div class="popu-places-home">
+              
+                <div class="col-md-6 col-sm-6 col-xs-12 place">
+                    <div class="col-md-6 col-sm-12 col-xs-12"> <img src="~/Files/@item.Documents" alt="" /> </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <h3><span>@item.Titre</span></h3>
+                        <h3>  Prix par nuit<span> @item.PrixParNuit DT </span></h3>
+                        <p>Adresse : @item.Adresse</p> <a href="tour-details.html" class="link-btn">more info</a>
+                    </div>
+                </div>
+
+            </div>}
+        </div> }
     </div>
 </section>

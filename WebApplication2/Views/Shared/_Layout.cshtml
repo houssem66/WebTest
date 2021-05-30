@@ -129,22 +129,35 @@
 
                             {
 
-                                <ul>
-                                    <li>
-                                        <a asp-controller="Account" asp-action="Login">Se Connecter</a>
-                                    </li>
-                                    <li>
-                                        <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
-                                    </li>
-                                    <li>
-                                        <a style=" color:azure;
+                        <ul>
+                            <li>
+                                <a asp-controller="Account" asp-action="Login">Se Connecter</a>
+                            </li>
+                            <li>
+                                <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
+                            </li>
+
+                            <li>
+                                <a style=" color:azure;
+                                                    padding: 7px 12px;
+                                                    line-height: 30px;
+                                                    font-size: 12px;
+                                                    background-color:darkblue;"
+                                           
+                                   
+                                   asp-controller="Service" asp-action="TypeService">Devenir Fournisseur</a>
+                            </li>
+
+                            <li>
+                                <a style=" color:azure;
                                                     padding: 7px 12px;
                                                     line-height: 30px;
                                                     font-size: 12px;
                                                     background-color:darkturquoise;
-    " asp-controller="account" asp-action="RegisterCommercant">Devenir Hôte</a>
-                                    </li>
-                                </ul>}
+                                           " asp-controller="account" asp-action="RegisterCommercant">
+                                Devenir Hôte</a>
+                            </li>
+                        </ul>}
                         </div>
                         <div class="ed-com-t1-social">
                             <ul>
@@ -230,7 +243,7 @@
                                 <li><a href="hotels-list.html">Hotels</a></li>
                                 <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
                                 <li class="cour-menu">
-                                    <a href="#!" class="mm-arr">All Pages</a>
+                                    <a asp-action="getAll" asp-controller="Experience">Expériences</a>
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
                                         <div class="cour-mm m-menu">
