@@ -7,8 +7,7 @@ using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities.Enum
 {
-  public  enum Category
-    {
-        [Display(Name = "Logement Entier")] LogementEntier, [Display(Name = "Chambre privée")] Chambreprivé, [Display(Name = "Chambre partagée")]ChambrePartagé
+    public enum SubCategory
+    {Maison,Appartement,Hotel, [Display(Name = "Maison d'hote")]maisonhote
     }
 }
