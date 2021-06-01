@@ -42,7 +42,7 @@ namespace Services.Implementation
                     //       select Experience;
                 }
                 return ExperienceRepo.GetAllExperienceAsync().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                            e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
+                                            e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
             }
 
             return ExperienceRepo.GetAllExperienceAsync();
@@ -100,13 +100,13 @@ namespace Services.Implementation
             {
                 Debug.WriteLine("the value of searchSterm is : "+searchTerm );
                 return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                           e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
+                                           e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
             else
             {
                 
                 return GenericRepo.GetAll().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                           e.TypeExperience.ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
+                                           e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())).ToList();
 
             }
 

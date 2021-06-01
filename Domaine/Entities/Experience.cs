@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Data.Entities
 {
@@ -20,7 +21,8 @@ namespace TourMe.Data.Entities
         [Required]
         public string Titre { get; set; }
         [Required]
-        public string TypeExperience { get; set; }
+        public TypeExperience TypeExperience { get; set; }
+        public SubExperience SubExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
