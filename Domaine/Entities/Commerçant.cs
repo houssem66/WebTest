@@ -1,6 +1,7 @@
 ﻿using Domaine.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using TourMe.Data.Entities;
@@ -13,6 +14,8 @@ namespace Domaine.Entities
 
 
         public string PersAContact { get; set; }
+        [DefaultValue(false)]
+        public Boolean Verified { get; set; }
         public string Type { get; set; }
         public string DomainActivite { get; set; }
         public string FormeJuridique { get; set; }
