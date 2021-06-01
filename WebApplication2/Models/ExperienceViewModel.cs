@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using TourMe.Data.Entities;
+using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Web.Models
 {
@@ -24,7 +25,7 @@ namespace TourMe.Web.Models
         public string Titre { get; set; }
         [Required]
   
-        public string TypeExperience { get; set; }
+        public TypeExperience TypeExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
         [DataType(DataType.Date)]

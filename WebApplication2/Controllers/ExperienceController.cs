@@ -98,7 +98,7 @@ namespace TourMe.Web.Controllers
 
         [HttpGet]
         
-        //[Authorize(Policy = "CreateExperiencePolicy")]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience()
         {
           

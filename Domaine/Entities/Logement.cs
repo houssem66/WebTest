@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Data.Entities
 {
@@ -12,7 +13,8 @@ namespace TourMe.Data.Entities
     {
         public int LogementId { get; set; }
         public string Lieu { get; set; }
-        public string Type { get; set; }
+        public Category Type { get; set; }
+        public SubCategory SubCategory { get; set; }
         public string Image { get; set; }
         public int NbJours { get; set; }
         public DateTime Datedebut { get; set; }

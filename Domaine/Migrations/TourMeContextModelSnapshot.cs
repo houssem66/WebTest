@@ -338,13 +338,15 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Saison")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("SubExperience")
+                        .HasColumnType("int");
+
                     b.Property<string>("Titre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TypeExperience")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TypeExperience")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("dateDebut")
                         .HasColumnType("datetime2");
@@ -390,8 +392,11 @@ namespace TourMe.Data.Migrations
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(18,4)");
 
-                    b.Property<string>("Type")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SubCategory")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
 
                     b.HasKey("LogementId");
 
@@ -517,8 +522,14 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Images")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NomHotel")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("PrixParNuit")
                         .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("SubCategory")
+                        .HasColumnType("int");
 
                     b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");
