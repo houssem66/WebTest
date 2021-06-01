@@ -1,0 +1,73 @@
+﻿@model List<Domaine.Entities.Commerçant>
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+<section>
+    <div class="container">
+        <h1>Not Verified Commercant</h1>
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th>
+                        PersAContact/NomPrenom
+                    </th>
+                    <th>
+                        Email
+                    </th>
+                    <th>
+                        TypeCommercant
+                    </th>
+                    <th>
+                        Verified User
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+
+                    <tr>
+
+                        <td>
+                            @{
+                                if (item.Type.ToLower() == "organisme")
+                                {<h4>@item.PersAContact</h4> }
+                            else
+                            { @item.Nom @item.Prenom} }
+
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @item.Type
+                        </td>
+
+
+
+                        <td>
+                            @if (item.Verified)
+                            {<span class="db-done"><a style="color:white" asp-action="Verify" asp-controller="Account" asp-route-id="@item.Id">Verified</a></span>}
+                            else
+                            { <span class="db-not-done"><a style="color:white" asp-action="Verify" asp-controller="Account" asp-route-id="@item.Id">Not Verified</a></span>}
+
+                            
+                        </td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

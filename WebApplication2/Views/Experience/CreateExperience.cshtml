@@ -31,18 +31,12 @@
     
                 <div class="row">
                     <div class="input-field col s12">
-
-                        <select asp-for="TypeExperience">
-                            <option value="" disabled selected>Selectionnez le Type de votre Experience</option>
-                            <option value="Tourisme balnéaire">tourisme balnéaire</option>
-                            <option value="Tourisme de culture">Tourisme de culture</option>
-                            <option value="Food Tourisme">Food tourism </option>
-                            <option value="Event Tourisme">Event Tourisme </option>
-                            <option value="Health Tourisme">Health Tourisme</option>
-
-
-
+                        <select asp-for="TypeExperience" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()">
+                            <option>choisir  le type d' Experience ...</option>
                         </select>
+
+                        <span asp-validation-for="TypeExperience" class="text-danger"></span>
+
                     </div>
                 </div>
 

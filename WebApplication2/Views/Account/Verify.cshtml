@@ -1,0 +1,122 @@
+﻿@model Domaine.Entities.Commerçant
+<div class="db">
+    <!--LEFT SECTION-->
+    
+    <!--CENTER SECTION-->@{ var somme = Model.EffectFemme + Model.EffectHomme;}
+    <div class="db-2">
+        <div class="db-2-com db-2-main">
+            <h4>Details De Commercant (@Model.Type)</h4>
+            <div class="db-2-main-com db-2-main-com-table">
+                @{ if (Model.Type.ToLower() == "organisme")
+                    {
+                        var path = "db-not-done";
+                        <table class="responsive-table">
+                            <tbody>
+                                <tr>
+                                    <td>Personne A contacer</td>
+                                    <td>:</td>
+                                    <td>@Model.PersAContact</td>
+                                </tr>
+                                <tr>
+                                    <td>DomainActivite</td>
+                                    <td>:</td>
+                                    <td>@Model.DomainActivite</td>
+                                </tr>
+                                <tr>
+                                    <td>Forme Juridique</td>
+                                    <td>:</td>
+                                    <td>@Model.FormeJuridique</td>
+                                </tr>
+                                <tr>
+                                    <td>Identifiant Fiscale</td>
+                                    <td>:</td>
+                                    <td>@Model.Identifiant_fiscale</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <td>Effective Totale</td>
+                                    <td>:</td>
+                                    <td>@somme (Homme:@Model.EffectHomme, Femme:@Model.EffectFemme)</td>
+                                </tr>
+                                <tr>
+                                    <td>Rib</td>
+                                    <td>:</td>
+                                    <td>@Model.Rib</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Status</td>
+                                    <td>:</td>
+                                    <td>
+                                        <span class="@path">Pending</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
+
+                    else
+                    {
+                        <table class="responsive-table">
+                            <tbody>
+                                <tr>
+                                    <td>Personne A contacer</td>
+                                    <td>:</td>
+                                    <td>@Model.PersAContact</td>
+                                </tr>
+                                <tr>
+                                    <td>DomainActivite</td>
+                                    <td>:</td>
+                                    <td>@Model.DomainActivite</td>
+                                </tr>
+                                <tr>
+                                    <td>Forme Juridique</td>
+                                    <td>:</td>
+                                    <td>@Model.FormeJuridique</td>
+                                </tr>
+                                <tr>
+                                    <td>Identifiant Fiscale</td>
+                                    <td>:</td>
+                                    <td>@Model.Identifiant_fiscale</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Members</td>
+                                    <td>:</td>
+                                    <td>@somme (Homme:@Model.EffectHomme, Femme:@Model.EffectFemme)</td>
+                                </tr>
+                                <tr>
+                                    <td>Places Covered</td>
+                                    <td>:</td>
+                                    <td>Switzerland, Croatia, Austria, Bulgaria, Spain, Greece</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Status</td>
+                                    <td>:</td>
+                                    <td>
+                                        <span class="db-not-done">Pending</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    }
+                }
+
+                <div class="db-mak-pay-bot">
+                    <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters</p> <a href="db-payment.html" class="waves-effect waves-light btn-large">Verify this Account</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--RIGHT SECTION-->
+    
+</div>
+

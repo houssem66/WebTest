@@ -1,41 +1,43 @@
 ﻿using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Services.Implementation;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-
-using Services.Implementation;
-using Microsoft.AspNetCore.Hosting;
-using Twilio.Exceptions;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using TourMe.Web;
-using Twilio.Rest.Lookups.V1;
-
-using System.IO;
 using TourMe.Data;
+using TourMe.Web;
 using TourMe.Web.Models;
+using Twilio.Exceptions;
+using Twilio.Rest.Lookups.V1;
 
 namespace Finance.Controllers
 {
-   
+
 
     public class AccountController : Controller
-    {   private readonly TourMeContext _context;
+    {
+        private readonly TourMeContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Utilisateur> userManager;
+        private readonly ICommercantService commercantService;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager, SignInManager<Utilisateur> signInManager,  IWebHostEnvironment hostingEnvironment,IUserService _UserService, CountryService countryService,TourMeContext context,RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager)
         {
             UserService = _UserService;
             this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
+            commercantService = _CommercantService;
             this.signInManager = signInManager;
             AvailableCountries = countryService.GetCountries();
 
@@ -58,8 +60,9 @@ namespace Finance.Controllers
 
         {
             IEnumerable<Utilisateur> utilisateurs = UserService.GetAllUtilisateurs();
-            List<UtilisateurViewModel> users= new List<UtilisateurViewModel>();
-            foreach (var user in utilisateurs) {
+            List<UtilisateurViewModel> users = new List<UtilisateurViewModel>();
+            foreach (var user in utilisateurs)
+            {
 
                 var mod = new UtilisateurViewModel
                 {
@@ -82,21 +85,21 @@ namespace Finance.Controllers
                     else
                     { mod.role = "Commercant"; }
 
-               
-            }
+
+                }
                 users.Add(mod);
-          
+
             }
 
             ViewBag.users = users;
             //ViewBag.UsersRoles = userManager.GetUsersForClaimAsync();
             return View();
 
-           
+
         }
 
-        
-        
+
+
         public async Task<IActionResult> Profil()
         {
             ViewData["countries"] = AvailableCountries;
@@ -176,7 +179,7 @@ namespace Finance.Controllers
 
 
         [HttpGet]
-       
+
         public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
@@ -196,7 +199,7 @@ namespace Finance.Controllers
         // POST: Utilisateurs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        
+
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
             await UserService.DeleteUtilisateurAsync(id);
@@ -206,7 +209,7 @@ namespace Finance.Controllers
             return RedirectToAction(nameof(GetAll));
         }
         [HttpGet]
-        
+
         public async Task<IActionResult> ProfilCommerc()
         {
 
@@ -222,7 +225,7 @@ namespace Finance.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-       
+
         public async Task<IActionResult> RegisterUser(string returnUrl)
         {
             ViewData["countries"] = AvailableCountries;
@@ -242,8 +245,8 @@ namespace Finance.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
-           
-              ViewData["countries"] = AvailableCountries;
+
+            ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
@@ -265,12 +268,12 @@ namespace Finance.Controllers
                 //phone
                 try
                 {
-                   
-                   
+
+
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
-                       
+
                         type: new List<string> { "carrier" });
 
                     // only allow user to set phone number if capable of receiving SMS
@@ -285,14 +288,14 @@ namespace Finance.Controllers
 
 
 
-                   
+
 
                     var user = new Commerçant
                     {
                         UserName = model.Email,
-                   
+
                         PhoneNumber = numberToSave,
-                        PersAContact=model.PersAContact,
+                        PersAContact = model.PersAContact,
                         Email = model.Email,
                         FormeJuridique = model.Forme,
                         Secteur = model.Secteur,
@@ -301,8 +304,8 @@ namespace Finance.Controllers
                         EffectFemme = model.EffectFemme,
                         EffectHomme = model.EffectHomme,
                         Type = model.Type,
-                        Patente=uniqueFileName,
-                        Country=model.PhoneNumberCountryCode
+                        Patente = uniqueFileName,
+                        Country = model.PhoneNumberCountryCode
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
@@ -323,12 +326,12 @@ namespace Finance.Controllers
                                 Name = "Commercant"
 
                             };
-                             await roleManager.CreateAsync(identityrole);
+                            await roleManager.CreateAsync(identityrole);
                             await userManager.AddToRoleAsync(user, "Commercant");
 
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
-                        
+
 
                         return RedirectToAction("CreateExperience", "Experience");
                     }
@@ -338,7 +341,7 @@ namespace Finance.Controllers
                     }
 
                     return View(model);
-                   
+
 
                 }
                 catch (ApiException ex)
@@ -381,8 +384,8 @@ namespace Finance.Controllers
 
                     var user = new Utilisateur
                     {
-                        BirthDate=model.BirthDate,
-                        Country=model.PhoneNumberCountryCode,
+                        BirthDate = model.BirthDate,
+                        Country = model.PhoneNumberCountryCode,
                         UserName = model.Email,
                         Email = model.Email,
                         Nom = model.Nom,
@@ -411,7 +414,7 @@ namespace Finance.Controllers
 
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
-                       
+
                         return RedirectToAction("index", "home");
                     }
                     foreach (var error in result.Errors)
@@ -570,8 +573,8 @@ namespace Finance.Controllers
 
                     }
                     await signInManager.SignInAsync(user, isPersistent: false);
-                    
-                   
+
+
 
                     return LocalRedirect(returnUrl);
                 }
@@ -597,7 +600,7 @@ namespace Finance.Controllers
                 return PartialView("_Organisme");
             }
 
-            else if(type.Equals("Individu"))
+            else if (type.Equals("Individu"))
             {
 
                 return new EmptyResult();
@@ -606,20 +609,20 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public  async Task<IActionResult> EditUser(Commerçant model)
+        public async Task<IActionResult> EditUser(Commerçant model)
         {
-            
+
             string id = userManager.GetUserId(User);
             Commerçant user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
-         
+
             user.PersAContact = model.PersAContact;
             user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
-            
-           
+
+
             await UserService.PutUtilisateurAsync(id, user);
-          
-                return RedirectToAction("ProfilCommerc");
+
+            return RedirectToAction("ProfilCommerc");
 
 
 
@@ -651,14 +654,14 @@ namespace Finance.Controllers
 
         }
         [HttpGet]
-       
+
         public async Task<IActionResult> Details(string id)
         {
             var user = await UserService.GetById(id);
             var User = await userManager.FindByIdAsync(id);
             var existingUserClaims = await userManager.GetClaimsAsync(User);
             ViewBag.Claims = existingUserClaims;
-            
+
             return View(user);
 
         }
@@ -735,6 +738,27 @@ namespace Finance.Controllers
 
             return RedirectToAction("Details", new { Id = model.id });
 
+        }
+        [HttpGet]
+        [Authorize(Roles = "Administrateur")]
+        public IActionResult GetAllCommercant()
+        {
+            var list = commercantService.GetAllCommerçants().Where(x => x.Verified == false);
+
+            return View(list.ToList());
+        }
+        [HttpGet]
+        
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+        [HttpGet]
+        
+        public async Task<IActionResult> Verify(string id)
+        {
+          var user=  await commercantService.GetCommerçantById(id);
+            return View(user);
         }
     }
 }

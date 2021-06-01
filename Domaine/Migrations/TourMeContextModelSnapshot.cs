@@ -688,6 +688,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("TypeOrgan")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Verified")
+                        .HasColumnType("bit");
+
                     b.HasDiscriminator().HasValue("Commerçant");
                 });
 
