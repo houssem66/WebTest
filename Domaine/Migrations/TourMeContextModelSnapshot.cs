@@ -682,6 +682,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("SituationEntreprise")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Titre")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 

@@ -30,6 +30,7 @@ namespace Domaine.Entities
        
         public string Secteur { get; set; }
         public string TypeOrgan { get; set; }
+        public string Titre { get; set; }
         //personne physique
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [StringLength(8, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]

@@ -7,6 +7,6 @@ using System.Threading.Tasks;
 namespace TourMe.Data.Entities.Enum
 {
  public   enum Gender
-    {Masculin, feminine,autre
+    {Masculin, feminine,autre,gender3
     }
 }

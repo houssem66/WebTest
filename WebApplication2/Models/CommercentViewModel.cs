@@ -1,10 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Web.Models
 {
@@ -20,7 +15,7 @@ namespace TourMe.Web.Models
         [EmailAddress]
         public string Email { get; set; }
 
-       
+
         [Display(Name = "Domaine d'activité")]
         public string Domaine { get; set; }
         [Display(Name = "Forme Juridique")]
@@ -34,9 +29,9 @@ namespace TourMe.Web.Models
         public string Patente { get; set; }
         [Display(Name = "Secteur")]
         public string Secteur { get; set; }
+        public string Titre { get; set; }
 
-
-        [Required]
+        [Required(ErrorMessage = "Password est obligatoire")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
@@ -47,14 +42,14 @@ namespace TourMe.Web.Models
         public string ConfirmPassword { get; set; }
 
 
-       
+
 
         [Phone]
         public string Telephone { get; set; }
         [Display(Name = "Phone number country")]
         public string PhoneNumberCountryCode { get; set; }
         public IFormFile FileP { get; set; }
-       
+
 
     }
 }

@@ -760,5 +760,19 @@ namespace Finance.Controllers
           var user=  await commercantService.GetCommerçantById(id);
             return View(user);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async void Verify(Commerçant commerçant,string Id)
+        {
+            var com = await commercantService.GetCommerçantById(commerçant.Id);
+            com.Verified = true;
+            try
+            {
+                await commercantService.Update(com);
+
+            }
+            catch(Exception ex) { Response.Redirect("GetAllCommercant"); }
+           
+        }
     }
 }

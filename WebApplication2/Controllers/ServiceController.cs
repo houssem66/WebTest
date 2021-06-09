@@ -465,5 +465,28 @@ namespace TourMe.Web.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult BecomeCommercant()
+        {
+            ViewData["countries"] = AvailableCountries;
+            string idx = userManager.GetUserId(User);
+
+
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult BecomeCommercant(CommercentViewModel model, string jobb)
+        {
+            ViewData["countries"] = AvailableCountries;
+            string idx = userManager.GetUserId(User);
+
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            return View(model);
+        }
     }
 }
