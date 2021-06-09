@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <link rel="apple-touch-icon" sizes="76x76" href="~/wizard/assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="~/wizard/assets/img/favicon.png" />
-    <title>Material Bootstrap Wizard by Creative Tim | Free Boostrap Wizard</title>
+    <title>The Travel - Tour Travel</title>
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -82,7 +82,7 @@
                     <img src="~/wizard/assets/img/new_logo.png">
                 </div>
                 <div class="brand">
-                    Creative Tim
+                    Tour Me
                 </div>
             </div>
         </a>
@@ -93,17 +93,17 @@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2">
+                <div class="col-sm-12">
 
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="red" id="wizard">
-                            <form action="BecomeCommercant" method="post">
+                            <form action="BecomeCommercant" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
                                 <div class="wizard-header">
-                                    <h3 class="wizard-title">List your place</h3>
-                                    <p class="category">This information will let us know more about your place.</p>
+                                    <h3 class="wizard-title">Devenir Commercant</h3>
+                                    <p class="category">BonjourNous allons vous aider à devenir un commercant.</p>
                                 </div>
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
@@ -148,28 +148,28 @@
                                     <div class="tab-pane" id="service">
                                         <h5 class="info-text">Choisir le type de service ?</h5>
                                         <div class="row">
-                                            <div class="col-sm-8 col-sm-offset-2">
-                                                <div class="col-sm-4">
+                                            <div class="col-sm-8 col-sm-offset-3">
+                                                <div class="col-sm-3">
                                                     <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Design">
+                                                        <input type="radio" name="jobb" value="Transport">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-map"></i>
                                                             <p>Transport</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Code">
+                                                        <input type="radio" name="jobb" value="Nourriture">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-panel"></i>
                                                             <p>Nourriture</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-4">
+                                                <div class="col-sm-3">
                                                     <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Develop">
+                                                        <input type="radio" name="jobb" value="Logement">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-star"></i>
                                                             <p>Logement</p>
@@ -185,11 +185,11 @@
                                                 <div class="picture-container">
                                                     <div class="picture">
                                                         <img src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
-                                                        <input type="file" id="wizard-picture">
+                                                        <input asp-for="FileP" id="wizard-picture">
                                                     </div>
-                                                    <h6>Choose Picture</h6>
+                                                    <h6>Choisir Photo profile</h6>
                                                 </div>
-                                            </div>                                         
+                                            </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom Prénom Dirigeant <small>(required)</small></label>
@@ -197,7 +197,7 @@
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Personne a contacter <small>(optional)</small></label>
-                                                    <input name="Prénom" type="text" class="form-control" placeholder="Personne a contacter">
+                                                    <input name="PersAContact" type="text" class="form-control" placeholder="Personne a contacter">
                                                 </div>
                                             </div>
                                             <div class="col-sm-10 col-sm-offset-1">
@@ -235,54 +235,118 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Numéro Téléphone</label>
-                                                    <input asp-for="Telephone" class="form-control" placeholder="Personne a contacter">
+                                                    <input asp-for="Telephone" class="form-control">
                                                     <span asp-validation-for="Telephone" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Entrer Votre Secteur </label>
-                                                    <input asp-for="Secteur" class="form-control" placeholder="Hotel">
+                                                    <input asp-for="Secteur" class="form-control" placeholder="Alimentaire">
+                                                    <span asp-validation-for="Secteur" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-10 col-sm-offset-1">
+                                            <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Entrer le titre d' entreprise</label>
-                                                    <input asp-for="Titre" class="form-control" >
+                                                    <input asp-for="Titre" class="form-control">
+                                                    <span asp-validation-for="Titre" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Entrer Votre Effective Homme </label>
+                                                    <input asp-for="EffectHomme" class="form-control" placeholder="Chiffre">
+                                                    <span asp-validation-for="EffectHomme" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Entrer Votre Effective Femme </label>
+                                                    <input asp-for="EffectFemme" class="form-control" placeholder="chiffre">
+                                                    <span asp-validation-for="EffectFemme" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="Documents">
                                         <div class="row">
-                                            <h5 class="info-text"> Drop us a small description. </h5>
+                                            <h5 class="info-text"> Document et Numéro fiscale </h5>
                                             <div class="col-sm-6 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Place description</label>
-                                                    <textarea class="form-control" placeholder="" rows="9"></textarea>
+                                                    <div class="custom-file">
+                                                        <input asp-for="Documents" multiple class="form-control custom-file-input">
+                                                        <label class="custom-file-label">Choose File...</label>
+                                                    </div>
+
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Example</label>
-                                                    <p class="description">"The place is really nice. We use it every sunday when we go fishing. It is so awesome."</p>
+                                                    <label>Documents a Télécharger</label>
+                                                    <p class="description">
+                                                        -Patente.<br />
+                                                        -Carte d'exploitation ou liscense si necessaire (ca depend de  service choisi).<br />
+                                                                                                                                       <h5> -Un administrateur Va vérifier votre inscription.</h5>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4 ">
+                                                <div class="form-group">
+                                                    <label>Saisir l'identifiant fiscale</label>
+                                                    <input asp-for="Identifiant_fiscale" class="form-control" placeholder="12345678">
+                                                    <span asp-validation-for="Identifiant_fiscale" class="text-danger"></span>
+                                                </div>                                            
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label>/  Catégorie</label>
+                                                    <select class="form-control" name="TypeFiscale">
+                                                        <option disabled="" selected="">- choose a space -</option>
+                                                        <option>H</option>
+                                                        <option>X</option>
+                                                    </select>
+
+
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="wizard-footer">
-                                    <div class="pull-right">
-                                        <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
-                                        <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
-                                    </div>
 
-                                    <div class="pull-left">
-                                        <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
                                     </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </form>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    @*script for showing multiple files*@
+                                    @section Scripts {
+                                        <script>
+                                            $(document).ready(function () {
+                                                $('.custom-file-input').on("change", function () {
+                                                    var fileLabel = $(this).next('.custom-file-label');
+                                                    var files = $(this)[0].files;
+                                                    if (files.length > 1) {
+                                                        fileLabel.html(files.length + ' files selected');
+                                                    }
+                                                    else if (files.length == 1) {
+                                                        fileLabel.html(files[0].name);
+                                                    }
+                                                });
+                                            });
+                                        </script>
+                                    }
+</form>
                         </div>
                     </div> <!-- wizard container -->
                 </div>
@@ -290,9 +354,7 @@
         </div> <!--  big container -->
 
         <div class="footer">
-            <div class="container text-center">
-                Made with <i class="fa fa-heart heart"></i> by <a href="https://www.creative-tim.com">Creative Tim</a>. Free download <a href="https://www.creative-tim.com/product/paper-bootstrap-wizard">here.</a>
-            </div>
+           
         </div>
         
     </div>

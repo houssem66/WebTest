@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace TourMe.Web.Models
@@ -27,6 +28,9 @@ namespace TourMe.Web.Models
         public string SituationEntreprise { get; set; }
         public string NomGerant { get; set; }
         public string Patente { get; set; }
+        [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
+        [StringLength(8, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
+        public string Identifiant_fiscale { get; set; }
         [Display(Name = "Secteur")]
         public string Secteur { get; set; }
         public string Titre { get; set; }
@@ -49,6 +53,7 @@ namespace TourMe.Web.Models
         [Display(Name = "Phone number country")]
         public string PhoneNumberCountryCode { get; set; }
         public IFormFile FileP { get; set; }
+        public List<IFormFile> Documents { get; set; }
 
 
     }
