@@ -306,6 +306,26 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Commentaires");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.EmployeDocuments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommerçantId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Filepath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommerçantId");
+
+                    b.ToTable("EmployeDocuments");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
                     b.Property<int>("ExperienceId")
@@ -776,6 +796,16 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.EmployeDocuments", b =>
+                {
+                    b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
+                        .WithMany("EmployeDocuments")
+                        .HasForeignKey("CommerçantId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Commerçant");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
                     b.HasOne("Domaine.Entities.Commerçant", null)
@@ -904,6 +934,8 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
+                    b.Navigation("EmployeDocuments");
+
                     b.Navigation("Experiences");
                 });
 

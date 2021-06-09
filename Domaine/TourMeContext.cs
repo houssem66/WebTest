@@ -26,6 +26,7 @@ namespace TourMe.Data
         public DbSet<ServiceTransport> ServiceTransports { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -48,7 +49,7 @@ namespace TourMe.Data
             builder.Entity<Experience>()
             .HasOne(E => E.Nourriture);
             builder.Entity<Experience>()
-           .HasOne(E => E.Logement); 
+           .HasOne(E => E.Logement);
             builder.Entity<Experience>()
            .HasOne(E => E.Transport);
             builder.Entity<Transport>().Property(p => p.ExperienceId).HasColumnName("ExperienceId").IsRequired();
@@ -65,7 +66,7 @@ namespace TourMe.Data
 
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceLogments).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceNourittures).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
-                builder.Entity<Fournisseur>().HasMany(f => f.ServiceTransports).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Fournisseur>().HasMany(f => f.ServiceTransports).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<ServiceLogment>(eb =>
             {
@@ -101,12 +102,12 @@ namespace TourMe.Data
             builder.Entity<Reservation>(eb =>
             {
                 eb.Property(l => l.Tariff).HasColumnType("decimal(5, 2)");
-               
+
 
             }
 
          );
-
+            builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x=>x.Commerçant).OnDelete(DeleteBehavior.Cascade); ;
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using Domaine.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -477,15 +478,128 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult BecomeCommercant(CommercentViewModel model, string jobb)
+        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string TypeFiscale)
         {
             ViewData["countries"] = AvailableCountries;
             string idx = userManager.GetUserId(User);
 
             if (ModelState.IsValid)
             {
-                return RedirectToAction("Index", "Home");
+                Debug.WriteLine("valid" + ModelState.IsValid.ToString());
+                string uniqueFileName = null;
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
+                if (model.Documents != null && model.Documents.Count > 0)
+                {
+                    
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.Documents)
+                    { EmployeDocuments employe = new EmployeDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+                if (model.FileP != null)
+                {
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                //phone
+                try
+                {
+                    var numberDetails = await PhoneNumberResource.FetchAsync(
+                        pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
+                        countryCode: model.PhoneNumberCountryCode,
+
+                        type: new List<string> { "carrier" });
+                    // only allow user to set phone number if capable of receiving SMS
+                    if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
+                    {
+                        ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                            $"Le format du numero ne convient pas à votre pays");
+                        return View();
+                    }
+
+                    var numberToSave = numberDetails.PhoneNumber.ToString();
+
+                    var user = new Fournisseur
+                    {
+                        UserName = model.Email,
+
+                        PhoneNumber = numberToSave,
+                        PersAContact = model.PersAContact,
+                        Email = model.Email,                       
+                        Secteur = model.Secteur,
+                        NomGerant = model.NomGerant,
+                        Titre = model.Titre,
+                        EffectFemme = model.EffectFemme,
+                        EffectHomme = model.EffectHomme,
+                        //Type = model.Type,
+                        ProfilePhoto = uniqueFileName,
+                        TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),
+                        EmployeDocuments= emp
+
+                    };
+                    var result = await userManager.CreateAsync(user, model.Password);
+
+
+                    if (result.Succeeded)
+                    {
+                        
+
+
+                        if (await roleManager.RoleExistsAsync("Commercant"))
+                        {
+                            await userManager.AddToRoleAsync(user, "Commercant");
+                        }
+                        else
+                        {
+                            IdentityRole identityrole = new IdentityRole
+                            {
+                                Name = "Commercant"
+
+                            };
+                            await roleManager.CreateAsync(identityrole);
+                            await userManager.AddToRoleAsync(user, "Commercant");
+
+                        }
+                        await signInManager.SignInAsync(user, isPersistent: false);                     
+
+                    }
+                   
+
+                    return RedirectToAction("Index","Home");
+
+
+                }
+                catch (ApiException ex)
+                {
+                    ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
+                        $"Le numéro entré n'est pas valide  (Code d'erreur {ex.Code})");
+                    return View();
+                }
+
             }
+            
             return View(model);
         }
     }

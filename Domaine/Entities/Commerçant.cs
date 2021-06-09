@@ -40,5 +40,6 @@ namespace Domaine.Entities
         public int Rib { get; set; }
 
         public virtual IList<Experience> Experiences { get; set; }
+        public virtual IList<EmployeDocuments> EmployeDocuments{ get; set; }
     }
 }
