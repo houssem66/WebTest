@@ -37,6 +37,9 @@ namespace TourMe.Data.Entities.Enum
         [SubcategoryOf(TypeExperience.Food)]
         [Display(Name = "Dégustation gastronomique")]
         DegustationGastro,
+        [SubcategoryOf(TypeExperience.Food)]
+        [Display(Name = "Autre")]
+        autre,
         //[SubcategoryOf(TypeExperience.Food)]
         //[Display(Name = "")],
 
