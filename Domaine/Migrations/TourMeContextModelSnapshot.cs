@@ -667,6 +667,10 @@ namespace TourMe.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
+                    b.Property<string>("CodePostale")
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
                     b.Property<string>("DomainActivite")
                         .HasColumnType("nvarchar(max)");
 
@@ -720,6 +724,10 @@ namespace TourMe.Data.Migrations
             modelBuilder.Entity("TourMe.Data.Entities.Fournisseur", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Commerçant");
+
+                    b.Property<string>("NumCnss")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("TypeService")
                         .HasColumnType("int");

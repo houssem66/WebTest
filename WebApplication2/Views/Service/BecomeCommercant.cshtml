@@ -97,7 +97,7 @@
 
                     <!--      Wizard container        -->
                     <div class="wizard-container">
-                        <div class="card wizard-card" data-color="red" id="wizard">
+                        <div class="card wizard-card" data-color="azure" id="wizard">
                             <form action="BecomeCommercant" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
@@ -135,6 +135,14 @@
                                             </a>
                                         </li>
                                         <li>
+                                            <a href="#informationGen2" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-panel"></i>
+                                                </div>
+                                                Information Detaillé
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="#Documents" data-toggle="tab">
                                                 <div class="icon-circle">
                                                     <i class="ti-comments"></i>
@@ -142,10 +150,11 @@
                                                 Documents
                                             </a>
                                         </li>
+
                                     </ul>
                                 </div>
-                                <div class="tab-content">
-                                    <div class="tab-pane" id="service">
+                                <div class="tab-content" >
+                                    <div class="tab-pane" id="service" >
                                         <h5 class="info-text">Choisir le type de service ?</h5>
                                         <div class="row">
                                             <div class="col-sm-8 col-sm-offset-3">
@@ -153,7 +162,7 @@
                                                     <div class="radio" data-toggle="wizard-checkbox">
                                                         <input type="radio" name="jobb" value="Transport">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-map"></i>
+                                                            <i class="ti-car"></i>
                                                             <p>Transport</p>
                                                         </div>
                                                     </div>
@@ -162,7 +171,7 @@
                                                     <div class="radio" data-toggle="wizard-checkbox">
                                                         <input type="radio" name="jobb" value="Nourriture">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-panel"></i>
+                                                            <i class="ti-apple"></i>
                                                             <p>Nourriture</p>
                                                         </div>
                                                     </div>
@@ -171,7 +180,7 @@
                                                     <div class="radio" data-toggle="wizard-checkbox">
                                                         <input type="radio" name="jobb" value="Logement">
                                                         <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-star"></i>
+                                                            <i class="ti-home"></i>
                                                             <p>Logement</p>
                                                         </div>
                                                     </div>
@@ -179,7 +188,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="Compte">
+                                    <div class="tab-pane" id="Compte"  >
                                         <div class="row">
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="picture-container">
@@ -187,13 +196,13 @@
                                                         <img src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
                                                         <input asp-for="FileP" id="wizard-picture">
                                                     </div>
-                                                    <h6>Choisir Photo profile</h6>
+                                                    <h6>Choisir Logo </h6>
                                                 </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Nom Prénom Dirigeant <small>(required)</small></label>
-                                                    <input name="NomGerant" type="text" class="form-control" placeholder="Nom dirigeant">
+                                                    <label>Nom Juridique de la société <small>(required)</small></label>
+                                                    <input name="Titre" type="text" class="form-control" placeholder="Nom dirigeant">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Personne a contacter <small>(optional)</small></label>
@@ -239,18 +248,30 @@
                                                     <span asp-validation-for="Telephone" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5 col-sm-offset-1">
+
+
+                                            <div class="col-sm-2 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Entrer Votre Secteur </label>
-                                                    <input asp-for="Secteur" class="form-control" placeholder="Alimentaire">
-                                                    <span asp-validation-for="Secteur" class="text-danger"></span>
+                                                    <label>Entrer le Governourat </label>
+                                                    <select asp-for="region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                        
+                                                    </select>
+
+                                                    <span asp-validation-for="region" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-5">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
-                                                    <label>Entrer le titre d' entreprise</label>
-                                                    <input asp-for="Titre" class="form-control">
-                                                    <span asp-validation-for="Titre" class="text-danger"></span>
+                                                    <label>Entrer le Code postale</label>
+                                                    <input asp-for="CodePostale" class="form-control">
+                                                    <span asp-validation-for="CodePostale" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Entrer l' Adresse</label>
+                                                    <input asp-for="Adresse" class="form-control">
+                                                    <span asp-validation-for="Adresse" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
@@ -269,58 +290,128 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="tab-pane" id="informationGen2">
+                                        <h5 class="info-text">Dites-nous plus d'informations Detaillé </h5>
+                                        <div class="row">
+                                            <div class="col-sm-2 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" value="SUARL" name="Forme">
+                                                            SUARL
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" value="SARL" name="Forme">
+                                                            SARL
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio">
+                                                        <label>
+                                                            <input type="radio" value="SA" name="Forme">
+                                                            SA
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <div class="form-group">
+                                                    <div class="radio" style="margin-left: -100px;">
+                                                        <label>
+                                                            <input type="radio" value="SAS" name="Forme">
+                                                            SAS
+                                                        </label>
+                                                    </div>
+                                                    <div class="radio" style="margin-left: -100px;">
+                                                        <label>
+                                                            <input type="radio" value="AUTRE" name="Forme">
+                                                            Autre
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div><br />
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Secteur</label><br>
+                                                    <select name="country" class="form-control valid" aria-invalid="false">
+                                                        <option value="Transport Touristique"> Transport Touristique </option>
+                                                        <option value="Angola"> Transport privé </option>
+                                                        <option value="Location automobile"> Location automobile </option>
+                                                        <option value="Restauration"> Restauration </option>
+                                                        <option value="Hôtelier"> Hôtelier  </option>
+                                                        <option value="Immobilier"> Immobilier </option>
+                                                    </select>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-1 ">
+                                                <div class="form-group">
+                                                    <label>Domaine d'activité</label>
+                                                    <input asp-for="Domaine" class="form-control">
+                                                    <span asp-validation-for="Domaine" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Matricule Fiscale</label>
+                                                    <input asp-for="Identifiant_fiscale" placeholder="12345678/x" class="form-control">
+                                                    <span asp-validation-for="Identifiant_fiscale" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>N affiliation CNSS</label>
+                                                    <input asp-for="NumCnss" placeholder="1234567890" class="form-control">
+                                                    <span asp-validation-for="NumCnss" class="text-danger"></span>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                     <div class="tab-pane" id="Documents">
                                         <div class="row">
                                             <h5 class="info-text"> Document et Numéro fiscale </h5>
-                                            <div class="col-sm-6 col-sm-offset-1">
+                                            <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la patente<small>(PDF)</small>...</label>
                                                         <input asp-for="Documents" multiple class="form-control custom-file-input">
-                                                        <label class="custom-file-label">Choose File...</label>
                                                     </div>
 
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+
+                                            <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Documents a Télécharger</label>
                                                     <p class="description">
                                                         -Patente.<br />
-                                                        -Carte d'exploitation ou liscense si necessaire (ca depend de  service choisi).<br />
-                                                                                                                                       <h5> -Un administrateur Va vérifier votre inscription.</h5>
+                                                        -Document<br />
+                                                        <h5> -Un administrateur Va vérifier votre inscription.</h5>
                                                     </p>
                                                 </div>
                                             </div>
-                                            
-                                            
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-4 ">
-                                                <div class="form-group">
-                                                    <label>Saisir l'identifiant fiscale</label>
-                                                    <input asp-for="Identifiant_fiscale" class="form-control" placeholder="12345678">
-                                                    <span asp-validation-for="Identifiant_fiscale" class="text-danger"></span>
-                                                </div>                                            
-                                            </div>
-                                            <div class="col-sm-2">
-                                                <div class="form-group">
-                                                    <label>/  Catégorie</label>
-                                                    <select class="form-control" name="TypeFiscale">
-                                                        <option disabled="" selected="">- choose a space -</option>
-                                                        <option>H</option>
-                                                        <option>X</option>
-                                                    </select>
 
-
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la ...</label>
+                                                        <input asp-for="Documents" multiple class="form-control custom-file-input">
+                                                    </div>
 
                                                 </div>
                                             </div>
                                         </div>
+                                        
 
                                     </div>
                                     <div class="wizard-footer">
                                         <div class="pull-right">
-                                            <input type='button' class='btn btn-next btn-fill btn-danger btn-wd' name='next' value='Next' />
+                                            <input type='button' class='btn btn-next btn-fill btn-wd btn-primary' name='next' value='Next' />
                                             <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
                                         </div>
 
@@ -329,9 +420,11 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
+                                   
                                     @*script for showing multiple files*@
                                     @section Scripts {
                                         <script>
+                                           
                                             $(document).ready(function () {
                                                 $('.custom-file-input').on("change", function () {
                                                     var fileLabel = $(this).next('.custom-file-label');
@@ -346,7 +439,9 @@
                                             });
                                         </script>
                                     }
-</form>
+                                </div>
+                                    </form>
+                         
                         </div>
                     </div> <!-- wizard container -->
                 </div>

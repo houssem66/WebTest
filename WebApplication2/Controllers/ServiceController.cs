@@ -550,12 +550,15 @@ namespace TourMe.Web.Controllers
                         Email = model.Email,                       
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
+                        Patente=TypeFiscale+model.Identifiant_fiscale,
+                        Identifiant_fiscale=model.Identifiant_fiscale,
                         Titre = model.Titre,
                         EffectFemme = model.EffectFemme,
                         EffectHomme = model.EffectHomme,
                         //Type = model.Type,
                         ProfilePhoto = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),
+                        Adresse=model.Adresse,
                         EmployeDocuments= emp
 
                     };
@@ -601,6 +604,15 @@ namespace TourMe.Web.Controllers
             }
             
             return View(model);
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RedirectTO()
+        {
+            
+
+
+            return View();
         }
     }
 }
