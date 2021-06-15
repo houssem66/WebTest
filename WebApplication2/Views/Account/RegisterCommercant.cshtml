@@ -48,7 +48,7 @@
                        var value = $("input[type='radio'].form-check-input:checked").val();
 
 
-                       
+
 
 
                        $.ajax({
@@ -84,7 +84,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <select asp-for="PhoneNumberCountryCode" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
+                        <select asp-for="PhoneNumberCountryCode" id="country" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
                         <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
 
                     </div>
@@ -102,16 +102,16 @@
 
 
                 <div class="form-group">
-              
+
                     <div class="custom-file">
                         <label>Document</label>
-                        <input asp-for="FileP"  class="form-control custom-file-input" />
+                        <input asp-for="FileP" class="form-control custom-file-input" />
                         <label class="custom-file-label">Upload CIN/Patente</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
-                        <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
+                        <input asp-for="Password" id="test" placeholder="Mot de passe" class="form-control" />
                         <span asp-validation-for="Password" class="text-danger"></span>
                         <label>Password</label>
                     </div>
@@ -138,6 +138,7 @@
                             });
                         });
                     </script>
+                    
                 }
 
             </form>
