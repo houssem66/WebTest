@@ -48,7 +48,7 @@
 
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/wizard/assets/css/demo.css" rel="stylesheet" />
-   
+
     <!-- Fonts and Icons -->
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
@@ -76,7 +76,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <div class="image-container set-full-height" style="background-image: url(@Url.Content(path));">
         <!--   Creative Tim Branding   -->
-        <a href="https://creative-tim.com">
+        <a asp-action="Index" asp-controller="Home">
             <div class="logo-container">
                 <div class="logo">
                     <img src="~/wizard/assets/img/new_logo.png">
@@ -88,8 +88,6 @@
         </a>
 
         <!--  Made With Paper Kit  -->
-        
-
         <!--   Big container   -->
         <div class="container">
             <div class="row">
@@ -103,11 +101,11 @@
 
                                 <div class="wizard-header">
                                     <h3 class="wizard-title">Devenir Commercant</h3>
-                                    <p class="category">BonjourNous allons vous aider à devenir un commercant.</p>
+                                    <p  id="demo" class="category">Bonjour nous allons vous aider à devenir un commercant.</p>
                                 </div>
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="4" style="width: 15%;"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 15%;"></div>
                                     </div>
                                     <ul>
                                         <li>
@@ -153,8 +151,9 @@
 
                                     </ul>
                                 </div>
-                                <div class="tab-content" >
-                                    <div class="tab-pane" id="service" >
+                                <div class="tab-content">
+
+                                    <div class="tab-pane" id="service">
                                         <h5 class="info-text">Choisir le type de service ?</h5>
                                         <div class="row">
                                             <div class="col-sm-8 col-sm-offset-3">
@@ -188,7 +187,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="Compte"  >
+                                    <div class="tab-pane" id="Compte">
                                         <div class="row">
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="picture-container">
@@ -199,6 +198,7 @@
                                                     <h6>Choisir Logo </h6>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom Juridique de la société <small>(required)</small></label>
@@ -237,7 +237,7 @@
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Pays</label>
-                                                    <select asp-for="PhoneNumberCountryCode" class="form-control" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
+                                                    <select asp-for="PhoneNumberCountryCode" class="form-control" id="country" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
                                                     <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -251,15 +251,15 @@
 
 
                                             <div class="col-sm-2 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <label>Entrer le Governourat </label>
+                                                <div class="form-group" id="test">
+                                                    <label id="gouvLabel">Entrer le Governourat </label>
                                                     <select asp-for="region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
-                                                        
                                                     </select>
 
                                                     <span asp-validation-for="region" class="text-danger"></span>
                                                 </div>
                                             </div>
+
                                             <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>Entrer le Code postale</label>
@@ -295,6 +295,7 @@
                                         <div class="row">
                                             <div class="col-sm-2 col-sm-offset-1">
                                                 <div class="form-group">
+                                                    <label>Forme juridique</label>
                                                     <div class="radio">
                                                         <label>
                                                             <input type="radio" value="SUARL" name="Forme">
@@ -317,7 +318,7 @@
                                             </div>
                                             <div class="col-sm-1">
                                                 <div class="form-group">
-                                                    <div class="radio" style="margin-left: -100px;">
+                                                    <div class="radio" style="margin-left: -100px;margin-top: 35px;">
                                                         <label>
                                                             <input type="radio" value="SAS" name="Forme">
                                                             SAS
@@ -335,18 +336,30 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Secteur</label><br>
-                                                    <select name="country" class="form-control valid" aria-invalid="false">
+                                                    <select id="secteur" name="country" class="form-control valid" aria-invalid="false">
                                                         <option value="Transport Touristique"> Transport Touristique </option>
-                                                        <option value="Angola"> Transport privé </option>
+                                                        <option value="Transport privé"> Transport privé </option>
                                                         <option value="Location automobile"> Location automobile </option>
-                                                        <option value="Restauration"> Restauration </option>
+                                                        <option value="TravelTech"> Travel Tech </option>
+                                                        <option value="Logistics"> Logistics </option>
+                                                        <option value="RealEstate"> Real Estate </option>
                                                         <option value="Hôtelier"> Hôtelier  </option>
                                                         <option value="Immobilier"> Immobilier </option>
+                                                        <option value="Hebergement"> Hebergement </option>
+                                                        <option value="Restauration"> Restauration </option>
+                                                        <option value="FoodTech"> Food Tech </option>
+                                                        <option value="Autre"> Autre </option>
                                                     </select>
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-4 col-sm-offset-1 ">
+                                            <div class="col-sm-2">
+                                                <div class="form-group" id="Suggestion">
+                                                    <label>Entrer votre secteur</label>
+                                                    <input name="Secteur" type="text" class="form-control" placeholder="Secteur">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Domaine d'activité</label>
                                                     <input asp-for="Domaine" class="form-control">
@@ -356,12 +369,12 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Matricule Fiscale</label>
-                                                    <input asp-for="Identifiant_fiscale" placeholder="12345678/x" class="form-control">
+                                                    <input asp-for="Identifiant_fiscale" placeholder="12345678X" class="form-control">
                                                     <span asp-validation-for="Identifiant_fiscale" class="text-danger"></span>
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>N affiliation CNSS</label>
                                                     <input asp-for="NumCnss" placeholder="1234567890" class="form-control">
@@ -399,14 +412,14 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <div class="custom-file">
-                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la ...</label>
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la RNE</label>
                                                         <input asp-for="Documents" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
 
                                     </div>
                                     <div class="wizard-footer">
@@ -420,11 +433,12 @@
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>
-                                   
+
                                     @*script for showing multiple files*@
                                     @section Scripts {
+
                                         <script>
-                                           
+
                                             $(document).ready(function () {
                                                 $('.custom-file-input').on("change", function () {
                                                     var fileLabel = $(this).next('.custom-file-label');
@@ -440,8 +454,8 @@
                                         </script>
                                     }
                                 </div>
-                                    </form>
-                         
+                            </form>
+
                         </div>
                     </div> <!-- wizard container -->
                 </div>
@@ -449,9 +463,9 @@
         </div> <!--  big container -->
 
         <div class="footer">
-           
+
         </div>
-        
+
     </div>
     <script src="~/wizard/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
     <script src="~/wizard/assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -463,6 +477,116 @@
 
     <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
     <script src="~/wizard/assets/js/jquery.validate.min.js" type="text/javascript"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("[name=jobb]").on('change', function () {
+                var value = $("input[name='jobb']:checked").val();
+                if (value == "Nourriture") {
+                    $("#secteur option[value='Transport Touristique']").hide();
+                    $("#secteur option[value='Transport privé']").hide();
+                    $("#secteur option[value='Location automobile']").hide();
+                    $("#secteur option[value='TravelTech']").hide();
+                    $("#secteur option[value='Logistics']").hide();
+                    $("#secteur option[value='RealEstate']").hide();
+                    $("#secteur option[value='Hôtelier']").show();
+                    $("#secteur option[value='Immobilier']").hide();
+                    $("#secteur option[value='Hebergement']").hide();
+                    $("#secteur option[value='Restauration']").show();
+                    $("#secteur option[value='FoodTech']").show();
+                    $("#secteur option[value='Autre']").show();
+                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Nourriture)!";
+                }
+                else if (value == "Logement") {
+
+
+                    $("#secteur option[value='Transport Touristique']").hide();
+                    $("#secteur option[value='Transport privé']").hide();
+                    $("#secteur option[value='Location automobile']").hide();
+                    $("#secteur option[value='TravelTech']").show();
+                    $("#secteur option[value='Logistics']").show();
+                    $("#secteur option[value='RealEstate']").show();
+                    $("#secteur option[value='Hôtelier']").show();
+                    $("#secteur option[value='Immobilier']").show();
+                    $("#secteur option[value='Hebergement']").show();
+                    $("#secteur option[value='Restauration']").hide();
+                    $("#secteur option[value='FoodTech']").hide();
+                    $("#secteur option[value='Autre']").show();
+                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Logement)!";
+                }
+                else {
+
+                    $("#secteur option[value='Transport Touristique']").show();
+                    $("#secteur option[value='Transport privé']").show();
+                    $("#secteur option[value='Location automobile']").show();
+                    $("#secteur option[value='TravelTech']").show();
+                    $("#secteur option[value='Logistics']").show();
+                    $("#secteur option[value='RealEstate']").hide();
+                    $("#secteur option[value='Hôtelier']").show();
+                    $("#secteur option[value='Immobilier']").hide();
+                    $("#secteur option[value='Hebergement']").hide();
+                    $("#secteur option[value='Restauration']").hide();
+                    $("#secteur option[value='FoodTech']").hide();
+                    $("#secteur option[value='Autre']").show();
+                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Transport)!";
+
+                }
+
+
+
+            });
+            $("#secteur option[value='Transport Touristique']").show();
+            $("#secteur option[value='Transport privé']").show();
+            $("#secteur option[value='Location automobile']").show();
+            $("#secteur option[value='TravelTech']").show();
+            $("#secteur option[value='Logistics']").show();
+            $("#secteur option[value='RealEstate']").show();
+            $("#secteur option[value='Hôtelier']").show();
+            $("#secteur option[value='Immobilier']").show();
+            $("#secteur option[value='Hebergement']").show();
+            $("#secteur option[value='Restauration']").show();
+            $("#secteur option[value='FoodTech']").show();
+            $("#secteur option[value='Autre']").show();
+        });
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+
+            $("#secteur").change(function () {
+                if ($(this).val() == "Autre") {
+
+                    $("#Suggestion").show();
+                   
+                }
+                else {
+                   
+                    $("#Suggestion").hide();
+                }
+            });
+            $("#Suggestion").hide();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+
+
+            $("#country").change(function () {
+                if ($(this).val() == "TN") {
+
+                    $("#test").show();
+
+                }
+                else {
+                    $("#test").hide();
+
+                }
+            });
+            $("#test").hide();
+        });
+    </script>
 </body>
 
 <!--   Core JS Files   -->

@@ -51,11 +51,68 @@ transparent = true;
         		    lastname: {
         		      required: true,
         		      minlength: 3
-        		    },
+                    },
+                    Titre: {
+                        required: true,
+                        minlength : 3
+                    },
+                    PersAContact: {
+                        required: true,
+                        minlength: 3
+                    },
+                    Telephone: {
+                        required: true,
+                        minlength: 3
+                    },
+                    CodePostale: {
+                        required: true,
+                        minlength: 4
+                    },
+                    Adresse: {
+                        required: true,
+                        minlength: 3
+                    },
+                    EffectHomme: {
+                        required: true,
+                        
+                    },
+                    EffectFemme: {
+                        required: true,
+                        maxlength : 4
+                        
+                    },
+                    jobb: {
+                      required: true
+                    },
+                    Forme: {
+                        required: true
+                    },
+                    Domaine: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 50
+
+                    },
+                    Identifiant_fiscale: {
+                        required: true,
+                        minlength: 8,
+                        
+                    },
+                    NumCnss: {
+                        required: true,
+                        minlength: 10,
+                        maxlength : 10
+
+                    },
         		    email: {
         		      required: true
         		    }
                 },
+                //messages: {
+                //    firstname: "entrez votre prénom s'il vous plait",
+                   
+
+                //}
         	});
 
             // Wizard Initialization
@@ -84,15 +141,15 @@ transparent = true;
 
                 onTabClick : function(tab, navigation, index){
 
-                    //var $valid = $('.wizard-card form').valid();
+                    var $valid = $('.wizard-card form').valid();
 
-                    //if(!$valid){
-                    //    return false;
-                    //} else{
-                    //    return true;
-                    //}
+                    if(!$valid){
+                        return false;
+                    } else{
+                        return true;
+                    }
                     
-                    return false;
+                   
 
                 },
 
