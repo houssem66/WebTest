@@ -89,7 +89,7 @@ transparent = true;
                     },
                     Domaine: {
                         required: true,
-                        minlength: 3,
+                       
                         maxlength: 50
 
                     },

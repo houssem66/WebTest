@@ -13,6 +13,7 @@ namespace TourMe.Data.Entities
     {
        
         public long NumCnss { get; set; }
+        public int NumPersAcontacter { get; set; }
         public TypeService TypeService { get; set; }
         public IList<ServiceLogment> ServiceLogments { get; set; }
         public IList<ServiceNouritture> ServiceNourittures { get; set; }
