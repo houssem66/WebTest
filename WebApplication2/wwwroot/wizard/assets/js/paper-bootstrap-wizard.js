@@ -153,20 +153,26 @@ transparent = true;
 
                 },
 
-                onTabShow: function(tab, navigation, index) {
-                    var $total = navigation.find('li').length;
-                    var $current = index+1;
+                    onTabShow: function (tab, navigation, index) {
+                        var $total = navigation.find('li').length;
+                        var $current = index + 1;
 
-                    var $wizard = navigation.closest('.wizard-card');
+                        var $wizard = navigation.closest('.wizard-card');
 
-                    // If it's the last tab then hide the last button and show the finish instead
-                    if($current >= $total) {
-                        $($wizard).find('.btn-next').hide();
-                        $($wizard).find('.btn-finish').show();
-                    } else {
-                        $($wizard).find('.btn-next').show();
-                        $($wizard).find('.btn-finish').hide();
-                    }
+                        // If it's the last tab then hide the last button and show the finish instead
+                        if ($current >= $total) {
+                            $($wizard).find('.btn-next').hide();
+
+                            $($wizard).find('.btn-success').show();
+                            $($wizard).find('.btn-success').click(function () {
+                                $($wizard).find('.btn-finish').show();
+                            });
+                        }
+                        else {
+                            $($wizard).find('.btn-success').hide();
+                            $($wizard).find('.btn-next').show();
+                            $($wizard).find('.btn-finish').hide();
+                        }
 
                     //update progress
                     var move_distance = 100 / $total;
