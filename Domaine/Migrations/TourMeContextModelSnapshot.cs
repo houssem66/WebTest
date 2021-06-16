@@ -683,8 +683,8 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Identifiant_fiscale")
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
+                        .HasMaxLength(9)
+                        .HasColumnType("nvarchar(9)");
 
                     b.Property<string>("NomGerant")
                         .HasColumnType("nvarchar(max)");
@@ -726,6 +726,9 @@ namespace TourMe.Data.Migrations
 
                     b.Property<long>("NumCnss")
                         .HasColumnType("bigint");
+
+                    b.Property<int>("NumPersAcontacter")
+                        .HasColumnType("int");
 
                     b.Property<int>("TypeService")
                         .HasColumnType("int");

@@ -35,7 +35,7 @@ namespace TourMe.Web.Controllers
         private readonly ILogementextService logementService;
         private readonly INourritureExtService nourritureService;
 
-        public ServiceController(UserManager<Utilisateur> userManager, ICommercantService _CommercantService, IUserService _UserService, IFournisseurService _FournisseurService, CountryService countryService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, TourMeContext context, RoleManager<IdentityRole> roleManager, ILogementextService _logementService,INourritureExtService _NourritureService)
+        public ServiceController(UserManager<Utilisateur> userManager, ICommercantService _CommercantService, IUserService _UserService, IFournisseurService _FournisseurService, CountryService countryService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, TourMeContext context, RoleManager<IdentityRole> roleManager, ILogementextService _logementService, INourritureExtService _NourritureService)
         {
             this.userManager = userManager;
             commercantService = _CommercantService;
@@ -460,7 +460,7 @@ namespace TourMe.Web.Controllers
                     Type = model.Type,
                     Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
                 };
-                
+
                 await nourritureService.Ajout(nouritture);
                 return RedirectToAction("Index", "Home");
             }
@@ -478,7 +478,7 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string TypeFiscale)
+        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string DomaineList, string DomaineAutre,string SecteurAutre)
         {
             ViewData["countries"] = AvailableCountries;
             string idx = userManager.GetUserId(User);
@@ -538,9 +538,26 @@ namespace TourMe.Web.Controllers
                             $"Le format du numero ne convient pas à votre pays");
                         return View();
                     }
-
+                    string DomaineToKeep="";
+                    string SecteurToKeep = "";
                     var numberToSave = numberDetails.PhoneNumber.ToString();
+                    if (model.Secteur.ToLower()=="autre")
+                    {
+                        DomaineToKeep = model.Domaine;
+                        SecteurToKeep = SecteurAutre;
 
+                    }
+                    else if(model.Secteur.ToLower()!="autre"&&DomaineAutre.ToLower()==null) {
+
+
+                        DomaineToKeep = DomaineList;
+                    }
+                    else
+                    {
+
+                        DomaineToKeep = DomaineAutre;
+
+                    }
                     var user = new Fournisseur
                     {
                         UserName = model.Email,
@@ -550,7 +567,7 @@ namespace TourMe.Web.Controllers
                         Email = model.Email,                       
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
-                        Patente=TypeFiscale+model.Identifiant_fiscale,
+                        DomainActivite= DomaineToKeep,
                         Identifiant_fiscale=model.Identifiant_fiscale,
                         Titre = model.Titre,
                         EffectFemme = model.EffectFemme,
