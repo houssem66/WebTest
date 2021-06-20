@@ -97,9 +97,9 @@
                             <form action="BecomeCommercant" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
-                                <div class="wizard-header">
-                                    <h3 class="wizard-title">Devenir Commercant</h3>
-                                    <p id="demo" class="category">Bonjour nous allons vous aider à devenir un commercant.</p>
+                                <div class="wizard-header" id="5dmt">
+                                    <h3 class="wizard-title" >Devenir Commercant</h3>
+                                    <p id="demo"  style="font-size:18px;"class="category">Bonjour nous allons vous aider à devenir un commercant.</p>
                                 </div>
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
@@ -151,7 +151,7 @@
                                                 <div class="icon-circle">
                                                     <i class="ti-comments"></i>
                                                 </div>
-                                                Documents
+                                                Confirmations
                                             </a>
                                         </li>
 
@@ -176,7 +176,7 @@
                                                         <input type="radio" name="jobb" value="Nourriture">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-apple"></i>
-                                                            <p>Nourriture</p>
+                                                            <p>Restauration</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +185,7 @@
                                                         <input type="radio" name="jobb" value="Logement">
                                                         <div class="card card-checkboxes card-hover-effect">
                                                             <i class="ti-home"></i>
-                                                            <p>Logement</p>
+                                                            <p>Hebergement</p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -197,7 +197,7 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="picture-container">
                                                     <div class="picture">
-                                                        <img src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+                                                        <img  src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
                                                         <input asp-for="FileP" id="wizard-picture">
                                                     </div>
                                                     <h6>Choisir Logo </h6>
@@ -207,14 +207,21 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom Juridique de la société <small>(required)</small></label>
-                                                    <input name="Titre" type="text" class="form-control" placeholder="Nom dirigeant">
+                                                    <input name="Titre" type="text" class="form-control" placeholder="Nom Juridique de la société">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Personne a contacter <small>(optional)</small></label>
                                                     <input name="PersAContact" type="text" class="form-control" placeholder="Personne a contacter">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-10 col-sm-offset-1">
+
+                                            <div class="col-sm-3 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Téléphone a Contacter <small>(optional)</small></label>
+                                                    <input asp-for="NumPersAcontacter" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-7">
                                                 <div class="form-group">
                                                     <label>Email <small>(required)</small></label>
                                                     <input asp-for="Email" class="form-control" placeholder="andrew@creative-tim.com">
@@ -340,89 +347,47 @@
                                             </div><br />
                                             <div class="col-sm-5">
                                                 <div class="form-group">
-                                                    <label>Secteur</label><br>
-                                                    <select id="secteur" name="secteur" class="form-control valid" aria-invalid="false">
+                                                    <label>Acvitité</label><br>
+                                                                           <select id="transport" name="secteur" class="form-control valid" aria-invalid="false">
+                                                                               <option value="TransportReguliers"> Transport Réguliers de voyageurs,interurbain </option>
+                                                                               <option value="service auxiliers"> Service auxiliers de transport </option>
+                                                                               <option value="Transport urbain"> Transport urbain et suburbain de transport </option>
+                                                                               <option value="Transport publique non réguliers"> Transport publique non réguliers(louage,taxi...) </option>
+                                                                               <option value="Tranposrt touristique"> Transport touristique </option>
+                                                                               <option value="Tranposrt privé"> Transport privé </option>
+                                                                               <option value="Autre"> Autre </option>
+                                                                           </select>
+                                                    <select id="nourriture" name="secteur" class="form-control valid" aria-invalid="false">
 
-                                                        <option value="Mobility"> Mobility </option>
-                                                        <option value="RealEstate Tech"> RealEstate Tech </option>
-                                                        <option value="FoodTech"> FoodTech et New food </option>
-                                                        <option value="TravelTech"> Travel Tech </option>
+                                                        <option value="Débit de boissons alcoolisées"> Débit de boissons alcoolisées </option>
+                                                        <option value="Cafés"> Cafés </option>
+                                                        <option value="Services des traiteurs"> Services des traiteurs </option>
+                                                        <option value="Resatauration rapide"> Resatauration rapide </option>
+                                                        <option value="Resatauration traditionnelle "> Resatauration traditionnelle </option>                                                       
+                                                        <option value="Autre"> Autre </option>
+                                                    </select>
+                                                    <select id="logement" name="secteur" class="form-control valid" aria-invalid="false">
+
+                                                        <option value="Terrains de camping et parcs pour caravanes"> Terrains de camping et parcs pour caravanes </option>
+                                                        <option value="Hotéls et hébergement similaire"> Hotéls et hébergement similaire </option>
+                                                        <option value="Hébergement touristique et autre autre hébergement de court duréé"> Hébergement touristique et autre autre hébergement de court duréé </option>
+                                                        <option value="Location de logements"> Location de logements </option>
+                                                        <option value="Agence immobiliers"> Agence immobiliers </option>
                                                         <option value="Autre"> Autre </option>
                                                     </select>
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group" id="Suggestion">
                                                     <label>Entrer votre secteur</label>
                                                     <input name="SecteurAutre" type="text" class="form-control" placeholder="Secteur">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
-                                                <div id="activityText" class="form-group">
-                                                    <label>Domaine d'activité</label>
-                                                    <input asp-for="Domaine" class="form-control">
-                                                    <span asp-validation-for="Domaine" class="text-danger"></span>
-                                                </div>
-                                                @*TravelTech List*@
-                                                <div id="activityList1" class="form-group">
-                                                    <label>Domaine d'activité</label>
-                                                    <select name="DomaineList" id="travel" class="form-control valid" aria-invalid="false">
+                                            
+                                            
 
-                                                        <option value="TravelTech"> TravelTech </option>
-                                                        <option value="Hebergement"> Hebergement </option>
-                                                        <option value="Hôtelier"> Hôtelier</option>
-                                                        <option value="Autre"> Autre</option>
-
-                                                    </select>
-                                                </div>
-                                                @*Mobility*@
-                                                <div id="activityList2" class="form-group">
-                                                    <label>Domaine d'activité</label>
-                                                    <select name="DomaineList" id="mobility" class="form-control valid" aria-invalid="false">
-
-                                                        <option value="Transportprivé"> Transport privé </option>
-                                                        <option value="Logistique"> Logistique </option>
-                                                        <option value="Locationautomobile"> Locationautomobile</option>
-                                                        <option value="Autre"> Autre</option>
-
-                                                    </select>
-                                                </div>
-                                                @*RealEstateTech*@
-                                                <div id="activityList3" class="form-group">
-                                                    <label>Domaine d'activité</label>
-                                                    <select name="DomaineList" id="estate" class="form-control valid" aria-invalid="false">
-
-                                                        <option value="RealEstate Tech"> RealEstate Tech </option>
-                                                        <option value="Immobilier"> Immobilier </option>
-                                                        <option value="Autre"> Autre</option>
-
-                                                    </select>
-                                                </div>
-                                                @*FoodTech*@
-                                                <div id="activityList4" class="form-group">
-                                                    <label>Domaine d'activité</label>
-                                                    <select name="DomaineList" id="food" class="form-control valid" aria-invalid="false">
-
-                                                        <option value="foodtech"> Foodtech </option>
-                                                        <option value="NewFood"> New Food </option>
-                                                        <option value="Restauration"> Restauration</option>
-                                                        <option value="Autre"> Autre</option>
-
-                                                    </select>
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-5">
-                                                <div class="form-group" id="activityElse">
-                                                    <label>Ecrire votre Domaine d'activité</label>
-                                                    <input name="DomaineAutre" type="text" class="form-control">
-
-                                                </div>
-
-                                            </div>
-
-                                            <div class="col-sm-2 col-sm-offset-3">
+                                            <div class="col-sm-2 col-sm-offset-2">
                                                 <div class="form-group">
                                                     <label>N affiliation CNSS</label>
                                                     <input asp-for="NumCnss" placeholder="1234567890" class="form-control">
@@ -446,7 +411,21 @@
                                                 <div class="form-group">
                                                     <div class="custom-file">
                                                         <label class="custom-file-label">Veulleir Telecharger un copie de  la patente<small>(PDF)</small>...</label>
-                                                        <input asp-for="Documents" multiple class="form-control custom-file-input">
+                                                        <input asp-for="Documents" id="PATENTEUPLOAD" multiple class="form-control custom-file-input">
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la RNE</label>
+                                                        <input asp-for="Documents" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group" id="optionalFile">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label" id="optionalLabel">Veulleir Telecharger un copie de  la RNE</label>
+                                                        <input asp-for="Documents" id="depends" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
@@ -455,23 +434,16 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Documents a Télécharger</label>
-                                                    <p class="description">
-                                                        -Patente.<br />
-                                                        -Document<br />
+                                                    <p class="description" id="docs">
+                                                        <b>-Patente.</b><br />
+                                                        <b>-RNE</b><br />
+                                                        <b id="writing"></b>
                                                         <h5> -Un administrateur Va vérifier votre inscription.</h5>
                                                     </p>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-4 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <div class="custom-file">
-                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la RNE</label>
-                                                        <input asp-for="Documents" multiple class="form-control custom-file-input">
-                                                    </div>
-
-                                                </div>
-                                            </div>
+                                         
+                                           
                                         </div>
 
 
@@ -482,7 +454,90 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Type Service :</label>
-                                                    <input type="text" class="form-group" id="type" disabled />
+                                                    <input type="text" class="form-control" id="type" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Nom Sociéte :</label>
+                                                    <input type="text" class="form-control" id="nom" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Personne a Contacter :</label>
+                                                    <input type="text" class="form-control" id="persContacter" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Téléphone a Contacter :</label>
+                                                    <input type="text" class="form-control" id="TelContacter" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Email :</label>
+                                                    <input type="text" class="form-control" id="email" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Pays</label><br />
+                                                    <input type="text" class="form-control" id="pays" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Region</label><br>
+                                                    <input type="text" class="form-control" id="regionShow" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Numéro téléphone :</label>
+                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Adresse :</label><br />
+                                                    <input type="text" class="form-control" id="adresse" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Activité :</label><br />
+                                                    <input type="text" class="form-control" id="activité" disabled />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label> N°affiliation CNSS  :</label><br />
+                                                    <input type="text" class="form-control" id="CNSS" disabled />
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label> Matricule Fiscale  :</label><br />
+                                                    <input type="text" class="form-control" id="matFiscale" disabled />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <label id="special"> Files uploaded  :</label><br /><br />
+                                                <div class="form-group">
+                                                    <label>Patente</label>
+                                                    <input type="text" class="form-control" id="patente" disabled />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Rne</label>
+                                                    <input type="text" class="form-control" id="rne" disabled />
+                                                </div>
+                                                <div id="fileOptional2" class="form-group">
+                                                    <label id="labelOptional2">optional</label>
+                                                    <input type="text" class="form-control" id="optional" disabled />
                                                 </div>
                                             </div>
                                         </div>
@@ -490,8 +545,8 @@
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type='button' class='btn btn-next btn-fill btn-wd btn-primary' name='next' value='Next' />
-                                            <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Finish' />
-                                            <input type='button' class="btn btn-success" id="button" name='Confirm' value='Preview' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Valider' />
+                                            <input type='button' class="btn btn-success" id="button" name='Confirm' value='Reviser' />
                                         </div>
 
                                         <div class="pull-left">
@@ -546,163 +601,121 @@
 
     <script>
         $(document).ready(function () {
+            
+            var $div = '<p style="font-size:18px;" id="demo"class="category">' + 'Bonjour nous allons vous aider à devenir un commercant de '+'</p>';
+             
             $("[name=jobb]").on('change', function () {
+                $("#optionalFile").hide();
+                $("#depends").val('');
+                $("#writing").hide();
                 var value = $("input[name='jobb']:checked").val();
                 if (value == "Nourriture") {
-                    $("#secteur option[value='Mobility']").hide();
-                    $("#secteur option[value='FoodTech']").show();
-                    $("#secteur option[value='TravelTech']").show();
-                    $("#secteur option[value='RealEstate Tech']").hide();
-                    $("#secteur option[value='Autre']").show();
-                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Nourriture)!";
+                    $("#nourriture").show();
+                    $("#transport").hide();
+                    $("#logement").hide();
+                    $("#transport").val('');
+                    $("#logement").val('');
+                    
+                    document.getElementById("demo").innerHTML = $div + '<b>Restauration</b>' +'<i style="font-size:18px;" class="ti-apple"></i> '+'<b>!</b>';
                 }
                 else if (value == "Logement") {
 
-                    $("#secteur option[value='Mobility']").hide();
-                    $("#secteur option[value='FoodTech']").hide();
-                    $("#secteur option[value='TravelTech']").show();
-                    $("#secteur option[value='RealEstate Tech']").show();
-                    $("#secteur option[value='Autre']").show();
-                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Logement)!";
+                    $("#nourriture").hide();
+                    $("#transport").hide();
+                    $("#logement").show();
+                    $("#transport").val('');
+                    $("#nourriture").val('');                  
+                    document.getElementById("demo").innerHTML = $div + '<b>Hebergement</b> ' + '<i style="font-size:18px;" class="ti-home"></i> ' + '<b>!</b>';
                 }
                 else {
 
-                    $("#secteur option[value='Mobility']").show();
-                    $("#secteur option[value='FoodTech']").hide();
-                    $("#secteur option[value='TravelTech']").show();
-                    $("#secteur option[value='RealEstate Tech']").hide();
-                    $("#secteur option[value='Autre']").show();
-                    document.getElementById("demo").innerHTML = "Bonjour nous allons vous aider à devenir un commercant (Transport)!";
+                    $("#nourriture").hide();
+                    $("#transport").show();
+                    $("#logement").hide();
+                    $("#nourriture").val('');
+                    $("#logement").val('');                 
+                    document.getElementById("demo").innerHTML = $div + '<b>Transport</b>' + ' <i style="font-size:18px;"  class="ti-car"></i> ' + '<b>!</b>';
+                   
 
                 }
 
 
 
             });
-            $("#secteur option[value='Mobility']").show();
-            $("#secteur option[value='FoodTech']").show();
-            $("#secteur option[value='TravelTech']").show();
-            $("#secteur option[value='RealEstate Tech']").show();
-            $("#secteur option[value='Autre']").show();
+            $("#nourriture").hide();
+            $("#transport").hide();
+            $("#logement").hide();
+            $("#transport").val('');
+            $("#logement").val('');
+            $("#nourriture").val('');         
         });
 
     </script>
     @*afficher le drop list secteur avec le valuer du service*@
-
+   
     <script>
+       
+
         $(document).ready(function () {
 
-
-            $("#secteur").change(function () {
+            $('select[name="secteur"]').change(function () {    
+                $("#depends").val('');
+                $docAlc = '<label class="custom-file-label" id="optionalLabel">';
                 if ($(this).val() == "Autre") {
 
+                    $("#optionalFile").hide();
+                    $("#writing").hide();
                     $("#Suggestion").show();
-                    $("#activityText").show();
-                    $("#activityList1").hide();
-                    $("#activityList2").hide();
-                    $("#activityList3").hide();
-                    $("#activityList4").hide();
-                    $('#travel').val('');
-                    $('#food').val('');
-                    $('#mobility').val('');
-                    $('#estate').val('');
-                }
-                else if ($(this).val() == "0") {
 
-                    $("#activityText").hide();
-                    $("#activityText").val('');
-                    $("#activityElse").hide();
-                    $("#activityList").hide();
-                    $("#Suggestion").hide();
-                    $('#travel').val('');
-                    $('#food').val('');
-                    $('#mobility').val('');
-                    $('#estate').val('');
-                }
-                else if ($(this).val() == "TravelTech") {
-                    $("#Suggestion").hide();
-                    $("#activityText").val('');
-                    $('#food').val('');
-                    $('#mobility').val('');
-                    $('#estate').val('');
-
-                    $("#activityText").hide();
-                    $("#activityList1").show();
-                    $("#activityList2").hide();
-                    $("#activityList3").hide();
-                    $("#activityList4").hide();
-
-                }
-                else if ($(this).val() == "Mobility") {
-                    $("#Suggestion").hide();
-                    $("#activityText").hide();
-                    $("#activityList1").hide();
-                    $("#activityList2").show();
-                    $("#activityList3").hide();
-                    $("#activityList4").hide();
-                    $("#activityText").val('');
-                    $('#travel').val('');
-                    $('#food').val('');
-
-                    $('#estate').val('');
-
-                }
-                else if ($(this).val() == "RealEstate Tech") {
-
-                    $("#Suggestion").hide();
-                    $("#activityText").hide();
-                    $("#activityList1").hide();
-                    $("#activityList2").hide();
-                    $("#activityList3").show();
-                    $("#activityList4").hide();
-                    $("#activityText").val('');
-                    $('#travel').val('');
-                    $('#food').val('');
-                    $('#mobility').val('');
-
-
-                }
-                else if ($(this).val() == "FoodTech") {
-                    $("#Suggestion").hide();
-                    $("#activityText").hide();
-                    $("#activityList1").hide();
-                    $("#activityList2").hide();
-                    $("#activityList3").hide();
-                    $("#activityList4").show();
-                    $("#activityText").val('');
-                    $('#travel').val('');
-
-                    $('#mobility').val('');
-                    $('#estate').val('');
-
-                }
-
-            });
-            $("[name=DomaineList]").on('change', function () {
-                if ($(this).val() == "Autre") {
-
-                    $("#activityElse").show();
                 }
                 else {
 
-                    $("#activityElse").hide();
-                }
+                    $("#Suggestion").hide();
+                    $("#optionalFile").hide();
+                    $("#writing").hide();
+                    if (($(this).val() == "Débit de boissons alcoolisées") || ($(this).val() == "TransportReguliers")   || ($(this).val() == "Transport publique non réguliers") || ($(this).val() == "Tranposrt touristique") || ($(this).val() == "Tranposrt privé"))
+                    {
+                        $("#optionalFile").show();
+                        $("#writing").show();
+
+                        if ($(this).val() == "Débit de boissons alcoolisées") {
+                            document.getElementById("optionalLabel").innerHTML = $docAlc + 'Veulleir Telecharger une copie de la Licence pour débits de boissons de deuxième et troisième catégorie et Restaurants avec boissons alcoolisées' + '</label>';
+                            document.getElementById("writing").innerHTML = ('<b>-la Licence pour débits de boissons de deuxième et troisième catégorie et Restaurants avec boissons alcoolisées<b>');
+                        }
+                        else
+                        {
+                            switch ($(this).val())                        
+                            {
+                                case "TransportReguliers":
+                                    document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport réguliers' + '</label>';
+                                    document.getElementById("writing").innerHTML = ('<b>-CAD transport réguliers<b>');
+                                    break;
+                                case "Transport publique non réguliers":
+                                    document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport non réguliers (taxi,louage...)' + '</label>';
+                                    document.getElementById("writing").innerHTML = ('<b>-CAD transport non réguliers<b>');
+                                    break;
+                                case "Tranposrt touristique":
+                                    document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport touristique' + '</label>';
+                                    document.getElementById("writing").innerHTML = ('<b>-CAD transport touristique<b>');
+                                    break;
+                                default: 
+                                    document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport privé' + '</label>';
+                                    document.getElementById("writing").innerHTML = ('<b>-CAD transport privé<b>');
+                            } 
+                            
+
+                        }
+                    }              
+            }
+               
             });
-            $("#activityText").val('');
-            $('#travel').val('');
-            $('#food').val('');
-            $('#mobility').val('');
-            $('#estate').val('');
-            $("#activityText").hide();
-            $("#activityElse").hide();
-            $("#activityList1").hide();
-            $("#activityList2").hide()
-            $("#activityList3").hide()
-            $("#activityList4").hide()
+            $("#writing").hide();
+            $("#optionalFile").hide();
             $("#Suggestion").hide();
         });
     </script>
     <script>
+        //afficher region
         $(document).ready(function () {
 
 
@@ -720,15 +733,70 @@
             $("#test").hide();
         });
     </script>
+    @*//preview*@
     <script>
+        //preview button
         $(document).ready(function () {
+            $("#fileOptional2").hide();
             $("#button").click(function () {
-                var fileName = $('.custom-file-input').val().split("\\").pop();
+                //reading the information
+                var fileRNE = document.getElementById("RNEUPLOAD").value.split("\\").pop();
+                var filePatente = document.getElementById("PATENTEUPLOAD").value.split("\\").pop();
+                var fileOption = document.getElementById("depends").value.split("\\").pop();
                 var typeService = $("input[name='jobb']:checked").val();
-                alert(typeService);
-
-                document.getElementById("type").innerHTML = typeService;
+                var Titre = $("input[name='Titre']").val();
+                var PersAContact = $("input[name='PersAContact']").val();
+                var NumPersAcontacter = $("input[name='NumPersAcontacter']").val();
+                var Email = $("input[name='Email']").val();
+                var Telephone = $("input[name='Telephone']").val();
+                var PhoneNumberCountryCode = $('select[name="PhoneNumberCountryCode"]').find(":selected").text();               
+                var region = $('select[name="region"]').find(":selected").text();
+                var CodePostale = $("input[name='CodePostale']").val();
+                var Adresse = $("input[name='Adresse']").val();
+                var EffectHomme = $("input[name='EffectHomme']").val(); 
+                var EffectFemme = $("input[name='EffectFemme']").val();
+                var Forme = $("input[name='Forme']").val();
+                var secteur = $('select[name="secteur"]').find(":selected").text();            
+                var NumCnss = $("input[name='NumCnss']").val();
+                var Identifiant_fiscale = $("input[name='Identifiant_fiscale']").val();
+                var Documents = $("input[name='Documents']").val();
+                var secteurAutre = $("input[name='SecteurAutre']").val();
+                //writing the information
                 $("#type").val(typeService);
+                $("#nom").val(Titre);
+                $("#persContacter").val(PersAContact);
+                $("#TelContacter").val(NumPersAcontacter);
+                $("#email").val(Email);
+                $("#pays").val(PhoneNumberCountryCode);
+                $("#regionShow").val(region);
+                $("#telEntreprise").val(Telephone);
+                $("#adresse").val(Adresse);
+                
+                if (secteur.match("Autre")) {
+                    
+                    $("#activité").val(secteurAutre); 
+                } else {
+                    $("#activité").val(secteur);
+                  
+                }
+                if (fileOption == "")
+                {
+                    
+                    $("#fileOptional2").hide();
+                }
+                else
+                {
+                    $("#fileOptional2").show();
+                    $("#optional").val(fileOption);
+
+                }
+                $("#CNSS").val(NumCnss);
+                $("#matFiscale").val(Identifiant_fiscale);
+                $("#patente").val(filePatente);
+                $("#rne").val(fileRNE);
+               
+                
+
             });
         });
 
@@ -739,4 +807,3 @@
 
 
 </html>
-
