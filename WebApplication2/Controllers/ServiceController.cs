@@ -34,8 +34,9 @@ namespace TourMe.Web.Controllers
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogementextService logementService;
         private readonly INourritureExtService nourritureService;
+        private readonly ITransportExtService transportExtService;
 
-        public ServiceController(UserManager<Utilisateur> userManager, ICommercantService _CommercantService, IUserService _UserService, IFournisseurService _FournisseurService, CountryService countryService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, TourMeContext context, RoleManager<IdentityRole> roleManager, ILogementextService _logementService, INourritureExtService _NourritureService)
+        public ServiceController(UserManager<Utilisateur> userManager, ICommercantService _CommercantService, IUserService _UserService, IFournisseurService _FournisseurService, CountryService countryService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, TourMeContext context, RoleManager<IdentityRole> roleManager, ILogementextService _logementService, INourritureExtService _NourritureService, ITransportExtService _TransportExtService)
         {
             this.userManager = userManager;
             commercantService = _CommercantService;
@@ -46,6 +47,7 @@ namespace TourMe.Web.Controllers
             this.roleManager = roleManager;
             logementService = _logementService;
             nourritureService = _NourritureService;
+            transportExtService = _TransportExtService;
             AvailableCountries = countryService.GetCountries();
         }
         [HttpGet]
@@ -145,7 +147,6 @@ namespace TourMe.Web.Controllers
                 EffectFemme = model.EffectFemme,
                 EffectHomme = model.EffectHomme,
                 Type = com.Type,
-
                 TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
 
             };
@@ -478,7 +479,7 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string DomaineList, string DomaineAutre,string SecteurAutre)
+        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string DomaineList, string DomaineAutre, string SecteurAutre)
         {
             ViewData["countries"] = AvailableCountries;
             string idx = userManager.GetUserId(User);
@@ -490,10 +491,11 @@ namespace TourMe.Web.Controllers
                 List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
-                    
+
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
-                    { EmployeDocuments employe = new EmployeDocuments();
+                    {
+                        EmployeDocuments employe = new EmployeDocuments();
                         // The file must be uploaded to the images folder in wwwroot
                         // To get the path of the wwwroot folder we are using the injected
                         // IHostingEnvironment service provided by ASP.NET Core
@@ -538,16 +540,17 @@ namespace TourMe.Web.Controllers
                             $"Le format du numero ne convient pas à votre pays");
                         return View();
                     }
-                    string DomaineToKeep="";
+                    string DomaineToKeep = "";
                     string SecteurToKeep = "";
                     var numberToSave = numberDetails.PhoneNumber.ToString();
-                    if (model.Secteur.ToLower()=="autre")
+                    if (model.Secteur.ToLower() == "autre")
                     {
                         DomaineToKeep = model.Domaine;
                         SecteurToKeep = SecteurAutre;
 
                     }
-                    else if(model.Secteur.ToLower()!="autre"&&DomaineAutre.ToLower()==null) {
+                    else if (model.Secteur.ToLower() != "autre" && DomaineAutre.ToLower() == null)
+                    {
 
 
                         DomaineToKeep = DomaineList;
@@ -564,19 +567,19 @@ namespace TourMe.Web.Controllers
 
                         PhoneNumber = numberToSave,
                         PersAContact = model.PersAContact,
-                        Email = model.Email,                       
+                        Email = model.Email,
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
-                        DomainActivite= DomaineToKeep,
-                        Identifiant_fiscale=model.Identifiant_fiscale,
+                        DomainActivite = DomaineToKeep,
+                        Identifiant_fiscale = model.Identifiant_fiscale,
                         Titre = model.Titre,
                         EffectFemme = model.EffectFemme,
                         EffectHomme = model.EffectHomme,
                         //Type = model.Type,
                         ProfilePhoto = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),
-                        Adresse=model.Adresse,
-                        EmployeDocuments= emp
+                        Adresse = model.Adresse,
+                        EmployeDocuments = emp
 
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
@@ -584,7 +587,7 @@ namespace TourMe.Web.Controllers
 
                     if (result.Succeeded)
                     {
-                        
+
 
 
                         if (await roleManager.RoleExistsAsync("Commercant"))
@@ -602,12 +605,12 @@ namespace TourMe.Web.Controllers
                             await userManager.AddToRoleAsync(user, "Commercant");
 
                         }
-                        await signInManager.SignInAsync(user, isPersistent: false);                     
+                        await signInManager.SignInAsync(user, isPersistent: false);
 
                     }
-                   
 
-                    return RedirectToAction("Index","Home");
+
+                    return RedirectToAction("AjouterTransport", "Service");
 
 
                 }
@@ -619,17 +622,68 @@ namespace TourMe.Web.Controllers
                 }
 
             }
-            
+
             return View(model);
         }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult RedirectTO()
         {
-            
+
 
 
             return View();
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AjouterTransport()
+        {
+            string idx = userManager.GetUserId(User);
+
+
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AjouterTransport(TransportExtViewModel model)
+        {
+            string idx = userManager.GetUserId(User);
+            ViewBag.id = userManager.GetUserId(User);
+            string uniqueFileName = null;
+            if (ModelState.IsValid)
+            {
+                if (model.Images != null)
+                {
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Images.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                var transport = new ServiceTransport
+                {
+                    NbrPlaces = model.NbrPlaces,
+
+                    Load = model.Load,
+                    Region = model.Region,
+
+                    Image = uniqueFileName,
+                    ReservationPrive = model.TypeTransport,
+                    TypeTransport=model.TypeTransport,
+                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
+                };
+
+                await transportExtService.Ajout(transport);
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
     }
 }

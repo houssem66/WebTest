@@ -609,14 +609,23 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Periode")
+                    b.Property<string>("Load")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("NbrPlaces")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int>("TypeTransportExt")
+                    b.Property<int>("Region")
                         .HasColumnType("int");
+
+                    b.Property<string>("ReservationPrive")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeTransport")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -668,6 +677,7 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(8)");
 
                     b.Property<int>("CodePostale")
+                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.Property<string>("DomainActivite")

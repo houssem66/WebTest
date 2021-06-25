@@ -59,8 +59,7 @@ namespace TourMe.Web.Models
         public int CodePostale { get; set; }
         public Region region { get; set; }
         public string Adresse { get; set; }
-        [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
-        [StringLength(12, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
+       
         public int NumPersAcontacter { get; set; }
         public long NumCnss { get; set; }
 
