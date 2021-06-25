@@ -89,7 +89,7 @@
                                 {
                                     <i class="fa fa-cutlery" aria-hidden="true"></i>
                                 }
-                             
+
                                 else if (Model.Rating == "2")
                                 {
                                     <i class="fa fa-cutlery" aria-hidden="true"></i>
@@ -113,7 +113,45 @@
 
                         </div>
                     </div>
-                </div>
+                   
+                    <div class="portfolio-items">
+                        @foreach (var item in Model.Documents)
+                        {
+
+                            <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+                                <div class="portfolio-item">
+                                    <a asp-action="Detailslogement" asp-controller="Service" asp-route-id="@Model.Id">
+                                        <h4>
+
+                                            @Model.NomRestau
+                                        </h4>
+                                    </a>
+                                    <div class="hover-bg">
+
+                                        <a href="~/Files/@item.Filepath" title="@Model.NomRestau" data-lightbox-gallery="gallery1">
+
+                                            <div class="hover-text">
+
+                                                <h4>@Model.NomRestau</h4>
+                                                <span>
+                                                    <p>Prix: @Model.Prix</p>
+                                                </span>
+
+
+
+
+
+
+                                            </div>
+                                            <img src="~/Files/@item.Filepath" class="img-responsive" alt="Project Title">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>}
+
+
+                    </div>
+                    </div>   
                 <div class="row">
                  
                  
