@@ -479,7 +479,7 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb, string DomaineList, string DomaineAutre, string SecteurAutre)
+        public async Task<IActionResult> BecomeCommercant(CommercentViewModel model, string jobb)
         {
             ViewData["countries"] = AvailableCountries;
             string idx = userManager.GetUserId(User);
@@ -540,27 +540,9 @@ namespace TourMe.Web.Controllers
                             $"Le format du numero ne convient pas à votre pays");
                         return View();
                     }
-                    string DomaineToKeep = "";
-                    string SecteurToKeep = "";
+                  
                     var numberToSave = numberDetails.PhoneNumber.ToString();
-                    if (model.Secteur.ToLower() == "autre")
-                    {
-                        DomaineToKeep = model.Domaine;
-                        SecteurToKeep = SecteurAutre;
-
-                    }
-                    else if (model.Secteur.ToLower() != "autre" && DomaineAutre.ToLower() == null)
-                    {
-
-
-                        DomaineToKeep = DomaineList;
-                    }
-                    else
-                    {
-
-                        DomaineToKeep = DomaineAutre;
-
-                    }
+                    
                     var user = new Fournisseur
                     {
                         UserName = model.Email,
@@ -570,7 +552,7 @@ namespace TourMe.Web.Controllers
                         Email = model.Email,
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
-                        DomainActivite = DomaineToKeep,
+                        DomainActivite = model.Domaine,
                         Identifiant_fiscale = model.Identifiant_fiscale,
                         Titre = model.Titre,
                         EffectFemme = model.EffectFemme,
@@ -672,7 +654,7 @@ namespace TourMe.Web.Controllers
 
                     Load = model.Load,
                     Region = model.Region,
-
+                    
                     Image = uniqueFileName,
                     ReservationPrive = model.TypeTransport,
                     TypeTransport=model.TypeTransport,
