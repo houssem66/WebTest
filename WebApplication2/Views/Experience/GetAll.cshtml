@@ -524,22 +524,9 @@
 
                                     <input type="hidden" value="" />
                                 </form>
-                                <div>
-                                    <button id="select">Get Checked Checkboxes</button>
-                                </div>
+                               
 
-                                <script>
-                                    document.getElementById('select').onclick = function () {
-                                        var checkboxes = document.querySelectorAll('input[name="searchTerm"]:checked');
-                                        for (var checkbox of checkboxes) {
-                                            document.body.append(checkbox.value + ' ');
-
-                                        }
-                                        var x = checkboxes.value;
-                                        alert(x);
-                                    }
-                                </script>
-
+                                
                                 @*<script>
                                            var form = document.getElementById('search');
 
