@@ -11,11 +11,24 @@ namespace TourMe.Web.Models
 {
     public class NourritureExtViewModel
     {
-       
-        public TypeNourriture Type { get; set; }
+        public string Rating { get; set; }
+        public string SpecialeResto { get; set; }
+        public string NomRestau { get; set; }
+        public string TypeResto { get; set; }
+        public List<IFormFile> FileP { get; set; }       
+        public IFormFile FilePp { get; set; }
+        public string regles { get; set; }
+
         public string Plat { get; set; }
-        public IFormFile Image { get; set; }
+        public string Image { get; set; }
+        public string Slogon { get; set; }
+        public string Site { get; set; }
         public string Description { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
+        public DateTime dateOuvert { get; set; }
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
+        public DateTime dateFerme { get; set; }
+        public string Adresse { get; set; }
         [Required(ErrorMessage = "Prix est obligatoire")]
         [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
         [DisplayName("Tarif (dt)")]

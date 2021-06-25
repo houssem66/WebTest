@@ -11,15 +11,17 @@ namespace TourMe.Data.Entities
   public  class ServiceLogment
     {[Key]
         public int Id { get; set; }
-        public Category Category { get; set; }
-        public SubCategory SubCategory { get; set; }
-        public string Images{ get; set; }
-        public string Documents { get; set; }
+        public string Category { get; set; }
+        public string Type { get; set; }
+     
+
         public decimal PrixParNuit { get; set; }
         public string Adresse { get; set; }
         public string Titre { get; set; }
-        //Hotel ou maison dhoté
-        public string NomHotel { get; set; }
+        public string Description { get; set; }
+
+
         public Fournisseur Fournisseur { get; set; }
+        public virtual IList<LNDocuments> Documents { get; set; }
     }
 }

@@ -384,6 +384,31 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Experience");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Filepath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ServiceLogmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ServiceNourittureId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceLogmentId");
+
+                    b.HasIndex("ServiceNourittureId");
+
+                    b.ToTable("LNDocuments");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Logement", b =>
                 {
                     b.Property<int>("LogementId")
@@ -530,28 +555,22 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Adresse")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Category")
-                        .HasColumnType("int");
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Documents")
+                    b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FournisseurId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Images")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NomHotel")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("PrixParNuit")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int>("SubCategory")
-                        .HasColumnType("int");
-
                     b.Property<string>("Titre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -568,13 +587,19 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Adresse")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FournisseurId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Image")
+                    b.Property<string>("Menu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NomRestau")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Plat")
@@ -583,8 +608,29 @@ namespace TourMe.Data.Migrations
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Site")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Slogon")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SpecialeResto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TypeResto")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("dateFerme")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("dateOuvert")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("regles")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -832,6 +878,23 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("CommerçantId");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.ServiceLogment", "ServiceLogment")
+                        .WithMany("Documents")
+                        .HasForeignKey("ServiceLogmentId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("TourMe.Data.Entities.ServiceNouritture", "ServiceNouritture")
+                        .WithMany("Documents")
+                        .HasForeignKey("ServiceNourittureId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("ServiceLogment");
+
+                    b.Navigation("ServiceNouritture");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.Logement", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
@@ -900,12 +963,9 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
                 {
-                    b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
+                    b.HasOne("TourMe.Data.Entities.Fournisseur", null)
                         .WithMany("ServiceNourittures")
-                        .HasForeignKey("FournisseurId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Fournisseur");
+                        .HasForeignKey("FournisseurId");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
@@ -949,6 +1009,16 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Reservations");
 
                     b.Navigation("Transport");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
+                {
+                    b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
+                {
+                    b.Navigation("Documents");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
