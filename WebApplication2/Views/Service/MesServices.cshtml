@@ -1,0 +1,92 @@
+﻿@model List<TourMe.Data.Entities.ServiceNouritture>
+@{var photoPath = "~/images/" + (ViewBag.user.ProfilePhoto ?? "noimage.jpg");
+
+}
+<!--DASHBOARD-->
+<section>
+    <div class="db col-md-12">
+        <!--LEFT SECTION-->
+        <div class="db-l">
+            <div class="db-l-1">
+                <ul>
+                    <li>
+                        <img src="@photoPath" asp-append-version="true" alt="" />
+                    </li>
+
+                </ul>
+            </div>
+            <div class="db-l-2">
+                <ul>
+                    <li>
+                        <a asp-controller="Experience" asp-action="MesExperiences"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Expériences</a>
+                    </li>
+                    <li>
+                        <a href="db-travel-booking.html"><img src="~/Theme/Template2/images/icon/dbl2.png" alt="" /> Travel Bookings</a>
+                    </li>
+                    <li>
+                        <a href="db-hotel-booking.html"><img src="~/Theme/Template2/images/icon/dbl3.png" alt="" /> Hotel Bookings</a>
+                    </li>
+                    <li>
+                        <a href="db-event-booking.html"><img src="~/Theme/Template2/images/icon/dbl4.png" alt="" /> Event Bookings</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Account" asp-action="ProfilCommerc"><img src="~/Theme/Template2/images/icon/dbl6.png" alt="" /> My Profile</a>
+                    </li>
+                    <li>
+                        <a href="db-all-payment.html"><img src="~/Theme/Template2/images/icon/dbl9.png" alt="" /> Payments</a>
+                    </li>
+                    <li>
+                        <a href="db-refund.html"><img src="~/Theme/Template2/images/icon/dbl7.png" alt="" /> Claim & Refund</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--CENTER SECTION-->
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <h4>Mes Services</h4>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            
+                            <th>Type restaurant</th>
+                            <th>Spécialité Restaurant</th>
+                            <th>Plat</th>
+                            <th>Prix</th>
+                    
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>  <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id" style="color:black"><h3>@item.NomRestau</h3></a></td>
+
+                            <td>@item.TypeResto</td>
+                            <td>@item.SpecialeResto</td>
+                            <td>@item.Plat</td>
+                            <td>@item.Prix</td>
+                           
+
+                        
+
+
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!--RIGHT SECTION-->
+
+    </div>
+</section>
+<!--END DASHBOARD-->

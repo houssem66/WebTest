@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\Theme\plugins\filterizr\**" />
+    <Content Remove="wwwroot\Theme\plugins\filterizr\**" />
+    <EmbeddedResource Remove="wwwroot\Theme\plugins\filterizr\**" />
+    <None Remove="wwwroot\Theme\plugins\filterizr\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="Views\Reservation\274cf42e-0eca-451a-a15c-0138bb817afe_1.png" />
   </ItemGroup>
 
@@ -18,10 +25,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="4.3.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -363,9 +366,6 @@
     <None Include="wwwroot\Theme\plugins\ekko-lightbox\ekko-lightbox.min.js" />
     <None Include="wwwroot\Theme\plugins\ekko-lightbox\ekko-lightbox.min.js.map" />
     <None Include="wwwroot\Theme\plugins\fastclick\fastclick.js" />
-    <None Include="wwwroot\Theme\plugins\filterizr\filterizr.min.js" />
-    <None Include="wwwroot\Theme\plugins\filterizr\jquery.filterizr.min.js" />
-    <None Include="wwwroot\Theme\plugins\filterizr\vanilla.filterizr.min.js" />
     <None Include="wwwroot\Theme\plugins\flag-icon-css\flags\1x1\ad.svg" />
     <None Include="wwwroot\Theme\plugins\flag-icon-css\flags\1x1\ae.svg" />
     <None Include="wwwroot\Theme\plugins\flag-icon-css\flags\1x1\af.svg" />
@@ -1620,91 +1620,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\ActiveFilter.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\animate.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\BrowserWindow.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\config\cssEasingValuesRegexp.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\config\filterizrState.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\config\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\config\layout.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\EventReceiver.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterContainer.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterContainer\FilterContainer.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterContainer\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterContainer\StyledFilterContainer.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterContainer\styles.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterControls.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItem.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItems.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItems\FilterItems.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItems\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItems\StyledFilterItems.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItem\FilterItem.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItem\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItem\StyledFilterItem.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterItem\styles.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Filterizr.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterizrElement.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterizrOptions\defaultOptions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterizrOptions\FilterizrOptions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\FilterizrOptions\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Filterizr\Filterizr.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Filterizr\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Filterizr\installAsJQueryPlugin.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\getLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\index.jquery.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\installAsJQueryPlugin.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getHorizontalLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getPackedLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getSameHeightLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getSameSizeLayoutPosition.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getSameWidthLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\getVerticalLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\layouts\Packer.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeHorizontalLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makePackedLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeSameHeightLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeSameSizeLayoutPosition.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeSameWidthLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\makeVerticalLayoutPositions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\makeLayoutPositions\Packer.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Spinner\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Spinner\makeSpinner.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Spinner\Spinner.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\Spinner\StyledSpinner.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\StyledFilterizrElement.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\StyledFilterizrElements.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\BaseOptions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\ContainerLayout.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Destructible.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Dictionary.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Dimensions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Options.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Position.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\RawOptions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\RawOptionsCallbacks.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Resizable.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\SpinnerOptions.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\types\interfaces\Styleable.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\allStringsOfArray1InArray2.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\checkOptionForErrors.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\debounce.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\filterItemArraysHaveSameSorting.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\getDataAttributesOfHTMLNode.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\getHTMLElement.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\index.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\intersection.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\merge.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\noop.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\setStyles.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\shuffle.d.ts" />
-    <TypeScriptCompile Include="wwwroot\Theme\plugins\filterizr\utils\sortBy.d.ts" />
     <TypeScriptCompile Include="wwwroot\Theme\plugins\fullcalendar-bootstrap\main.d.ts" />
     <TypeScriptCompile Include="wwwroot\Theme\plugins\fullcalendar-daygrid\main.d.ts" />
     <TypeScriptCompile Include="wwwroot\Theme\plugins\fullcalendar-interaction\main.d.ts" />

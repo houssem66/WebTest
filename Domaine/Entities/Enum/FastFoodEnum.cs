@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities.Enum
 {
-    public enum TypeNourriture
-    {Traditionel,francais,FastFood,Italien,
+  public enum FastFoodEnum
+    {
+
+
+        Hamburger,
+
+        Sandwiches,
+
+        Taco,
+
+        Burritos,
+
+        Fried_Chicken,
+   
+        Noddles,
+
     }
 }

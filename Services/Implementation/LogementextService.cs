@@ -33,7 +33,18 @@ namespace Services.Implementation
 
         public IList<ServiceLogment> GetAllLogements()
         {
-            return GenericRepo.GetAll().ToList();
+            return LogementRepo.GetAll().ToList();
+        }
+
+        public async  Task<ServiceLogment> GetById(int id)
+        {
+            ServiceLogment l = await LogementRepo.GetlogementDetailsAsync(id);
+            return l;
+
+
+
+
+         
         }
 
         public Task<ServiceLogment> GetLogementById(int id)

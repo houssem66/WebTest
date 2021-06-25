@@ -1,0 +1,178 @@
+﻿@model TourMe.Data.Entities.ServiceLogment;
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TourMe(Logements)</title>
+    <hr>
+    <a asp-action="index" asp-controller="Home"><h2>TourME </h2></a>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicons
+        ================================================== -->
+    <link rel="shortcut icon" href="~/Theme/Restaurant/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Theme/Restaurant/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Theme/Restaurant/img/apple-touch-icon-114x114.png">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/fonts/font-awesome/css/font-awesome.css">
+
+    <!-- Stylesheet
+        ================================================== -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation
+        ==========================================-->
+    <!-- About Section -->
+    <!-- Portfolio Section -->
+    <div id="portfolio">
+        <div class="section-title text-center center">
+            <div class="overlay">
+                <h2>Details Logement</h2>
+                <hr>
+
+            </div>
+        </div>
+        <div id="about">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 ">
+                        <a href="~/Files/@Model.Documents.First()" title="@Model.Titre" data-lightbox-gallery="gallery1">
+                            <div class="about-img">
+
+
+                                <img src="~/Files/@Model.Documents.First()" class="img-responsive" alt="">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="about-text">
+                            <h2>@Model.Category</h2>
+                            <hr>
+                            <p> Type logement:  @Model.Type</p>
+                           
+                            <h3>Prix Par Nuit :</h3>
+                            <p> @Model.PrixParNuit</p>
+              
+                     
+                          
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+
+                    <h3>Details Logement :</h3>
+                    <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+
+                        <div class="portfolio-item">
+                            <a asp-action="DetailsLogement" asp-controller="Service" asp-route-id="@Model.Id">
+                                <h4>
+
+                                    Images
+                                </h4>
+                            </a>
+
+                            <div class="hover-bg">
+
+                                <a href="~/Files/@Model.Documents.First()" title="@Model.Titre" data-lightbox-gallery="gallery1">
+
+                                    <div class="hover-text">
+
+
+                                        <h4>@Model.Titre</h4>
+                                        <span>
+                                            <p>Type: @Model.Type</p>
+                                        </span>
+                                        <h4>@Model.PrixParNuit</h4>
+                                        <span>
+                                            <p>Prix: @Model.PrixParNuit</p>
+                                        </span>
+                                    </div>
+                                    <img src="~/Files/@Model.Documents.First()" class="img-responsive" alt="Project Title">
+                                </a>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="about-text">
+                            <h2>@Model.Titre</h2>
+                            <hr>
+                            <h3>Prix Logement :</h3>
+                            <p> @Model.PrixParNuit DT</p>
+                            <h3>Type Logement :</h3>
+                            <p> @Model.Type </p>
+                            <h3>Description Logement :</h3>
+                            <p> @Model.Description </p>
+                        </div>
+                    </div>
+                    <form method="get" asp-action="GetAllLogements" asp-controller="Service">
+
+                        <button type="submit" class="btn-primary">Tous Les Logements</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/SmoothScroll.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.isotope.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/contact_me.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/main.js"></script>
+</body>
+</html>
+
+
+
+<!--====== HOTEL ROOM TYPES ==========-->
+<!--====== AMENITIES ==========-->
+<!--====== TOUR LOCATION ==========-->
+<!--</div>
+            </div>
+        </div>
+
+</section>-->

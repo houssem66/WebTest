@@ -1,0 +1,505 @@
+﻿@model NourritureExtViewModel
+@using TourMe.Data.Entities.Enum;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>TourME(Restaurants) Bootstrap Template - Index</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Theme/Restaurant/assets/img/favicon.png" rel="icon">
+    <link href="~/Theme/Restaurant/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Theme/Restaurant/assets/vendor/animate.css/animate.min.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="~/Theme/Restaurant/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Theme/Restaurant/assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Restaurantly - v3.3.0
+    * Template URL: https://bootstrapmade.com/restaurantly-restaurant-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+    <!-- ======= Top Bar ======= -->
+    <div id="topbar" class="d-flex align-items-center fixed-top">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+
+            @*<div class="contact-info d-flex align-items-center">
+                <i class="bi bi-phone d-flex align-items-center"><span>+1 5589 55488 55</span></i>
+                <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 23PM</span></i>
+            </div>*@
+
+            <div class="languages d-none d-md-flex align-items-center">
+                <ul>
+                    <li>En</li>
+                    <li><a href="#">De</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-cente">
+        <div class="container-fluid container-xl d-flex align-items-center justify-content-lg-between">
+
+            <h1 class="logo me-auto me-lg-0"><a href="index.html">TourME(Restaurants)</a></h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    @*<li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li><a class="nav-link scrollto" href="#menu">Menu</a></li>
+                    <li><a class="nav-link scrollto" href="#specials">Specials</a></li>
+                    <li><a class="nav-link scrollto" href="#events">Events</a></li>
+                    <li><a class="nav-link scrollto" href="#chefs">Chefs</a></li>
+                    <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>*@
+                    @*<li class="dropdown">
+                        <a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#">Drop Down 1</a></li>
+                            <li class="dropdown">
+                                <a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Drop Down 1</a></li>
+                                    <li><a href="#">Deep Drop Down 2</a></li>
+                                    <li><a href="#">Deep Drop Down 3</a></li>
+                                    <li><a href="#">Deep Drop Down 4</a></li>
+                                    <li><a href="#">Deep Drop Down 5</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Drop Down 2</a></li>
+                            <li><a href="#">Drop Down 3</a></li>
+                            <li><a href="#">Drop Down 4</a></li>
+                        </ul>
+                    </li>*@
+                    @*<li><a class="nav-link scrollto" href="#contact">Contact</a></li>*@
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+            <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Créer Restaurantmont</a>
+
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="d-flex align-items-center">
+        <div class="container position-relative text-center text-lg-start" data-aos="zoom-in" data-aos-delay="100">
+            <div class="row">
+                <div class="col-lg-8">
+                    <h1>Welcome to <span>TourME(Restaurants)</span></h1>
+                    <h2>Delivering great food for more than 18 years!</h2>
+
+                    <div class="btns">
+                        @*<a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>*@
+                        <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Créer Un Restaurant</a>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
+                    <a href="https://www.youtube.com/watch?v=GlrxcuEDyF8" class="glightbox play-btn"></a>
+                </div>
+
+            </div>
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= Why Us Section ======= -->
+     
+        <!-- ======= Menu Section ======= -->
+
+        <!-- ======= Specials Section ======= -->
+
+        <!-- ======= Events Section ======= -->
+      
+        <!-- ======= Book A Table Section ======= -->
+        <section id="book-a-table" class="book-a-table">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-title">
+                    <h2>Création</h2>
+                    <p>Créer Restaurant</p>
+                </div>
+
+
+                <form asp-action="AddRestaurant"  asp-controller="Service" method="post" enctype="multipart/form-data" class="form-group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 form-group">
+                            @{
+
+                                ViewBag.enu = new SelectList(Enum.GetNames(typeof(TypeRestaurant)));
+                                ViewBag.restat = new SelectList(Enum.GetNames(typeof(RestoThemeEnum)));
+                                ViewBag.fast = new SelectList(Enum.GetNames(typeof(FastFoodEnum)));
+                                ViewBag.brass = new SelectList(Enum.GetNames(typeof(BrasserieEnum)));
+
+                            }
+                            <p>Type Restaurant</p>
+                            <select id="country" class="dropdown" placeholder="Choisir pays" asp-for="TypeResto" asp-items="@ViewBag.enu"></select>
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-1">
+                            <div class="form-group" id="test">
+                                <label id="gouvLabel">Choisir Specialité Restaurant  </label>
+                                <select class="dropdown" placeholder="Choisir Specialité Restaurant " asp-for="SpecialeResto" asp-items="@ViewBag.restat">
+                                </select>
+
+                                <span asp-validation-for="SpecialeResto" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-1">
+                            <div class="form-group" id="test1">
+                                <label id="gouvLabel">Choisir Specialité Restaurant </label>
+                                <select class="dropdown" placeholder="Choisir pays xx" asp-for="SpecialeResto" asp-items="@ViewBag.fast">
+                                </select>
+
+                                <span asp-validation-for="SpecialeResto" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-1">
+                            <div class="form-group" id="test2">
+                                <label id="gouvLabel">Choisir Specialité Restaurant  </label>
+                                <select class="dropdown" placeholder="Choisir pays xx" asp-for="SpecialeResto" asp-items="@ViewBag.brass">
+                                </select>
+
+                                <span asp-validation-for="SpecialeResto" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                            <input asp-for="NomRestau" class="form-control" placeholder="Nom Restaurant" data-msg="Please enter a valid email">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3 mt-md-0">
+                            <input asp-for="Description" class="form-control" id="phone" placeholder="Description Plat" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-0">
+                            <input asp-for="Plat" class="form-control" id="date" placeholder="Nom plat">
+                            <div class="text-danger"></div>
+                        </div>
+                        <hr />
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>Prix</p>
+                            <input asp-for="Prix" class="form-control" id="time" placeholder="Entrez Votre Prix">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-auto">
+                            <p>Images Plat</p>
+                            <input asp-for="FileP" class="form-control" id="people">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-auto">
+                            <p>Menu</p>
+                            <input asp-for="FilePp" class="form-control" id="people">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>Slogon</p>
+                            <input asp-for="Slogon" class="form-control" id="time" placeholder="Entrez Votre Slogon">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>Site Web</p>
+                            <input asp-for="Site" class="form-control" id="time" placeholder="Entrez Votre SiteWeb si'il existe">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>
+                                Adresse
+                            </p>
+                            <input asp-for="Adresse" class="form-control" id="time" placeholder="Entrez Votre SiteWeb si'il existe">
+                            <div class="text-danger"></div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>
+                                Date Ouverture
+                            </p>
+                            <input asp-for="dateOuvert" class="form-control" id="time" placeholder="Entrez Votre SiteWeb si'il existe">
+                            <div class="text-danger"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-6 form-group mt-3">
+                            <p>
+                                Date Fermiture
+                            </p>
+                            <input asp-for="dateFerme" class="form-control" id="time" placeholder="Entrez Votre SiteWeb si'il existe">
+                            <div class="text-danger"></div>
+                        </div>
+
+
+
+                        <p>Nombre Fourchettes</p>
+                        <div class="rt-container">
+                            <div class="col-rt-12">
+
+                                <fieldset>
+                                    <span class="star-cb-group">
+
+
+                                        <input type="radio" id="rating-3" name="rating" value="3" /><label asp-for="Rating" for="rating-3">3</label>
+                                        <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
+                                        <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
+                                        <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                                    </span>
+                                </fieldset>
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                        <div class="form-group mt-lg-4">
+                            <textarea asp-for="regles" rows="5" placeholder="Régles Restaurant"></textarea>
+                            <div class="text-danger"></div>
+                        </div>
+                    </div>
+                        
+                  
+                   
+                    <div class="text-center"><button class="btn-primary" type="submit">Créer Restaurant</button></div>
+                </form>
+
+            </div>
+        </section><!-- End Book A Table Section -->
+        <!-- ======= Testimonials Section ======= -->
+      
+        <!-- ======= Gallery Section ======= -->
+        <section id="gallery" class="gallery">
+
+            <div class="container" data-aos="fade-up">
+                <div class="section-title">
+                    <h2>Gallery</h2>
+                    <p>Some photos from Our Restaurant</p>
+                </div>
+            </div>
+
+            <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="row g-0">
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-1.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-1.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-2.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-2.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-3.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-3.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-4.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-4.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-5.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-5.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-6.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-6.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-7.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-7.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <div class="gallery-item">
+                            <a href="~/Theme/Restaurant/assets/img/gallery/gallery-8.jpg" class="gallery-lightbox" data-gall="gallery-item">
+                                <img src="~/Theme/Restaurant/assets/img/gallery/gallery-8.jpg" alt="" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section><!-- End Gallery Section -->
+        <!-- ======= Chefs Section ======= -->
+
+        <!-- ======= Contact Section ======= -->
+
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-info">
+                            <h3>TourME(Restaurants)</h3>
+                            <p>
+                                A108 Adam Street <br>
+                                NY 535022, USA<br><br>
+                                <strong>Phone:</strong> +1 5589 55488 55<br>
+                                <strong>Email:</strong> info@example.com<br>
+                            </p>
+                            <div class="social-links mt-3">
+                                <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+                                <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Our Newsletter</h4>
+                        <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>TourME(Restaurants)</span></strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+                <!-- All the links in the footer should remain intact. -->
+                <!-- You can delete the links only if you purchased the pro version. -->
+                <!-- Licensing information: https://bootstrapmade.com/license/ -->
+                <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/restaurantly-restaurant-template/ -->
+                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Theme/Restaurant/assets/vendor/aos/aos.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/aos/aos.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/php-email-form/validate.js"></script>
+    <script src="~/Theme/Restaurant/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Theme/Restaurant/assets/js/main.js"></script>
+    <script>
+                    $(document).ready(function () {
+
+                        
+                        $("#country").change(function () {
+                          
+                            if ($(this).val() == "Resto_A_Theme") {
+                             
+                                $("#test").show();
+                                $("#test1").hide();
+                                $("#test2").hide();
+
+                            }
+                            else if ($(this).val() == "Fast_Food") {
+                                $("#test1").show();
+                                $("#test2").hide();
+                                $("#test").hide();
+                            }
+                            else if ($(this).val() == "Brasserie") {
+                                $("#test2").show();
+                                $("#test").hide();
+                                $("#test1").hide();
+                            }
+                          
+                        });
+                        $("#test").hide();
+                        $("#test1").hide();
+                        $("#test2").hide();
+                    });
+                  
+    </script>
+
+</body>
+
+</html>
