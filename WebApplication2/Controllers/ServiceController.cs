@@ -491,7 +491,6 @@ namespace TourMe.Web.Controllers
                 List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
-
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
                     {
@@ -531,7 +530,6 @@ namespace TourMe.Web.Controllers
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
-
                         type: new List<string> { "carrier" });
                     // only allow user to set phone number if capable of receiving SMS
                     if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
@@ -546,7 +544,6 @@ namespace TourMe.Web.Controllers
                     var user = new Fournisseur
                     {
                         UserName = model.Email,
-
                         PhoneNumber = numberToSave,
                         PersAContact = model.PersAContact,
                         Email = model.Email,
@@ -562,11 +559,8 @@ namespace TourMe.Web.Controllers
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),
                         Adresse = model.Adresse,
                         EmployeDocuments = emp
-
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
-
-
                     if (result.Succeeded)
                     {
 

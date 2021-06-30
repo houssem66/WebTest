@@ -107,6 +107,7 @@ namespace TourMe.Data
             }
 
          );
+            // documents for commercant
             builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x=>x.Commerçant).OnDelete(DeleteBehavior.Cascade); ;
         }
 

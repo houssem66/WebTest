@@ -107,6 +107,22 @@
                                     </div>
                                     <ul>
                                         <li>
+                                            <a href="#Introduction" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-help"></i>
+                                                </div>
+                                                Introduction
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#Compte" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-email"></i>
+                                                </div>
+                                                Compte
+                                            </a>
+                                        </li>
+                                        <li>
                                             <a href="#service" data-toggle="tab">
                                                 <div class="icon-circle">
                                                     <i class="ti-archive"></i>
@@ -114,51 +130,132 @@
                                                 Informations essentiels
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#service" data-toggle="tab">
-                                                <div class="icon-circle">
-                                                    <i class="ti-email"></i>
-                                                </div>
-                                              Compte
-                                            </a>
-                                        </li>                             
+
                                     </ul>
                                 </div>
                                 <div class="tab-content">
-                                    <div class="tab-pane" id="service">
-                                        <h5 class="info-text">Choisir le type de service ?</h5>
+                                    <div class="tab-pane" id="Introduction">
                                         <div class="row">
-                                            <div class="col-sm-8 col-sm-offset-3">
-                                                <div class="col-sm-3">
-                                                    <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Transport">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-car"></i>
-                                                            <p>Transport</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Nourriture">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-apple"></i>
-                                                            <p>Restauration</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Logement">
-                                                        <div class="card card-checkboxes card-hover-effect">
-                                                            <i class="ti-home"></i>
-                                                            <p>Hebergement</p>
-                                                        </div>
-                                                    </div>
+                                            <h5 class="info-text">C'est qui un hôte</h5>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group"> 
+                                                    <p class="description">
+                                                        <b>Devenir un hôte vous permet de créer des experiences </b><br />
+                                                        <b>1-Devenir vous permet de créer des experiences</b>
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>                       
+                                    </div>
+                                    <div class="tab-pane" id="service">
+
+                                        <div class="row">
+                                            <h5 class="info-text"> Documents et Adresse  </h5>
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la patente<small>(PDF)</small>...</label>
+                                                        <input asp-for="Documents" id="PATENTEUPLOAD" multiple class="form-control custom-file-input">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger un copie de  la CIN</label>
+                                                        <input asp-for="Documents" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Documents a Télécharger</label>
+                                                    <p class="description" id="docs">
+                                                        <b>-Patente.</b><br />
+                                                        <b>-CIN</b><br />
+                                                        <b id="writing"></b>
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Veuiller saisir votre CodePostale</label>
+                                                    <input asp-for="CodePostale" class="form-control" />
+                                                    <span asp-validation-for="CodePostale" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Veuiller saisir votre Adresse</label>
+                                                    <input asp-for="Adresse" class="form-control" />
+                                                    <span asp-validation-for="Adresse" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="Compte">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="picture-container">
+                                                    <div class="picture">
+                                                        <img src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+                                                        <input asp-for="FileP" id="wizard-picture">
+                                                    </div>
+                                                    <h6>Choisir photo de profil </h6>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Votre Nom <small>(required)</small></label>
+                                                    <input name="Titre" type="text" class="form-control" placeholder="Nom Juridique de la société">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Votre Prenom <small>(optional)</small></label>
+                                                    <input name="PersAContact" type="text" class="form-control" placeholder="Personne a contacter">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Pays</label>
+                                                    <select asp-for="PhoneNumberCountryCode" class="form-control" id="country" placeholder="Choisir pays" asp-items="@ViewBag.countries"></select>
+                                                    <span asp-validation-for="PhoneNumberCountryCode" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Numéro Téléphone</label>
+                                                    <input asp-for="Telephone" class="form-control">
+                                                    <span asp-validation-for="Telephone" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-7 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Email <small>(required)</small></label>
+                                                    <input asp-for="Email" class="form-control" placeholder="andrew@creative-tim.com">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Saisir votre Mot de passe<small>(required)</small></label>
+                                                    <input asp-for="Password" class="form-control" />
+                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-group">
+                                                    <label>Confirmer votre Mot de passe<small>(required)</small></label>
+                                                    <input asp-for="ConfirmPassword" class="form-control" />
+                                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type='button' class='btn btn-next btn-fill btn-wd btn-primary' name='next' value='Next' />
@@ -170,8 +267,8 @@
                                             <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
                                         </div>
                                         <div class="clearfix"></div>
-                                    </div>          
-                                </div>  
+                                    </div>
+                                </div>
                             </form>
 
                         </div>
