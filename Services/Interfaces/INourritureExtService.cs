@@ -15,5 +15,7 @@ namespace Services.Interfaces
         public Task Update(ServiceNouritture logement);
         public Task<ServiceNouritture> GetLogementById(int id);
         public Task Delete(ServiceNouritture logement);
+        public IList<ServiceNouritture> GetNourritureByUser(string id);
+        public Task<ServiceNouritture> GetById(int id);
     }
 }

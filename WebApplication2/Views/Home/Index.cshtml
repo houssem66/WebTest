@@ -192,9 +192,9 @@
                         <div class="col-md-6">
                             <a href="tour-details.html">
                                 <div class="tour-mig-like-com">
-                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Documents.First().Filepath" alt=""> </div>
                                     <div class="tour-mig-lc-con">
-                                        <h5>@item.Type</h5>
+                                        <h5>@item.TypeResto</h5>
                                         <p><span>@item.Plat</span> à partir de  @item.Prix dt</p>
                                     </div>
                                 </div>
@@ -206,7 +206,7 @@
                         <div class="col-md-3">
                             <a href="tour-details.html">
                                 <div class="tour-mig-like-com">
-                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Image" alt=""> </div>
+                                    <div class="tour-mig-lc-img"> <img src="~/Files/@item.Documents.First().Filepath" alt=""> </div>
                                     <div class="tour-mig-lc-con tour-mig-lc-con2">
                                         <h5>@item.Plat</h5>
                                         <p> à partir de  @item.Prix dt</p>
@@ -243,7 +243,7 @@
             <div class="popu-places-home">
               
                 <div class="col-md-6 col-sm-6 col-xs-12 place">
-                    <div class="col-md-6 col-sm-12 col-xs-12"> <img src="~/Files/@item.Documents" alt="" /> </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12"> <img src="~/Files/@item.Documents.First().Filepath" alt="" /> </div>
                     <div class="col-md-6 col-sm-12 col-xs-12">
                         <h3><span>@item.Titre</span></h3>
                         <h3>  Prix par nuit<span> @item.PrixParNuit DT </span></h3>

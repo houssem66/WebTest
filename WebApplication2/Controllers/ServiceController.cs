@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using Services.Implementation;
 using Services.Interfaces;
 using System;
@@ -59,45 +60,45 @@ namespace TourMe.Web.Controllers
 
             return View();
         }
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> AjouterLogement(LogementExtViewModel model)
-        {
-            ViewBag.id = userManager.GetUserId(User);
-            string uniqueFileName = null;
-            if (ModelState.IsValid)
-            {
-                if (model.Documents != null)
-                {
-                    // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-                    // To make sure the file name is unique we are appending a new
-                    // GUID value and and an underscore to the file name
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Documents.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    // Use CopyTo() method provided by IFormFile interface to
-                    // copy the file to wwwroot/images folder
-                    model.Documents.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
-                var logment = new ServiceLogment
-                {
-                    Adresse = model.Adresse,
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> AjouterLogement(LogementExtViewModel model)
+        //{
+        //    ViewBag.id = userManager.GetUserId(User);
+        //    string uniqueFileName = null;
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (model.Documents != null)
+        //        {
+        //            // The image must be uploaded to the images folder in wwwroot
+        //            // To get the path of the wwwroot folder we are using the inject
+        //            // HostingEnvironment service provided by ASP.NET Core
+        //            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+        //            // To make sure the file name is unique we are appending a new
+        //            // GUID value and and an underscore to the file name
+        //            uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Documents.FileName;
+        //            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //            // Use CopyTo() method provided by IFormFile interface to
+        //            // copy the file to wwwroot/images folder
+        //            model.Documents.CopyTo(new FileStream(filePath, FileMode.Create));
+        //        }
+        //        var logment = new ServiceLogment
+        //        {
+        //            Adresse = model.Adresse,
 
-                    PrixParNuit = model.PrixParNuit,
-                    Titre = model.Titre,
+        //            PrixParNuit = model.PrixParNuit,
+        //            Titre = model.Titre,
 
-                    Documents = uniqueFileName,
-                    Category = model.Category,
-                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
-                };
-                var x = logment;
-                await logementService.Ajout(logment);
-                return RedirectToAction("Index", "Home");
-            }
-            return View(model);
-        }
+        //            Documents = uniqueFileName,
+        //            Category = model.Category,
+        //            Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
+        //        };
+        //        var x = logment;
+        //        await logementService.Ajout(logment);
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    return View(model);
+        //}
         [HttpGet]
         [AllowAnonymous]
         public IActionResult TypeService()
@@ -419,54 +420,54 @@ namespace TourMe.Web.Controllers
 
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult AjouterNourriture()
-        {
-            string idx = userManager.GetUserId(User);
+        //[HttpGet]
+        //[AllowAnonymous]
+        //public IActionResult AjouterNourriture()
+        //{
+        //    string idx = userManager.GetUserId(User);
 
 
-            return View();
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> AjouterNourriture(NourritureExtViewModel model)
-        {
-            ViewBag.id = userManager.GetUserId(User);
-            string uniqueFileName = null;
-            if (ModelState.IsValid)
-            {
-                if (model.Image != null)
-                {
-                    // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-                    // To make sure the file name is unique we are appending a new
-                    // GUID value and and an underscore to the file name
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    // Use CopyTo() method provided by IFormFile interface to
-                    // copy the file to wwwroot/images folder
-                    model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
-                var nouritture = new ServiceNouritture
-                {
-                    Description = model.Description,
+        //    return View();
+        //}
+        //[HttpPost]
+        //[AllowAnonymous]
+        //public async Task<IActionResult> AjouterNourriture(NourritureExtViewModel model)
+        //{
+        //    ViewBag.id = userManager.GetUserId(User);
+        //    string uniqueFileName = null;
+        //    if (ModelState.IsValid)
+        //    {
+        //        if (model.Image != null)
+        //        {
+        //            // The image must be uploaded to the images folder in wwwroot
+        //            // To get the path of the wwwroot folder we are using the inject
+        //            // HostingEnvironment service provided by ASP.NET Core
+        //            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+        //            // To make sure the file name is unique we are appending a new
+        //            // GUID value and and an underscore to the file name
+        //            uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Image.FileName;
+        //            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+        //            // Use CopyTo() method provided by IFormFile interface to
+        //            // copy the file to wwwroot/images folder
+        //            model.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+        //        }
+        //        var nouritture = new ServiceNouritture
+        //        {
+        //            Description = model.Description,
 
-                    Plat = model.Plat,
-                    Prix = model.Prix,
+        //            Plat = model.Plat,
+        //            Prix = model.Prix,
 
-                    Image = uniqueFileName,
-                    Type = model.Type,
-                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
-                };
+        //            Image = uniqueFileName,
+        //            Type = model.Type,
+        //            Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
+        //        };
 
-                await nourritureService.Ajout(nouritture);
-                return RedirectToAction("Index", "Home");
-            }
-            return View(model);
-        }
+        //        await nourritureService.Ajout(nouritture);
+        //        return RedirectToAction("Index", "Home");
+        //    }
+        //    return View(model);
+        //}
         [HttpGet]
         [AllowAnonymous]
         public IActionResult BecomeCommercant()
@@ -661,5 +662,286 @@ namespace TourMe.Web.Controllers
 
             return View(model);
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AddLogement()
+        {
+            string idx = userManager.GetUserId(User);
+
+
+            return View();
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AddLogement(LogementExtViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+
+
+                List<LNDocuments> emp = new List<LNDocuments>();
+                if (model.FileP != null && model.FileP.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.FileP)
+                    {
+                        LNDocuments employe = new LNDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+
+
+
+                Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+                ServiceLogment serviceLogment = new ServiceLogment
+                {
+
+                    Adresse = model.Adresse,
+                    Description = model.Description,
+                    PrixParNuit = model.PrixParNuit,
+                    Titre = model.Titre,
+                    Category = model.Category
+                    ,
+
+                    Type = model.Type,
+                    Fournisseur = f,
+                    Documents = emp
+
+
+
+                };
+
+
+
+
+
+                await logementService.Ajout(serviceLogment);
+
+                TempData["id"] = JsonConvert.SerializeObject(serviceLogment.Id);
+
+                return RedirectToAction("DetailsLogement", "Service");
+            }
+
+
+            return View(model);
+
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AddRestaurant()
+        {
+            string idx = userManager.GetUserId(User);
+
+
+            return View();
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> AddRestaurant(NourritureExtViewModel model)
+        {
+
+
+            //ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData.Peek("Message"));
+            //TempData.Keep("Message");
+            //Activites = (ICollection<Activite>)ViewData["Message"];
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                string uniqueFileName2 = null;
+
+                List<LNDocuments> emp = new List<LNDocuments>();
+                if (model.FileP != null && model.FileP.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.FileP)
+                    {
+                        LNDocuments employe = new LNDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+
+
+                if (model.FilePp != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName2 = Guid.NewGuid().ToString() + "_" + model.FilePp.FileName;
+                    string filePath1 = Path.Combine(uploadsFolder, uniqueFileName2);
+
+                    model.FilePp.CopyTo(new FileStream(filePath1, FileMode.Create));
+
+                }
+
+
+                string id = userManager.GetUserId(User);
+                ServiceNouritture nourriture = new ServiceNouritture
+                {
+                    FournisseurId = id,
+                    TypeResto = model.TypeResto,
+                    SpecialeResto = model.SpecialeResto,
+                    NomRestau = model.NomRestau,
+
+                    Description = model.Description,
+                    Plat = model.Plat,
+
+                    Prix = model.Prix,
+                    Menu = uniqueFileName2,
+                    regles = model.regles,
+                    Adresse = model.Adresse,
+                    Slogon = model.Slogon
+                    ,
+                    Site = model.Site,
+                    Rating = model.Rating,
+                    Documents = emp,
+
+
+
+
+
+                };
+
+
+
+
+
+                await nourritureService.Ajout(nourriture);
+
+                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
+
+                return RedirectToAction("DetailsResto", "Service");
+            }
+
+
+            return View(model);
+
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult MesServices()
+
+        {
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+            // ViewBag.Best = ExperienceService.BestExperience();
+            var list = nourritureService.GetNourritureByUser(userManager.GetUserId(User));
+            return View(list);
+
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult DetailsLogement(int id)
+
+        {
+            if (id == 0)
+            {
+
+                ViewData["id"] = JsonConvert.DeserializeObject<int>((string)TempData["id"]);
+                TempData.Keep("id");
+
+                id = (int)ViewData["id"];
+
+            }
+
+
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+            // ViewBag.Best = ExperienceService.BestExperience();
+
+            ServiceLogment logment = logementService.GetById(id).Result;
+            return View(logment);
+
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult DetailsResto(int id)
+
+        {
+            if (id == 0)
+            {
+
+                ViewData["id"] = JsonConvert.DeserializeObject<int>((string)TempData["id"]);
+                TempData.Keep("id");
+
+                id = (int)ViewData["id"];
+
+            }
+
+
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+            // ViewBag.Best = ExperienceService.BestExperience();
+
+            ServiceNouritture nouritture = nourritureService.GetById(id).Result;
+            return View(nouritture);
+
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult GetAllNourriture()
+
+        {
+
+
+
+            List<ServiceNouritture> nourittures = new List<ServiceNouritture>();
+            nourittures = (List<ServiceNouritture>)nourritureService.GetAllLogements();
+            return View(nourittures);
+
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult GetAllLogements()
+
+        {
+
+
+
+            List<ServiceLogment> nourittures = new List<ServiceLogment>();
+            nourittures = (List<ServiceLogment>)logementService.GetAllLogements();
+            return View(nourittures);
+
+        }
+
+
+
+
+
     }
 }

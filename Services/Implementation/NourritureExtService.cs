@@ -32,7 +32,7 @@ namespace Services.Implementation
 
         public IList<ServiceNouritture> GetAllLogements()
         {
-            return GenericRepo.GetAll().ToList();
+            return nourritureExtRepo.GetAll().ToList();
         }
 
         public Task<ServiceNouritture> GetLogementById(int id)
@@ -43,6 +43,20 @@ namespace Services.Implementation
         public Task Update(ServiceNouritture logement)
         {
             return GenericRepo.PutAsync(logement.Id, logement);
+        }
+
+        public IList<ServiceNouritture> GetNourritureByUser(string id)
+        {
+            return GenericRepo.GetAll().Where(e => e.FournisseurId.Equals(id)).ToList();
+
+        }
+
+        public async  Task<ServiceNouritture> GetById(int id)
+        {
+            ServiceNouritture l = await nourritureExtRepo.GetNourritureDetailsAsync(id);
+            return l;
+
+
         }
     }
 }

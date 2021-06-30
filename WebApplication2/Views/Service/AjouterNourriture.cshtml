@@ -35,11 +35,11 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <select asp-for="Type" placeholder="Type" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
+                            <select asp-for="TypeResto" placeholder="Type" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
                                 <option>choisir  la category de Nourriture ...</option>
                             </select>
 
-                            <span asp-validation-for="Type" class="text-danger"></span>
+                            <span asp-validation-for="TypeResto" class="text-danger"></span>
 
                         </div>
                     </div>

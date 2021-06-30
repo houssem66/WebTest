@@ -1,0 +1,244 @@
+﻿@model TourMe.Data.Entities.ServiceNouritture;
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TourMe(Restaurants)</title>
+    <hr>
+    <a asp-action="index" asp-controller="Home"><h2>TourME </h2></a>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicons
+        ================================================== -->
+    <link rel="shortcut icon" href="~/Theme/Restaurant/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Theme/Restaurant/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Theme/Restaurant/img/apple-touch-icon-114x114.png">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/fonts/font-awesome/css/font-awesome.css">
+
+    <!-- Stylesheet
+        ================================================== -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation
+        ==========================================-->
+    <!-- About Section -->
+    <!-- Portfolio Section -->
+    <div id="portfolio">
+        <div class="section-title text-center center">
+            <div class="overlay">
+                <h2>Details Restaurant</h2>
+                <hr>
+               
+            </div>
+        </div>
+        <div id="about">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-xs-12 col-md-6 ">
+                        <a href="~/Files/@Model.Documents.First().Filepath" title="@Model.NomRestau" data-lightbox-gallery="gallery1">
+                            <div class="about-img">
+
+
+                                <img src="~/Files/@Model.Documents.First().Filepath" class="img-responsive" alt="">
+
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="about-text">
+                            <h2>@Model.NomRestau</h2>
+                            <hr>
+                            <p> Règles Restaurant:  @Model.regles</p>
+                            <h3>Site Web :</h3>
+                            <p> @Model.Site</p>
+                            <h3>Type Restaurant :</h3>
+                            <p> @Model.TypeResto</p>
+                            <h3> Date Ouverture:</h3>
+                            <p> @Model.dateOuvert</p>
+                            <h3> Date Fermuture:</h3>
+                            <p> @Model.dateFerme</p>
+                            <h3> Fourchette:</h3>
+                            @if (Model.Rating != "0")
+                            {
+                                if (Model.Rating == "1")
+                                {
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                }
+
+                                else if (Model.Rating == "2")
+                                {
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                }
+                                else if (Model.Rating == "3")
+                                {
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                }
+
+
+
+                            }
+                            else
+                            {
+                                <p> 0</p>
+                            }
+
+
+                        </div>
+                    </div>
+                   
+                    <div class="portfolio-items">
+                        @foreach (var item in Model.Documents)
+                        {
+
+                            <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+                                <div class="portfolio-item">
+                                    <a asp-action="Detailslogement" asp-controller="Service" asp-route-id="@Model.Id">
+                                        <h4>
+
+                                            @Model.NomRestau
+                                        </h4>
+                                    </a>
+                                    <div class="hover-bg">
+
+                                        <a href="~/Files/@item.Filepath" title="@Model.NomRestau" data-lightbox-gallery="gallery1">
+
+                                            <div class="hover-text">
+
+                                                <h4>@Model.NomRestau</h4>
+                                                <span>
+                                                    <p>Prix: @Model.Prix</p>
+                                                </span>
+
+
+
+
+
+
+                                            </div>
+                                            <img src="~/Files/@item.Filepath" class="img-responsive" alt="Project Title">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>}
+
+
+                    </div>
+                    </div>   
+                <div class="row">
+                 
+                 
+                   <h3>Details Plat :</h3>
+                    <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+
+                        <div class="portfolio-item">
+                            <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@Model.Id">
+                                <h4>
+
+                                 Menu
+                                </h4>
+                            </a>
+
+                            <div class="hover-bg">
+
+                                <a href="~/Files/@Model.Menu" title="@Model.NomRestau" data-lightbox-gallery="gallery1">
+
+                                    <div class="hover-text">
+
+
+                                        <h4>@Model.Plat</h4>
+                                        <span>
+                                            <p>Plat: @Model.Plat</p>
+                                        </span>
+                                        <h4>@Model.Prix</h4>
+                                        <span>
+                                            <p>Prix: @Model.Prix</p>
+                                        </span>
+                                    </div>
+                                    <img src="~/Files/@Model.Menu" class="img-responsive" alt="Project Title">
+                                </a>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6">
+                        <div class="about-text">
+                            <h2>@Model.Plat</h2>
+                            <hr>
+                            <h3>Prix Plat :</h3>
+                            <p> @Model.Prix DT</p>
+                            <h3>Nom Plat :</h3>
+                            <p> @Model.Plat </p>
+                            <h3>Description Plat :</h3>
+                            <p> @Model.Description </p>
+                        </div>
+                    </div>
+                    <form method="get" asp-action="GetAllNourriture" asp-controller="Service">
+
+                        <button type="submit" class="btn-primary">Tous Les nourritures</button>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/SmoothScroll.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.isotope.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/contact_me.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/main.js"></script>
+</body>
+</html>
+
+
+
+<!--====== HOTEL ROOM TYPES ==========-->
+<!--====== AMENITIES ==========-->
+<!--====== TOUR LOCATION ==========-->
+<!--</div>
+            </div>
+        </div>   
+
+</section>-->
+    

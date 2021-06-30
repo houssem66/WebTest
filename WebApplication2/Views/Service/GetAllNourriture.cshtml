@@ -1,0 +1,232 @@
+﻿@model List<TourMe.Data.Entities.ServiceNouritture>;
+	<!--====== PLACES ==========-->
+<!--<section>
+    <div class="rows inn-page-bg com-colo">
+        <div class="container inn-page-con-bg tb-space pad-bot-redu-5" id="inner-page-title">-->
+<!-- TITLE & DESCRIPTION -->
+<!--<div class="spe-title col-md-12">
+    <h2>Top <span>Restaurant packages</span> in this Year</h2>
+    <div class="title-line">
+        <div class="tl-1"></div>
+        <div class="tl-2"></div>
+        <div class="tl-3"></div>
+    </div>
+    <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide. Book travel packages and enjoy your holidays with distinctive experience</p>
+</div>-->
+<!--===== PLACES ======-->
+<!--@foreach (var item in Model)
+            {
+
+
+                <div class="rows p2_2">
+                    <div class="col-md-6 col-sm-6 col-xs-12 p2_1">
+                        <div class="band"><img src="~/Files/@item.Documents.First()" alt="" />     <p style="color:black"><h2> @item.Slogon </h2></p>  </div> <img src="~/Files/@item.Documents.First()" alt="" />
+
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 p2">
+                        <h3>Nom Restaurant :<span></span></h3>
+                        <p>@item.NomRestau :</p>
+                        <h3>Plat :<span></span></h3>
+                        <p>@item.Plat</p>
+
+                        <h3>Prix/Plat :<span></span></h3>
+                        <p>@item.Prix</p>
+
+                        <div class="ticket">
+                            <ul>
+                                <li>Nombre Etoiles : @item.Rating</li>
+
+
+                            </ul>
+                        </div>
+                        <div class="featur">
+                            <h4>Adresses</h4>
+                            <ul>
+                                <li>@item.Adresse</li>
+
+                            </ul>
+                        </div>
+                        <div class="p2_book">
+                            <ul>
+                                <li><a href="booking.html" class="link-btn">Book Now</a> </li>
+                                <li><a href="tour-details.html" class="link-btn">View Package</a> </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</section>-->
+<!--====== TIPS BEFORE TRAVEL ==========-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TourMe(Restaurants)</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Favicons
+        ================================================== -->
+    <link rel="shortcut icon" href="~/Theme/Restaurant/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="~/Theme/Restaurant/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="~/Theme/Restaurant/img/apple-touch-icon-114x114.png">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/fonts/font-awesome/css/font-awesome.css">
+
+    <!-- Stylesheet
+        ================================================== -->
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/style.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/nivo-lightbox.css">
+    <link rel="stylesheet" type="text/css" href="~/Theme/Restaurant/css/nivo-lightbox/default.css">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script:400,700" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+    <!-- Navigation
+        ==========================================-->
+
+    <!-- Header -->
+  
+    <!-- Portfolio Section -->
+    <div id="portfolio">
+        <div class="section-title text-center center">
+            <div class="overlay">
+                <h2>Tous les nourritures</h2>
+                <hr>
+                <a asp-action="index" asp-controller="Home"><h2>TourME</h2></a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="categories">
+                    <ul class="cat">
+                        <li>
+                            <ol class="type">
+                                <li><a href="#" data-filter="*" class="active">All</a></li>
+                                @*<li><a href="#" data-filter=".breakfast">Restaurant à theme</a></li>
+                                <li><a href="#" data-filter=".lunch">Lunch</a></li>
+                                <li><a href="#" data-filter=".dinner">Dinner</a></li>*@
+                            </ol>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="portfolio-items">
+
+                    @foreach(var item  in Model)
+                        { 
+                    <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+                        <div class="portfolio-item">
+                            <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id">
+                                <h4>
+
+                                    @item.Slogon
+                                </h4>
+                            </a>
+                            <div class="hover-bg">
+
+                                <a href="~/Files/@item.Documents.First().Filepath" title="@item.NomRestau" data-lightbox-gallery="gallery1">
+
+                                    <div class="hover-text">
+
+                                        <h4>@item.NomRestau</h4>
+                                        <span>
+                                            <p>Prix: @item.Prix</p>
+                                        </span>
+
+                                        @if (item.Rating != "0")
+                                        {
+                                            if (item.Rating == "1")
+                                            {
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                            }
+
+                                            else if (item.Rating == "2")
+                                            {
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                            }
+                                            else if (item.Rating == "3")
+                                            {
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                                <i class="fa fa-cutlery" aria-hidden="true"></i>
+                                            }
+
+
+
+                                        }
+                                        else
+                                        {
+                                            <p> </p>
+                                        }
+
+
+
+
+
+
+                                    </div>
+                                    <img src="~/Files/@item.Documents.First().Filepath" class="img-responsive" alt="Project Title">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+    }
+             
+                </div>
+            </div>
+        </div>
+    </div>
+  
+  
+   
+
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.1.11.1.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/bootstrap.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/SmoothScroll.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/nivo-lightbox.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jquery.isotope.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/jqBootstrapValidation.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/contact_me.js"></script>
+    <script type="text/javascript" src="~/Theme/Restaurant/js/main.js"></script>
+</body>
+</html>
