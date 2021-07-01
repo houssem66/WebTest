@@ -584,10 +584,26 @@ namespace TourMe.Web.Controllers
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
 
+
+                    }
+                  
+                    if(user.TypeService.ToString().ToLower()=="transport")
+                    {
+                        return RedirectToAction("AjouterTransport", "Service");
+
+                    }
+                  else  if(user.TypeService.ToString().ToLower()=="logement")
+                    {
+                        return RedirectToAction("AddLogement", "Service");
+
+                    } 
+                    else  if(user.TypeService.ToString().ToLower()=="nourriture")
+                    {
+                        return RedirectToAction("AddRestaurant", "Service");
+
                     }
 
-
-                    return RedirectToAction("AjouterTransport", "Service");
+                    
 
 
                 }
