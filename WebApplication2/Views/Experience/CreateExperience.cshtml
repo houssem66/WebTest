@@ -11,11 +11,105 @@
 
 
 <!--CENTER SECTION-->
-<div class="db-2">
+<div class="db-2" id="form1">
     <div class="db-2-com db-2-main">
         <h4>Créer éxperience<span class="db-pay-amount"></span></h4>
         <div class="db-2-main-com db2-form-pay db2-form-com">
-            
+
+            <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateExperience">
+
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="row">
+                    <div class="input-field col s12" id="input">
+                        <h3 id="remplir" style="margin-bottom: 60px;"> D'abord Commence par ecrire le titre</h3>
+                        <input asp-for="Titre" placeholder="Titre éxperience" class="form-control" />
+                        <span asp-validation-for="Titre" class="text-danger"></span>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="input-field col s12" id="input1">
+                        <button type="button" class="btn btn-dark btn-lg">Choisir un Théme</button>
+
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="input-field col s12" id="input2">
+
+                        <input asp-for="Lieu" placeholder="Copiez le lieu à partir de google maps" class="form-control" />
+                        <span asp-validation-for="Lieu" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12" id="input3">
+
+                        <input asp-for="tarif" placeholder="Saisir le Tarif" class="form-control" />
+                        <span asp-validation-for="tarif" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12" id="inputS">
+
+                        <input asp-for="NbPlaces" placeholder="Saisir nombre de places disponible" class="form-control" />
+                        <span asp-validation-for="NbPlaces" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12" id="input4">
+
+                        <select asp-for="Saison" placeholder="Choisir pays">
+                            <option value="" disabled selected>Selectionnez le saison</option>
+                            <option value="HIVER">HIVER</option>
+                            <option value="PRINTEMPS">PRINTEMPS</option>
+                            <option value="ÉTÉ">ÉTÉ </option>
+                            <option value="AUTOMNE">AUTOMNE </option>
+
+
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+
+                    <div class="input-field col s12" id="input5">
+                        <label>Date Début</label>
+                        <br />
+                        <br />
+
+                        <input asp-for="dateDebut" class="form-control" />
+                        <span asp-validation-for="dateDebut" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s12" id="input6">
+                        <label>Date Fin</label>
+                        <br />
+                        <br />
+
+                        <input asp-for="dateFin" class="form-control" id="input7" />
+                        <span asp-validation-for="dateFin" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="input-field col s8" id="input8">
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Ajouter l'éxperience</button>
+                    </div>
+                    <div class="input-field col s4"> <button type="button" class="btn btn-success btn-lg btn-block" data-toggle="collapse" data-target="#demo">Reviser</button></div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="db-2-main collapse" id="demo">
+    <div class="db-2-com db-2-main">
+        <h4>Révision <span class="db-pay-amount"></span></h4>
+        <div class="db-2-main-com db2-form-pay db2-form-com">
+
             <form class="col s12" enctype="multipart/form-data" method="post" asp-action="CreateExperience">
 
                 <div asp-validation-summary="All" class="text-danger"></div>
@@ -23,12 +117,12 @@
                     <div class="input-field col s12">
 
                         <input asp-for="Titre" placeholder="Titre éxperience" class="form-control" />
-                        
+
                         <span asp-validation-for="Titre" class="text-danger"></span>
                     </div>
                 </div>
 
-    
+
                 <div class="row">
                     <div class="input-field col s12">
                         <select asp-for="TypeExperience" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()">
@@ -106,12 +200,34 @@
         </div>
     </div>
 </div>
-<div>
-    <ul>
-        <li>
-            <a asp-controller="Account" asp-action="ProfilCommerc">
-                Annuler
-            </a>
-        </li>
-    </ul>
-</div>
+@section Scripts {
+    <script>
+
+        //afficher region
+        $(document).ready(function () {
+            $("#input1").hide();
+            $("input[name='Titre']").keyup(function () {
+ 
+                if (this.value.length > 1) {
+                    $("#input1").show();
+                   
+                }
+                else 
+                {
+                    $("#input1").hide();
+                   
+                }
+                
+            });
+            
+            $("#inputS").hide();
+            $("#input2").hide();
+            $("#input3").hide();
+            $("#input4").hide();
+            $("#input5").hide();
+            $("#input6").hide();
+            $("#input7").hide();
+
+                
+        });
+    </script>}
