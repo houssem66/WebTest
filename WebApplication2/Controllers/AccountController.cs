@@ -1,10 +1,15 @@
 ﻿using Domaine.Entities;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Logging;
+using MimeKit;
+using NETCore.MailKit.Core;
 using Services.Implementation;
 using Services.Interfaces;
 using System;
@@ -28,15 +33,21 @@ namespace Finance.Controllers
     {
         private readonly TourMeContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly ILogger<AccountController> logger;
+        private readonly IEmailService emailService;
         private readonly UserManager<Utilisateur> userManager;
         private readonly ICommercantService commercantService;
         private readonly SignInManager<Utilisateur> signInManager;
         readonly private IUserService UserService;
+        private readonly CountryService countryService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager, ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager)
+
+        public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager,ILogger<AccountController> logger,IEmailService emailService)
+
         {
             UserService = _UserService;
+            this.countryService = countryService;
             this.hostingEnvironment = hostingEnvironment;
             this.userManager = userManager;
             commercantService = _CommercantService;
@@ -45,6 +56,8 @@ namespace Finance.Controllers
 
             _context = context;
             this.roleManager = roleManager;
+            this.logger = logger;
+            this.emailService = emailService;
         }
 
 
@@ -404,6 +417,38 @@ namespace Finance.Controllers
                     var result = await userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
                     {
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme,Request.Host.ToString());
+
+                        //sending email
+
+
+                        var mailMessage = new MimeMessage();
+                        mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                        mailMessage.To.Add(new MailboxAddress("Client", model.Email));
+                        mailMessage.Subject = "Email Confirmation";
+                        mailMessage.Body = new TextPart("plain")
+                        {
+                            Text = $"{confirmationLink}"
+                        };
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.CheckCertificateRevocation = false;
+                            smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                            smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                            smtpClient.Send(mailMessage);
+                            smtpClient.Disconnect(true);
+                        }
+                        //
+
+
+
+                        //await emailService.SendAsync(model.Email,"Email Verification",  $"<a href=\"{confirmationLink}\">Verify Email</a>"  ,true);
+                        logger.Log(LogLevel.Warning, confirmationLink);
+
+
                         if (await roleManager.RoleExistsAsync("Utilisateur"))
                         {
                             await userManager.AddToRoleAsync(user, "Utilisateur");
@@ -419,9 +464,15 @@ namespace Finance.Controllers
                             await userManager.AddToRoleAsync(user, "Utilisateur");
 
                         }
-                        await signInManager.SignInAsync(user, isPersistent: false);
+                        //await signInManager.SignInAsync(user, isPersistent: false);
 
-                        return RedirectToAction("index", "home");
+                        //return RedirectToAction("index", "home");
+
+                        ViewBag.ErrorTitle = "Registration successful";
+                        ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+                                "email, by clicking on the confirmation link we have emailed you";
+                        return View("Error");
+
                     }
                     foreach (var error in result.Errors)
                     {
@@ -441,11 +492,42 @@ namespace Finance.Controllers
             return View(model);
         }
 
-
-
-        //sign In
-
+        //confirm  Email
+        [AllowAnonymous]
         [HttpGet]
+        public async Task<IActionResult> ConfirmEmail(string userId, string token)
+        {
+            if (userId == null || token == null)
+            {
+                return RedirectToAction("index", "home");
+            }
+
+            var user = await userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                ViewBag.ErrorMessage = $"The User ID {userId} is invalid";
+                return View("NotFound");
+            }
+
+            var result = await userManager.ConfirmEmailAsync(user, token);
+            if (result.Succeeded)
+            {
+                return View();
+            }
+
+            ViewBag.ErrorTitle = "Email cannot be confirmed";
+            return View("Error");
+        }
+
+     
+    
+
+
+
+
+    //sign In
+
+    [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl)
         {
@@ -517,6 +599,25 @@ namespace Finance.Controllers
                 return View("Login", loginViewModel);
             }
 
+
+
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            Utilisateur user = null;
+
+            if (email != null)
+            {
+                user = await userManager.FindByEmailAsync(email);
+
+                if (user != null && !user.EmailConfirmed)
+                {
+                    ModelState.AddModelError(string.Empty, "Email not confirmed yet");
+                    return View("Login", loginViewModel);
+                }
+            }
+
+
+
+
             var signInResult = await signInManager.ExternalLoginSignInAsync(info.LoginProvider,
                                         info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
@@ -526,12 +627,12 @@ namespace Finance.Controllers
             }
             else
             {
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                 email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 var identifier = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
                 var photo = $"https://graph.facebook.com/{identifier}/picture";
                 if (email != null)
                 {
-                    var user = await userManager.FindByEmailAsync(email);
+                     user = await userManager.FindByEmailAsync(email);
 
                     if (user == null)
                     {
@@ -545,6 +646,19 @@ namespace Finance.Controllers
                         };
 
                         await userManager.CreateAsync(user);
+                        // After a local user account is created, generate and log the
+                        // email confirmation link
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                                        new { userId = user.Id, token = token }, Request.Scheme);
+
+                        logger.Log(LogLevel.Warning, confirmationLink);
+
+                        ViewBag.ErrorTitle = "Registration successful";
+                        ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+                            "email, by clicking on the confirmation link we have emailed you";
+                        return View("Error");
                     }
 
                     await userManager.AddLoginAsync(user, info);
