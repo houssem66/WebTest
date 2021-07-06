@@ -3,6 +3,7 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMe.Data;
+using TourMe.Data.Entities;
 using TourMe.Web;
 using TourMe.Web.Models;
 using Twilio.Exceptions;
@@ -40,7 +42,9 @@ namespace Finance.Controllers
         private readonly CountryService countryService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
+
         public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager,ILogger<AccountController> logger,IEmailService emailService)
+
         {
             UserService = _UserService;
             this.countryService = countryService;
@@ -260,13 +264,36 @@ namespace Finance.Controllers
             ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
+
                 string uniqueFileName = null;
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
+                if (model.Documents != null && model.Documents.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.Documents)
+                    {
+                        EmployeDocuments employe = new EmployeDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
                 if (model.FileP != null)
                 {
                     // The image must be uploaded to the images folder in wwwroot
                     // To get the path of the wwwroot folder we are using the inject
                     // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
                     // To make sure the file name is unique we are appending a new
                     // GUID value and and an underscore to the file name
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
@@ -275,18 +302,13 @@ namespace Finance.Controllers
                     // copy the file to wwwroot/images folder
                     model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
-
                 //phone
                 try
                 {
-
-
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
-
                         type: new List<string> { "carrier" });
-
                     // only allow user to set phone number if capable of receiving SMS
                     if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
                     {
@@ -297,33 +319,24 @@ namespace Finance.Controllers
 
                     var numberToSave = numberDetails.PhoneNumber.ToString();
 
-
-
-
-
                     var user = new Commerçant
                     {
                         UserName = model.Email,
 
                         PhoneNumber = numberToSave,
-                        PersAContact = model.PersAContact,
+
                         Email = model.Email,
-                        FormeJuridique = model.Forme,
-                        Secteur = model.Secteur,
-                        DomainActivite = model.Domaine,
-                        SituationEntreprise = model.SituationEntreprise,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
+                        Adresse = model.Adresse,
+                        CodePostale = model.CodePostale,
+                        EmployeDocuments = emp,
                         Type = model.Type,
                         Patente = uniqueFileName,
                         Country = model.PhoneNumberCountryCode
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
-
-
                     if (result.Succeeded)
                     {
-                        System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
+
 
 
                         if (await roleManager.RoleExistsAsync("Commercant"))
@@ -343,15 +356,10 @@ namespace Finance.Controllers
                         }
                         await signInManager.SignInAsync(user, isPersistent: false);
 
-
-                        return RedirectToAction("CreateExperience", "Experience");
-                    }
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
                     }
 
-                    return View(model);
+
+                    return RedirectToAction("AjouterTransport", "Service");
 
 
                 }
@@ -860,21 +868,21 @@ namespace Finance.Controllers
             return View(list.ToList());
         }
         [HttpGet]
-        
+
         public IActionResult AccessDenied()
         {
             return View();
         }
         [HttpGet]
-        
+
         public async Task<IActionResult> Verify(string id)
         {
-          var user=  await commercantService.GetCommerçantById(id);
+            var user = await commercantService.GetCommerçantById(id);
             return View(user);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async void Verify(Commerçant commerçant,string Id)
+        public async void Verify(Commerçant commerçant, string Id)
         {
             var com = await commercantService.GetCommerçantById(commerçant.Id);
             com.Verified = true;
@@ -883,8 +891,8 @@ namespace Finance.Controllers
                 await commercantService.Update(com);
 
             }
-            catch(Exception ex) { Response.Redirect("GetAllCommercant"); }
-           
+            catch (Exception ex) { Response.Redirect("GetAllCommercant"); }
+
         }
     }
 }

@@ -7,8 +7,8 @@ namespace TourMe.Data.Entities.Enum
 {
     public enum domaine
     {
-        Domaine1,
-        Domaine2,
-        Domaine3
+        Domaine1 =0,
+        Domaine2 =1,
+        Domaine3=2
     }
 }

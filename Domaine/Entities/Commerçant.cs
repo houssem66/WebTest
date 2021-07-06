@@ -1,15 +1,12 @@
-﻿using Domaine.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using TourMe.Data.Entities;
-using TourMe.Data.Entities.Enum;
 
 namespace Domaine.Entities
 {
-   public  class Commerçant:Utilisateur
+    public class Commerçant : Utilisateur
     {
 
 
@@ -27,7 +24,7 @@ namespace Domaine.Entities
         [StringLength(9, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
         public string Identifiant_fiscale { get; set; }
         public string Patente { get; set; }
-       
+
         public string Secteur { get; set; }
         public string TypeOrgan { get; set; }
         public string Titre { get; set; }
@@ -43,6 +40,6 @@ namespace Domaine.Entities
         [StringLength(4, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
         public int CodePostale { get; set; }
         public virtual IList<Experience> Experiences { get; set; }
-        public virtual IList<EmployeDocuments> EmployeDocuments{ get; set; }
+        public virtual IList<EmployeDocuments> EmployeDocuments { get; set; }
     }
 }
