@@ -1,104 +1,40 @@
 ﻿@model CommercentViewModel
 
-<h1>Spécial Organisme</h1>
-
-<div class="row">
-    <label asp-for="Domaine"></label>
-    <input asp-for="Domaine" class="form-control" />
-    <span asp-validation-for="Domaine" class="text-danger"></span>
-
-</div>
 
 
 
 <div class="row">
-    <label asp-for="Secteur"></label>
-    <input asp-for="Secteur" class="form-control" />
-    <span asp-validation-for="Secteur" class="text-danger"></span>
+    <h5 class="info-text"> Document et Numéro fiscale </h5>
+    <div class="col-sm-4 col-sm-offset-1">
+        <div class="form-group">
+            <div class="custom-file">
+                <label class="custom-file-label">Veulleir Telecharger un copie de  la patente<small>(PDF)</small>...</label>
+                <input asp-for="Documents" id="PATENTEUPLOAD" multiple class="form-control custom-file-input">
+            </div>
+
+        </div>
+        <div class="form-group">
+            <div class="custom-file">
+                <label class="custom-file-label">Veulleir Telecharger un copie de  la RNE</label>
+                <input asp-for="Documents" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Documents a Télécharger</label>
+            <p class="description" id="docs">
+                <b>-Patente.</b><br />
+                <b>-RNE</b><br />
+                <b id="writing"></b>
+                <h5> -Un administrateur Va vérifier votre inscription.</h5>
+            </p>
+        </div>
+    </div>
+
 
 </div>
 
-<div class="form-check">
-    <label>Forme Juridique</label>
-    <input class="form-check-input"
-           type="radio"
-           name="Forme"
-           id="flexRadioDefault5"
-           value="SUARL" />
-    <label asp-for="Forme" class="form-check-label" for="flexRadioDefault5"> SUARL </label>
-    <input class="form-check-input"
-           type="radio"
-           name="Forme"
-           id="flexRadioDefault6"
-           value="SARL" />
-    <label class="form-check-label" for="flexRadioDefault6"> SARL </label>
-    <input class="form-check-input"
-           type="radio"
-           name="Forme"
-           id="flexRadioDefault7"
-           value="SA" />
-    <label class="form-check-label" for="flexRadioDefault7"> SA </label>
-    <input class="form-check-input"
-           type="radio"
-           name="Forme"
-           id="flexRadioDefault8"
-           value="SAS" />
-    <label class="form-check-label" for="flexRadioDefault8"> SAS </label>
-    <input class="form-check-input"
-           type="radio"
-           name="Forme"
-           id="flexRadioDefault9"
-           value="Autre" />
-    <label class="form-check-label" for="flexRadioDefault9"> Autre </label>
-</div>
-
-@*<div class="row">
-
-    <select asp-for="Forme">
-        <option value="" disabled selected>Selectionnez votre forme juridique</option>
-        <option value="SUARL">SUARL</option>
-        <option value="SAS">SAS</option>
-        <option value="SARL">SARL </option>
-        <option value="SA">SA </option>
-        <option value="Health Tourisme">Health Tourisme</option>
-
-
-
-    </select>
-
-</div>*@
-
-<div class="row">
-    <label asp-for="EffectHomme"> Effectif Hommes</label>
-    <input asp-for="EffectHomme" class="form-control" />
-    <span asp-validation-for="EffectHomme" class="text-danger"></span>
-</div>
-<div class="row">
-    <label asp-for="EffectFemme">Effectif Femmes</label>
-    <input asp-for="EffectFemme" class="form-control" />
-    <span asp-validation-for="EffectFemme" class="text-danger"></span>
-</div>
-
-
-<div class="form-check">
-    <input class="form-check-input"
-               type="radio"
-               name="SituationEntreprise"
-               id="flexRadioDefault10"
-               value="EnActivite" />
-    <label asp-for="SituationEntreprise" class="form-check-label" for="flexRadioDefault10"> En Activité </label>
-    <input class="form-check-input" 
-               type="radio"
-               name="SituationEntreprise"
-               id="flexRadioDefault11"
-               value="Endémarrage" />
-    <label class="form-check-label" for="flexRadioDefault11"> En démarrage </label>
-</div>
-
-
-
-<div class="row">
-    <label asp-for="TypeOrgan">Type d'organisme</label>
-    <input asp-for="TypeOrgan" class="form-control" />
-    <span asp-validation-for="TypeOrgan" class="text-danger"></span>
-</div>

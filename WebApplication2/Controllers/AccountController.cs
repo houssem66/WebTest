@@ -707,20 +707,20 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult test(string type)
+        public ActionResult Test(string x)
         {
 
 
 
-            if (type.Equals("Organisme"))
+            if (x.ToLower().Equals("true"))
             {
 
 
-                System.Diagnostics.Debug.WriteLine("Le type est" + type);
+                System.Diagnostics.Debug.WriteLine("Le type est" + x);
                 return PartialView("_Organisme");
             }
 
-            else if (type.Equals("Individu"))
+            else if (x.Equals("Individu"))
             {
 
                 return new EmptyResult();

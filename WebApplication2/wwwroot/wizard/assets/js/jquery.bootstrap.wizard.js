@@ -15,8 +15,8 @@ var bootstrapWizardCreate = function(element, options) {
 	var obj = this;
 	
 	// selector skips any 'li' elements that do not contain a child with a tab data-toggle
-	var baseItemSelector = 'li:has([data-toggle="tab"])';
-
+	var baseItemSelector = 'li';
+	//: has([data - toggle="tab"])
 	// Merge options with defaults
 	var $settings = $.extend({}, $.fn.bootstrapWizard.defaults, options);
 	var $activeTab = null;
