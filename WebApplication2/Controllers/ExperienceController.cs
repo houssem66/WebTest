@@ -760,6 +760,31 @@ namespace TourMe.Web.Controllers
             await ExperienceService.DeleteExperienceAsync(id);
             return RedirectToAction("MesExperiences");
         }
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult Orgasnime(string src)
+        {
+
+
+            if (src.Equals("Organisme"))
+            {
+
+
+               
+                return PartialView("_Organisme");
+            }
+
+            else if (src.Equals("Individu"))
+            {
+
+                return new EmptyResult();
+            }
+
+
+            return PartialView("_Individu");
+
+        }
+
     }
 }
 
