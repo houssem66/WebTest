@@ -88,12 +88,11 @@ namespace TourMe.Web.Controllers
             }
             return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
-
         }
 
         [HttpGet]
-
-        [Authorize(Policy = "CreateExperiencePolicy")]
+        [AllowAnonymous]
+        // [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience()
         {
             ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));

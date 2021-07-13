@@ -1,4 +1,6 @@
 using Domaine.Entities;
+using MailKit;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,10 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NETCore.MailKit.Extensions;
+using NETCore.MailKit.Infrastructure.Internal;
 using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Implementation;
 using Services.Interfaces;
+using System.Net;
 using TourMe.Data;
 using TourMe.Web;
 using Twilio;
@@ -36,15 +41,36 @@ namespace WebApplication2
                 options.Filters.Add(new AuthorizeFilter(policy));
 
             });
+           
+            services.AddHttpsRedirection(options =>
+            {
+                options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
+                options.HttpsPort = 465;
+            });
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CreateExperiencePolicy",
                     policy => policy.RequireClaim("Create Experience"));
             });
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
+           
+            var mailKilOptions = Configuration.GetSection("Email").Get<MailKitOptions>();
+            services.AddMailKit(config=> { 
+               
+                config.UseMailKit(mailKilOptions);
+             });
+           
             services.AddDbContext<TourMeContext>(options =>
                         options.UseSqlServer(Configuration.GetConnectionString("myconn")));
-            services.AddIdentity<Utilisateur, IdentityRole>().AddEntityFrameworkStores<TourMeContext>();
+            services.AddIdentity<Utilisateur, IdentityRole>(options=>
+            {
+                options.SignIn.RequireConfirmedEmail = true;
+
+            }
+            
+            ).AddEntityFrameworkStores<TourMeContext>()
+             .AddDefaultTokenProviders();
+            
             TwilioClient.Init("AC57fc209fe337678b3790258f07270630", "54cdda9763c43829eed0c2a660b98d88");
             services.AddSingleton<CountryService>();
             services.AddControllersWithViews();
@@ -101,6 +127,7 @@ namespace WebApplication2
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ITransportExtService, TransportExtService>();
+     
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
