@@ -145,8 +145,8 @@ namespace TourMe.Web.Controllers
                 Secteur = model.Secteur,
                 DomainActivite = model.Domaine,
                 SituationEntreprise = model.SituationEntreprise,
-                EffectFemme = model.EffectFemme,
-                EffectHomme = model.EffectHomme,
+                EffectFemme = model.EffectFemme.Value,
+                EffectHomme = model.EffectHomme.Value,
                 Type = com.Type,
                 TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
 
@@ -325,8 +325,8 @@ namespace TourMe.Web.Controllers
                         Secteur = model.Secteur,
                         DomainActivite = model.Domaine,
                         SituationEntreprise = model.SituationEntreprise,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
+                        EffectFemme = model.EffectFemme.Value,
+                        EffectHomme = model.EffectHomme.Value,
                         Type = model.Type,
                         Patente = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
@@ -553,8 +553,8 @@ namespace TourMe.Web.Controllers
                         DomainActivite = model.Domaine,
                         Identifiant_fiscale = model.Identifiant_fiscale,
                         Titre = model.Titre,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
+                        EffectFemme = model.EffectFemme.Value,
+                        EffectHomme = model.EffectHomme.Value,
                         //Type = model.Type,
                         ProfilePhoto = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),

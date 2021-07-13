@@ -95,8 +95,20 @@ namespace TourMe.Web.Controllers
         // [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience()
         {
+            ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            IList<Activite> list = (IList<Activite>)ViewData["list"];
+            if (list.Count() > 0) {
+                
+                TempData["list"] = JsonConvert.SerializeObject(list);
 
-            TempData.Keep("Message");
+            }
+            else
+            {
+                IList<Activite> activites = new List<Activite>();
+                TempData["list"] = JsonConvert.SerializeObject(activites);
+            }
+
+
             // ViewBag.Message = TempData["Message"];
             return View();
         }
@@ -106,6 +118,8 @@ namespace TourMe.Web.Controllers
         //[Authorize(Policy = "CreateExperiencePolicy")]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
+            IList<Activite> activites = new List<Activite>();
+            TempData["list"] = JsonConvert.SerializeObject(activites);
             //ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData.Peek("Message"));
             //TempData.Keep("Message");
             //Activites = (ICollection<Activite>)ViewData["Message"];
@@ -587,85 +601,47 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public IActionResult CreateActivite()
         {
-            ViewData["experience1"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience1"));
-            TempData.Keep("experience1");
-            Experience experience = (Experience)ViewData["experience1"];
-
-            ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            TempData.Keep("exp");
-
-            ViewData["ListeActivite"] = ActiviteService.GetActivite(experience.ExperienceId);
-            System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
-
+          
             return View();
 
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateActivite(ActiviteViewModel model)
+        public  IActionResult CreateActivite(ActiviteViewModel model)
         {
-            ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-            TempData.Keep("exp");
-
-            ViewData["experience"] = JsonConvert.DeserializeObject<Experience>((string)TempData.Peek("experience"));
-            TempData.Keep("experience");
-            Experience experience = (Experience)ViewData["experience"];
-            System.Diagnostics.Debug.WriteLine(experience.ExperienceId);
-
             if (ModelState.IsValid)
             {
-                //if (ViewData["Message"] != null) 
-                //{
-                //    ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData["Message"]);
-                //    Activites = (ICollection<Activite>)ViewData["Message"];
-                //    TempData.Keep("Message");
-
-                //}
-
-                string uniqueFileName = null;
-                if (model.FileP != null && model.FileP.Count > 0)
-                {
-                    // Loop thru each selected file
-                    foreach (IFormFile photo in model.FileP)
-                    {
-                        // The file must be uploaded to the images folder in wwwroot
-                        // To get the path of the wwwroot folder we are using the injected
-                        // IHostingEnvironment service provided by ASP.NET Core
-                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
-                        // To make sure the file name is unique we are appending a new
-                        // GUID value and and an underscore to the file name
-                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
-                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                        // Use CopyTo() method provided by IFormFile interface to
-                        // copy the file to wwwroot/images folder
-                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
-                    }
-                }
-
                 Activite activite = new Activite
-
                 {
                     Details = model.Details,
-                    Image = uniqueFileName,
                     dateDebut = model.dateDebut,
-                    dateFin = model.dateFin
+                    dateFin = model.dateFin,
                 };
 
-
-
-
-                Activites.Add(activite);
-
-                experience.Activites = (IList<Activite>)Activites;
-                await ExperienceService.PutExperienceAsync(experience.ExperienceId, experience);
-                await ActiviteService.Ajout(activite);
-                TempData["experience1"] = JsonConvert.SerializeObject(experience);
-                TempData["ListeActivite"] = JsonConvert.SerializeObject(ActiviteService.GetActivite(experience.ExperienceId));
-                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
-                System.Diagnostics.Debug.WriteLine(ActiviteService.GetActivite(experience.ExperienceId).Count());
+                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+               
+                IList<Activite> list = (IList<Activite>)ViewData["list"];
+                if (list.Count()<1)
+                {
+                    IList<Activite> activites = new List<Activite>();
+                    activites.Add(activite);
+                    TempData["list"]= JsonConvert.SerializeObject(activites);
+                    System.Diagnostics.Debug.WriteLine("Nouveau liste :" + activites.Count());
+                    ViewData["activite"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                   
+                }
+               else
+                {
+                    list.Add(activite);
+                    System.Diagnostics.Debug.WriteLine("Deja existe la liste :" +list.Count());
+                    TempData["list"]= JsonConvert.SerializeObject(list);
+                    System.Diagnostics.Debug.WriteLine("Temp :" + list.Count());
+                    ViewData["activite"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                    
+                }
             }
-
-            return RedirectToAction("CreateActivite", "Experience");
+                
+            return NoContent();
 
         }
 
