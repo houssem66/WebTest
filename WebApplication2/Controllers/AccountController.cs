@@ -245,8 +245,8 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
-        {
+        public async Task<IActionResult> RegisterCommercant(CommercentViewModel model )
+        {if (model.PersAContact == null) { model.PersAContact = "NoOne"; }
 
             ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
@@ -318,7 +318,9 @@ namespace Finance.Controllers
                         EmployeDocuments = emp,
                         Type = model.Type,
                         Patente = uniqueFileName,
-                        Country = model.PhoneNumberCountryCode
+                        Country = model.PhoneNumberCountryCode,
+                        FormeJuridique=model.Forme,
+                        Identifiant_fiscale=model.Identifiant_fiscale
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
                     if (result.Succeeded)
@@ -358,7 +360,7 @@ namespace Finance.Controllers
                 }
 
             }
-            return View();
+            return View(model);
         }
 
         [HttpPost]

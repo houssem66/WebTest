@@ -120,7 +120,7 @@
                                                 <div class="icon-circle">
                                                     <i class="ti-email"></i>
                                                 </div>
-                                                ce que nous cherchons
+                                                Informations essentielles
                                             </a>
                                         </li>
                                         <li>
@@ -128,7 +128,7 @@
                                                 <div class="icon-circle">
                                                     <i class="ti-archive"></i>
                                                 </div>
-                                                Page de l'expérience
+                                                Page de l'Activité
                                             </a>
                                         </li>
 
@@ -153,71 +153,139 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="service">
+                                        <h5 class="info-text">Maintenant, Ajouter des Activités a votre expérience</h5>
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-8 col-sm-offset-1">
+
                                                 <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
+                                                    <label>Remplir cette formulaire</label><br />
+                                                    <button type="button" data-toggle="modal" data-target="#myModal3" class="btn btn-primary"> Ajouter une Activité</button>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
+                                            @*<div class="col-sm-12">
+                                                    <table id="example" class="table table-striped" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+
+                                                                <th>
+                                                                    Details
+                                                                </th>
+                                                                <th>
+                                                                    Prenom
+                                                                </th>
+                                                                <th>
+                                                                    Email
+                                                                </th>
+
+
+
+
+                                                            </tr>
+
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var item in ViewBag.activite)
+                                                            {
+
+                                                                <tr>
+
+                                                                    <td>
+                                                                      <p>  @item.Details</p>
+
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.dateDebut
+                                                                    </td>
+                                                                    <td>
+                                                                        @item.dateFin
+                                                                    </td>
+
+
+
+
+
+
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>*@
+                                            <div class="col-sm-12">
+                                                @{int x = 4;
+                                                    if
+                                                        (ViewBag.list != null)
+                                                    {
+                                                        foreach (var item in ViewBag.list)
+                                                        {
+                                                            var dynamic = "#myModal" + @x;
+
+
+                                                            <button type="button" data-toggle="modal" data-target=@dynamic class="btn btn-primary"> @item.dateDebut</button>
+                                                            x = x + 1;
+                                                        }
+                                                    }}
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="tab-pane" id="Compte">
+                                        <h5 class="info-text">Maintenant, décrivons votre expérience</h5>
                                         <div class="row">
-                                            <div class="col-sm-3">
+
+                                            <div class="col-sm-8 col-sm-offset-1">
+                                                <p><b>Que feront vos participants en votre compagnie ?</b></p>
+                                                <ul>
+                                                    <li>Proposez un programme précis du début à la fin, et non plusieurs idées ou options</li>
+                                                    <li>Décrivez en quoi votre expérience est unique et inédite pour vos participants</li>
+
+                                                </ul>
+
+                                            </div>
+                                            <div class="col-sm-8 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
+                                                    <textarea class="form-control" rows="5" placeholder="Expliquer aux participant le déroulement de votre expérience" name="Description"></textarea>
+
+                                                    <a data-toggle="modal" style="color:black;" data-target="#myModal2">Afficher Des Exemples</a>
+
                                                 </div>
+
+                                            </div>
+                                            <div class="col-sm-4 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Choisir Date Début</label><br>
+                                                    <input asp-for="dateDebut" class="form-control" />
+                                                    <span asp-validation-for="dateDebut"></span>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Choisir Date Fin</label><br>
+                                                    <input asp-for="dateFin" class="form-control" />
+                                                    <span asp-validation-for="dateFin"></span>
+
+                                                </div>
+
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
+                                                    <label>Choisir le saison</label><br>
+                                                    <div class="form-group">
+
+                                                        <select id="Saison" name="Saison" class="form-control valid" aria-invalid="false">
+                                                            <option value="" default> .. </option>
+                                                            <option value="printemps"> printemps </option>
+                                                            <option value="service été"> été </option>
+                                                            <option value="automne"> automne </option>
+                                                            <option value="hiver"> hiver </option>
+
+                                                        </select>
+
+
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -323,7 +391,7 @@
                                     { <div class="radio">
                                             <label>
                                                 <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
-                                                @listf.ElementAt(i).Text 
+                                                @listf.ElementAt(i).Text
 
                                             </label>
                                         </div>}
@@ -348,8 +416,8 @@
                         <label id="description">De quoi s'agit-il exactement dans le Théme Nature ?</label>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{  listf = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Nature>().ToList();
-                                     modf = listf.Count() / 2 + listf.Count() % 2;
+                                @{ listf = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Nature>().ToList();
+                                    modf = listf.Count() / 2 + listf.Count() % 2;
                                     for (int i = 0; i < modf; i++)
                                     { <div class="radio">
                                             <label>
@@ -507,7 +575,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Cuisine>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -538,13 +606,13 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.DegustationGastronomique>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
                                                 <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
                                                 @list.ElementAt(i).Text
-                                                
+
 
                                             </label>
                                         </div>}
@@ -570,7 +638,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.DinerEnGroupe>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -601,7 +669,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.VisisteDeMarche>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -633,7 +701,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Beatue>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i <= mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -664,7 +732,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Divination>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -695,7 +763,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.EtatEsprit>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -726,7 +794,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.PleineConscience>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -788,7 +856,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Spa>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -819,7 +887,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.TherapieDeCorps>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -850,7 +918,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Yoga>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -882,7 +950,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.CielNocturne>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -913,7 +981,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.Plantes>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -944,7 +1012,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 @{ list = Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubTheme.VisiteSurLaNature>().ToList();
-                                     mod = list.Count() / 2 + list.Count() % 2;
+                                    mod = list.Count() / 2 + list.Count() % 2;
                                     for (int i = 0; i < mod; i++)
                                     { <div class="radio">
                                             <label>
@@ -985,6 +1053,172 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" id="myModal2">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Exemples </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row">
+                    <div class="col-sm-12">
+                        <p>
+                            <b>Jogging nature au cœur de la magnifique île de Jeju </b>
+                            <h3 style="margin-top: -15px;"><small>Sports / Fitness </small></h3>
+                            Rejoignez-moi sur l'une des plus belles pistes de Corée du Sud pour un souvenir inoubliable ! Nous traverserons une prairie peuplée de chevaux, la forêt de Gotjawal et le Tarabi Oreum (surnommé la « reine » des 380 cônes volcaniques de la région) avant de rejoindre la zone des moulins à vent. Vous aurez aussi l'occasion d'admirer le mont Halla, la mer et le Seongsan Ilchulbong (pic du soleil levant de Seongsan).
+                        </p>
+                        <p>
+                            Tout cela en à peine plus de sept kilomètres ! Cette piste facile et amusante convient parfaitement aux débutants. À notre retour, nous terminerons l'expérience en dégustant quelques plats locaux accompagnés d'un café spécial.
+                        </p>
+                    </div>
+                    <div class="col-sm-12">
+                        <p>
+                            <b>Fabrication de pâtes à la main avec nos grands-mères </b>
+                            <h3 style="margin-top: -15px;"><small>Nourriture / Cuisine et alimentation / Cours de cuisine </small></h3>
+                            Cuisinez avec l'un des plus grands chefs de tous les temps : notre grand-mère, Nonna Nerina. Avec ses sœurs, elle vous apprendra à faire des pâtes parfaites sans utiliser de machine. Vous n'aurez besoin que de vos mains, de quelques produits frais locaux et de beaucoup d'amour.
+                        </p>
+                        <p>
+                            Le temps d'une journée, vous ferez partie de notre famille de fous. Suivez-nous à travers les ruelles médiévales jusqu'à la cuisine de notre Nonna, à côté du vieux pressoir où mon grand-père faisait du vin que les gens du village consommaient à même le tonneau. Cet endroit revêt une importance particulière, pour ma famille et pour tout le village.
+                        </p>
+                        <p>
+                            Après avoir préparé nos pâtes, nous les dégusterons ensemble autour d'un délicieux repas sur notre terrasse avec vue sur la ville !
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="CreateActivite" method="post" enctype="multipart/form-data">
+        <div class="modal" id="myModal3">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title"> Ajouter une activité </h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    Titre de l'activité
+                                </label>
+                                <input name="titre" class="form-control" placeholder="Activité1" />
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>
+                                    Description de l'activité
+                                </label>
+                                <textarea class="form-control" rows="4" placeholder="Expliquer aux participant le déroulement de votre Activité" name="Details"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Quelle est la durée de votre expérience ?</label>
+                                <select id="transport" name="Durée" class="form-control valid" aria-invalid="false">
+                                    <option value="" disabled selected>Durée</option>
+                                    <option value="0.5">0.5 Heure</option>
+                                    <option value="0.75">0.75 Heure</option>
+                                    <option value="1">1 Heure</option>
+                                    <option value="">1.25 Heure</option>
+                                    <option value="">1.5 Heure</option>
+                                    <option value="">1.75 Heure</option>
+                                    <option value="">2 Heure</option>
+                                    <option value="">2.5 Heure</option>
+                                    <option value="">3 Heure</option>
+                                    <option value="">3.5 Heure</option>
+                                    <option value="">4 Heure</option>
+                                    <option value="">4.5 Heure</option>
+                                    <option value="">5 Heure</option>
+                                    <option value="">5.5 Heure</option>
+                                    <option value="">6 Heure</option>
+                                    <option value="">6.5 Heure</option>
+                                    <option value="">7 Heure</option>
+                                    <option value="">7.5 Heure</option>
+                                    <option value="">8 Heure</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="exampleFormControlFile1">Choisir Une image</label>
+                                <input type="file" class="form-control-file" name="FileP" id="exampleFormControlFile1">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                        <input id="AjouterActivité" type="submit" value="Ajouter" class="btn" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+    @{int y = 4;
+        if (ViewBag.list != null)
+        {
+            foreach (var item in ViewBag.list)
+            {
+                var dynamic = "myModal" + y;
+
+                y = y + 1;
+                <div class="modal" id=@dynamic>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title"> Ajouter une activité </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>
+                                            @item.Details
+                                        </label>
+                                        <input name="titre" class="form-control" placeholder="Activité1" />
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                                <input id="AjouterActivité" type="submit" value="Ajouter" class="btn" />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }}
     <script src="~/wizard/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
     <script src="~/wizard/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/wizard/assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
@@ -1015,76 +1249,76 @@
                     $("#theme").hide();
                 }
             });
-            $("#Culture,#Event, #Health, #Nature,#Food").hide();   
+            $("#Culture,#Event, #Health, #Nature,#Food").hide();
             $('select[name="TypeExperience"]').change(function () {
                 $("#autre").hide();
-                $("#Culture,#Event,#Health, #Nature,#Food").hide();   
+                $("#Culture,#Event,#Health, #Nature,#Food").hide();
                 $("#MoreSport,#MoreDivertissement,#Cuisine,#Degustation,#DinnerGroupe,#VisiteMarche,#Beatue,#Divination,#EtatEsprit,#PleineConscience,#SanteHolistique,#Spa,#TherapieDeCorps,#Yoga,#CielNocturne,#Plantes,#VisiteSurLaNature").hide();
 
                 var x = $(this).find(":selected").text();
 
                 switch (x) {
-                    case "Culture":                      
-                        $("#Culture").show();                                    
+                    case "Culture":
+                        $("#Culture").show();
                         break;
-                    case "Food":                        
+                    case "Food":
                         $("#Food").show();
                         break;
-                    case "Nature":                    
+                    case "Nature":
                         $("#Nature").show();
- 
+
                         break;
-                    case "Event":                  
-                        $("#Event").show();                      
+                    case "Event":
+                        $("#Event").show();
                         break;
-                    case "Health":                     
+                    case "Health":
                         $("#Health").show();
-                       
+
                         break;
                     case "Choisir Théme ..":
-                         $("#Culture,#Event,#Health, #Nature,#Food").hide();   
+                        $("#Culture,#Event,#Health, #Nature,#Food").hide();
                         break;
                 }
             });
             // Input text S'affiche si l'option autre est choisis
             $("[name=Forme]").change(function () {
                 var x = $(this).val().replace(/\s/g, '');
-               
+
                 $("#MoreSport,#MoreDivertissement,#Cuisine,#Degustation,#DinnerGroupe,#VisiteMarche,#Beatue,#Divination,#EtatEsprit,#PleineConscience,#SanteHolistique,#Spa,#TherapieDeCorps,#Yoga,#CielNocturne,#Plantes,#VisiteSurLaNature").hide();
                 $("#autre").hide();
                 if (x.includes("Autre")) { x = "Autre"; }
                 switch (x) {
-                    case "Autre":                      
-                        $("#autre").show();                    
+                    case "Autre":
+                        $("#autre").show();
                         break;
-                    //Event    
-                    case "Sport":$("#MoreSport").show(); break; case "Divertissement": $("#MoreDivertissement").show();break;
+                    //Event
+                    case "Sport": $("#MoreSport").show(); break; case "Divertissement": $("#MoreDivertissement").show(); break;
                     //Food
                     case "Cuisineetalimentation": $("#Cuisine").show(); break; case "Dégustationgastronomique": $("#Degustation").show(); break; case "Dinerengroupe": $("#DinnerGroupe").show(); break; case "Visitedemarchéetgastronomie": $("#VisiteMarche").show(); break;
-                
+
                     //Nature
-                    case "Cielnocturne": $("#CielNocturne").show(); break; case "Plantesetagriculture": $("#Plantes").show(); break; case "Visitesurlanatureetl'écologie": $("#VisiteSurLaNature").show(); break;   
+                    case "Cielnocturne": $("#CielNocturne").show(); break; case "Plantesetagriculture": $("#Plantes").show(); break; case "Visitesurlanatureetl'écologie": $("#VisiteSurLaNature").show(); break;
                     //Health
                     case "Beatué":
-                        $("#Beatue").show();  
+                        $("#Beatue").show();
                         break;
                     case "Spa ":
-                        $("#Spa").show();  
+                        $("#Spa").show();
                         break;
                     case "Pleineconscience":
-                        $("#PleineConscience").show();  
+                        $("#PleineConscience").show();
                         break;
-                    case "Thérapiedecorps":                      
-                       $("#TherapieDeCorps").show();  
+                    case "Thérapiedecorps":
+                        $("#TherapieDeCorps").show();
                         break;
                     case "Etatd’esprit":
-                        $("#EtatEsprit").show();  
+                        $("#EtatEsprit").show();
                         break;
                     case "Santéholistique":
-                        $("#SanteHolistique").show();  
+                        $("#SanteHolistique").show();
                         break;
                     case "Yoga":
-                        $("#Yoga").show();  
+                        $("#Yoga").show();
                         break;
                     case "Divination":
                         $("#Divination").show();
@@ -1097,13 +1331,13 @@
                 var SubTheme = $("input[name='Forme']:checked").val();
                 var theme = $('select[name="TypeExperience"]').find(":selected").text();
                 Category = $("input[name='sub']:checked").val();
-               
+
                 if ((SubTheme.length > 1) && !(SubTheme.includes("Autre"))) {
 
                     $("#choose").html(SubTheme + "," + Category);
                 }
                 else if ($("#type").val().length > 1) {
-                   
+
                     $("#choose").html(theme + ", " + $("#type").val());
                 }
             });

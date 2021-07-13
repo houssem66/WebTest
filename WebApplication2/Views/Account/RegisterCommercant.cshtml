@@ -154,14 +154,14 @@
                                                     </p>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="TypeP" value="Organisme" />
+                                                            <input type="radio" name="Type" value="Organisme" />
                                                             Oragnisme
                                                         </label>
 
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="TypeP" value="Individu" />
+                                                            <input type="radio" name="Type" value="Individu" />
                                                             Individu
                                                         </label>
 
@@ -206,7 +206,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Veuiller saisir votre CodePostale</label>
-                                                    <input asp-for="CodePostale" class="form-control" />
+                                                    <input name="CodePostale" id="CodeIndi" class="form-control" />
                                                     <span asp-validation-for="CodePostale" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -260,8 +260,22 @@
 
                                                 </div>
                                             </div><br />
-                                            
-                                            
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Veuiller saisir votre CodePostale</label>
+                                                    <input name="CodePostale" id="CodeOrga" class="form-control" />
+                                                    <span asp-validation-for="CodePostale" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Veuiller saisir votre Adresse</label>
+                                                    <input asp-for="Adresse" class="form-control" />
+                                                    <span asp-validation-for="Adresse" class="text-danger"></span>
+                                                </div>
+                                            </div>
+
+
 
 
 
@@ -412,13 +426,15 @@
             });
         }
         $(document).ready(function () {
-            var x = $("input[name='TypeP']:checked").val();
+            var x = $("input[name='Type']:checked").val();
             $("#OrgaRow").hide();
             if (x == "Organisme") {
                
                 $("#Orga1").show();
                 $("#OrgaRow").show();
                 $("#IndiRow").hide();
+                $('#CodeOrga').prop('disabled', false);
+                $('#CodeIndi').prop('disabled', true);
                 $('.wizard-card').find('li').css('width', 25 + '%');
                 $("#OrgaForme").show();
                 $("#IndiForme").hide();
@@ -431,12 +447,14 @@
                 $('.wizard-card').find('li').css('width', 100 / 3 + '%');
                 $("#OrgaForme").hide();
                 $("#IndiForme").show();
+                $('#CodeOrga').prop('disabled', true);
+                $('#CodeIndi').prop('disabled', false);
             }
            
            
            
-            $("[name=TypeP]").on('change', function () {
-                var x = $("input[name='TypeP']:checked").val();
+            $("[name=Type]").on('change', function () {
+                var x = $("input[name='Type']:checked").val();
               var $div = '<a href="#Organsime1" data-toggle="tab"><div class="icon-circle"><i class="ti-archive"></i></div>Kima N7eb</a>';
                
                 if (x == "Organisme") {
@@ -447,7 +465,8 @@
                     $("#OrgaForme").show();
                     $("#IndiForme").hide();
                     $("#IndiRow").hide();
-
+                    $('#CodeIndi').prop('disabled', true);
+                    $('#CodeOrga').prop('disabled', false);
                 }
                 else {
                     $("#Orga1").hide(); $('.wizard-card').find('li').css('width', 100 / 3 + '%');
@@ -455,6 +474,9 @@
                     $("#IndiForme").show();
                     $("#OrgaRow").hide();
                     $("#IndiRow").show();
+                    $('#CodeIndi').prop('disabled', false);
+                    $('#CodeOrga').prop('disabled', true);
+
                 }
 
 
