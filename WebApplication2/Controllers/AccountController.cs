@@ -341,10 +341,43 @@ namespace Finance.Controllers
                             await userManager.AddToRoleAsync(user, "Commercant");
 
                         }
-                        await signInManager.SignInAsync(user, isPersistent: false);
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme, Request.Host.ToString());
+
+                        //sending email
 
 
-                        return RedirectToAction("CreateExperience", "Experience");
+                        var mailMessage = new MimeMessage();
+                        mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                        mailMessage.To.Add(new MailboxAddress("Client", model.Email));
+                        mailMessage.Subject = "Email Confirmation";
+                        mailMessage.Body = new TextPart("plain")
+                        {
+                            Text = $"{confirmationLink}"
+                        };
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.CheckCertificateRevocation = false;
+                            smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                            smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                            smtpClient.Send(mailMessage);
+                            smtpClient.Disconnect(true);
+                        }
+                        //
+
+
+
+                        ViewBag.ErrorTitle = "Registration successful";
+                        ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+                                "email, by clicking on the confirmation link we have emailed you";
+                        return View("Error");
+
+                        //await signInManager.SignInAsync(user, isPersistent: false);
+
+
+                        //  return RedirectToAction("CreateExperience", "Experience");
                     }
                     foreach (var error in result.Errors)
                     {
@@ -643,7 +676,29 @@ namespace Finance.Controllers
                         var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
                         var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                                        new { userId = user.Id, token = token }, Request.Scheme);
+                         new { userId = user.Id, token = token }, Request.Scheme, Request.Host.ToString());
+
+                        //sending email
+
+
+                        var mailMessage = new MimeMessage();
+                        mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                        mailMessage.To.Add(new MailboxAddress("Client", info.Principal.FindFirstValue(ClaimTypes.Email)));
+                        mailMessage.Subject = "Email Confirmation";
+                        mailMessage.Body = new TextPart("plain")
+                        {
+                            Text = $"{confirmationLink}"
+                        };
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.CheckCertificateRevocation = false;
+                            smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                            smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                            smtpClient.Send(mailMessage);
+                            smtpClient.Disconnect(true);
+                        }
+                        //
 
                         logger.Log(LogLevel.Warning, confirmationLink);
 
@@ -684,7 +739,7 @@ namespace Finance.Controllers
 
 
                     }
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                   // await signInManager.SignInAsync(user, isPersistent: false);
 
 
 
