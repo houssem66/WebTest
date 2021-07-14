@@ -1,16 +1,14 @@
 ﻿using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TourMe.Data.Entities;
 
 namespace Services.Implementation
 {
-   public class LogementextService:ILogementextService
+    public class LogementextService : ILogementextService
     {
         private readonly IGenericRepository<ServiceLogment> GenericRepo;
         private readonly ILogementextRepo LogementRepo;
@@ -21,9 +19,9 @@ namespace Services.Implementation
             LogementRepo = logementRepo;
         }
 
-        public  Task Ajout(ServiceLogment logement)
+        public Task Ajout(ServiceLogment logement)
         {
-           return  GenericRepo.InsertAsync(logement);
+            return GenericRepo.InsertAsync(logement);
         }
 
         public Task Delete(ServiceLogment logement)
@@ -36,15 +34,10 @@ namespace Services.Implementation
             return LogementRepo.GetAll().ToList();
         }
 
-        public async  Task<ServiceLogment> GetById(int id)
+        public async Task<ServiceLogment> GetById(int id)
         {
             ServiceLogment l = await LogementRepo.GetlogementDetailsAsync(id);
             return l;
-
-
-
-
-         
         }
 
         public Task<ServiceLogment> GetLogementById(int id)
@@ -54,7 +47,7 @@ namespace Services.Implementation
 
         public Task Update(ServiceLogment logement)
         {
-            return GenericRepo.PutAsync(logement.Id,logement);
+            return GenericRepo.PutAsync(logement.Id, logement);
         }
     }
 }

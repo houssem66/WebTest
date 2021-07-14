@@ -41,5 +41,6 @@ namespace TourMe.Web.Models
         public List<IFormFile> FileP { get; set; }
         // public List<Activite> Activites { get; set; }
         public ICollection<Activite> Activites;
+        public domaine Domaines { get; set; }
     }
 }
