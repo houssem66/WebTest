@@ -85,7 +85,7 @@ namespace WebApplication2
             ).AddEntityFrameworkStores<TourMeContext>()
              .AddDefaultTokenProviders();
             
-            TwilioClient.Init("AC57fc209fe337678b3790258f07270630", "54cdda9763c43829eed0c2a660b98d88");
+            TwilioClient.Init("AC57fc209fe337678b3790258f07270630", "b5a9e55ae688771f16b492df05ee622e");
             services.AddSingleton<CountryService>();
             services.AddControllersWithViews();
             services.AddAuthentication().AddFacebook(options =>
