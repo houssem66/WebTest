@@ -154,14 +154,14 @@
                                                     </p>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="Type" value="Organisme" />
+                                                            <input type="radio" name="TypeP" value="Organisme" />
                                                             Oragnisme
                                                         </label>
 
                                                     </div>
                                                     <div class="radio">
                                                         <label>
-                                                            <input type="radio" name="Type" value="Individu" />
+                                                            <input type="radio" name="TypeP" value="Individu" />
                                                             Individu
                                                         </label>
 
@@ -414,7 +414,7 @@
             </a>
         </li>*@
     <script>
-        function makeRequest( x) {
+        function makeRequest(x) {
            $.ajax({
 
                                url: '@Url.Action("Test", "Account")',
@@ -426,7 +426,7 @@
             });
         }
         $(document).ready(function () {
-            var x = $("input[name='Type']:checked").val();
+            var x = $("input[name='TypeP']:checked").val();
             $("#OrgaRow").hide();
             if (x == "Organisme") {
                
@@ -453,8 +453,8 @@
            
            
            
-            $("[name=Type]").on('change', function () {
-                var x = $("input[name='Type']:checked").val();
+            $("[name=TypeP]").on('change', function () {
+                var x = $("input[name='TypeP']:checked").val();
               var $div = '<a href="#Organsime1" data-toggle="tab"><div class="icon-circle"><i class="ti-archive"></i></div>Kima N7eb</a>';
                
                 if (x == "Organisme") {
