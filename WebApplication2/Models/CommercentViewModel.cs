@@ -8,9 +8,9 @@ namespace TourMe.Web.Models
     public class CommercentViewModel
     {
         public string TypseService { get; set; }
-        [Required]
+       
         public string PersAContact { get; set; }
-        public string Type { get; set; }
+        public string TypeP { get; set; }
         public string TypeOrgan { get; set; }
 
         [Required]
@@ -23,8 +23,8 @@ namespace TourMe.Web.Models
         [Display(Name = "Forme Juridique")]
         public string Forme { get; set; }
 
-        public int EffectFemme { get; set; }
-        public int EffectHomme { get; set; }
+        public int? EffectFemme { get; set; }
+        public int? EffectHomme { get; set; }
         [Display(Name = "Situation Micro-Entreprise")]
         public string SituationEntreprise { get; set; }
         public string NomGerant { get; set; }
@@ -60,8 +60,8 @@ namespace TourMe.Web.Models
         public Region region { get; set; }
         public string Adresse { get; set; }
        
-        public int NumPersAcontacter { get; set; }
-        public long NumCnss { get; set; }
+        public int? NumPersAcontacter { get; set; }
+        public long? NumCnss { get; set; }
 
     }
 }

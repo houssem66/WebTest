@@ -145,8 +145,8 @@ namespace TourMe.Web.Controllers
                 Secteur = model.Secteur,
                 DomainActivite = model.Domaine,
                 SituationEntreprise = model.SituationEntreprise,
-                EffectFemme = model.EffectFemme,
-                EffectHomme = model.EffectHomme,
+                EffectFemme = model.EffectFemme.Value,
+                EffectHomme = model.EffectHomme.Value,
                 Type = com.Type,
                 TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
 
@@ -325,9 +325,9 @@ namespace TourMe.Web.Controllers
                         Secteur = model.Secteur,
                         DomainActivite = model.Domaine,
                         SituationEntreprise = model.SituationEntreprise,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
-                        Type = model.Type,
+                        EffectFemme = model.EffectFemme.Value,
+                        EffectHomme = model.EffectHomme.Value,
+                        Type = model.TypeP,
                         Patente = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
 
@@ -537,7 +537,7 @@ namespace TourMe.Web.Controllers
                     {
                         ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
                             $"Le format du numero ne convient pas à votre pays");
-                        return View();
+                        return View(model);
                     }
                   
                     var numberToSave = numberDetails.PhoneNumber.ToString();
@@ -553,8 +553,8 @@ namespace TourMe.Web.Controllers
                         DomainActivite = model.Domaine,
                         Identifiant_fiscale = model.Identifiant_fiscale,
                         Titre = model.Titre,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
+                        EffectFemme = model.EffectFemme.Value,
+                        EffectHomme = model.EffectHomme.Value,
                         //Type = model.Type,
                         ProfilePhoto = uniqueFileName,
                         TypeService = (TypeService)Enum.Parse(typeof(TypeService), jobb),
@@ -611,7 +611,7 @@ namespace TourMe.Web.Controllers
                 {
                     ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
                         $"Le numéro entré n'est pas valide  (Code d'erreur {ex.Code})");
-                    return View();
+                    return View(model);
                 }
 
             }

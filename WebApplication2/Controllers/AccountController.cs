@@ -256,9 +256,11 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
-        {
-            if (model.PersAContact == null) { model.PersAContact = "NoOne"; }
+
+        public async Task<IActionResult> RegisterCommercant(CommercentViewModel model )
+        {if (model.PersAContact == null) { model.PersAContact = "NoOne"; }
+
+
             ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
@@ -335,11 +337,13 @@ namespace Finance.Controllers
                         Adresse = model.Adresse,
                         CodePostale = model.CodePostale,
                         EmployeDocuments = emp,
-                        Type = model.Type,
+                        Type = model.TypeP,
                         Patente = uniqueFileName,
                         Country = model.PhoneNumberCountryCode,
-                        FormeJuridique = model.Forme,
-                        Identifiant_fiscale = model.Identifiant_fiscale
+
+                        FormeJuridique=model.Forme,
+                        Identifiant_fiscale=model.Identifiant_fiscale
+
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
@@ -419,7 +423,7 @@ namespace Finance.Controllers
                 }
 
             }
-            return View();
+            return View(model);
         }
 
         [HttpPost]
@@ -777,20 +781,20 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult test(string type)
+        public ActionResult Test(string x)
         {
 
 
 
-            if (type.Equals("Organisme"))
+            if (x.ToLower().Equals("true"))
             {
 
 
-                System.Diagnostics.Debug.WriteLine("Le type est" + type);
+                System.Diagnostics.Debug.WriteLine("Le type est" + x);
                 return PartialView("_Organisme");
             }
 
-            else if (type.Equals("Individu"))
+            else if (x.Equals("Individu"))
             {
 
                 return new EmptyResult();
