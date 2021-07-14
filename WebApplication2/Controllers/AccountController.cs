@@ -3,6 +3,7 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using TourMe.Data;
+using TourMe.Data.Entities;
 using TourMe.Web;
 using TourMe.Web.Models;
 using Twilio.Exceptions;
@@ -256,17 +258,39 @@ namespace Finance.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model)
         {
-
+            if (model.PersAContact == null) { model.PersAContact = "NoOne"; }
             ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
+                if (model.Documents != null && model.Documents.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.Documents)
+                    {
+                        EmployeDocuments employe = new EmployeDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
                 if (model.FileP != null)
                 {
                     // The image must be uploaded to the images folder in wwwroot
                     // To get the path of the wwwroot folder we are using the inject
                     // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
                     // To make sure the file name is unique we are appending a new
                     // GUID value and and an underscore to the file name
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
@@ -306,17 +330,16 @@ namespace Finance.Controllers
                         UserName = model.Email,
 
                         PhoneNumber = numberToSave,
-                        PersAContact = model.PersAContact,
+
                         Email = model.Email,
-                        FormeJuridique = model.Forme,
-                        Secteur = model.Secteur,
-                        DomainActivite = model.Domaine,
-                        SituationEntreprise = model.SituationEntreprise,
-                        EffectFemme = model.EffectFemme,
-                        EffectHomme = model.EffectHomme,
+                        Adresse = model.Adresse,
+                        CodePostale = model.CodePostale,
+                        EmployeDocuments = emp,
                         Type = model.Type,
                         Patente = uniqueFileName,
-                        Country = model.PhoneNumberCountryCode
+                        Country = model.PhoneNumberCountryCode,
+                        FormeJuridique = model.Forme,
+                        Identifiant_fiscale = model.Identifiant_fiscale
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
 
