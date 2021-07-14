@@ -50,7 +50,21 @@ namespace WebApplication2
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("CreateExperiencePolicy",
-                    policy => policy.RequireClaim("Create Experience"));
+                policy => policy.RequireClaim("Create Experience"));
+                options.AddPolicy("EditExperiencePolicy",
+                policy => policy.RequireClaim("Edit Experience"));    
+                options.AddPolicy("DeleteExperiencePolicy",
+                policy => policy.RequireClaim("Delete Experience"));
+                options.AddPolicy("EditProfilPolicy",
+                policy => policy.RequireClaim("Edit Profil"));
+                options.AddPolicy("SuperUserPolicy",
+             policy => policy.RequireRole("Utilisateur").RequireAuthenticatedUser().RequireClaim("Create Experience").RequireClaim("Edit Experience")
+             .RequireClaim("Delete Experience")
+             
+             );
+
+
+
             });
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
            

@@ -9,58 +9,67 @@
 <div>
     <h4>Utilisateur</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Carte)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Carte)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Prenom)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Prenom)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Telephone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Telephone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProfilePhoto)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProfilePhoto)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BirthDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BirthDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Adresse)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Adresse)
-        </dd>
-    </dl>
-</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                   Nom
+                </th>
+                <th>
+                  Prénom
+                </th>
+
+                <th>
+                  Email
+                </th>
+       
+                <th>Profile Photo</th>
+            </tr>
+        </thead>
+        <tbody>
+
+
+
+
+ 
+            <tr>
+
+                <td>
+                    <p> @Model.Nom</p>
+
+                </td>
+                @if(Model.Prenom==null)
+                {
+            <td>
+               N/A 
+            </td>
+                }
+            <td>
+                @Model.Prenom
+            </td>
+                <td>
+                    @Model.Email
+                </td>
+                
+
+                <td>
+                    @{var photoPath1 = "~/images/" + (Model.ProfilePhoto ?? "noimage.jpg");
+
+                    }
+                    <img class="profile-user-img img-fluid img-circle" src="@photoPath1" asp-append-version="true" style="height:20px; width:50px;" alt="" />
+                </td>
+
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+    </div>
 <div class="card-body">
   @{ 
         foreach (var claim in ViewBag.Claims)
