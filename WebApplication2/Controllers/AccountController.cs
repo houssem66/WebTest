@@ -329,7 +329,7 @@ namespace Finance.Controllers
                         Adresse = model.Adresse,
                         CodePostale = model.CodePostale,
                         EmployeDocuments = emp,
-                        Type = model.Type,
+                        Type = model.TypeP,
                         Patente = uniqueFileName,
                         Country = model.PhoneNumberCountryCode,
                         FormeJuridique=model.Forme,

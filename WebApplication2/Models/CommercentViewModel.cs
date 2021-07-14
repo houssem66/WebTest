@@ -10,7 +10,7 @@ namespace TourMe.Web.Models
         public string TypseService { get; set; }
        
         public string PersAContact { get; set; }
-        public string Type { get; set; }
+        public string TypeP { get; set; }
         public string TypeOrgan { get; set; }
 
         [Required]
