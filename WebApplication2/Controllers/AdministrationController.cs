@@ -1,6 +1,8 @@
 ﻿using Domaine.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Services.Implementation;
+using Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +15,17 @@ namespace TourMe.Web.Controllers
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<Utilisateur> UserManager;
+        private readonly IUserService userService;
+        private readonly ICommercantService commercantService;
+        private readonly IFournisseurService fournisseurService;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService)
         {
             this.roleManager = roleManager;
-            this.UserManager = userManager;
+            UserManager = userManager;
+            userService = _UserService;
+            commercantService = _CommercantService;
+            fournisseurService = _FournisseurService;
         }
         [HttpGet]
         public IActionResult GetAllRoles()
@@ -178,6 +186,47 @@ namespace TourMe.Web.Controllers
             }
             return View(model);
         }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(string id)
+
+        {
+
+            IEnumerable<Utilisateur> utilisateurs = userService.GetAllUtilisateurDetails();
+            List<UtilisateurViewModel> users = new List<UtilisateurViewModel>();
+            foreach (var user in utilisateurs)
+            {
+
+                var mod = new UtilisateurViewModel
+                {
+                    Id = user.Id,
+                    Nom = user.Nom,
+                    Prenom = user.Prenom,
+                    Email = user.Email,
+
+                };
+                if (await UserManager.IsInRoleAsync(user, "Administrateur"))
+                { mod.role = "Administrateur"; }
+                else
+                {
+                    if (await UserManager.IsInRoleAsync(user, "Utilisateur"))
+                    {
+                        mod.role = "Utilisateur";
+                    }
+                    else
+                    {
+                        mod.role = "Commercant"; }
+                     }
+                users.Add(mod);
+
+            }
+
+            return View(users);
+        }
+
+
 
 
     }

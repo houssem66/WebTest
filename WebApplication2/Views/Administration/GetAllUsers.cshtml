@@ -1,0 +1,249 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<UtilisateurViewModel>
+
+
+<script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+
+
+
+
+
+<section>
+    <div class="rows inn-page-bg com-colo">
+        <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+            <!-- TITLE & DESCRIPTION -->
+            <div class="spe-title col-md-12">
+                <h2>Liste  <span> D'utilisateurs</span></h2>
+                <div class="title-line">
+                    <div class="tl-1"></div>
+                    <div class="tl-2"></div>
+                    <div class="tl-3"></div>
+                </div>
+                <p>Parcourir La liste de tous les utilisateurs</p>
+            </div>
+            <div class="col-md-12">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Recherche Utilisateurs" title="Type in a name">
+                <table id="myTable">
+                    <thead>
+
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Email</th>
+                            <th>Role</th>
+
+                            <th>Claims</th>
+                            <th>Details</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    @item.Nom
+
+                                </td>
+                                <td>
+                                    @item.Prenom
+                                </td>
+                                <td>
+                                    @item.Email
+                                </td>
+
+
+
+                                <td>
+                                    @item.role
+                                </td>
+
+                                <td>
+                                    <a asp-action="ManageUserClaims" asp-controller="Account" asp-route-id="@item.Id" style="text-decoration-color:white">ManageUserClaims</a>
+                                </td>
+
+
+
+                                <td>
+                                    @if (User.IsInRole("Commercant"))
+                                    {
+                                        <span > <a asp-action="ProfilCommerc" asp-controller="Account"  class="link-btn" >Details</a></span>}
+                                    else
+                                    { <span > <a asp-action="Profil" asp-controller="Account" class="link-btn">Details</a></span>}
+                                </td>
+
+
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <script>
+
+                    $("#myInput").on("keyup", function () {
+
+                        var textEnter = $(this).val();
+                        $("Table tr").each(function (results) {
+
+                            if (results != 0) {
+                                var id = $(this).find("td").text();
+                                if (id.indexOf(textEnter) != 0 && id.toLowerCase().indexOf(textEnter.toLowerCase()) < 0) {
+                                    $(this).hide();
+                                }
+                                else {
+                                    $(this).show();
+                                }
+                            }
+
+                        });
+
+
+                    });
+
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== TIPS BEFORE TRAVEL ==========-->
+<section>
+    <div class="rows tips tips-home tb-space home_title">
+        <div class="container tips_1">
+            <!-- TIPS BEFORE TRAVEL -->
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <h3>Tips Before Travel</h3>
+                <div class="tips_left tips_left_1">
+                    <h5>Bring copies of your passport</h5>
+                    <p>Aliquam pretium id justo eget tristique. Aenean feugiat vestibulum blandit.</p>
+                </div>
+                <div class="tips_left tips_left_2">
+                    <h5>Register with your embassy</h5>
+                    <p>Mauris efficitur, ante sit amet rhoncus malesuada, orci justo sollicitudin.</p>
+                </div>
+                <div class="tips_left tips_left_3">
+                    <h5>Always have local cash</h5>
+                    <p>Donec et placerat ante. Etiam et velit in massa. </p>
+                </div>
+            </div>
+            <!-- CUSTOMER TESTIMONIALS -->
+            <div class="col-md-8 col-sm-6 col-xs-12 testi-2">
+                <!-- TESTIMONIAL TITLE -->
+                <h3>Customer Testimonials</h3>
+                <div class="testi">
+                    <h4>John William</h4>
+                    <p>Ut sed sem quis magna ultricies lacinia et sed tortor. Ut non tincidunt nisi, non elementum lorem. Aliquam gravida sodales</p> <address>Illinois, United States of America</address>
+                </div>
+                <!-- ARRANGEMENTS & HELPS -->
+                <h3>Arrangement & Helps</h3>
+                <div class="arrange">
+                    <ul>
+                        <!-- LOCATION MANAGER -->
+                        <li>
+                            <a href="#"><img src="images/Location-Manager.png" alt=""> </a>
+                        </li>
+                        <!-- PRIVATE GUIDE -->
+                        <li>
+                            <a href="#"><img src="images/Private-Guide.png" alt=""> </a>
+                        </li>
+                        <!-- ARRANGEMENTS -->
+                        <li>
+                            <a href="#"><img src="images/Arrangements.png" alt=""> </a>
+                        </li>
+                        <!-- EVENT ACTIVITIES -->
+                        <li>
+                            <a href="#"><img src="images/Events-Activities.png" alt=""> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== FOOTER 1 ==========-->
+<section>
+    <div class="rows">
+        <div class="footer1 home_title tb-space">
+            <div class="pla1 container">
+                <!-- FOOTER OFFER 1 -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="disco">
+                        <h3>30%<span>OFF</span></h3>
+                        <h4>Eiffel Tower,Rome</h4>
+                        <p>valid only for 24th Dec</p> <a href="booking.html">Book Now</a>
+                    </div>
+                </div>
+                <!-- FOOTER OFFER 2 -->
+                <div class="col-md-3 col-sm-6 col-xs-12">
+                    <div class="disco1 disco">
+                        <h3>42%<span>OFF</span></h3>
+                        <h4>Colosseum,Burj Al Arab</h4>
+                        <p>valid only for 18th Nov</p> <a href="booking.html">Book Now</a>
+                    </div>
+                </div>
+                <!-- FOOTER MOST POPULAR VACATIONS -->
+          
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== FOOTER 2 ==========-->
+<section>
+    <div class="rows">
+        <div class="footer">
+            <div class="container">
+                <div class="foot-sec2">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-3 foot-spec foot-com">
+                                <h4><span>Holiday</span> Tour & Travels</h4>
+                                <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide.</p>
+                            </div>
+                            <div class="col-sm-3 foot-spec foot-com">
+                                <h4><span>Address</span> & Contact Info</h4>
+                                <p>28800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A. Landmark : Next To Airport</p>
+                                <p> <span class="strong">Phone: </span> <span class="highlighted">+101-1231-1231</span> </p>
+                            </div>
+                            <div class="col-sm-3 col-md-3 foot-spec foot-com">
+                                <h4><span>SUPPORT</span> & HELP</h4>
+                                <ul class="two-columns">
+                                    <li> <a href="#">About Us</a> </li>
+                                    <li> <a href="#">FAQ</a> </li>
+                                    <li> <a href="#">Feedbacks</a> </li>
+                                    <li> <a href="#">Blog </a> </li>
+                                    <li> <a href="#">Use Cases</a> </li>
+                                    <li> <a href="#">Advertise us</a> </li>
+                                    <li> <a href="#">Discount</a> </li>
+                                    <li> <a href="#">Vacations</a> </li>
+                                    <li> <a href="#">Branding Offers </a> </li>
+                                    <li> <a href="#">Contact Us</a> </li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-3 foot-social foot-spec foot-com">
+                                <h4><span>Follow</span> with us</h4>
+                                <p>Join the thousands of other There are many variations of passages of Lorem Ipsum available</p>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                    <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                    <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== FOOTER - COPYRIGHT ==========-->

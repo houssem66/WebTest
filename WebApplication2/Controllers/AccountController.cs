@@ -42,9 +42,7 @@ namespace Finance.Controllers
         private readonly CountryService countryService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-
         public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager,ILogger<AccountController> logger,IEmailService emailService)
-
         {
             UserService = _UserService;
             this.countryService = countryService;
@@ -258,13 +256,14 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
+
         public async Task<IActionResult> RegisterCommercant(CommercentViewModel model )
         {if (model.PersAContact == null) { model.PersAContact = "NoOne"; }
+
 
             ViewData["countries"] = AvailableCountries;
             if (ModelState.IsValid)
             {
-
                 string uniqueFileName = null;
                 List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
@@ -302,13 +301,18 @@ namespace Finance.Controllers
                     // copy the file to wwwroot/images folder
                     model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
+
                 //phone
                 try
                 {
+
+
                     var numberDetails = await PhoneNumberResource.FetchAsync(
                         pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
                         countryCode: model.PhoneNumberCountryCode,
+
                         type: new List<string> { "carrier" });
+
                     // only allow user to set phone number if capable of receiving SMS
                     if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
                     {
@@ -318,6 +322,10 @@ namespace Finance.Controllers
                     }
 
                     var numberToSave = numberDetails.PhoneNumber.ToString();
+
+
+
+
 
                     var user = new Commerçant
                     {
@@ -332,13 +340,17 @@ namespace Finance.Controllers
                         Type = model.TypeP,
                         Patente = uniqueFileName,
                         Country = model.PhoneNumberCountryCode,
+
                         FormeJuridique=model.Forme,
                         Identifiant_fiscale=model.Identifiant_fiscale
+
                     };
                     var result = await userManager.CreateAsync(user, model.Password);
+
+
                     if (result.Succeeded)
                     {
-
+                        System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
 
 
                         if (await roleManager.RoleExistsAsync("Commercant"))
@@ -356,12 +368,50 @@ namespace Finance.Controllers
                             await userManager.AddToRoleAsync(user, "Commercant");
 
                         }
-                        await signInManager.SignInAsync(user, isPersistent: false);
+                        var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                        var confirmationLink = Url.Action("ConfirmEmail", "Account",
+                        new { userId = user.Id, token = token }, Request.Scheme, Request.Host.ToString());
 
+                        //sending email
+
+
+                        var mailMessage = new MimeMessage();
+                        mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                        mailMessage.To.Add(new MailboxAddress("Client", model.Email));
+                        mailMessage.Subject = "Email Confirmation";
+                        mailMessage.Body = new TextPart("plain")
+                        {
+                            Text = $"{confirmationLink}"
+                        };
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.CheckCertificateRevocation = false;
+                            smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                            smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                            smtpClient.Send(mailMessage);
+                            smtpClient.Disconnect(true);
+                        }
+                        //
+
+
+
+                        ViewBag.ErrorTitle = "Registration successful";
+                        ViewBag.ErrorMessage = "Before you can Login, please confirm your " +
+                                "email, by clicking on the confirmation link we have emailed you";
+                        return View("Error");
+
+                        //await signInManager.SignInAsync(user, isPersistent: false);
+
+
+                        //  return RedirectToAction("CreateExperience", "Experience");
+                    }
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
                     }
 
-
-                    return RedirectToAction("AjouterTransport", "Service");
+                    return View(model);
 
 
                 }
@@ -653,7 +703,29 @@ namespace Finance.Controllers
                         var token = await userManager.GenerateEmailConfirmationTokenAsync(user);
 
                         var confirmationLink = Url.Action("ConfirmEmail", "Account",
-                                        new { userId = user.Id, token = token }, Request.Scheme);
+                         new { userId = user.Id, token = token }, Request.Scheme, Request.Host.ToString());
+
+                        //sending email
+
+
+                        var mailMessage = new MimeMessage();
+                        mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                        mailMessage.To.Add(new MailboxAddress("Client", info.Principal.FindFirstValue(ClaimTypes.Email)));
+                        mailMessage.Subject = "Email Confirmation";
+                        mailMessage.Body = new TextPart("plain")
+                        {
+                            Text = $"{confirmationLink}"
+                        };
+
+                        using (var smtpClient = new SmtpClient())
+                        {
+                            smtpClient.CheckCertificateRevocation = false;
+                            smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                            smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                            smtpClient.Send(mailMessage);
+                            smtpClient.Disconnect(true);
+                        }
+                        //
 
                         logger.Log(LogLevel.Warning, confirmationLink);
 
@@ -694,7 +766,7 @@ namespace Finance.Controllers
 
 
                     }
-                    await signInManager.SignInAsync(user, isPersistent: false);
+                   // await signInManager.SignInAsync(user, isPersistent: false);
 
 
 
@@ -870,21 +942,21 @@ namespace Finance.Controllers
             return View(list.ToList());
         }
         [HttpGet]
-
+        
         public IActionResult AccessDenied()
         {
             return View();
         }
         [HttpGet]
-
+        
         public async Task<IActionResult> Verify(string id)
         {
-            var user = await commercantService.GetCommerçantById(id);
+          var user=  await commercantService.GetCommerçantById(id);
             return View(user);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async void Verify(Commerçant commerçant, string Id)
+        public async void Verify(Commerçant commerçant,string Id)
         {
             var com = await commercantService.GetCommerçantById(commerçant.Id);
             com.Verified = true;
@@ -893,8 +965,8 @@ namespace Finance.Controllers
                 await commercantService.Update(com);
 
             }
-            catch (Exception ex) { Response.Redirect("GetAllCommercant"); }
-
+            catch(Exception ex) { Response.Redirect("GetAllCommercant"); }
+           
         }
     }
 }
