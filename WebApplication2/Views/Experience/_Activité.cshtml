@@ -1,68 +1,20 @@
 ﻿@model ActiviteViewModel
-<script src="~/Theme/plugins/jquery/jquery.min.js"></script>
-<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
-<link href="~/Theme/plugins/fontawesome-free/css/all.min.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-
-<!-- /.card-header -->
-<div class="card-body accent-orange">
-    <form method="post" enctype="multipart/form-data" asp-action="CreateActivite" asp-controller="Experience">
-
-        <div class="row">
-            <div class="col-sm-12">
-                <!-- textarea -->
-                <div class="form-group">
-                    <label>Description Activité</label>
-
-
-                   
-                    <textarea asp-for="Details" class="form-control" rows="3" placeholder="Enter ..."></textarea>
-
-
-
-
-                </div>
-            </div>
-
-
-
-
-        </div>
-
-        <div class="row">
-
-            <div class="col-sm-12">
-                <label>Image</label>
-                <div class="custom-file">
-                    <span>
-
-
-                    </span>
-                    <input multiple asp-for="FileP" class="form-control custom-file-input" />
-                    <label class="custom-file-label">choisir votre fichier</label>
-                </div>
-            </div>
-        </div>
-        <input type="hidden" name="tester"  value="1"/>
-        @section Scripts {
-            <script>
-                $(document).ready(function () {
-                    $('.custom-file-input').on("change", function () {
-                        var fileLabel = $(this).next('.custom-file-label');
-                        var files = $(this)[0].files;
-                        if (files.length > 1) {
-                            fileLabel.html(files.length + ' files selected');
-                        }
-                        else if (files.length == 1) {
-                            fileLabel.html(files[0].name);
-                        }
-                    });
-                });
-            </script>
-        }
-        <button type="submit" class="btn btn-outline-success">Confirmer</button>
-    </form>
    
-</div>
+
+    @{int x = 4;
+
+        if (ViewBag.show != null)
+        {
+            foreach (var item in ViewBag.show)
+            {
+                var dynamic = "#myModal" + @x;
+
+
+        <button type="button" data-toggle="modal" data-target=@dynamic class="btn btn-default"> @item.Titre</button>
+                x = x + 1;
+            }
+        }
+       
+    }
+  
 

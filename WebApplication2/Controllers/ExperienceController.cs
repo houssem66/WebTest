@@ -95,18 +95,20 @@ namespace TourMe.Web.Controllers
         // [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience()
         {
-            ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-            IList<Activite> list = (IList<Activite>)ViewData["list"];
-            if (list.Count() > 0) {
-                
-                TempData["list"] = JsonConvert.SerializeObject(list);
+            if (TempData["list"] != null) 
+            { ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
 
-            }
-            else
-            {
-                IList<Activite> activites = new List<Activite>();
-                TempData["list"] = JsonConvert.SerializeObject(activites);
-            }
+            //    IList<Activite> list = (IList<Activite>)ViewData["list"];
+            //    if (list.Count() > 0) {
+
+            //        TempData["list"] = JsonConvert.SerializeObject(list);
+
+            //    }
+            //    else
+            //    {
+            //        IList<Activite> activites = new List<Activite>();
+            //        TempData["list"] = JsonConvert.SerializeObject(activites);
+            //    }
 
 
             // ViewBag.Message = TempData["Message"];
@@ -118,13 +120,12 @@ namespace TourMe.Web.Controllers
         //[Authorize(Policy = "CreateExperiencePolicy")]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
-            IList<Activite> activites = new List<Activite>();
-            TempData["list"] = JsonConvert.SerializeObject(activites);
-            //ViewData["Message"] = JsonConvert.DeserializeObject<List<Activite>>((string)TempData.Peek("Message"));
-            //TempData.Keep("Message");
-            //Activites = (ICollection<Activite>)ViewData["Message"];
+            if (TempData["list"] != null)
+            { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
             if (ModelState.IsValid)
             {
+                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                IList<Activite> list = (IList<Activite>)ViewData["list"];
                 string id = userManager.GetUserId(User);
                 Experience experience = new Experience
                 {
@@ -162,7 +163,93 @@ namespace TourMe.Web.Controllers
             return View(model);
 
         }
+        public IActionResult CreateActivite()
+        {
 
+            return View();
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult CreateActivite(ActiviteViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                Activite activite = new Activite
+                {
+                    Details = model.Details,
+                    dateDebut = model.dateDebut,
+                    dateFin = model.dateFin,
+                    Titre=model.Titre,
+                };
+                if (TempData["list"] == null)
+                {
+                    IList<Activite> activites = new List<Activite>();
+                    activites.Add(activite);
+                    TempData["list"] = JsonConvert.SerializeObject(activites);
+                    System.Diagnostics.Debug.WriteLine("Nouveau liste :" + activites.Count());
+                }
+                else
+                { 
+                    ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                    IList<Activite> list = (IList<Activite>)ViewData["list"];
+                    if (list.Count() < 6)
+                    {
+                        list.Add(activite);
+                        TempData["list"] = JsonConvert.SerializeObject(list);
+                    }
+                    else { return View("Max"); }
+                   
+                  
+                    
+                    System.Diagnostics.Debug.WriteLine("Ancien:" + list.Count());
+                }        
+            }
+
+            return NoContent();
+
+        }
+        public IActionResult ModifierActvite()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ModifierActvite(ActiviteViewModel model)
+        {
+            ViewData["Modification"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            IList<Activite> list = (IList<Activite>)ViewData["Modification"];
+            var x = list[model.Index - 4].Titre=model.Titre;
+            var y = list[model.Index - 4];
+            TempData["list"] = JsonConvert.SerializeObject(list);
+            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            TempData.Keep("list");
+            return NoContent();
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AfficherActivite(string type)
+        {
+               ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                TempData.Keep("list");
+          
+            return PartialView("_Activité");
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult AfficherModal(string type)
+        {
+
+                ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                TempData.Keep("list");
+            
+            return PartialView("_Modal");
+
+        }
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetAllExperience(string searchTerm)
@@ -315,8 +402,6 @@ namespace TourMe.Web.Controllers
             }
             return View();
         }
-
-
 
         [HttpPost]
         [AllowAnonymous]
@@ -597,53 +682,8 @@ namespace TourMe.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult CreateActivite()
-        {
-          
-            return View();
 
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public  IActionResult CreateActivite(ActiviteViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Activite activite = new Activite
-                {
-                    Details = model.Details,
-                    dateDebut = model.dateDebut,
-                    dateFin = model.dateFin,
-                };
 
-                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-               
-                IList<Activite> list = (IList<Activite>)ViewData["list"];
-                if (list.Count()<1)
-                {
-                    IList<Activite> activites = new List<Activite>();
-                    activites.Add(activite);
-                    TempData["list"]= JsonConvert.SerializeObject(activites);
-                    System.Diagnostics.Debug.WriteLine("Nouveau liste :" + activites.Count());
-                    ViewData["activite"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-                   
-                }
-               else
-                {
-                    list.Add(activite);
-                    System.Diagnostics.Debug.WriteLine("Deja existe la liste :" +list.Count());
-                    TempData["list"]= JsonConvert.SerializeObject(list);
-                    System.Diagnostics.Debug.WriteLine("Temp :" + list.Count());
-                    ViewData["activite"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-                    
-                }
-            }
-                
-            return NoContent();
-
-        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -745,7 +785,7 @@ namespace TourMe.Web.Controllers
             {
 
 
-               
+
                 return PartialView("_Organisme");
             }
 
