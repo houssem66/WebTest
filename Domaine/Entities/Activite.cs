@@ -11,6 +11,7 @@ namespace TourMe.Data.Entities
     {
         [Key]
         public int activiteId { get; set; }
+        public string Titre { get; set; }
         public string Details { get; set; }
         public string Image { get; set; }
         public int ExperienceId { get; set; }
