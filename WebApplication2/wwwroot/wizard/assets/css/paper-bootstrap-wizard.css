@@ -338,8 +338,8 @@ input[type="button"]:focus {
 }
 
 .wizard-container {
-  padding-top: 100px;
-  z-index: 3;
+    padding-top: 100px;
+    z-index: 3;
 }
 
 .made-with-pk {
