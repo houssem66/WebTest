@@ -40,6 +40,7 @@
 
                             <th>Claims</th>
                             <th>Details</th>
+                            <th>Delete</th>
 
                         </tr>
                     </thead>
@@ -47,44 +48,49 @@
                         @foreach (var item in Model)
                         {
 
-                            <tr>
+                        <tr>
 
-                                <td>
-                                    @item.Nom
+                            <td>
+                                @item.Nom
 
-                                </td>
-                                <td>
-                                    @item.Prenom
-                                </td>
-                                <td>
-                                    @item.Email
-                                </td>
-
-
-
-                                <td>
-                                    @item.role
-                                </td>
-
-                                <td>
-                                    <a asp-action="ManageUserClaims" asp-controller="Account" asp-route-id="@item.Id" style="text-decoration-color:white">ManageUserClaims</a>
-                                </td>
+                            </td>
+                            <td>
+                                @item.Prenom
+                            </td>
+                            <td>
+                                @item.Email
+                            </td>
 
 
 
-                                <td>
-                                    @if (User.IsInRole("Commercant"))
-                                    {
-                                        <span > <a asp-action="ProfilCommerc" asp-controller="Account"  class="link-btn" >Details</a></span>}
-                                    else
-                                    { <span > <a asp-action="Profil" asp-controller="Account" class="link-btn">Details</a></span>}
-                                </td>
+                            <td>
+                                @item.role
+                            </td>
+
+                            <td>
+                                <a asp-action="ManageUserClaims" asp-controller="Account" asp-route-id="@item.Id" style="text-decoration-color:white">ManageUserClaims</a>
+                            </td>
+
+
+
+                            <td>
+                                @if (User.IsInRole("Commercant"))
+                                {
+                                    <span> <a asp-action="ProfilCommerc" asp-controller="Account" class="link-btn">Details</a></span>}
+                                else
+                                { <span> <a asp-action="Profil" asp-controller="Account" class="link-btn">Details</a></span>}
+                            </td>
 
 
 
 
+                            <td>
 
-                            </tr>
+                                <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+
+                            </td>
+
+                        </tr>
                         }
                     </tbody>
                 </table>
