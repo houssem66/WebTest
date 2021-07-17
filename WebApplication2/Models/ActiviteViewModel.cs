@@ -9,11 +9,14 @@ namespace TourMe.Web.Models
 {
     public class ActiviteViewModel
     {
-        public List<IFormFile> FileP { get; set; }
+        public string Titre { get; set; }
+        public IFormFile FileP { get; set; }
         public string Details { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateDebut { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateFin { get; set; }
+        public int Index { get; set; }
+        public string Duree { get; set; }
     }
 }

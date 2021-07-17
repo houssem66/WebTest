@@ -11,6 +11,7 @@ namespace TourMe.Data.Entities
     {
         [Key]
         public int activiteId { get; set; }
+        public string Titre { get; set; }
         public string Details { get; set; }
         public string Image { get; set; }
         public int ExperienceId { get; set; }
@@ -18,5 +19,6 @@ namespace TourMe.Data.Entities
         public DateTime dateDebut { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateFin { get; set; }
+        public string Duree { get; set; }
     }
 }

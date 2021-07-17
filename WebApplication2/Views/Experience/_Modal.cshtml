@@ -1,0 +1,130 @@
+﻿@model ActiviteViewModel
+@{int y = 4;
+    if (ViewBag.show != null)
+    {
+        foreach (var item in ViewBag.show)
+        {
+            var dynamic = "myModal" + y;
+            var save2 = "Save" + y;
+            var save = "" + y;
+            <form method="post" asp-action="ModifierActvite" asp-controller="Experience" enctype="multipart/form-data">
+                <div class="modal" id=@dynamic>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <h4 class="modal-title"> Voila votre Activité intitulé: @item.Titre </h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="modal-body row">
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Titre de l'activité
+                                        </label>
+                                        <input name="titre" value="@item.Titre" id="test" class="form-control" placeholder="Activité1" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>
+                                            Description de l'activité
+                                        </label>
+                                        <textarea class="form-control"  id="test2" rows="4" placeholder="Expliquer aux participant le déroulement de votre Activité" name="Details">@item.Details</textarea>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label>L'ancien durée d' Activité est : @item.Duree,   </label>
+                                        <label>  Vous voulez Changer la durée ? </label>
+                                        <select id="transport" name="Duree" class="form-control valid" aria-invalid="false">
+                                            <option value="" disabled selected>Durée</option>
+                                            <option value="0.5">0.5 Heure</option>
+                                            <option value="0.75">0.75 Heure</option>
+                                            <option value="1">1 Heure</option>
+                                            <option value="">1.25 Heure</option>
+                                            <option value="">1.5 Heure</option>
+                                            <option value="">1.75 Heure</option>
+                                            <option value="">2 Heure</option>
+                                            <option value="">2.5 Heure</option>
+                                            <option value="">3 Heure</option>
+                                            <option value="">3.5 Heure</option>
+                                            <option value="">4 Heure</option>
+                                            <option value="">4.5 Heure</option>
+                                            <option value="">5 Heure</option>
+                                            <option value="">5.5 Heure</option>
+                                            <option value="">6 Heure</option>
+                                            <option value="">6.5 Heure</option>
+                                            <option value="">7 Heure</option>
+                                            <option value="">7.5 Heure</option>
+                                            <option value="">8 Heure</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Choisir Une image</label>
+                                        <input type="file" class="form-control-file" name="FileP" id="exampleFormControlFile1">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <input type="hidden" value="@y" name="Index" class="form-control" />
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                @*<button type="button" class="btn btn-danger" asp-action="DeleteActivite" data-dismiss="modal">Delete</button>*@
+                                <button type="button" class="btn accent-pink" id=@save2 data-dismiss="modal">Fermer</button>
+                                <button class="btn btn-primary" id="close" type="submit">Sauvegarder</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+            y = y + 1;
+            
+<script>
+                     function makeRequest1(x) {
+           $.ajax({
+
+                               url: '@Url.Action("AfficherActivite", "Experience")',
+                               data: { x: value },
+                               type: "post",
+                               success: function (data) {
+                               $("#loadpartial").html(data);
+                }
+            });
+        }
+         function makeRequest2(x) {
+           $.ajax({
+
+                               url: '@Url.Action("AfficherModal", "Experience")',
+                               data: { x: value },
+                               type: "post",
+                               success: function (data) {
+                                   $("#loadpartial2").html(data);
+                }
+            });
+        }
+    $(document).ready(function () {
+        var x = "@save";
+        $('#Save'+x).click(function () {
+
+           
+            setTimeout(function () {
+                makeRequest1("x");
+                makeRequest2("x")
+            }, 700);
+
+        });
+    });
+
+
+
+</script>
+            
+        }
+    }}

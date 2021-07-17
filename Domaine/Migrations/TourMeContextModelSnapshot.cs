@@ -267,10 +267,16 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Duree")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ExperienceId")
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Titre")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("dateDebut")

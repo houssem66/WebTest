@@ -324,13 +324,11 @@
                                     }
 
 
-
-
-
-
-
-
                                 </ul>
+
+
+
+                            </div>
 
 
                             </div>
@@ -387,14 +385,20 @@
         {
             @await RenderSectionAsync("Scripts", required: true)}
 
+
+
         <!--====== FOOTER - COPYRIGHT ==========-->
-   
+
         <!--========= Scripts ===========-->
         <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
         <script src="~/Theme/Template2/js/bootstrap.js"></script>
         <script src="~/Theme/Template2/js/wow.min.js"></script>
         <script src="~/Theme/Template2/js/materialize.min.js"></script>
         <script src="~/Theme/Template2/js/custom.js"></script>
+
+        @if (IsSectionDefined("Scripts"))
+        {
+            @await RenderSectionAsync("Scripts", required: true)}
 
     </body>
 
