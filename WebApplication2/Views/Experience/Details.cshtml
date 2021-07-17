@@ -455,8 +455,8 @@
                     <ul>
                         <li class="dl1">@Model.Lieu</li>
                         <li class="dl2">@Model.tarif DT</li>
-                        
-                        <li class="dl4"><a asp-action="Reserver" asp-controller="Reservation" asp-route-id="@Model.ExperienceId" >Reserver</a> </li>
+
+                        <li class="dl4"><a asp-action="Reserver" asp-controller="Reservation" asp-route-id="@Model.ExperienceId">Reserver</a> </li>
                     </ul>
                 </div>
             </div>
@@ -535,34 +535,7 @@
                     </div>
                     <!--====== ABOUT THE TOUR ==========-->
 
-                    <script>
 
-                        $(document).ready(function () {
-
-                            $("#myCarousel1").on('slid.bs.carousel', function () {
-
-                                var ele = $('.carousel-inner .item .active').val('.carousel - inner.item.active').toString();
-                                var totalItems = $('.item').text().length;
-
-                                var imageSrc = $('.active').find('img').attr('src');
-                                console.log(imageSrc);
-                                console.log('target: ' + totalItems
-                                    );
-
-
-                                             $.ajax({
-
-                    url: '@Url.Action("Description", "Experience")',
-                                                 data: { 'src': imageSrc },
-                                                 type: "Get",
-                    success: function (data) {
-                    $("#loadpartial").html(data);
-                }
-            });
-
-                                      });
-                        });
-                    </script>
                     <div id="loadpartial">
 
                     </div>
@@ -655,41 +628,45 @@
 
                                     <!--COMMENT RATING-->
                                     @{ if (Model.Ratings != null)
-                                        {  foreach (var item in Model.Ratings)
+                                        {
+                                            foreach (var item in Model.Ratings)
                                             {
 
 
                                                 if (item.Commentaire != null)
                                                 {
-                                                        <div class="dir-rat-inn dir-rat-review">
-                                                            <div class="row">
-                                                                <div class="col-md-3 dir-rat-left">
+                                                    <div class="dir-rat-inn dir-rat-review">
+                                                        <div class="row">
+                                                            <div class="col-md-3 dir-rat-left">
 
-                                                                    <p>@{ if (@item.utilisateur.Nom != null)
-                                                                        {@item.utilisateur.Nom }else { @item.utilisateur.Prenom}
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-md-9 dir-rat-right">
-                                                                    <!--calculatign number of stars-->
-                                                                    <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
-                                                                    <p>@item.Commentaire</p>
-                                                                    <ul>
-                                                                        <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>}
-                                                }
+                                                                <p>
+                                                                    @{ if (@item.utilisateur.Nom != null)
+                                                                        {@item.utilisateur.Nom }
+                                                                    else
+                                                                    { @item.utilisateur.Prenom}
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-9 dir-rat-right">
+                                                            <!--calculatign number of stars-->
+                                                            <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                                                            <p>@item.Commentaire</p>
+                                                            <ul>
+                                                                <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                                                <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>}
                                         }
+                                    }
                                     }
 
                                     <!--COMMENT RATING-->
@@ -940,7 +917,36 @@
     <script src="~/Theme/Template2/js/wow.min.js"></script>
     <script src="~/Theme/Template2/js/materialize.min.js"></script>
     <script src="~/Theme/Template2/js/custom.js"></script>
+    <script>
+        function request(imageSrc) { $.ajax({
 
+                    url: '@Url.Action("Description", "Experience")',
+                                                 data: { 'src': imageSrc },
+                                                 type: "Get",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });}
+
+                        $(document).ready(function () {
+                            var x = $('.active').find('img').attr('src');
+                            request(x);
+                            $("#myCarousel1").on('slid.bs.carousel', function () {
+
+                               
+                                var totalItems = $('.item').text().length;
+
+                                var imageSrc = $('.active').find('img').attr('src');
+                                console.log(imageSrc);
+                                console.log('target: ' + totalItems
+                                    );
+
+                                request(imageSrc);
+
+
+                                      });
+                        });
+    </script>
 </body>
 
 

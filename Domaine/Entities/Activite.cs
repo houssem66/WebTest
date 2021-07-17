@@ -19,5 +19,6 @@ namespace TourMe.Data.Entities
         public DateTime dateDebut { get; set; }
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{yyyy-MM-ddThh:mm}")]
         public DateTime dateFin { get; set; }
+        public string Duree { get; set; }
     }
 }

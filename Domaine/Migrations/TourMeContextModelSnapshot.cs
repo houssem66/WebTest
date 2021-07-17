@@ -267,6 +267,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Duree")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("ExperienceId")
                         .HasColumnType("int");
 

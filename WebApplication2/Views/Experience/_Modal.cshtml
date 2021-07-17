@@ -38,8 +38,9 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
-                                        <label>Quelle est la durée de votre expérience ?</label>
-                                        <select id="transport" name="Durée" class="form-control valid" aria-invalid="false">
+                                        <label>L'ancien durée d' Activité est : @item.Duree,   </label>
+                                        <label>  Vous voulez Changer la durée ? </label>
+                                        <select id="transport" name="Duree" class="form-control valid" aria-invalid="false">
                                             <option value="" disabled selected>Durée</option>
                                             <option value="0.5">0.5 Heure</option>
                                             <option value="0.75">0.75 Heure</option>
@@ -74,7 +75,8 @@
                             <input type="hidden" value="@y" name="Index" class="form-control" />
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-danger" id=@save2 data-dismiss="modal">Fermer</button>
+                                @*<button type="button" class="btn btn-danger" asp-action="DeleteActivite" data-dismiss="modal">Delete</button>*@
+                                <button type="button" class="btn accent-pink" id=@save2 data-dismiss="modal">Fermer</button>
                                 <button class="btn btn-primary" id="close" type="submit">Sauvegarder</button>
                             </div>
 
@@ -115,7 +117,7 @@
             setTimeout(function () {
                 makeRequest1("x");
                 makeRequest2("x")
-            }, 500);
+            }, 700);
 
         });
     });

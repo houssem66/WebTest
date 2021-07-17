@@ -43,7 +43,7 @@
     <!-- CSS Files -->
     <link href="~/wizard/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/wizard/assets/css/paper-bootstrap-wizard.css" rel="stylesheet" />
-
+    <link href="~/wizard/assets/css/Style.css" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="~/wizard/assets/css/demo.css" rel="stylesheet" />
 
@@ -150,6 +150,16 @@
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">Choisir un Théme</button>
                                             </div>
+                                            <div class="col-sm-6 col-sm-offset-1" id="Lieu">
+                                                <label>Entrer le Lieu de l'Expérience</label>
+                                                <input asp-for="Lieu" class="form-control" />
+                                                <span asp-validation-for="Lieu" class="text-danger"></span>
+                                            </div>
+                                            <div class="col-sm-2" id="Tarif">
+                                                <label>Entrer le tariff</label>
+                                                <input asp-for="tarif" class="form-control" />
+                                                <span asp-validation-for="tarif" class="text-danger"></span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="service">
@@ -246,7 +256,11 @@
                         </div>
                     </div> <!-- wizard container -->
                 </div>
+                <div class="col-sm-3">
 
+
+
+                </div>
             </div> <!-- row -->
         </div> <!--  big container -->
 
@@ -1069,27 +1083,27 @@
                         <div class="col-sm-12">
                             <div class="form-group">
                                 <label>Quelle est la durée de votre expérience ?</label>
-                                <select id="transport" name="Durée" class="form-control valid" aria-invalid="false">
+                                <select  name="Duree" class="form-control valid" aria-invalid="false">
                                     <option value="" disabled selected>Durée</option>
-                                    <option value="0.5">0.5 Heure</option>
-                                    <option value="0.75">0.75 Heure</option>
-                                    <option value="1">1 Heure</option>
-                                    <option value="">1.25 Heure</option>
-                                    <option value="">1.5 Heure</option>
-                                    <option value="">1.75 Heure</option>
-                                    <option value="">2 Heure</option>
-                                    <option value="">2.5 Heure</option>
-                                    <option value="">3 Heure</option>
-                                    <option value="">3.5 Heure</option>
-                                    <option value="">4 Heure</option>
-                                    <option value="">4.5 Heure</option>
-                                    <option value="">5 Heure</option>
-                                    <option value="">5.5 Heure</option>
-                                    <option value="">6 Heure</option>
-                                    <option value="">6.5 Heure</option>
-                                    <option value="">7 Heure</option>
-                                    <option value="">7.5 Heure</option>
-                                    <option value="">8 Heure</option>
+                                    <option value="0.5 Heure">0.5 Heure</option>
+                                    <option value="0.75 Heure">0.75 Heure</option>
+                                    <option value="1 Heure">1 Heure</option>
+                                    <option value="1.25 Heure">1.25 Heure</option>
+                                    <option value="1.5 Heure">1.5 Heure</option>
+                                    <option value="1.75 Heure">1.75 Heure</option>
+                                    <option value="2 Heure">2 Heure</option>
+                                    <option value="2.5 Heure">2.5 Heure</option>
+                                    <option value="3 Heure">3 Heure</option>
+                                    <option value="3.5 Heure">3.5 Heure</option>
+                                    <option value="4 Heure">4 Heure</option>
+                                    <option value="4.5 Heure">4.5 Heure</option>
+                                    <option value="5 Heure">5 Heure</option>
+                                    <option value="5.5 Heure">5.5 Heure</option>
+                                    <option value="6 Heure">6 Heure</option>
+                                    <option value="6.5 Heure">6.5 Heure</option>
+                                    <option value="7 Heure">7 Heure</option>
+                                    <option value="7.5 Heure">7.5 Heure</option>
+                                    <option value="8 Heure">8 Heure</option>
                                 </select>
                             </div>
                         </div>
@@ -1157,7 +1171,7 @@
                 setTimeout(function () {
                     makeRequest1("x");
                     makeRequest2("x")
-                }, 500);
+                }, 700);
                 
             });
             
@@ -1168,7 +1182,8 @@
                 $('#test').val('');      
                 
             });
-
+            $("#Lieu").hide();
+            $("#Tarif").hide();
             // les hide mta3 sub Theme
             $("#theme").hide();
             $("#autre").hide();
@@ -1183,6 +1198,7 @@
                 }
                 else {
                     $("#theme").hide();
+                   
                 }
             });
             $("#Culture,#Event, #Health, #Nature,#Food").hide();
@@ -1216,6 +1232,7 @@
                         break;
                 }
             });
+          
             // Input text S'affiche si l'option autre est choisis
             $("[name=Forme]").change(function () {
                 var x = $(this).val().replace(/\s/g, '');
@@ -1267,7 +1284,8 @@
                 var SubTheme = $("input[name='Forme']:checked").val();
                 var theme = $('select[name="TypeExperience"]').find(":selected").text();
                 Category = $("input[name='sub']:checked").val();
-
+                $("#Lieu").show();
+                $("#Tarif").show();
                 if ((SubTheme.length > 1) && !(SubTheme.includes("Autre"))) {
 
                     $("#choose").html(SubTheme + "," + Category);

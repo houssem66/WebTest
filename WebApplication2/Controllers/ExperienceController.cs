@@ -137,8 +137,9 @@ namespace TourMe.Web.Controllers
                     Saison = model.Saison,
                     NbPlaces = model.NbPlaces,
                     tarif = model.tarif,
-                    Activites = new Collection<Activite>(),
+                    Activites =list,
                     CommerçantId = id
+                    
 
 
                 };
@@ -148,7 +149,6 @@ namespace TourMe.Web.Controllers
                 //    await ActiviteService.Ajout(item);
 
                 //}
-
                 var result = await ExperienceService.InsertExperience(experience);
                 Experience experience1 = await ExperienceService.GetById((int)result);
 
@@ -175,12 +175,29 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                string uniqueFileName = null;
+                if (model.FileP != null)
+                {
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
                 Activite activite = new Activite
                 {
                     Details = model.Details,
                     dateDebut = model.dateDebut,
                     dateFin = model.dateFin,
-                    Titre=model.Titre,
+                    Titre = model.Titre,
+                    Duree = model.Duree,
+                    Image = uniqueFileName,
                 };
                 if (TempData["list"] == null)
                 {
@@ -221,8 +238,30 @@ namespace TourMe.Web.Controllers
         {
             ViewData["Modification"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
             IList<Activite> list = (IList<Activite>)ViewData["Modification"];
-            var x = list[model.Index - 4].Titre=model.Titre;
-            var y = list[model.Index - 4];
+           list[model.Index - 4].Titre=model.Titre;
+           list[model.Index - 4].Details = model.Details;
+            list[model.Index - 4].Duree = model.Duree;
+
+            TempData["list"] = JsonConvert.SerializeObject(list);
+            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            TempData.Keep("list");
+            return NoContent();
+
+        }
+        public IActionResult DeleteActivite()
+        {
+
+            return View();
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult DeleteActivite(ActiviteViewModel model)
+        {
+            ViewData["Modification"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            IList<Activite> list = (IList<Activite>)ViewData["Modification"];
+            list.RemoveAt(model.Index - 4);
+
             TempData["list"] = JsonConvert.SerializeObject(list);
             ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
             TempData.Keep("list");
