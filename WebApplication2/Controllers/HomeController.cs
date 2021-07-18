@@ -32,11 +32,22 @@ namespace TourMe.Web.Controllers
             List<ServiceNouritture> nourritures = new List<ServiceNouritture>();
             List<ServiceLogment> logements = new List<ServiceLogment>();
             List<Experience> experiences = new List<Experience>();
-            if (ExperienceService.GetAllExperienceDetails(null)!=null)
+            try
+            {
                 experiences = ExperienceService.GetAllExperienceDetails(null).OrderBy(x => x.AvgRating).Take(5).ToList();
-            else experiences = null;
-            logements = LogementExtService.GetAllLogements().OrderBy(x => x.PrixParNuit).Take(6).ToList();
-            nourritures= NourritureExtService.GetAllLogements().OrderBy(x => x.Prix).Take(6).ToList();
+                logements = LogementExtService.GetAllLogements().OrderBy(x => x.PrixParNuit).Take(6).ToList();
+                nourritures = NourritureExtService.GetAllLogements().OrderBy(x => x.Prix).Take(6).ToList();
+            }
+            catch(Exception e)
+            {
+                experiences = null;
+                logements = null;
+                nourritures = null;
+            }
+               
+            
+            
+            
             HomeViewModel homeViewModel = new HomeViewModel();
             homeViewModel.ListeExperience = experiences;
             homeViewModel.ListeLogement = logements;

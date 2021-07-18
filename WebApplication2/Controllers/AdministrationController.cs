@@ -227,6 +227,35 @@ namespace TourMe.Web.Controllers
         }
 
 
+        [HttpGet]
+
+        public async Task<IActionResult> DeleteUser(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var utilisateur = await userService.GetById(id);
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return View(utilisateur);
+        }
+        [HttpPost, ActionName("DeleteUser")]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> DeleteConfirmed(string id)
+        {
+            await userService.DeleteUtilisateurAsync(id);
+            //    var utilisateur = await _context.User.FindAsync(id);
+            //    _context.User.Remove(utilisateur);
+            //    await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GetAllUsers));
+        }
+
 
 
     }

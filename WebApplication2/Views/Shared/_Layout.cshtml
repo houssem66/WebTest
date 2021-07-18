@@ -23,6 +23,7 @@
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -129,33 +130,34 @@
 
                             {
 
-                        <ul>
-                            <li>
-                                <a asp-controller="Account" asp-action="Login">Se Connecter</a>
-                            </li>
-                            <li>
-                                <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
-                            </li>
+                                <ul>
+                                    <li>
+                                        <a asp-controller="Account" asp-action="Login">Se Connecter</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="account" asp-action="RegisterUser">Register Utilisateur</a>
+                                    </li>
 
-                            <li>
-                                <a style=" color:azure;
+                                    <li>
+                                        <a style=" color:azure;
                                                     padding: 7px 12px;
                                                     line-height: 30px;
                                                     font-size: 12px;
                                                     background-color:darkblue;"
-                                   asp-controller="Service" asp-action="BecomeCommercant">Devenir Commerçant</a>
-                            </li>
+                                           asp-controller="Service" asp-action="BecomeCommercant">Devenir Commerçant</a>
+                                    </li>
 
-                            <li>
-                                <a style=" color:azure;
+                                    <li>
+                                        <a style=" color:azure;
                                                     padding: 7px 12px;
                                                     line-height: 30px;
                                                     font-size: 12px;
                                                     background-color:darkturquoise;
                                            " asp-controller="account" asp-action="RegisterCommercant">
-                                Devenir Hôte</a>
-                            </li>
-                        </ul>}
+                                            Devenir Hôte
+                                        </a>
+                                    </li>
+                                </ul>}
                         </div>
                         <div class="ed-com-t1-social">
                             <ul>
@@ -193,6 +195,7 @@
                                     <a href="main.html">Home</a>
                                 </li>
                                 <li class="about-menu">
+
                                     <a href="family-package.html" class="mm-arr">Packages</a>
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
@@ -229,14 +232,15 @@
                                 <li class="admi-menu">
 
                                 </li>
+
                                 <li><a href="hotels-list.html">Hotels</a></li>
                                 <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
                                 <li class="cour-menu">
                                     <a asp-action="getAll" asp-controller="Experience">Expériences</a>
                                     @if (User.IsInRole("Administrateur"))
-                                        {
-                                        <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
-                                    }
+                                    {
+                                    <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
+                                }
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
                                         <div class="cour-mm m-menu">
@@ -319,64 +323,80 @@
                                         </li>
                                     }
 
+
+
+
+
+
+
+
                                 </ul>
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <ol>
+
+                        <li> <a class="pull-right" href="#">  <i class="fa fa-shopping-bag"></i> CART</a></li>
+                    </ol>
+
+                </div>
+            </div>
+
+            <!-- TOP SEARCH BOX -->
+            <div class="search-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="search-form">
+                                <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAll">
+                                    <div class="input-field">
+                                        <input type="text" id="select-city" class="autocomplete">
+                                        <label for="select-city">Enter city</label>
+                                    </div>
+                                    <div class="input-field">
+
+                                        <input type="text" id="select-search" class="autocomplete" name="searchTerm">
+                                        <label for="select-search" class="search-hotel-type">Trouvez L'expérience que vous plaît!</label>
+
+
+                                    </div>
+                                    <div class="input-field">
+                                        <input type="submit" value="search" class="waves-effect waves-light tourz-sear-btn">
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- TOP SEARCH BOX -->
-        <div class="search-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="search-form">
-                            <form class="tourz-search-form" method="get" asp-controller="Experience" asp-action="GetAll">
-                                <div class="input-field">
-                                    <input type="text" id="select-city" class="autocomplete">
-                                    <label for="select-city">Enter city</label>
-                                </div>
-                                <div class="input-field">
-
-                                    <input type="text" id="select-search" class="autocomplete" name="searchTerm">
-                                    <label for="select-search" class="search-hotel-type">Trouvez L'expérience que vous plaît!</label>
-
-
-                                </div>
-                                <div class="input-field">
-                                    <input type="submit" value="search" class="waves-effect waves-light tourz-sear-btn">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END TOP SEARCH BOX -->
-    <!--END HEADER SECTION-->
-    <!--====== BANNER ==========-->
+        </section>
+        <!-- END TOP SEARCH BOX -->
+        <!--END HEADER SECTION-->
+        <!--====== BANNER ==========-->
 
 
 
 
 
-                    @RenderBody()
-              
-                @if (IsSectionDefined("Scripts"))
-                {
-                    @await RenderSectionAsync("Scripts", required: true)}
+        @RenderBody()
+
+        @if (IsSectionDefined("Scripts"))
+        {
+            @await RenderSectionAsync("Scripts", required: true)}
+
+        <!--====== FOOTER - COPYRIGHT ==========-->
    
-    <!--====== FOOTER - COPYRIGHT ==========-->
-    <!--========= Scripts ===========-->
-    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
-    <script src="~/Theme/Template2/js/bootstrap.js"></script>
-    <script src="~/Theme/Template2/js/wow.min.js"></script>
-    <script src="~/Theme/Template2/js/materialize.min.js"></script>
-    <script src="~/Theme/Template2/js/custom.js"></script>
+        <!--========= Scripts ===========-->
+        <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+        <script src="~/Theme/Template2/js/bootstrap.js"></script>
+        <script src="~/Theme/Template2/js/wow.min.js"></script>
+        <script src="~/Theme/Template2/js/materialize.min.js"></script>
+        <script src="~/Theme/Template2/js/custom.js"></script>
 
-</body>
+    </body>
 
 
 <!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
