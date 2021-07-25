@@ -1,4 +1,5 @@
 ﻿using Domaine.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Implementation;
@@ -18,14 +19,16 @@ namespace TourMe.Web.Controllers
         private readonly IUserService userService;
         private readonly ICommercantService commercantService;
         private readonly IFournisseurService fournisseurService;
+        private readonly IExperienceService experienceService;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService,IExperienceService _experienceService)
         {
             this.roleManager = roleManager;
             UserManager = userManager;
             userService = _UserService;
             commercantService = _CommercantService;
             fournisseurService = _FournisseurService;
+            experienceService = _experienceService;
         }
         [HttpGet]
         public IActionResult GetAllRoles()
@@ -190,6 +193,7 @@ namespace TourMe.Web.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Administrateur")]
         public async Task<IActionResult> GetAllUsers(string id)
 
         {
@@ -227,7 +231,18 @@ namespace TourMe.Web.Controllers
         }
 
 
+        [HttpGet]
+        [Authorize(Roles = "Administrateur")]
+        public IActionResult GetALLExperienceNonVerifier(string src)
+        {
+            var list = experienceService.GetAllExperienceDetails("").Where(x=>x.Commerçant.Verified==false).ToList();
 
+
+
+
+            return View(list);
+
+        }
 
     }
 }

@@ -237,6 +237,7 @@
                                     @if (User.IsInRole("Administrateur"))
                                     {
                                     <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
+                                   <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
                                 }
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
@@ -295,9 +296,7 @@
                                         </div>
                                     </div>
                                     </li>
-                                    <li>
-                                        <a href="events.html">Events</a>
-                                    </li>
+
                                     @if (User.IsInRole("Commercant"))
                                     {
                                         <li>

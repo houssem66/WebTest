@@ -127,7 +127,7 @@ namespace Services.Implementation
 
         public  IList<Experience> GetExperienceByUser(string id)
         {
-            return ExperienceRepo.GetAllExperienceAsync().Where(e => e.CommerçantId.Equals(id)).ToList();
+            return ExperienceRepo.GetAllExperienceAsync().Where(e => e.Commerçant.Id.Equals(id)).ToList();
           
         }
     }

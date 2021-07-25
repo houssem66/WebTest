@@ -62,7 +62,7 @@ namespace TourMe.Data
 
 
 
-            builder.Entity<Commerçant>().HasMany(e => e.Experiences);
+            builder.Entity<Commerçant>().HasMany(e => e.Experiences).WithOne(f => f.Commerçant);
 
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceLogments).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceNourittures);
@@ -108,7 +108,7 @@ namespace TourMe.Data
 
          );
 
-            builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x=>x.Commerçant).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Commerçant).OnDelete(DeleteBehavior.Cascade);
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);

@@ -1,0 +1,71 @@
+﻿@model TransportViewModel
+<form action="CreateTransport" method="post" enctype="multipart/form-data">
+    <div class="modal" id="ModalT">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Ajouter un Transport </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row">
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label id="gouvLabel">Chosir le Type </label>
+                            <select asp-for="TypeTransport" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeTransport>()">
+                            </select>
+
+                            <span asp-validation-for="TypeTransport" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer la  Date de disponibilité
+                            </label>
+                            <input asp-for="DateDisp" class="form-control"  />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer le Prix de transport
+                            </label>
+                            <input asp-for="Prix" class="form-control" />
+                           
+                        </div>
+                    </div>
+                    
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Choisir Une image</label>
+                            <input type="file" class="form-control-file" name="FileP">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-danger" asp-action="DeleteActivite" data-dismiss="modal">Delete</button>*@
+                    <button type="button" class="btn accent-pink" data-dismiss="modal">Fermer</button>
+                    <button type="submit"id="TransToggle" class="btn btn-primary">Sauvegarder</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        // toggle logement model
+        $("#TransToggle").click(function () {
+            alert("chnia");
+            $('#ModalT').modal('toggle');
+
+        });
+    });
+</script>
