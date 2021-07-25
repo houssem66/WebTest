@@ -55,7 +55,7 @@
 <section>
     <div class="rows pad-bot-redu tb-space hom2-ban-pack">
         <div class="container">
-            @if (Model != null)
+            @if (Model != null && Model.ListeExperience!=null)
             {
                 <div>
                     @{ foreach (var item in Model.ListeExperience)
@@ -110,7 +110,7 @@
 <section>
     <div class="rows pad-bot-redu tb-space">
         <div class="container">
-            @if (Model.ListeExperience.Count != 0)
+            @if (Model.ListeExperience!= null)
             {
                 <!-- TITLE & DESCRIPTION -->
                 <div class="spe-title">
@@ -168,7 +168,7 @@
 
 
 <section>
-    @if (Model.ListeNourriture.Count != 0)
+    @if (Model.ListeNourriture != null)
     {
 
         <div class="rows tb-space pad-top-o pad-bot-redu">
@@ -225,7 +225,7 @@
 
 <section>
     <div class="rows pla pad-bot-redu tb-space">
-        @if(Model.ListeLogement.Count!=0)
+        @if(Model.ListeLogement!=null)
         {
         <div class="pla1 p-home container">
             <!-- TITLE & DESCRIPTION -->
