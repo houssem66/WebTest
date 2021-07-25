@@ -1,0 +1,77 @@
+﻿@model NourritureViewModel
+<form action="CreateNourriture" method="post" enctype="multipart/form-data">
+    <div class="modal" id="ModalN">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Ajouter une nourriture </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row">
+
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label id="gouvLabel">Chosir le Type </label>
+                            <select asp-for="Type" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeNourriture>()">
+                            </select>
+
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer le Nom de plat
+                            </label>
+                            <input asp-for="Plat" class="form-control" placeholder="Sandwich kefteji" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer le Prix de plat
+                            </label>
+                            <input asp-for="Prix" class="form-control"  />
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>
+                                Description de la Nourriture
+                            </label>
+                            <textarea class="form-control" id="test2" rows="4" placeholder="Expliquer aux participant le déroulement de votre Activité" name="DescriptionNourriture"></textarea>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Choisir Une image</label>
+                            <input type="file" class="form-control-file" name="ImageNourriture">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-danger" asp-action="DeleteActivite" data-dismiss="modal">Delete</button>*@
+                    <button type="button" class="btn accent-pink" data-dismiss="modal">Fermer</button>
+                    <button type="submit"id="NourToggle" class="btn btn-primary">Sauvegarder</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        // toggle logement model
+        $("#NourToggle").click(function () {
+
+            $('#ModalN').modal('toggle');
+
+        });
+    });
+</script>

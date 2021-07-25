@@ -11,7 +11,7 @@ using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Data.Entities
 {
-   public class Experience
+    public class Experience
     {
         [Required(ErrorMessage = "Tarif est obligatoire")]
         [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
@@ -20,6 +20,7 @@ namespace TourMe.Data.Entities
         public int ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }
+        public string Description { get; set; }
         [Required]
         public TypeExperience TypeExperience { get; set; }
         public SubExperience SubExperience { get; set; }
@@ -33,7 +34,7 @@ namespace TourMe.Data.Entities
         public string ImagesExperience { get; set; }
         public string Activité { get; set; }
         public string Rating { get; set; }
-        
+
         public int NbPlaces { get; set; }
         public string AvgRating { get; set; }
         //navigation Property
@@ -47,7 +48,8 @@ namespace TourMe.Data.Entities
         public Logement Logement { get; set; }
         public Nourriture Nourriture { get; set; }
         public Transport Transport { get; set; }
-        public string CommerçantId { get; set; }
+
+        public Commerçant Commerçant { get; set; }
 
     }
 }

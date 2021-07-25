@@ -91,12 +91,18 @@ namespace TourMe.Web.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        // [Authorize(Policy = "CreateExperiencePolicy")]
+       
+         [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateExperience()
         {
             if (TempData["list"] != null) 
             { ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
+            if (TempData["Nourriture"] != null)
+            { ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
+            if (TempData["Transport"] != null)
+            { ViewData["Transport"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Transport")); }
+            if (TempData["Logement"] != null)
+            { ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement")); }
 
             //    IList<Activite> list = (IList<Activite>)ViewData["list"];
             //    if (list.Count() > 0) {
@@ -117,9 +123,16 @@ namespace TourMe.Web.Controllers
 
         [HttpPost]
 
-        //[Authorize(Policy = "CreateExperiencePolicy")]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
         {
+            if (TempData["Nourriture"] != null)
+            { ViewData["supp"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
+            if (TempData["Transport"] != null)
+            { ViewData["suppT"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport")); }
+            if (TempData["Logement"] != null)
+            { ViewData["suppL"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement")); }
+
             if (TempData["list"] != null)
             { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
             if (ModelState.IsValid)
@@ -127,6 +140,7 @@ namespace TourMe.Web.Controllers
                 ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
                 IList<Activite> list = (IList<Activite>)ViewData["list"];
                 string id = userManager.GetUserId(User);
+
                 Experience experience = new Experience
                 {
                     Titre = model.Titre,
@@ -137,32 +151,58 @@ namespace TourMe.Web.Controllers
                     Saison = model.Saison,
                     NbPlaces = model.NbPlaces,
                     tarif = model.tarif,
-                    Activites =list,
-                    CommerçantId = id
-                    
-
-
+                    Activites = list,
+                    Description = model.Description,
+                    Commerçant = (Commerçant)await userService.GetById(id),
                 };
-                //foreach (var item in Activites)
-                //{
-
-                //    await ActiviteService.Ajout(item);
-
-                //}
                 var result = await ExperienceService.InsertExperience(experience);
                 Experience experience1 = await ExperienceService.GetById((int)result);
+                if (TempData["Nourriture"] != null)
+                {
+                    ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
+                    var nourriture = (Nourriture)ViewData["Nourriture"];
+                    nourriture.ExperienceId = experience1.ExperienceId;
+                    if (nourriture.Prix > 0)
+                    {
+                        await NourritureService.Ajout(nourriture);
+                    }
+                   
+                }
+                if (TempData["Logement"] != null)
+                {
+                    ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
+                    var logement = (Logement)ViewData["Logement"];
+                    logement.ExperienceId = experience1.ExperienceId;
+                    if (logement.Prix > 0)
+                    {
+                        await LogementService.Ajout(logement);
+                    }
 
-                TempData["experience"] = JsonConvert.SerializeObject(experience1);
-                System.Diagnostics.Debug.WriteLine("idezeeeeeeeeeeee est" + experience1.ExperienceId);
-                TempData["exp"] = JsonConvert.SerializeObject(model);
-                ViewData["exp"] = JsonConvert.DeserializeObject<ExperienceViewModel>((string)TempData.Peek("exp"));
-                return View("CreateActivite");
+                }
+                if (TempData["Transport"] != null)
+                {
+                    ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
+                    var transport = (Transport)ViewData["Transport"];
+                    transport.ExperienceId = experience1.ExperienceId;
+                    if (transport.Prix > 0)
+                    {
+                        await TransportService.Ajout(transport);
+                    }
+
+                }
+               
+               
+               
+                
+                
+                return RedirectToAction("Details",new { id = experience1.ExperienceId });
             }
 
 
             return View(model);
 
         }
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateActivite()
         {
 
@@ -170,7 +210,8 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpPost]
-        [AllowAnonymous]
+
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult CreateActivite(ActiviteViewModel model)
         {
             if (ModelState.IsValid)
@@ -233,7 +274,7 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult ModifierActvite(ActiviteViewModel model)
         {
             ViewData["Modification"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
@@ -255,7 +296,7 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult DeleteActivite(ActiviteViewModel model)
         {
             ViewData["Modification"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
@@ -269,7 +310,7 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public ActionResult AfficherActivite(string type)
         {
                ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
@@ -279,7 +320,30 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateExperiencePolicy")]
+        public ActionResult AfficherNourriture(string type)
+        {
+            
+
+            return PartialView("_Nourriture");
+
+        }
+        public ActionResult AfficherTransport(string type)
+        {
+
+
+            return PartialView("_Transport");
+
+        }
+        public ActionResult AfficherLogement(string type)
+        {
+
+
+            return PartialView("_Logement");
+
+        }
+        [HttpPost]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public ActionResult AfficherModal(string type)
         {
 
@@ -290,7 +354,7 @@ namespace TourMe.Web.Controllers
 
         }
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Policy = "CreateExperiencePolicy")]
         public IActionResult GetAllExperience(string searchTerm)
         {
 
@@ -359,69 +423,64 @@ namespace TourMe.Web.Controllers
             return RedirectToAction("GetAll");
         }
 
-        [AllowAnonymous]
+
+
+        [Authorize(Policy = "CreateExperiencePolicy")]
         [HttpGet]
         public IActionResult CreateTransport(int id)
         {
-
-            if (id != 0)
-            {
-                ViewData["Id"] = id;
-            }
-
-            else
-            {
-                ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
-                TempData.Keep("Id");
-            }
             return View();
         }
-        public async Task<IActionResult> CreateTransport(TransportViewModel model, int id)
+        [Authorize(Policy = "CreateExperiencePolicy")]
+        public IActionResult CreateTransport(TransportViewModel model, int id)
         {
-            ViewData["Id"] = id;
-            Experience experience = await ExperienceService.GetById(id);
+           
+            
             if (ModelState.IsValid)
             {
-
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
-
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
                     model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
-
                 }
-
-
                 Transport transport = new Transport
-
                 {
                     DateDisp = model.DateDisp,
                     TypeTransport = model.TypeTransport,
-                    Periode = model.Periode,
-                    Image = uniqueFileName,
-
                     Prix = model.Prix,
-                    ExperienceId = id
-
+                   
+                    Image = uniqueFileName,
                 };
+                if (TempData["Transport"] == null)
+                {
+                    TempData["Transport"] = JsonConvert.SerializeObject(transport);
+                    ;
+                }
+                else
+                {
+                    ViewData["Trans"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
+                    Transport nourriture1 = (Transport)ViewData["Trans"];
 
 
-                experience.Transport = transport;
+                    TempData["Transport"] = JsonConvert.SerializeObject(nourriture1);
 
-                await ExperienceService.PutExperienceAsync(id, experience);
-                await TransportService.Ajout(transport);
-
-                return RedirectToAction("MesExperiences");
-
+                   
+                }
             }
 
 
-            return View(model);
+
+            return NoContent();
         }
 
 
@@ -429,66 +488,57 @@ namespace TourMe.Web.Controllers
         [HttpGet]
         public IActionResult CreateNourriture(int id)
         {
-            if (id != 0)
-            {
-                ViewData["Id"] = id;
-            }
-
-            else
-            {
-                ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
-                TempData.Keep("Id");
-            }
+           
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> CreateNourriture(NourritureViewModel model, int id)
+        public IActionResult CreateNourriture(NourritureViewModel model, int id)
         {
-            ViewData["Id"] = id;
-            Experience experience = await ExperienceService.GetById(id);
             if (ModelState.IsValid)
             {
-
                 string uniqueFileName = null;
-                if (model.FileP != null)
+                if (model.ImageNourriture != null)
                 {
-
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ImageNourriture.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
-                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
-
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.ImageNourriture.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
-
-
                 Nourriture nourriture = new Nourriture
-
                 {
-                    Description = model.Description,
-                    Image = uniqueFileName,
+                    Description = model.DescriptionNourriture,
                     Plat = model.Plat,
                     Prix = model.Prix,
-                    ExperienceId = id,
-                    Type = model.Type
+                    Type = model.Type,
+                    Image = uniqueFileName,
                 };
-
-
-                experience.Nourriture = nourriture;
-
-                await ExperienceService.PutExperienceAsync(id, experience);
-                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
-                await NourritureService.Ajout(nourriture);
-
-                return RedirectToAction("CreateTransport");
-
+                if (TempData["Nourriture"] == null)
+                {
+                    TempData["Nourriture"] = JsonConvert.SerializeObject(nourriture);
+                    System.Diagnostics.Debug.WriteLine("Nouveau nourriture :" + nourriture.Plat);
+                }
+                else
+                {
+                    ViewData["Nour"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
+                   Nourriture nourriture1 = (Nourriture)ViewData["Nour"];
+                  
+                        
+                        TempData["Nourriture"] = JsonConvert.SerializeObject(nourriture1);
+              
+                    System.Diagnostics.Debug.WriteLine("Ancien Nourriture:" + nourriture1.ToString());
+                }
             }
 
-
-            return View(model);
+            return NoContent();
         }
 
         [AllowAnonymous]
@@ -657,13 +707,7 @@ namespace TourMe.Web.Controllers
         [HttpGet]
         public IActionResult CreateLogement(int id)
         {
-            if (id != 0)
-            { ViewData["Id"] = id; }
-            else
-            {
-                ViewData["Id"] = JsonConvert.DeserializeObject<int>((string)TempData.Peek("expID"));
-                TempData.Keep("Id");
-            }
+           
             return View();
         }
 
@@ -674,51 +718,53 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> CreateLogement(LogementViewmodel model, int id)
         {
-            ViewData["Id"] = id;
-            Experience experience = await ExperienceService.GetById(id);
             if (ModelState.IsValid)
             {
-
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
-
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "images");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
                     string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
                     model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                Logement logement = new Logement
+                {
+                   Datedebut=model.Datedebut,
+                   Lieu=model.Lieu,
+                    NbJours = model.NbJours,
+                    SubCategory = model.SubCategory,
+                    Type = model.Type,
+                    Prix = model.Prix,
+
+                    Image = uniqueFileName,
+                };
+                if (TempData["Logement"] == null)
+                {
+                    TempData["Logement"] = JsonConvert.SerializeObject(logement);
+                    ;
+                }
+                else
+                {
+                    ViewData["Log"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
+                    Logement Logement1 = (Logement)ViewData["Log"];
+
+
+                    TempData["Logement"] = JsonConvert.SerializeObject(Logement1);
+
 
                 }
-
-
-                Logement logement = new Logement
-
-                {
-                    Datedebut = model.Datedebut,
-                    DateFin = model.DateFin,
-                    Lieu = model.Lieu,
-                    Image = uniqueFileName,
-                    NbJours = model.NbJours,
-                    Prix = model.Prix,
-                    Type = model.Type,
-                    ExperienceId = id
-                };
-
-
-                experience.Logement = logement;
-
-
-                await ExperienceService.PutExperienceAsync(id, experience);
-                await LogementService.Ajout(logement);
-                TempData["expID"] = JsonConvert.SerializeObject(experience.ExperienceId);
-                return RedirectToAction("CreateNourriture");
-
             }
 
 
-            return View(model);
+            return NoContent();
         }
 
 
@@ -838,6 +884,7 @@ namespace TourMe.Web.Controllers
             return PartialView("_Individu");
 
         }
+      
 
     }
 }

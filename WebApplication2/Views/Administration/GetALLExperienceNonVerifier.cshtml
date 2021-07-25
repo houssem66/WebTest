@@ -1,0 +1,111 @@
+﻿@model IList<TourMe.Data.Entities.Experience>
+<script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+
+
+
+
+
+
+<section>
+    <div class="rows inn-page-bg com-colo">
+        <div class="container inn-page-con-bg events events-1 tb-space" id="inner-page-title">
+            <!-- TITLE & DESCRIPTION -->
+            <div class="spe-title col-md-12">
+                <h2>Liste  <span> D'utilisateurs</span></h2>
+                <div class="title-line">
+                    <div class="tl-1"></div>
+                    <div class="tl-2"></div>
+                    <div class="tl-3"></div>
+                </div>
+                <p>Parcourir La liste de tous les utilisateurs</p>
+            </div>
+            <div class="col-md-12">
+                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Recherche Utilisateurs" title="Type in a name">
+                <table id="myTable">
+                    <thead>
+
+                        <tr>
+                            <th>Titre</th>
+                            <th>tarif</th>
+                            <th>Saison</th>
+                            <th>Commercant</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+
+                                <td>
+                                    @item.Titre
+
+                                </td>
+                                <td>
+                                    @item.tarif
+                                </td>
+                                <td>
+                                    @item.Saison
+                                </td>
+
+                                <td>
+                                    @item.Commerçant.Adresse    
+                                </td>
+
+                                
+
+                              
+
+
+                                <td>
+                                    
+                                        <span> <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId"class="link-btn">Details</a></span>
+                                    
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        <button type="submit" asp-action="DeleteExperience" asp-controller="Experience" asp-route-id="@item.ExperienceId"> Delete</button>
+                                    </form>
+                                </td>
+
+
+
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <script>
+
+                    $("#myInput").on("keyup", function () {
+
+                        var textEnter = $(this).val();
+                        $("Table tr").each(function (results) {
+
+                            if (results != 0) {
+                                var id = $(this).find("td").text();
+                                if (id.indexOf(textEnter) != 0 && id.toLowerCase().indexOf(textEnter.toLowerCase()) < 0) {
+                                    $(this).hide();
+                                }
+                                else {
+                                    $(this).show();
+                                }
+                            }
+
+                        });
+
+
+                    });
+
+                </script>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== TIPS BEFORE TRAVEL ==========-->
+
+<!--====== FOOTER - COPYRIGHT ==========-->
