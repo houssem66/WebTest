@@ -13,13 +13,12 @@ namespace TourMe.Web.Models
     {
         public TypeNourriture Type { get; set; }
         public string Plat { get; set; }
-
-        public IFormFile FileP { get; set; }
-        public string Description { get; set; }
+        public IFormFile ImageNourriture { get; set; }
+        public string DescriptionNourriture { get; set; }
         [Required(ErrorMessage = "Prix est obligatoire")]
         [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
         [DisplayName("Tarif (dt)")]
-        public decimal Prix { get; set; }
-        public int ExperienceId { get; set; }
+        public decimal Prix { get; set; }     
+        public int? ExperienceId { get; set; }
     }
 }

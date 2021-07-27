@@ -348,6 +348,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("CommerçantId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImagesExperience")
                         .HasColumnType("nvarchar(max)");
 
@@ -769,9 +772,9 @@ namespace TourMe.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("CodePostale")
+                    b.Property<string>("CodePostale")
                         .HasMaxLength(4)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("DomainActivite")
                         .HasColumnType("nvarchar(max)");
@@ -920,9 +923,10 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
-                    b.HasOne("Domaine.Entities.Commerçant", null)
+                    b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
                         .WithMany("Experiences")
                         .HasForeignKey("CommerçantId");
+
 
                     b.HasOne("TourMe.Data.Entities.Panier", "Panier")
                         .WithMany("Experiences")
@@ -930,6 +934,9 @@ namespace TourMe.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Panier");
+
+                    b.Navigation("Commerçant");
+
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>

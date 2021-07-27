@@ -1,0 +1,106 @@
+﻿@model LogementViewmodel
+<form action="CreateLogement" method="post" enctype="multipart/form-data">
+    <div class="modal" id="ModalL">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Ajouter un Logement </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row">
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label id="gouvLabel">Chosir le Type </label>
+                            <select asp-for="Type" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Category>()">
+                            </select>
+
+                            <span asp-validation-for="Type" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label id="gouvLabel">Chosir la catégorie </label>
+                            <select asp-for="SubCategory" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.SubCategory>()">
+                            </select>
+
+                            <span asp-validation-for="SubCategory" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer la  Date début
+                            </label>
+                            <input asp-for="Datedebut" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer la  Date fin
+                            </label>
+                            <input asp-for="DateFin" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer le Prix de logement
+                            </label>
+                            <input asp-for="Prix" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label>
+                                Entrer l'adresse
+                            </label>
+                            <input asp-for="Lieu" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>
+                                Combien de nuité
+                            </label>
+                            <input asp-for="NbJours" class="form-control" />
+
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="form-group">
+                            <label>Choisir Une image</label>
+                            <input type="file" class="form-control-file" name="FileP">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    @*<button type="button" class="btn btn-danger" asp-action="DeleteActivite" data-dismiss="modal">Delete</button>*@
+                    <button type="button" class="btn accent-pink" data-dismiss="modal">Fermer</button>
+                    <button type="submit"id="LogToggle" class="btn btn-primary">Sauvegarder</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        // toggle logement model
+        $("#LogToggle").click(function () {
+            
+            $('#ModalL').modal('toggle');
+
+        });
+    });
+</script>

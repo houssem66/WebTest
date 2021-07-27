@@ -32,7 +32,7 @@ namespace Repository.Implementation
         public IQueryable<Experience> GetAllExperienceAsync()
         {
 
-            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings).Include(x=>x.Activites).Include(x=>x.Nourriture).Include(x=>x.Logement).Include(x=>x.Transport);
+            var Experience = _dbContext.Experience.Where(exp => exp.ExperienceId != 0).Include(x=>x.Ratings).Include(x=>x.Activites).Include(x=>x.Nourriture).Include(x=>x.Logement).Include(x=>x.Transport).Include(x=>x.Commerçant);
 
             return Experience;
         }
