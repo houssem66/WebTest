@@ -11,7 +11,7 @@ namespace TourMe.Data.Entities
 {
    public class ServiceNouritture
     {
-
+        [Key]
         public int Id { get; set; }
         public string SpecialeResto { get; set; }
         public string NomRestau { get; set; }
@@ -35,5 +35,6 @@ namespace TourMe.Data.Entities
         public decimal Prix { get; set; }
         public virtual IList<LNDocuments> Documents { get; set; }
         public string FournisseurId { get; set; }
+        public Panier Panier { get; set; }
     }
 }

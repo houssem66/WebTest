@@ -26,6 +26,7 @@ namespace TourMe.Data
         public DbSet<ServiceTransport> ServiceTransports { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Panier> Paniers { get; set; }
         public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -111,7 +112,20 @@ namespace TourMe.Data
             builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Commerçant).OnDelete(DeleteBehavior.Cascade);
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.NoAction);
+
+
+            builder.Entity<Panier>(P =>
+            {
+                P.Property(l => l.Prix).HasColumnType("decimal(5, 2)");
+
+
+            });
+
+            builder.Entity<Panier>().HasMany(e => e.Transports).WithOne(x => x.Panier).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Panier>().HasMany(e => e.Nourittures).WithOne(x => x.Panier).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Panier>().HasMany(e => e.Logments).WithOne(x => x.Panier).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Panier>().HasMany(e => e.Experiences).WithOne(x => x.Panier).OnDelete(DeleteBehavior.Cascade);
 
         }
 

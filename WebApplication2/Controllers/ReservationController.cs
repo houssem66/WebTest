@@ -26,12 +26,14 @@ namespace TourMe.Web.Controllers
         private readonly IExperienceService experienceService;
         private readonly UserManager<Utilisateur> userManager;
         private readonly IReservationService reservationService;
+        private readonly IPanierService panierService;
 
-        public ReservationController(IExperienceService _experienceService, UserManager<Utilisateur> userManager,IReservationService _reservationService)
+        public ReservationController(IExperienceService _experienceService, UserManager<Utilisateur> userManager,IReservationService _reservationService,IPanierService panierService)
         {
             experienceService = _experienceService;
             this.userManager = userManager;
             reservationService = _reservationService;
+            this.panierService = panierService;
         }
         [HttpGet]
         public async Task<IActionResult> Reserver(int id)
@@ -77,5 +79,96 @@ namespace TourMe.Web.Controllers
            
             return View(model);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> AddToCart(int id)
+        {
+            List<Experience> experiences = new List<Experience>();
+            var exp = await experienceService.GetExperienceByIdAsync(id);
+            int experienceCount = 0;
+            try
+            {
+                var liste = JsonConvert.DeserializeObject<IList<Experience>>(HttpContext.Session.GetString("Experience"));
+                experiences = (List<Experience>)liste;
+            
+                if (experiences.Find(e=>e.ExperienceId==id)==null)
+                {
+                    experiences.Add(exp);
+
+                }
+              
+                experienceCount = experiences.Count;
+                HttpContext.Session.SetString("Experience", JsonConvert.SerializeObject(experiences));
+                HttpContext.Session.SetString("ExperienceCount", JsonConvert.SerializeObject(experienceCount));
+            }
+
+            catch
+            {
+                experiences.Add(exp);
+                experienceCount = experiences.Count;
+                HttpContext.Session.SetString("Experience", JsonConvert.SerializeObject(experiences));
+                HttpContext.Session.SetString("ExperienceCount", JsonConvert.SerializeObject(experienceCount));
+            }
+
+
+
+
+            return RedirectToAction("GetAll", "Experience"); ;
+        }
+
+
+
+        [HttpGet]
+        public  IActionResult ItemList()
+        { PanierViewModel p=new PanierViewModel();
+          
+            try {
+
+                var liste = JsonConvert.DeserializeObject<IList<Experience>>(HttpContext.Session.GetString("Experience"));
+                p.experiences = liste;
+
+                 }
+           catch
+            {
+                return RedirectToAction("PanierVide", "Reservation");
+            }
+
+
+            return View(p);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ItemList(PanierViewModel p)
+        {
+            Panier panier = new Panier
+
+            {
+                Experiences = p.experiences,
+                Prix = p.Prix,
+                UserId = userManager.GetUserId(User),
+
+
+            };
+          await  panierService.Ajout(panier);
+
+
+            return RedirectToAction("GetAll","Experience");
+        }
+
+
+
+
+
+        [HttpGet]
+        public IActionResult PanierVide()
+        {
+            
+
+            return View();
+        }
+
+
     }
 }
