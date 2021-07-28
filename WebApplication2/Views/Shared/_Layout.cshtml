@@ -23,6 +23,7 @@
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -194,6 +195,7 @@
                                     <a href="main.html">Home</a>
                                 </li>
                                 <li class="about-menu">
+
                                     <a href="family-package.html" class="mm-arr">Packages</a>
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
@@ -230,6 +232,7 @@
                                 <li class="admi-menu">
 
                                 </li>
+
                                 <li><a href="hotels-list.html">Hotels</a></li>
                                 <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
                                 <li class="cour-menu">
@@ -319,10 +322,23 @@
                                         </li>
                                     }
 
+
                                 </ul>
+
+
+
                             </div>
+
+
+                            </div>
+
                         </div>
                     </div>
+                    <ol>
+
+                        <li> <a class="pull-right" href="#">  <i class="fa fa-shopping-bag"></i> CART</a></li>
+                    </ol>
+
                 </div>
             </div>
 
@@ -364,18 +380,25 @@
 
         @RenderBody()
 
+        @if (IsSectionDefined("Scripts"))
+        {
+            @await RenderSectionAsync("Scripts", required: true)}
+
 
 
         <!--====== FOOTER - COPYRIGHT ==========-->
+
         <!--========= Scripts ===========-->
         <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
         <script src="~/Theme/Template2/js/bootstrap.js"></script>
         <script src="~/Theme/Template2/js/wow.min.js"></script>
         <script src="~/Theme/Template2/js/materialize.min.js"></script>
         <script src="~/Theme/Template2/js/custom.js"></script>
+
         @if (IsSectionDefined("Scripts"))
         {
             @await RenderSectionAsync("Scripts", required: true)}
+
     </body>
 
 
