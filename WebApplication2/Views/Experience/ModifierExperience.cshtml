@@ -1,4 +1,5 @@
-﻿@model ExperienceViewModel
+﻿@*@model TourMe.Data.Entities.Experience*@
+@model ExperienceViewModel
 @{ Layout = null; }
 
 <!doctype html>
@@ -90,7 +91,7 @@
         <div class="container">
             <div class="row">
 
-                uuuuuuuuuuuuuuuuuuuuuuuu<div class="col-sm-12">
+                <div class="col-sm-12">
 
                     <!--      Wizard container        -->
                     <div class="wizard-container">
@@ -157,7 +158,7 @@
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
 
-                                                    <input asp-for="Titre" placeholder="Titre éxperience" class="form-control" />
+                                                    <input asp-for="Titre"  value="@Model.Titre"placeholder="Titre éxperience" class="form-control" />
                                                     <span asp-validation-for="Titre" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -167,17 +168,17 @@
                                             </div>
                                             <div class="col-sm-6 col-sm-offset-1" id="Lieu">
                                                 <label>Entrer le Lieu de l'Expérience</label>
-                                                <input asp-for="Lieu" class="form-control" />
+                                                <input asp-for="Lieu" value="@Model.Lieu"class="form-control" />
                                                 <span asp-validation-for="Lieu" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-2" id="Tarif">
                                                 <label>Entrer le tariff</label>
-                                                <input asp-for="tarif" class="form-control" />
+                                                <input asp-for="tarif"value="@Model.tarif" class="form-control" />
                                                 <span asp-validation-for="tarif" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-3" id="Nbr">
                                                 <label>Entrer le nombre de place</label>
-                                                <input asp-for="NbPlaces" class="form-control" />
+                                                <input asp-for="NbPlaces" value="@Model.NbPlaces" class="form-control" />
                                                 <span asp-validation-for="NbPlaces" class="text-danger"></span>
                                             </div>
                                         </div>
@@ -212,7 +213,7 @@
                                             </div>
                                             <div class="col-sm-8 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <textarea id="TextArea" class="form-control" rows="5" placeholder="Expliquer aux participant le déroulement de votre expérience" name="Description"></textarea>
+                                                    <textarea id="TextArea" class="form-control" rows="5" placeholder="Expliquer aux participant le déroulement de votre expérience" name="Description">@Model.Description</textarea>
 
                                                     <a data-toggle="modal" style="color:black;" data-target="#myModal2">Afficher Des Exemples</a>
 
@@ -222,7 +223,7 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Choisir Date Début</label><br>
-                                                    <input asp-for="dateDebut" class="form-control" />
+                                                    <input type="date" value="@Model.dateDebut.Date.ToString("yyyy-MM-dd")"  class="form-control" />
                                                     <span asp-validation-for="dateDebut"></span>
 
                                                 </div>
@@ -231,7 +232,10 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Choisir Date Fin</label><br>
-                                                    <input asp-for="dateFin" class="form-control" />
+                                                    @*@{string DateString = @Model.dateFin.Date.ToString("d");
+                                                        IFormatProvider culture = new CultureInfo("en-US", true);
+                                                        DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
+                                                    <input asp-for="dateFin" value="@Model.dateFin.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateFin"></span>
 
                                                 </div>
@@ -321,7 +325,7 @@
                                                     <label>
                                                         Autres critères (facultatif)
                                                     </label>
-                                                    <textarea class="form-control" id="test2" rows="4" placeholder="Ex : les voyageurs doivent déjà avoir surfé, les voyageurs doivent disposer d'un permis de plongée, les voyageurs doivent être à l'aise avec les chiens, etc."name="Details"></textarea>
+                                                    <textarea class="form-control" id="test2" rows="4" placeholder="Ex : les voyageurs doivent déjà avoir surfé, les voyageurs doivent disposer d'un permis de plongée, les voyageurs doivent être à l'aise avec les chiens, etc." name="Details"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -1351,7 +1355,7 @@
                 {
                     $('#Nour').show();
                     NourritureRequest();
-                    
+
                 }
                 else
                 {
@@ -1388,7 +1392,7 @@
                 $('#test').val('');
 
             });
-           
+
             $("#Lieu").hide();
             $("#Tarif").hide();
             $("#Nbr").hide();

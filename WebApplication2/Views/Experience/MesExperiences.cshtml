@@ -58,6 +58,7 @@
                                 <th>logement</th>
                                 <th>Transport</th>
                                 <th>Delete</th>
+                                <th>Modifier</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,6 +116,9 @@
                                     </form>
 
 
+                                </td>
+                                <td>
+                                   <a asp-action="ModifierExperience" asp-controller="Experience" class="btn-primary" asp-route-id="@item.ExperienceId">Modifier</a>
                                 </td>
                             </tr>
                             }
