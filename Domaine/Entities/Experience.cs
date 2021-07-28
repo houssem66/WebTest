@@ -48,6 +48,8 @@ namespace TourMe.Data.Entities
         public Nourriture Nourriture { get; set; }
         public Transport Transport { get; set; }
         public string CommerçantId { get; set; }
+       
+        public Panier Panier { get; set; }
 
     }
 }

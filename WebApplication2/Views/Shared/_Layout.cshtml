@@ -1,5 +1,7 @@
 ﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 @using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore.Http
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,11 +21,14 @@
     <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
     <!--== ALL CSS FILES ==-->
+    
     <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
-    
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -297,7 +302,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    </li>
+
                                     <li>
                                         <a href="events.html">Events</a>
                                     </li>
@@ -331,17 +336,24 @@
                             </div>
 
 
-                            </div>
-
                         </div>
-                    </div>
-                    <ol>
 
-                        <li> <a class="pull-right" href="#">  <i class="fa fa-shopping-bag"></i> CART</a></li>
-                    </ol>
+                    </div>
+                    <ul>
+
+                        <li> <a class="pull-right" asp-action="ItemList" asp-controller="Reservation">  <i class="fa fa-shopping-bag"></i> CART     @HttpContextAccessor.HttpContext.Session.GetString("ExperienceCount") items</a> </li>
+
+
+
+
+                    </ul>
+
 
                 </div>
+
+
             </div>
+
 
             <!-- TOP SEARCH BOX -->
             <div class="search-top">
@@ -388,20 +400,18 @@
 
 
         <!--====== FOOTER - COPYRIGHT ==========-->
-
         <!--========= Scripts ===========-->
         <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
         <script src="~/Theme/Template2/js/bootstrap.js"></script>
         <script src="~/Theme/Template2/js/wow.min.js"></script>
         <script src="~/Theme/Template2/js/materialize.min.js"></script>
         <script src="~/Theme/Template2/js/custom.js"></script>
+      
 
-        @if (IsSectionDefined("Scripts"))
-        {
-            @await RenderSectionAsync("Scripts", required: true)}
+
 
     </body>
 
 
-<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
+    <!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
 </html>

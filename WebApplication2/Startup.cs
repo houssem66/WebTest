@@ -4,6 +4,7 @@ using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ using Repository.Implementation;
 using Repository.Interfaces;
 using Services.Implementation;
 using Services.Interfaces;
+using System;
 using System.Net;
 using TourMe.Data;
 using TourMe.Web;
@@ -35,12 +37,19 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.MaxValue;
+
+            });
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMvc(options =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
 
             });
+          
            
             services.AddHttpsRedirection(options =>
             {
@@ -134,6 +143,7 @@ namespace WebApplication2
             services.AddScoped(typeof(IReservationRepo), typeof(ReservationRepo));
             services.AddScoped(typeof(ITransportRepo), typeof(TransportRepo));
             services.AddScoped(typeof(ITransportExtRepo), typeof(TransportExtRepo));
+            services.AddScoped(typeof(IPanierRepo), typeof(PanierRepo));
             //add Services
             services.AddTransient<INourritureService, NourritureService>();
             services.AddTransient<ILogementService, LogementService>();
@@ -144,7 +154,8 @@ namespace WebApplication2
             services.AddTransient<IReservationService, ReservationService>();
             services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ITransportExtService, TransportExtService>();
-     
+            services.AddTransient<IPanierService, PanierService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -160,6 +171,7 @@ namespace WebApplication2
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
@@ -173,6 +185,7 @@ namespace WebApplication2
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+   
         }
     }
 }
