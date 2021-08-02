@@ -4,83 +4,84 @@
     ViewBag.Title = "Create Role";
 }
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Registration Page</title>
-    <!-- Tell the browser to be responsive to screen width -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@{
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-    <!-- Google Font: Source Sans Pro -->
-    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-</head>
-<body>
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
 
-    <div class="col-md-6">
-        <div class="card card-secondary">
-            <div class="card-header">
-                <h4>Role to Delete</h4>
-            </div>
-            <div class="card-body">
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Vous aller supprimer le role @Model.RoleName</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="GetAllRoles" asp-controller="Administration">Voir tous les rôles</a></li>
+                    <li class="breadcrumb-item active">delete</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
 
-                <div>
-                    <form method="post" enctype="multipart/form-data">
-                        <div asp-validation-summary="All" class="text-danger"></div>
 
-                        <div class="input-group mb-3">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h4>Role to Delete</h4>
+                </div>
+                <div class="card-body">
 
-                            <label>@Model.RoleName</label>
-                            
-                            
+                    <div>
+                        <form method="post" enctype="multipart/form-data">
+                            <div asp-validation-summary="All" class="text-danger"></div>
 
-                        </div>
+                            <div class="input-group mb-3">
 
-                        <div class="row">
+                                <label>@Model.RoleName</label>
 
-                            <!-- /.col -->
-                            <div class="card-footer">
-                                <button type="submit" class="btn btn-primary ">Delete</button>
-                                <a asp-action="GetAllRoles" class="btn btn-primary">Cancel</a>
+
+
                             </div>
-                            <!-- /.col -->
-                        </div>
+
+                            <div class="row">
+
+                                <!-- /.col -->
+                                <div class="card-footer">
+                                    <button type="submit" class="btn btn-primary ">Delete</button>
+                                    <a asp-action="GetAllRoles" class="btn btn-primary">Cancel</a>
+                                </div>
+                                <!-- /.col -->
+                            </div>
 
 
 
 
-                    </form>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="card card-secondary">
+                <div class="card-header">
+                    <h4>Users in This role</h4>
+                </div>
+
+                <div class="card-body">
+                    @if (Model.Users.Any())
+                    {
+                        foreach (var user in Model.Users)
+                        {
+                            <h5 class="card-title">@user</h5>
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-
-        <div class="card card-secondary">
-            <div class="card-header">
-                <h4>Users in This role</h4>
-            </div>
-
-            <div class="card-body">
-                @if (Model.Users.Any())
-                {
-                    foreach (var user in Model.Users)
-                    {
-                        <h5 class="card-title">@user</h5>
-                    }
-                }
-            </div>
-        </div>
-    </div>
-
-</body>
-</html>
+</div>

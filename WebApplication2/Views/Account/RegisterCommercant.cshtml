@@ -218,6 +218,15 @@
                                                     <span asp-validation-for="Adresse" class="text-danger"></span>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group" id="region">
+                                                    <label id="gouvLabel">Entrer le Governourat </label>
+                                                    <select asp-for="region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                    </select>
+
+                                                    <span asp-validation-for="region" class="text-danger"></span>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         <div id="OrgaRow" class="row">
@@ -268,7 +277,16 @@
                                                     <span asp-validation-for="CodePostale" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
+                                                <div class="form-group" id="region">
+                                                    <label id="gouvLabel">Entrer le Governourat </label>
+                                                    <select asp-for="region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                    </select>
+
+                                                    <span asp-validation-for="region" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Veuiller saisir votre Adresse</label>
                                                     <input asp-for="Adresse" class="form-control" />
@@ -280,7 +298,7 @@
 
 
 
-                                            <div class="col-sm-3 col-sm-offset-1">
+                                            <div class="col-sm-3 col-sm-offset-4">
                                                 <div class="form-group">
                                                     <label>N affiliation CNSS</label>
                                                     <input asp-for="NumCnss" placeholder="1234567890" class="form-control">

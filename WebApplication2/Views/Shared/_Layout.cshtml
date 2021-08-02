@@ -1,7 +1,6 @@
-﻿@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@inject UserManager<Domaine.Entities.Utilisateur> userManager;
 @using Microsoft.AspNetCore.Identity;
-@using Microsoft.AspNetCore.Http
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,13 +20,10 @@
     <link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />
     <!--== ALL CSS FILES ==-->
-    
     <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
     <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
-
-
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -245,7 +241,7 @@
                                     @if (User.IsInRole("Administrateur"))
                                     {
                                     <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
-                                   <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
+                                    <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
                                 }
                                     <!-- MEGA MENU 1 -->
                                     <div class="mm-pos">
@@ -303,18 +299,14 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-                                    <li>
-                                        <a href="events.html">Events</a>
                                     </li>
-
-
+                                @{  string id = userManager.GetUserId(User);}
                                     @if (User.IsInRole("Commercant"))
                                     {
+                                       
                                         <li>
 
-                                            <a asp-controller="Account" asp-action="ProfilCommerc" class="nav-link">Profil</a>
+                                            <a asp-controller="Account" asp-route-id="@id" asp-action="ProfilCommerc" class="nav-link">Profil</a>
 
 
                                         </li>
@@ -326,7 +318,7 @@
                                     {
                                         <li>
 
-                                            <a asp-controller="Account" asp-action="Profil" class="nav-link">Profil</a>
+                                            <a asp-controller="Account" asp-route-id="@id" asp-action="Profil" class="nav-link">Profil</a>
 
 
                                         </li>
@@ -343,21 +335,14 @@
                         </div>
 
                     </div>
-                    <ul>
-
-                        <li> <a class="pull-right" asp-action="ItemList" asp-controller="Reservation">  <i class="fa fa-shopping-bag"></i> CART     @HttpContextAccessor.HttpContext.Session.GetString("ExperienceCount") items</a> </li>
-
-
-
-
-                    </ul>
-
-
                 </div>
+                <ol>
 
+                    <li> <a class="pull-right" href="#">  <i class="fa fa-shopping-bag"></i> CART</a></li>
+                </ol>
 
             </div>
-
+            </div>
 
             <!-- TOP SEARCH BOX -->
             <div class="search-top">
@@ -410,9 +395,10 @@
         <script src="~/Theme/Template2/js/wow.min.js"></script>
         <script src="~/Theme/Template2/js/materialize.min.js"></script>
         <script src="~/Theme/Template2/js/custom.js"></script>
-      
 
-
+        @if (IsSectionDefined("Scripts"))
+        {
+            @await RenderSectionAsync("Scripts", required: true)}
 
     </body>
 

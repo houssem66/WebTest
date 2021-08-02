@@ -170,7 +170,16 @@
                                                 <input asp-for="Lieu" class="form-control" />
                                                 <span asp-validation-for="Lieu" class="text-danger"></span>
                                             </div>
-                                            <div class="col-sm-2" id="Tarif">
+                                            <div class="col-sm-4">
+                                                <div class="form-group" id="region">
+                                                    <label id="gouvLabel">Entrer le Governourat </label>
+                                                    <select asp-for="Region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                    </select>
+
+                                                    <span asp-validation-for="Region" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3 col-sm-offset-1" id="Tarif">
                                                 <label>Entrer le tariff</label>
                                                 <input asp-for="tarif" class="form-control" />
                                                 <span asp-validation-for="tarif" class="text-danger"></span>
@@ -1391,6 +1400,7 @@
            
             $("#Lieu").hide();
             $("#Tarif").hide();
+            $("#region").hide();
             $("#Nbr").hide();
             // les hide mta3 sub Theme
             $("#theme").hide();
@@ -1496,6 +1506,8 @@
                 $("#Lieu").show();
                 $("#Tarif").show();
                 $("#Nbr").show();
+                $("#region").show();
+
                 if ((SubTheme.length > 1) && !(SubTheme.includes("Autre"))) {
 
                     $("#choose").html(SubTheme + "," + Category);

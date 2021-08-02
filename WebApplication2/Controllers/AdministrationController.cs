@@ -237,7 +237,9 @@ namespace TourMe.Web.Controllers
         {
             var list = experienceService.GetAllExperienceDetails("").Where(x=>x.Commerçant.Verified==false).ToList();
 
+            return View(list);
 
+        }
         public async Task<IActionResult> DeleteUser(string id)
         {
             if (id == null)
@@ -267,9 +269,7 @@ namespace TourMe.Web.Controllers
 
 
 
-            return View(list);
-
-        }
+          
 
     }
 }
