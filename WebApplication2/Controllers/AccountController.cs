@@ -113,12 +113,12 @@ namespace Finance.Controllers
 
 
 
-        public async Task<IActionResult> Profil()
+        public async Task<IActionResult> Profil(string id)
         {
             ViewData["countries"] = AvailableCountries;
-            string id = userManager.GetUserId(User);
+          
 
-            Utilisateur us = await UserService.GetById(id);
+            var us = await UserService.GetById(id);
             if (us == null)
             { return RedirectToAction("index", "home"); }
 
@@ -223,12 +223,12 @@ namespace Finance.Controllers
         }
         [HttpGet]
 
-        public async Task<IActionResult> ProfilCommerc()
+        public async Task<IActionResult> ProfilCommerc(string id)
         {
 
-            string id = userManager.GetUserId(User);
+            
 
-            Utilisateur us = await UserService.GetById(id);
+            var us = await commercantService.GetCommerçantById(id);
             if (us == null)
             { return RedirectToAction("index", "home"); }
 
@@ -601,6 +601,7 @@ namespace Finance.Controllers
                 .PasswordSignInAsync(model.Email, model.Password, model.RememberMe, true);
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole("Administrateur")) { return RedirectToAction("AdminHome", "home"); }
 
                     return RedirectToAction("index", "home");
                 }
@@ -674,7 +675,7 @@ namespace Finance.Controllers
                                         info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
 
             if (signInResult.Succeeded)
-            {
+            {if (userManager.IsInRoleAsync(user,"Administrateur").Result) { return RedirectToAction("AdminHome", "home");  }
                 return LocalRedirect(returnUrl);
             }
             else

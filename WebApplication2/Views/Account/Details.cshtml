@@ -1,10 +1,24 @@
 ﻿@model Domaine.Entities.Utilisateur
-
 @{
-    ViewData["Title"] = "Details";
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
-<h1>Details</h1>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Detaîls de @Model.Email </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="GetAllUsers" asp-controller="Administration">Voir tous les utilisateurs</a></li>
+                    <li class="breadcrumb-item active">Detaîls</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
 
 <div>
     <h4>Utilisateur</h4>
@@ -15,16 +29,16 @@
             <tr>
 
                 <th>
-                   Nom
+                    Nom
                 </th>
                 <th>
-                  Prénom
+                    Prénom
                 </th>
 
                 <th>
-                  Email
+                    Email
                 </th>
-       
+
                 <th>Profile Photo</th>
             </tr>
         </thead>
@@ -33,26 +47,26 @@
 
 
 
- 
+
             <tr>
 
                 <td>
                     <p> @Model.Nom</p>
 
                 </td>
-                @if(Model.Prenom==null)
+                @if (Model.Prenom == null)
                 {
-            <td>
-               N/A 
-            </td>
+                    <td>
+                        N/A
+                    </td>
                 }
-            <td>
-                @Model.Prenom
-            </td>
+                <td>
+                    @Model.Prenom
+                </td>
                 <td>
                     @Model.Email
                 </td>
-                
+
 
                 <td>
                     @{var photoPath1 = "~/images/" + (Model.ProfilePhoto ?? "noimage.jpg");
@@ -63,23 +77,23 @@
 
 
             </tr>
-            </tbody>
-        </table>
+        </tbody>
+    </table>
 
 
 
 
-    </div>
+</div>
 <div class="card-body">
-  @{ 
+    @{
         foreach (var claim in ViewBag.Claims)
         {
             <h5 class="card-title">@claim.Type</h5><br />
         }
     }
 </div>
-@{ 
-    
+@{
+
 
 }
 <div>

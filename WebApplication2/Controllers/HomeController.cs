@@ -21,13 +21,13 @@ namespace TourMe.Web.Controllers
 
         public HomeController(ILogementextService logementextService, INourritureExtService nourritureExtService, IExperienceService experienceService, ILogger<HomeController> logger)
         {
-           ExperienceService = experienceService;
+            ExperienceService = experienceService;
             LogementExtService = logementextService;
             NourritureExtService = nourritureExtService;
             _logger = logger;
         }
         [AllowAnonymous]
-        public  IActionResult Index()
+        public IActionResult Index()
         {
             List<ServiceNouritture> nourritures = new List<ServiceNouritture>();
             List<ServiceLogment> logements = new List<ServiceLogment>();
@@ -38,16 +38,16 @@ namespace TourMe.Web.Controllers
                 logements = LogementExtService.GetAllLogements().OrderBy(x => x.PrixParNuit).Take(6).ToList();
                 nourritures = NourritureExtService.GetAllLogements().OrderBy(x => x.Prix).Take(6).ToList();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 experiences = null;
                 logements = null;
                 nourritures = null;
             }
-               
-            
-            
-            
+
+
+
+
             HomeViewModel homeViewModel = new HomeViewModel();
             homeViewModel.ListeExperience = experiences;
             homeViewModel.ListeLogement = logements;
@@ -65,6 +65,12 @@ namespace TourMe.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        [AllowAnonymous]
+        public IActionResult AdminHome()
+        {
+
+            return View();
         }
     }
 }
