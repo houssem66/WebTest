@@ -1,0 +1,199 @@
+﻿
+@{ Layout = null; }
+@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@model PanierViewModel;
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" asp-action="Index" asp-controller="Home">TourMe</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+
+            <form method="post" asp-controller="Account" asp-action="logout">
+                <ul class="navbar-nav m-auto">
+
+
+
+
+                    @if (signInManager.IsSignedIn(User))
+                    {
+
+
+        <button type="submit" class="btn btn-link" style="width:auto">
+            Logout @User.Identity.Name
+
+        </button>
+}
+
+
+
+
+
+                </ul>
+            </form>
+
+            @*<form class="form-inline my-2 my-lg-0">
+                    <div class="input-group input-group-sm">
+                        <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary btn-number">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="btn btn-success btn-sm ml-3" href="cart.html">
+                        <i class="fa fa-shopping-cart"></i> Cart
+                        <span class="badge badge-light">3</span>
+                    </a>
+                </form>*@
+        </div>
+    </div>
+</nav>
+<section class="jumbotron text-center">
+    <div class="container">
+        <h1 class="jumbotron-heading">liste Réservations</h1>
+    </div>
+</section>
+
+<div class="container mb-4">
+
+  
+        <div class="row">
+            <div class="col-12">
+                <div class="table-responsive">
+                    <form asp-action="ItemList" method="post">
+                        <table class="table table-striped" id="tbl_a">
+                            <thead>
+                                <tr>
+                                    <th scope="col"> </th>
+                                    <th scope="col">Produit</th>
+                                    <th scope="col">Available</th>
+                                    <th scope="col" class="text-center">Quantité</th>
+                                    <th scope="col" class="text-right">Prix</th>
+                                    <th> </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @if (Model.experiences != null)
+                                {
+
+                    @foreach (var item in Model.experiences)
+                    {
+
+
+                    <tr>
+                        <input type="hidden" value="@item.tarif" class="tarif" />
+                        <td><img src="~/images/@item.Activites.First().Image" alt="" /> </td>
+                        <td>@item.Titre</td>
+                        <td>In stock</td>
+
+                        <td><input class="quantite" type="text" /></td>
+                        <td class="Prix" value="0">0</td>
+                        <td class="text-right"><button class="btn btn-sm btn-danger" id="bsc"><i class="fa fa-trash"></i> </button> </td>
+
+                    </tr>
+}} @*<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Sub-Total</td>
+        <td class="text-right">255,90 €</td>
+    </tr>
+
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><strong>Total</strong></td>
+        <td class="text-right"></td>
+    </tr>*@
+                            </tbody>
+                        </table>
+                        <div class="col mb-2">
+                            <div class="row">
+                                <div class="col-sm-12  col-md-6">
+                                    <button class="btn btn-block btn-light">Continue Shopping</button>
+                                </div>
+                                <div class="col-sm-12 col-md-6 text-right">
+                                    <button class="btn btn-lg btn-block btn-success text-uppercase" type="submit">Checkout</button>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" asp-for="Prix" id="Tota" value="" /> <strong id="Total"></strong>
+                    </form>
+                </div>
+            </div>
+            
+           
+   
+</div>
+    <script>
+        calc_total();
+   
+       
+            $('.quantite').each(function () {
+
+                $('.quantite').on('keyup', function () {
+                    var Prix = $('.tarif').val();
+                    var textEnter = parseInt($(this).val()) * parseInt(Prix);
+
+                    $(this).closest("tr").find('td:eq(4)').text(textEnter);
+                    $(this).closest("tr").find('td:eq(4)').val(textEnter);
+                    document.getElementById("prix").innerHTML = textEnter;
+                    
+                  //  
+                });
+              
+               
+            });
+        $('#tbl_a').on('change', 'input', function () {
+            calc_total();
+        });
+   
+        //$('.Prix').each(function () {
+        //    var sum = 0;
+
+        //    document.getElementById('Total').innerHTML = sum + 'dt';
+        //    $('.quantite').on('change', function () {
+               
+        //            // $(this).closest("tr").find('td:eq(4)').text(textEnter + 'dt');
+        //            // parseInt(sum) += parseInt($(this).closest("tr").find('td:eq(4)').text());
+        //           sum += parseInt($(this).closest("tr").find('td:eq(4)').val());
+        //          //  sum += 1;
+        //          // alert('Somme est'+sum/2);
+        //            alert($(this).closest("tr").find('td:eq(4)').val());
+
+        //        });
+               
+        //    });
+
+
+        function calc_total() {
+            var sum = 0;
+            $(".Prix").each(function () {
+               sum += parseFloat($(this).text());
+              //  alert($(this).text());
+            });
+            document.getElementById('Total').innerHTML = sum + 'dt';
+            $('#Tota').val(sum);
+          //  alert($('#Tota').val());
+        }
+
+   
+
+    </script>
+</div>
+
