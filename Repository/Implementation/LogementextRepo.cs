@@ -23,7 +23,7 @@ namespace Repository.Implementation
 
         public IQueryable<ServiceLogment> GetAll()
         {
-            var Experience = dbContext.ServiceLogments.Where(exp => exp.Id != 0).Include(x => x.Documents);
+            var Experience = dbContext.ServiceLogments.Where(exp => exp.Id != 0).Include(x => x.Fournisseur).Include(x => x.Documents);
 
             return Experience;
         }

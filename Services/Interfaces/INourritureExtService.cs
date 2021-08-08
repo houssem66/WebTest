@@ -11,7 +11,7 @@ namespace Services.Interfaces
    public interface INourritureExtService
     {
         public Task Ajout(ServiceNouritture logement);
-        public IList<ServiceNouritture> GetAllLogements();
+        public IList<ServiceNouritture> GetAllNourriture();
         public Task Update(ServiceNouritture logement);
         public Task<ServiceNouritture> GetLogementById(int id);
         public Task Delete(ServiceNouritture logement);

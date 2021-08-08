@@ -165,6 +165,15 @@
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">Choisir un Théme</button>
                                             </div>
+                                            <div class="col-sm-7 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Votre expérience est programmé :<small style="font-weight: normal;">(occurs one time )</small>: </label> </label>
+                                                    <input type="radio" name="Programmed" value="Oui">Oui
+                                                    <input type="radio" name="Programmed" value="Non">Non
+                                                </div>
+
+
+                                            </div>
                                             <div class="col-sm-6 col-sm-offset-1" id="Lieu">
                                                 <label>Entrer le Lieu de l'Expérience</label>
                                                 <input asp-for="Lieu" class="form-control" />
@@ -228,7 +237,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-4 col-sm-offset-1">
+                                            <div id="DateD" class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Choisir Date Début</label><br>
                                                     <input asp-for="dateDebut" class="form-control" />
@@ -237,7 +246,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div id="DateF" class="col-sm-4">
                                                 <div class="form-group">
                                                     <label>Choisir Date Fin</label><br>
                                                     <input asp-for="dateFin" class="form-control" />
@@ -352,7 +361,7 @@
                                             </div>
                                             <div class="col-sm-7 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Votre expérience contient un Transport </label>
+                                                    <label>Votre expérience contient un Transport<small style="font-weight: normal;">(si une des activités est une nourriture choisir non)</small>: </label>
                                                     <input type="radio" name="Transport" value="Oui">Oui
                                                     <input type="radio" name="Transport" value="Non">Non
                                                 </div>
@@ -1418,6 +1427,17 @@
                 else {
                     $("#theme").hide();
 
+                }
+            });
+            $('input[name="Programmed"]').change(function () {
+                var x = this.value;
+                if (x == "Oui") {
+                    $("#DateD").hide();
+                    $("#DateF").hide();}
+                else
+                {
+                    $("#DateD").show();
+                    $("#DateF").show();
                 }
             });
             $("#Culture,#Event, #Health, #Nature,#Food").hide();

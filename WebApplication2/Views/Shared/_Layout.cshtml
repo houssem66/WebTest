@@ -240,7 +240,7 @@
                                     <a asp-action="getAll" asp-controller="Experience">Expériences</a>
                                     @if (User.IsInRole("Administrateur"))
                                     {
-                                    <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
+                                    <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
                                     <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
                                 }
                                     <!-- MEGA MENU 1 -->
@@ -259,7 +259,7 @@
                                                     <ul>
                                                         @{ if (User.IsInRole("Administrateur"))
                                                             {
-                                                                <li><a asp-controller="Account" asp-action="GetAll" class="nav-link">GetAllAccounts</a></li>
+                                                                <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
                                                                 <li><a asp-controller="Account" asp-action="GetAllCommercant" class="nav-link">GetAllCommercant</a></li>
 
                                                             }

@@ -34,7 +34,8 @@ namespace TourMe.Data.Entities
         public string ImagesExperience { get; set; }
         public string Activité { get; set; }
         public string Rating { get; set; }
-
+        [DefaultValue(false)]
+        public Boolean Programmed { get; set; }
         public int NbPlaces { get; set; }
         public string AvgRating { get; set; }
         //navigation Property

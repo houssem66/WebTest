@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities
 {
-   public  class LNDocuments
+    public class TransportDocument
     {
         public int Id { get; set; }
         public string Filepath { get; set; }
-     
-        public virtual ServiceLogment ServiceLogment { get; set; }
-        public virtual ServiceNouritture ServiceNouritture { get; set; }
-     
-
-
+        public virtual ServiceTransport ServiceTransport { get; set; }
     }
 }

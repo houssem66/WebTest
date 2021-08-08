@@ -140,7 +140,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
 
 
                         <li class="nav-item has-treeview">
@@ -173,8 +173,74 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Gestion des Services
+                                    <i class="fas fa-angle-left right"></i>
 
-                        <li class="nav-header">EXAMPLES</li>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-action="GetALlCommercant" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous Les Commercant</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="BecomeCommercant" asp-controller="Service" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Créer un Commercant</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetLogements" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les logement</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetTransport" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les transports</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetNourriture" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les nourritures</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Gestion des expériences
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-action="CreateExperience" asp-controller="Experience" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ajouter une expérience</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetAllRoles" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les expériences</p>
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </li>
 
                     </ul>
                 </nav>

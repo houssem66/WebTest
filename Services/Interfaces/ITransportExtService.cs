@@ -11,7 +11,7 @@ namespace Services.Interfaces
     public interface ITransportExtService
     {
         public Task Ajout(ServiceTransport logement);
-        public IList<ServiceTransport> GetAllLogements();
+        public IList<ServiceTransport> GetAllTransports();
         public Task Update(ServiceTransport logement);
         public Task<ServiceTransport> GetLogementById(int id);
         public Task Delete(ServiceTransport logement);

@@ -20,8 +20,11 @@ namespace TourMe.Web.Controllers
         private readonly ICommercantService commercantService;
         private readonly IFournisseurService fournisseurService;
         private readonly IExperienceService experienceService;
+        private readonly ITransportExtService transportExtService;
+        private readonly ILogementextService logementextService;
+        private readonly INourritureExtService nourritureExtService;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService,IExperienceService _experienceService)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService,IExperienceService _experienceService,ITransportExtService _transportExtService,ILogementextService _logementextService,INourritureExtService _nourritureExtService)
         {
             this.roleManager = roleManager;
             UserManager = userManager;
@@ -29,6 +32,9 @@ namespace TourMe.Web.Controllers
             commercantService = _CommercantService;
             fournisseurService = _FournisseurService;
             experienceService = _experienceService;
+            transportExtService = _transportExtService;
+            logementextService = _logementextService;
+            nourritureExtService = _nourritureExtService;
         }
         [HttpGet]
         public IActionResult GetAllRoles()
@@ -267,9 +273,32 @@ namespace TourMe.Web.Controllers
             return RedirectToAction(nameof(GetAllUsers));
         }
 
+        public async Task<IActionResult> GetLogements()
+        {
+            var list = logementextService.GetAllLogements().ToList();
 
+            return View(list);
+        }
+        public async Task<IActionResult> GetNourriture()
+        {
+            var list = nourritureExtService.GetAllNourriture().ToList();
 
-          
+            return View(list);
+        }
+        public async Task<IActionResult> GetTransport()
+        {
+            var list = transportExtService.GetAllTransports();
+
+            return View(list);
+        }
+
+        public IActionResult GetALlCommercant()
+        {
+            var list = fournisseurService.GetAllFournisseurs().ToList();
+
+            return View(list);
+        }
+
 
     }
 }

@@ -25,5 +25,6 @@ namespace TourMe.Data.Entities
         public decimal Prix { get; set; }
         public int NbrPlaces { get; set; }
         public Fournisseur Fournisseur { get; set; }
+        public virtual IList<TransportDocument> Documents { get; set; }
     }
 }

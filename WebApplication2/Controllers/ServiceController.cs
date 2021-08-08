@@ -547,6 +547,11 @@ namespace TourMe.Web.Controllers
                         UserName = model.Email,
                         PhoneNumber = numberToSave,
                         PersAContact = model.PersAContact,
+                        NumPersAcontacter= (int)model.NumPersAcontacter,
+                        CodePostale=model.CodePostale,
+                        NumCnss= (long)model.NumCnss,
+                        FormeJuridique = model.Forme,
+                        Type=model.secteur,
                         Email = model.Email,
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
@@ -819,10 +824,10 @@ namespace TourMe.Web.Controllers
                 }
 
 
-                string id = userManager.GetUserId(User);
+              
                 ServiceNouritture nourriture = new ServiceNouritture
                 {
-                    FournisseurId = id,
+                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result,
                     TypeResto = model.TypeResto,
                     SpecialeResto = model.SpecialeResto,
                     NomRestau = model.NomRestau,
@@ -936,7 +941,7 @@ namespace TourMe.Web.Controllers
 
 
             List<ServiceNouritture> nourittures = new List<ServiceNouritture>();
-            nourittures = (List<ServiceNouritture>)nourritureService.GetAllLogements();
+            nourittures = (List<ServiceNouritture>)nourritureService.GetAllNourriture();
             return View(nourittures);
 
         }

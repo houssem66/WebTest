@@ -125,8 +125,8 @@ namespace TourMe.Web.Controllers
         [HttpPost]
 
         [Authorize(Policy = "CreateExperiencePolicy")]
-        public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
-        {
+        public async Task<IActionResult> CreateExperience(ExperienceViewModel model,string Programmed)
+        { Boolean bol =false;
             if (TempData["Nourriture"] != null)
             { ViewData["supp"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
             if (TempData["Transport"] != null)
@@ -141,7 +141,8 @@ namespace TourMe.Web.Controllers
                 ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
                 IList<Activite> list = (IList<Activite>)ViewData["list"];
                 string id = userManager.GetUserId(User);
-
+                if (Programmed == "Oui")
+                {  bol = true; }
                 Experience experience = new Experience
                 {
                     Titre = model.Titre,
@@ -155,6 +156,7 @@ namespace TourMe.Web.Controllers
                     Activites = list,
                     Description = model.Description,
                     Commerçant = await commercantService.GetCommerçantById(id),
+                    Programmed = bol
                 };
                 var result = await ExperienceService.InsertExperience(experience);
                 Experience experience1 = await ExperienceService.GetById((int)result);
