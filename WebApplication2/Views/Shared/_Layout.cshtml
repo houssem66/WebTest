@@ -335,15 +335,21 @@
                         </div>
 
                     </div>
+
+                    <ul>
+
+                        <li> <a class="pull-right" asp-action="ItemList" asp-controller="Reservation">  <i class="fa fa-shopping-bag"></i> CART     @HttpContextAccessor.HttpContext.Session.GetString("ExperienceCount") items</a> </li>
+
+
+                    </ul>
+
+
+
                 </div>
-                <ol>
-
-                    <li> <a class="pull-right" href="#">  <i class="fa fa-shopping-bag"></i> CART</a></li>
-                </ol>
+               
 
             </div>
-            </div>
-
+    
             <!-- TOP SEARCH BOX -->
             <div class="search-top">
                 <div class="container">

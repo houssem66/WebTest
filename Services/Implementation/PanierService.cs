@@ -22,10 +22,10 @@ namespace Services.Implementation
             this.panierRepo = panierRepo;
          
         }
-        public async Task Ajout(Panier panier)
+        public  Task Ajout(Panier panier)
         { 
             
-            await genericRepo.InsertAsync(panier);
+            return genericRepo.InsertAsync(panier);
           
         }
 
@@ -35,10 +35,10 @@ namespace Services.Implementation
             return panier;
         }
 
-        public Task<Panier> GetPanierByuserId(string id)
+        public IEnumerable<Panier>  GetPanierByuserId(string id)
         {
-            var panier = genericRepo.GetAll().Where(e => e.UserId == id);
-            return (Task<Panier>)panier;
+            
+             return panierRepo.GetPanierByuserIdAsync(id);
         }
 
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours)

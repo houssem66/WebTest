@@ -10,7 +10,13 @@ namespace TourMe.Web.Models
     {
         public decimal Prix { get; set; }
         public int Quantite { get; set; }
-
+        public DateTime DatedebutL { get; set; }
+        public DateTime DateFinL { get; set; }
+        public int NbrPlat { get; set; }
+        public DateTime DateDispoTrans { get; set; }
+        public string RemarquesLogement { get; set; }
+        public string RemarquesTransport { get; set; }
+        public string RemarquesNourriture { get; set; }
         public IList<Experience> experiences  { get; set; }
         public IList<ServiceLogment> Logments { get; set; }
         public IList<ServiceNouritture> nourittures { get; set; }

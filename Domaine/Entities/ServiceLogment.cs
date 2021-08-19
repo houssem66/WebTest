@@ -24,6 +24,7 @@ namespace TourMe.Data.Entities
 
         public Fournisseur Fournisseur { get; set; }
         public virtual IList<LNDocuments> Documents { get; set; }
-        public Panier Panier { get; set; }
+        public virtual IList<Panier> Paniers { get; set; }
+
     }
 }

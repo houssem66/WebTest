@@ -19,21 +19,29 @@ using System.Threading.Tasks;
 using TourMe.Data.Entities;
 using TourMe.Web.Models;
 
+using X.PagedList;
+
+
+
 namespace TourMe.Web.Controllers
 {
     public class ReservationController : Controller
     {
+        private readonly INourritureExtService nourritureExtService1;
         private readonly IExperienceService experienceService;
         private readonly UserManager<Utilisateur> userManager;
         private readonly IReservationService reservationService;
         private readonly IPanierService panierService;
+        private readonly ILogementextService logementService;
 
-        public ReservationController(IExperienceService _experienceService, UserManager<Utilisateur> userManager,IReservationService _reservationService,IPanierService panierService)
+        public ReservationController(INourritureExtService nourritureExtService1,IExperienceService _experienceService, UserManager<Utilisateur> userManager,IReservationService _reservationService,IPanierService panierService, ILogementextService _logementService)
         {
+            this.nourritureExtService1 = nourritureExtService1;
             experienceService = _experienceService;
             this.userManager = userManager;
             reservationService = _reservationService;
             this.panierService = panierService;
+            logementService = _logementService;
         }
         [HttpGet]
         public async Task<IActionResult> Reserver(int id)
@@ -140,21 +148,31 @@ namespace TourMe.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> ItemList(PanierViewModel p)
-        {
-            Panier panier = new Panier
-
-            {
-                Experiences = p.experiences,
-                Prix = p.Prix,
-                UserId = userManager.GetUserId(User),
-
-
-            };
-          await  panierService.Ajout(panier);
+        [AllowAnonymous]
+        public async Task<IActionResult> ItemList(decimal prix,int ide)
+        {   
+            Experience x = await experienceService.GetExperienceByIdAsync(ide);
+            List<Experience> list = new List<Experience>();
+            List<ServiceLogment> logments = new List<ServiceLogment>();
+            List<ServiceNouritture> nourittures = new List<ServiceNouritture>();
+            List<ServiceTransport> transports = new List<ServiceTransport>();
 
 
-            return RedirectToAction("GetAll","Experience");
+
+            list.Add(x);
+           
+                Panier panier = new Panier
+
+                {
+                  
+                    Prix = prix,
+                User=await userManager.GetUserAsync(User)
+
+                };
+        await panierService.Ajout(panier);
+                return RedirectToAction("ReserverService", "Reservation");
+           
+           
         }
 
 
@@ -168,6 +186,145 @@ namespace TourMe.Web.Controllers
 
             return View();
         }
+
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ReserverService()
+        {
+
+            Panier p = panierService.GetPanierByuserId(userManager.GetUserId(User)).Last();
+            HttpContext.Session.SetString("Panier", JsonConvert.SerializeObject(p));
+            ViewData["data"] = p;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ReserverService(PanierViewModel model)
+        {
+            Panier panier = JsonConvert.DeserializeObject<Panier>(HttpContext.Session.GetString("Panier"));
+            panier.DatedebutL = model.DatedebutL;
+            panier.DateFinL = model.DateFinL;
+            panier.RemarquesLogement = model.RemarquesLogement;
+            await panierService.Update(panier);
+            return RedirectToAction("Index", "Home");
+
+        }
+
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult GetDetailLogement(int? page)
+        {
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return PartialView("_Detail", logementService.GetAllLogements().ToPagedList(pageNumber, pageSize));
+        }
+
+
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult GetDetailNourriture(int? page)
+        {
+            int pageSize = 2;
+            int pageNumber = (page ?? 1);
+            return PartialView("_DetailNourriture", nourritureExtService1.GetAllLogements().ToPagedList(pageNumber, pageSize));
+        }
+
+
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<ActionResult> AjoutLogement(int id)
+        {
+            
+            ServiceLogment logment  =await logementService.GetById(id);
+            Panier panier = JsonConvert.DeserializeObject<Panier>(HttpContext.Session.GetString("Panier"));
+         
+
+            
+          
+
+            try
+            {
+                panier.Logments = JsonConvert.DeserializeObject<IList<ServiceLogment>>(HttpContext.Session.GetString("Logements"));
+                panier.Logments.Add(logment);
+                HttpContext.Session.SetString("Logements", JsonConvert.SerializeObject(panier.Logments, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }));
+                await panierService.Update(panier);
+                //HttpContext.Session.SetString("Panier", JsonConvert.SerializeObject(panier, Formatting.None,
+                //        new JsonSerializerSettings()
+                //        {
+                //            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                //        }));
+            }
+            catch
+            {
+
+                panier.Logments = new List<ServiceLogment>();
+                panier.Logments.Add(logment);
+                HttpContext.Session.SetString("Logements", JsonConvert.SerializeObject(panier.Logments, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        }));
+
+
+
+                await panierService.Update(panier);
+                //HttpContext.Session.SetString("Panier", JsonConvert.SerializeObject(panier, Formatting.None,
+                //       new JsonSerializerSettings()
+                //       {
+                //           ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                //       }));
+            }
+          
+            //panier.Logments.Add(logment);
+            //  HttpContext.Session.SetString("Logements", JsonConvert.SerializeObject(panier.Logments));
+            //await panierService.Update(panier);
+
+
+            return NoContent();
+        }
+
+
+        [HttpPost]
+        [AllowAnonymous]
+        public ActionResult Test(string type)
+        {
+            List<ServiceLogment> logments = new List<ServiceLogment>();
+            logments = (List<ServiceLogment>)logementService.GetAllLogements();
+
+
+            if (type.ToLower().Equals("oui"))
+            {
+
+
+                System.Diagnostics.Debug.WriteLine("Le type est" + type);
+                return PartialView("_Logement",logments);
+            }
+
+            else if (type.Equals("non"))
+            {
+
+                return new EmptyResult();
+            }
+            return null;
+        }
+
+  
+
+
+        
+
+
 
 
     }
