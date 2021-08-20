@@ -60,11 +60,11 @@
 
                 <div class="row">
                     <div class="col-xs-12 col-md-6 ">
-                        <a href="~/Files/@Model.Documents.First()" title="@Model.Titre" data-lightbox-gallery="gallery1">
+                        <a href="~/Files/@Model.Documents.First().Filepath" title="@Model.Titre" data-lightbox-gallery="gallery1">
                             <div class="about-img">
 
 
-                                <img src="~/Files/@Model.Documents.First()" class="img-responsive" alt="">
+                                <img src="~/Files/@Model.Documents.First().Filepath" class="img-responsive" alt="">
 
                             </div>
                         </a>
@@ -103,7 +103,7 @@
 
                             <div class="hover-bg">
 
-                                <a href="~/Files/@Model.Documents.First()" title="@Model.Titre" data-lightbox-gallery="gallery1">
+                                <a href="~/Files/@Model.Documents.First().Filepath" title="@Model.Titre" data-lightbox-gallery="gallery1">
 
                                     <div class="hover-text">
 
@@ -117,7 +117,7 @@
                                             <p>Prix: @Model.PrixParNuit</p>
                                         </span>
                                     </div>
-                                    <img src="~/Files/@Model.Documents.First()" class="img-responsive" alt="Project Title">
+                                    <img src="~/Files/@Model.Documents.First().Filepath" class="img-responsive" alt="Project Title">
                                 </a>
                             </div>
 

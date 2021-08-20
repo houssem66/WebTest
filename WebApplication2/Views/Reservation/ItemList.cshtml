@@ -4,8 +4,9 @@
 @model PanierViewModel;
 
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 <!------ Include the above in your HEAD tag ---------->
 
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
@@ -71,7 +72,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="table-responsive">
-                    <form asp-action="ItemList" method="post">
+                  
                         <table class="table table-striped" id="tbl_a">
                             <thead>
                                 <tr>
@@ -92,18 +93,24 @@
                     {
 
 
-                    <tr>
-                        <input type="hidden" value="@item.tarif" class="tarif" />
-                        <td><img src="~/images/@item.Activites.First().Image" alt="" /> </td>
-                        <td>@item.Titre</td>
-                        <td>In stock</td>
+                                <tr>
+                                    <input type="hidden" value="@item.ExperienceId" class="IDE" />
+                                    <input type="hidden" value="@item.tarif" class="tarif" />
+                                    <td><img src="~/images/@item.Activites.First().Image" alt="" /> </td>
+                                    <td>@item.Titre</td>
+                                    <td>In stock</td>
 
-                        <td><input class="quantite" type="text" /></td>
-                        <td class="Prix" value="0">0</td>
-                        <td class="text-right"><button class="btn btn-sm btn-danger" id="bsc"><i class="fa fa-trash"></i> </button> </td>
+                                    <td><input class="quantite" type="text" /></td>
+                                    <td class="Prix" value="0">0</td>
+                                    <td class="text-right">
+                                        <input class="updateButton" type="submit" asp-route-id="@item.ExperienceId" value="Reserver" />
+                                    </td>
 
-                    </tr>
+
+
+                                </tr>
 }} @*<tr>
+
         <td></td>
         <td></td>
         <td></td>
@@ -133,55 +140,57 @@
                             </div>
                         </div>
                         <input type="hidden" asp-for="Prix" id="Tota" value="" /> <strong id="Total"></strong>
-                    </form>
+                   
                 </div>
             </div>
             
            
    
 </div>
-    <script>
-        calc_total();
-   
-       
-            $('.quantite').each(function () {
+        <script>
+            $(document).ready(function () {
 
-                $('.quantite').on('keyup', function () {
-                    var Prix = $('.tarif').val();
-                    var textEnter = parseInt($(this).val()) * parseInt(Prix);
 
-                    $(this).closest("tr").find('td:eq(4)').text(textEnter);
-                    $(this).closest("tr").find('td:eq(4)').val(textEnter);
-                    document.getElementById("prix").innerHTML = textEnter;
-                    
-                  //  
-                });
-              
-               
+
+            
+                Quantite();
+                calc_total();
+                tableChange();
+                SubmitForm();
+
+
             });
-        $('#tbl_a').on('change', 'input', function () {
-            calc_total();
-        });
-   
-        //$('.Prix').each(function () {
-        //    var sum = 0;
 
-        //    document.getElementById('Total').innerHTML = sum + 'dt';
-        //    $('.quantite').on('change', function () {
-               
-        //            // $(this).closest("tr").find('td:eq(4)').text(textEnter + 'dt');
-        //            // parseInt(sum) += parseInt($(this).closest("tr").find('td:eq(4)').text());
-        //           sum += parseInt($(this).closest("tr").find('td:eq(4)').val());
-        //          //  sum += 1;
-        //          // alert('Somme est'+sum/2);
-        //            alert($(this).closest("tr").find('td:eq(4)').val());
+            function tableChange() {
 
-        //        });
-               
-        //    });
+                $('#tbl_a').on('change', 'input', function () {
+                    calc_total();
+                });
 
 
-        function calc_total() {
+            };
+            function Quantite() {
+
+                $('.quantite').each(function () {
+
+                    $('.quantite').on('keyup', function () {
+                        var Prix = $('.tarif').val();
+                        var textEnter = parseInt($(this).val()) * parseInt(Prix);
+
+                        $(this).closest("tr").find('td:eq(4)').text(textEnter);
+                        $(this).closest("tr").find('td:eq(4)').val(textEnter);
+                        //document.getElementById("prix").innerHTML = textEnter;
+
+                        //
+                    });
+
+
+                });
+
+
+            };
+
+            function calc_total() {
             var sum = 0;
             $(".Prix").each(function () {
                sum += parseFloat($(this).text());
@@ -190,10 +199,40 @@
             document.getElementById('Total').innerHTML = sum + 'dt';
             $('#Tota').val(sum);
           //  alert($('#Tota').val());
-        }
+                };
+            function SubmitForm() {
 
-   
+                $('.updateButton').on('click', function (e) {
 
-    </script>
+                        e.preventDefault();
+
+                    var row = $(this).closest('tr'),
+                        prix = $('.Prix', row),
+                        ide = $('.IDE', row);
+               
+                    var data = { Prix: prix.val(), ide: ide.val() };
+
+                        $.ajax({
+                            type: "POST",
+                            url: '@Url.Action("ItemList", "Reservation")',
+                            data: data,
+                            success: function (data) {
+              
+
+                                window.location = '@Url.Action("ReserverService", "Reservation")';
+
+
+                            }
+
+
+                        })
+
+                    });
+
+
+            };
+
+
+        </script>
 </div>
 

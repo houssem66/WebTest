@@ -35,6 +35,6 @@ namespace TourMe.Data.Entities
         public decimal Prix { get; set; }
         public virtual IList<LNDocuments> Documents { get; set; }
         public string FournisseurId { get; set; }
-        public Panier Panier { get; set; }
+        public virtual IList<Panier> Paniers { get; set; }
     }
 }

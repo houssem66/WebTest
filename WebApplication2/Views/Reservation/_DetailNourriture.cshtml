@@ -1,0 +1,141 @@
+﻿
+
+@model X.PagedList.IPagedList<TourMe.Data.Entities.ServiceNouritture>;
+
+@using X.PagedList.Mvc.Core;
+
+@using X.PagedList
+
+<!-- Google Tag Manager -->
+
+
+
+<div class="col-sm-12">
+    <div id="portfolio">
+
+        <div class="container">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="portfolio-items">
+                    @{
+
+
+                        foreach (var item in Model)
+                        {
+
+
+
+                            <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+                                <div class="portfolio-item">
+
+                                    <form action="AjoutLogement" method="post" enctype="multipart/form-data">
+
+                                        <input type="hidden" name="id" value="@item.Id" />
+
+                                        <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id">
+                                            <h4>
+
+                                                @item.NomRestau
+                                            </h4>
+                                        </a>
+                                        <div class="hover-bg">
+
+
+                                            <div class="hover-text">
+
+
+                                                <span>
+                                                    <p>Prix: @item.Prix</p>
+                                                </span>
+
+                                                <input id="AjouterNourriture" type="submit" value="Ajouter" class="btn" />
+
+                                            </div>
+
+                                            <img src="~/Files/@item.Documents.First().Filepath" class="col-sm-6" alt="Project Title">
+
+
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+                    }
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div id="myPager">
+                @Html.PagedListPager(Model, page => Url.Action("GetDetailNourriture", "Reservation", new { page }))
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+    $('#myPager').on('click', 'a', function (e) {
+        //prevent action link normal functionality
+        e.preventDefault();
+        if (this.href != null && this.href != "") {
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#Preview').html(result);
+                }
+            });
+            return false;
+        }
+    });
+
+
+        $('#AjouterNourriture').click(function () {
+            $('#myModal2').modal('toggle');
+            $('#sub2').val('logement ajouté');
+            //$('#dtd').show();
+
+
+
+    });
+
+    });
+</script>

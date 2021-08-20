@@ -11,5 +11,6 @@ namespace Repository.Interfaces
     {
         public Task Update(Panier panier);
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours);
+        public IEnumerable<Panier> GetPanierByuserIdAsync(string id);
     }
 }
