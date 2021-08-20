@@ -23,8 +23,9 @@ namespace TourMe.Web.Models
         [Required]
         [MinLength(2)]
         public string Titre { get; set; }
+        public string Description { get; set; }
         [Required]
-  
+
         public TypeExperience TypeExperience { get; set; }
         [Required]
         public string Lieu { get; set; }
@@ -42,5 +43,8 @@ namespace TourMe.Web.Models
         // public List<Activite> Activites { get; set; }
         public ICollection<Activite> Activites;
         public domaine Domaines { get; set; }
+        // Nourriture
+       
+       //Transport
     }
 }

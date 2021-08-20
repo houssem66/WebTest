@@ -126,21 +126,6 @@ namespace TourMe.Data.Migrations
                     b.HasDiscriminator<string>("Discriminator").HasValue("Utilisateur");
                 });
 
-            modelBuilder.Entity("ExperiencePanier", b =>
-                {
-                    b.Property<int>("ExperiencesExperienceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaniersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ExperiencesExperienceId", "PaniersId");
-
-                    b.HasIndex("PaniersId");
-
-                    b.ToTable("ExperiencePanier");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -272,51 +257,6 @@ namespace TourMe.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("PanierServiceLogment", b =>
-                {
-                    b.Property<int>("LogmentsId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaniersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("LogmentsId", "PaniersId");
-
-                    b.HasIndex("PaniersId");
-
-                    b.ToTable("PanierServiceLogment");
-                });
-
-            modelBuilder.Entity("PanierServiceNouritture", b =>
-                {
-                    b.Property<int>("NouritturesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PaniersId")
-                        .HasColumnType("int");
-
-                    b.HasKey("NouritturesId", "PaniersId");
-
-                    b.HasIndex("PaniersId");
-
-                    b.ToTable("PanierServiceNouritture");
-                });
-
-            modelBuilder.Entity("PanierServiceTransport", b =>
-                {
-                    b.Property<int>("PaniersId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TransportsId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PaniersId", "TransportsId");
-
-                    b.HasIndex("TransportsId");
-
-                    b.ToTable("PanierServiceTransport");
-                });
-
             modelBuilder.Entity("TourMe.Data.Entities.Activite", b =>
                 {
                     b.Property<int>("activiteId")
@@ -408,6 +348,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("CommerçantId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImagesExperience")
                         .HasColumnType("nvarchar(max)");
 
@@ -416,6 +359,9 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NbPlaces")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("PanierId")
                         .HasColumnType("int");
 
                     b.Property<string>("Rating")
@@ -446,6 +392,8 @@ namespace TourMe.Data.Migrations
                     b.HasKey("ExperienceId");
 
                     b.HasIndex("CommerçantId");
+
+                    b.HasIndex("PanierId");
 
                     b.ToTable("Experience");
                 });
@@ -557,39 +505,16 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("DateDispoTrans")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateFinL")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DatedebutL")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("NbrPlat")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Prix")
+                    b.Property<decimal>("Prix")
                         .HasColumnType("decimal(5,2)");
 
-                    b.Property<int?>("Quantite")
+                    b.Property<int>("Quantite")
                         .HasColumnType("int");
 
-                    b.Property<string>("RemarquesLogement")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RemarquesNourriture")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RemarquesTransport")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Paniers");
                 });
@@ -674,6 +599,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("FournisseurId")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("PanierId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("PrixParNuit")
                         .HasColumnType("decimal(5,2)");
 
@@ -686,6 +614,8 @@ namespace TourMe.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FournisseurId");
+
+                    b.HasIndex("PanierId");
 
                     b.ToTable("ServiceLogments");
                 });
@@ -711,6 +641,9 @@ namespace TourMe.Data.Migrations
 
                     b.Property<string>("NomRestau")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("PanierId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Plat")
                         .HasColumnType("nvarchar(max)");
@@ -746,6 +679,8 @@ namespace TourMe.Data.Migrations
 
                     b.HasIndex("FournisseurId");
 
+                    b.HasIndex("PanierId");
+
                     b.ToTable("ServiceNourittures");
                 });
 
@@ -771,6 +706,9 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("NbrPlaces")
                         .HasColumnType("int");
 
+                    b.Property<int?>("PanierId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Prix")
                         .HasColumnType("decimal(5,2)");
 
@@ -786,6 +724,8 @@ namespace TourMe.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("FournisseurId");
+
+                    b.HasIndex("PanierId");
 
                     b.ToTable("ServiceTransports");
                 });
@@ -832,9 +772,9 @@ namespace TourMe.Data.Migrations
                         .HasMaxLength(8)
                         .HasColumnType("nvarchar(8)");
 
-                    b.Property<int>("CodePostale")
+                    b.Property<string>("CodePostale")
                         .HasMaxLength(4)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(4)");
 
                     b.Property<string>("DomainActivite")
                         .HasColumnType("nvarchar(max)");
@@ -902,21 +842,6 @@ namespace TourMe.Data.Migrations
                     b.HasDiscriminator().HasValue("Fournisseur");
                 });
 
-            modelBuilder.Entity("ExperiencePanier", b =>
-                {
-                    b.HasOne("TourMe.Data.Entities.Experience", null)
-                        .WithMany()
-                        .HasForeignKey("ExperiencesExperienceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourMe.Data.Entities.Panier", null)
-                        .WithMany()
-                        .HasForeignKey("PaniersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -968,51 +893,6 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PanierServiceLogment", b =>
-                {
-                    b.HasOne("TourMe.Data.Entities.ServiceLogment", null)
-                        .WithMany()
-                        .HasForeignKey("LogmentsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourMe.Data.Entities.Panier", null)
-                        .WithMany()
-                        .HasForeignKey("PaniersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PanierServiceNouritture", b =>
-                {
-                    b.HasOne("TourMe.Data.Entities.ServiceNouritture", null)
-                        .WithMany()
-                        .HasForeignKey("NouritturesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourMe.Data.Entities.Panier", null)
-                        .WithMany()
-                        .HasForeignKey("PaniersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PanierServiceTransport", b =>
-                {
-                    b.HasOne("TourMe.Data.Entities.Panier", null)
-                        .WithMany()
-                        .HasForeignKey("PaniersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("TourMe.Data.Entities.ServiceTransport", null)
-                        .WithMany()
-                        .HasForeignKey("TransportsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("TourMe.Data.Entities.Activite", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
@@ -1043,9 +923,20 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
-                    b.HasOne("Domaine.Entities.Commerçant", null)
+                    b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
                         .WithMany("Experiences")
                         .HasForeignKey("CommerçantId");
+
+
+                    b.HasOne("TourMe.Data.Entities.Panier", "Panier")
+                        .WithMany("Experiences")
+                        .HasForeignKey("PanierId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Panier");
+
+                    b.Navigation("Commerçant");
+
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
@@ -1081,16 +972,6 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("TourMe.Data.Entities.Nourriture", "ExperienceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("TourMe.Data.Entities.Panier", b =>
-                {
-                    b.HasOne("Domaine.Entities.Utilisateur", "User")
-                        .WithMany("Paniers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction);
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Rating", b =>
@@ -1138,7 +1019,14 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("FournisseurId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("TourMe.Data.Entities.Panier", "Panier")
+                        .WithMany("Logments")
+                        .HasForeignKey("PanierId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.Navigation("Fournisseur");
+
+                    b.Navigation("Panier");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
@@ -1146,6 +1034,13 @@ namespace TourMe.Data.Migrations
                     b.HasOne("TourMe.Data.Entities.Fournisseur", null)
                         .WithMany("ServiceNourittures")
                         .HasForeignKey("FournisseurId");
+
+                    b.HasOne("TourMe.Data.Entities.Panier", "Panier")
+                        .WithMany("Nourittures")
+                        .HasForeignKey("PanierId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Panier");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
@@ -1155,7 +1050,14 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("FournisseurId")
                         .OnDelete(DeleteBehavior.Cascade);
 
+                    b.HasOne("TourMe.Data.Entities.Panier", "Panier")
+                        .WithMany("Transports")
+                        .HasForeignKey("PanierId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.Navigation("Fournisseur");
+
+                    b.Navigation("Panier");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Transport", b =>
@@ -1169,8 +1071,6 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
                 {
-                    b.Navigation("Paniers");
-
                     b.Navigation("Ratings");
 
                     b.Navigation("Reservations");
@@ -1191,6 +1091,17 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Reservations");
 
                     b.Navigation("Transport");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.Panier", b =>
+                {
+                    b.Navigation("Experiences");
+
+                    b.Navigation("Logments");
+
+                    b.Navigation("Nourittures");
+
+                    b.Navigation("Transports");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
