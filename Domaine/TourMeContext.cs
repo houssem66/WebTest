@@ -112,7 +112,24 @@ namespace TourMe.Data
             builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Commerçant).OnDelete(DeleteBehavior.Cascade);
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);
+            
+
+           builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
+           builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);
+           builder.Entity<ServiceTransport>().HasMany(e => e.Documents).WithOne(x => x.ServiceTransport).OnDelete(DeleteBehavior.Cascade);
+            
+
+            builder.Entity<Panier>(P =>
+            {
+                P.Property(l => l.Prix).HasColumnType("decimal(5, 2)");
+
+
+            });
+            builder.Entity<Utilisateur>().HasMany(e => e.Paniers).WithOne(e => e.User).OnDelete(deleteBehavior:DeleteBehavior.NoAction);
+            builder.Entity<Panier>().HasMany(e => e.Transports).WithMany(e=>e.Paniers);
+            builder.Entity<Panier>().HasMany(e => e.Nourittures).WithMany(e => e.Paniers);
+            builder.Entity<Panier>().HasMany(e => e.Logments).WithMany(e => e.Paniers);
+            builder.Entity<Panier>().HasMany(e => e.Experiences).WithMany(e => e.Paniers);
 
         }
 

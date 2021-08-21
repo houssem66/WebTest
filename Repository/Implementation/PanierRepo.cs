@@ -21,6 +21,13 @@ namespace Repository.Implementation
             genericRepoPanier = _GenericRepoPanier;
         }
 
+        public  IEnumerable<Panier> GetPanierByuserIdAsync(string id)
+        {
+            var panier =  dbContext.Paniers.Include(x => x.Experiences).Where(x => x.User.Id.Equals(id));
+             
+            return panier;
+        }
+
         public  decimal PrixTotal(Panier panier,int nbrNuit,int nbrRepats,int nbrJours)
         {
             decimal prix = 0;
@@ -73,7 +80,7 @@ namespace Repository.Implementation
                 await dbContext.SaveChangesAsync();
             }
             catch (Exception)
-            {
+            { 
                 throw new NotImplementedException();
 
             }

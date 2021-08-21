@@ -36,6 +36,7 @@ namespace Domaine.Entities
         public Gender gender { get; set; }
         public virtual ICollection<Rating> Ratings { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual ICollection<Panier> Paniers { get; set; }
 
 
     }
