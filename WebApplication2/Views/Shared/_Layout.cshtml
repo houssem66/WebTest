@@ -1,6 +1,8 @@
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 @inject UserManager<Domaine.Entities.Utilisateur> userManager;
 @using Microsoft.AspNetCore.Identity;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -300,10 +302,10 @@
                                         </div>
                                     </div>
                                     </li>
-                                @{  string id = userManager.GetUserId(User);}
+                                    @{ string id = userManager.GetUserId(User);}
                                     @if (User.IsInRole("Commercant"))
                                     {
-                                       
+
                                         <li>
 
                                             <a asp-controller="Account" asp-route-id="@id" asp-action="ProfilCommerc" class="nav-link">Profil</a>
@@ -346,10 +348,10 @@
 
 
                 </div>
-               
+
 
             </div>
-    
+
             <!-- TOP SEARCH BOX -->
             <div class="search-top">
                 <div class="container">
@@ -388,7 +390,7 @@
 
         @RenderBody()
 
-      
+
 
         <!--====== FOOTER - COPYRIGHT ==========-->
         <!--========= Scripts ===========-->
