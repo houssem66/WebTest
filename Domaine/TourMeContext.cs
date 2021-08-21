@@ -112,7 +112,7 @@ namespace TourMe.Data
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<ServiceTransport>().HasMany(e => e.Documents).WithOne(x => x.ServiceTransport).OnDelete(DeleteBehavior.NoAction);
+            builder.Entity<ServiceTransport>().HasMany(e => e.Documents).WithOne(x => x.ServiceTransport).OnDelete(DeleteBehavior.Cascade);
         }
 
     }

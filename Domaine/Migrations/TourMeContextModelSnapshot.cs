@@ -373,6 +373,9 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("SubExperience")
                         .HasColumnType("int");
 
+                    b.Property<string>("Theme")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Titre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -783,9 +786,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("PersAContact")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rib")
+                    b.Property<string>("Rib")
                         .HasMaxLength(20)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");
@@ -1028,7 +1031,7 @@ namespace TourMe.Data.Migrations
                     b.HasOne("TourMe.Data.Entities.ServiceTransport", "ServiceTransport")
                         .WithMany("Documents")
                         .HasForeignKey("ServiceTransportId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ServiceTransport");
                 });

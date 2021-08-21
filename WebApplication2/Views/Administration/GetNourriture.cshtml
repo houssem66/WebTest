@@ -46,53 +46,80 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="myTable" class="table table-bordered table-hover dataTable dtr-inline">
+                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>NomRestau</th>
+                                    <th>Adresse</th>
+                                    <th>TypeResto</th>
+                                    <th>Description</th>
 
-                                    <th>Claims</th>
-                                    <th>Details</th>
+                                    <th>dateOuvert</th>
+                                    <th>dateFerme</th>
+                                    <th>Site</th>
+                                    <th>Plat</th>
+                                    <th>Prix</th>
+                                    <th>Images</th>
                                     <th>Delete</th>
-
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
 
-                                    <tr>
-
-                                        <td>
-                                            @item.Plat
-
-                                        </td>
-                                        <td>
-                                            @item.NomRestau
-                                        </td>
-                                        <td>
-                                            @item.Prix
-                                        </td>
+                                <tr>
 
 
+                                    <td>
+                                        @item.NomRestau
+                                    </td>
+                                    <td>
+                                        @item.Adresse
+                                    </td>
 
-                                        <td>
-                                            @item.TypeResto
-                                        </td>
+                                    <td>
+                                        @item.TypeResto
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+                                    <td>
+                                        @item.dateOuvert
+                                    </td>
+                                    <td>
+                                        @item.dateFerme
+                                    </td>
+                                    <td>
+                                        @item.Site
 
-                                       
+                                    </td>
+                                    <td>
+                                        @item.Plat
 
-                                        <td>
+                                    </td>
+                                    <td>
+                                        @item.Prix
+                                    </td>
 
-                                            <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
 
-                                        </td>
+                                    <td>
+                                        @foreach (var doc in item.Documents)
+                                        {
 
-                                    </tr>
+                                            <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
+
+                                        }
+                                    </td>
+
+
+                                    <td>
+
+                                        <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+
+                                    </td>
+
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -105,7 +132,21 @@
 </section>
 @section Scripts {
     <script>
-
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
     $("#myInput").on("keyup", function () {
 
         var textEnter = $(this).val();

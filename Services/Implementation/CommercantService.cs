@@ -34,7 +34,7 @@ namespace Services.Implementation
 
         public IList<Commerçant> GetAllCommerçants()
         {
-            return genericRepo.GetAll().ToList();
+            return commerçantRepo.GetAllCommercant().ToList();
         }
 
         public Task<Commerçant> GetCommerçantById(string id)

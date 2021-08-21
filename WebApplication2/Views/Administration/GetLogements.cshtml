@@ -13,16 +13,15 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Voir la liste de tous les utilisateurs </h1>
-            </div> /.col 
+                <h1 class="m-0 text-dark">Voir la liste de tous les services logements </h1>
+            </div> 
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
                     <li class="breadcrumb-item active">Voir tous les utilisateurs</li>
                 </ol>
-            </div> /.col 
-        </div> /.row 
-    </div> /.container-fluid 
+            </div> 
+    </div> </div>
 </section>
 
 
@@ -32,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tous les comptes</h3>
+                        
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -46,18 +45,18 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="myTable" class="table table-bordered table-hover dataTable dtr-inline">
+                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
+                                    <th>Titre</th>
+                                    <th>Personne a contacter</th>
+                                    <th>Type</th>
+                                    <th>Category</th>
 
-                                    <th>Claims</th>
-                                    <th>Details</th>
-                                    <th>Delete</th>
+                                    <th>Description</th>
+                                    <th>Prix par nuit</th>
+                                    <th>Images</th>
 
                                 </tr>
                             </thead>
@@ -65,33 +64,43 @@
                                 @foreach (var item in Model)
                                 {
 
-                                    <tr>
+                                <tr>
+
+                                    <td>
+                                        @item.Titre
+
+                                    </td>
+                                    <td>
+                                        <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Fournisseur.Id" class="link-btn">@item.Fournisseur.PersAContact</a></span>
+                                    </td>
+                                    <td>
+                                        @item.Type.
+                                    </td>
+
+                                    <td>
+                                        @item.Category
+                                    </td>
+                                    <td>
+                                        @item.Description
+                                    </td>
+
+
+
+                                    <td>
+                                        @item.PrixParNuit
+                                    </td>
+                                    <td>
+                                        @foreach (var doc in item.Documents)
+                                        {
+
+                                            <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
+
+                                        }
+                                    </td>
+
 
                                         <td>
-                                            @item.Adresse
-
-                                        </td>
-                                        <td>
-                                            @item.Category
-                                        </td>
-                                        <td>
-                                            @item.Description
-                                        </td>
-
-
-
-                                        <td>
-                                            @item.Titre
-                                        </td>
-
-                                       
-
-
-
-                                        <td>
-
-                                            <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
-
+                                            <span> <a asp-action="DeleteLogement" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
                                         </td>
 
                                     </tr>
@@ -107,7 +116,21 @@
 </section>
 @section Scripts {
     <script>
-
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
     $("#myInput").on("keyup", function () {
 
         var textEnter = $(this).val();
@@ -134,4 +157,3 @@
 
 
 
-====== FOOTER - COPYRIGHT ==========

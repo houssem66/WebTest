@@ -1,0 +1,200 @@
+﻿
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+@model IList<TourMe.Data.Entities.Experience>
+
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Voir la liste de tous les expériences </h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">Voir tous les utilisateurs</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+                        <div class="card-tools">
+                            <div class="input-group input-group-sm" style="width: 150px;">
+                                <input type="text" id="myInput" placeholder="Recherche Utilisateurs" title="Type in a name" class="form-control float-right">
+
+                                <div class="input-group-append">
+                                    <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                         <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+
+                                <tr>
+                                    <th>Titre</th>
+                                    <th>Theme</th>
+                                    <th>Personne a contacter</th>
+                                    <th>NbPlaces</th>
+                                    <th>dateDebut</th>
+
+                                    <th>dateFin</th>
+                                    <th>tarif</th>
+                                    <th>Expérience Verifier</th>
+                                    <th>Nourriture</th>
+                                    <th>Logement</th>
+                                    <th>Transport</th>
+                                    <th>Voir l expérience</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+
+                                <tr>
+
+                                    <td>
+                                        @item.Titre
+
+                                    </td>
+                                    <td>
+                                        @item.Theme
+                                    </td>
+                                    <td>
+                                        <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Commerçant.Id" class="link-btn">@item.Commerçant.Email</a></span>
+                                    </td>
+                                    <td>
+                                        @item.NbPlaces
+                                    </td>
+
+                                    <td>
+                                        @item.dateDebut
+                                    </td>
+                                    <td>
+                                        @item.dateFin
+                                    </td>
+
+
+
+                                    <td>
+                                        @item.tarif
+                                    </td>
+                                    <td>
+                                        @{if (item.Commerçant.Verified)
+                                            { <div class="time-label">
+                                                    <span class="bg-green">verfied</span>
+                                                </div> }
+                                            else
+                                            { <div class="time-label">
+                                                    <span class="bg-red">Not verfied</span>
+                                                </div> }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{if (item.Nourriture!=null)
+                                            { <div class="time-label">
+                                                    <span class="bg-cyan">Existe</span>
+                                                </div> }
+                                            else
+                                            { <div class="time-label">
+                                                    <span class="bg-yellow">n'existe pas</span>
+                                                </div> }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{if (item.Logement != null)
+                                            { <div class="time-label">
+                                                    <span class="bg-cyan">Existe</span>
+                                                </div> }
+                                            else
+                                            { <div class="time-label">
+                                                    <span class="bg-yellow">n'existe pas</span>
+                                                </div> }
+                                        }
+                                    </td>
+                                    <td>
+                                        @{if (item.Transport != null)
+                                            { <div class="time-label">
+                                                    <span class="bg-cyan">Existe</span>
+                                                </div> }
+                                            else
+                                            { <div class="time-label">
+                                                    <span class="bg-yellow">n'existe pas</span>
+                                                </div> }
+                                        }
+                                    </td>
+                                   
+
+                                    <td>
+                                        <span> <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId" class="link-btn">Details</a></span>
+                                    </td>
+
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script>
+        $(function () {  
+           
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+        $("#myInput").on("keyup", function () {
+
+            var textEnter = $(this).val();
+            $("Table tr").each(function (results) {
+
+                if (results != 0) {
+                    var id = $(this).find("td").text();
+                    if (id.indexOf(textEnter) != 0 && id.toLowerCase().indexOf(textEnter.toLowerCase()) < 0) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
+                }
+
+            });
+
+
+        });
+
+    </script>
+}
+
+
+
+

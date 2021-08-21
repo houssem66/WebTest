@@ -108,7 +108,7 @@ namespace Finance.Controllers
             //ViewBag.UsersRoles = userManager.GetUsersForClaimAsync();
             return View();
 
-
+                
         }
 
 
@@ -804,31 +804,36 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(Commerçant model)
+        public async Task<IActionResult> EditUser(Commerçant model,string Id)
         {
 
-            string id = userManager.GetUserId(User);
-            Commerçant user = (Commerçant)await UserService.GetUtilisateurByIdAsync(id);
-
-            user.PersAContact = model.PersAContact;
-            user.Email = model.Email;
-            user.PhoneNumber = model.PhoneNumber;
 
 
-            await UserService.PutUtilisateurAsync(id, user);
+            var commerçant = await commercantService.GetCommerçantById(Id);
 
-            return RedirectToAction("ProfilCommerc");
+            commerçant.PersAContact = model.PersAContact;
+            commerçant.Email = model.PhoneNumber;
+            commerçant.PhoneNumber = model.PhoneNumber;
+            try
+            {
+                await commercantService.Update(commerçant);
+                return RedirectToAction("ProfilCommerc", new { Id = Id });
+            }
+            catch (Exception e)
+
+            { return RedirectToAction("ProfilCommerc",  new { Id = Id }); }
+
 
 
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(UtilisateurViewModel model)
+        public async Task<IActionResult> Edit(UtilisateurViewModel model,string Id)
         {
 
-            string id = userManager.GetUserId(User);
-            Utilisateur user = await UserService.GetUtilisateurByIdAsync(id);
+            
+            Utilisateur user = await UserService.GetUtilisateurByIdAsync(Id);
 
             user.Nom = model.Nom;
             user.Email = model.Email;
@@ -839,14 +844,17 @@ namespace Finance.Controllers
             user.Country = model.Country;
             user.PhoneNumber = model.Telephone;
 
+            try
+            {
+                await UserService.PutUtilisateurAsync(Id, user);
 
+                return RedirectToAction("Profil", new { Id = Id });
+            } catch (Exception e)
+            {
+              
 
-            await UserService.PutUtilisateurAsync(id, user);
-
-            return RedirectToAction("Profil");
-
-
-
+                return RedirectToAction("Profil", new { Id = Id });
+           }
         }
         [HttpGet]
 

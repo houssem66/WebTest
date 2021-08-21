@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tous les Services Nourriture</h3>
+                        <h3 class="card-title">Tous les Commercant</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -46,22 +46,25 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="myTable" class="table table-bordered table-hover dataTable dtr-inline">
+                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Forme juridique</th>
                                     <th>Personne a contacter</th>
                                     <th>Numéro personne a contacter</th>
                                     <th>Nom Juridique de la société</th>
                                     <th>Email</th>
+                                    <th>Region</th>
                                     <th>Code postale</th>
                                     <th>Adresse</th>
                                     <th>Type service</th>
                                     <th>Actvitié</th>
-
-                                    <th>Delete</th>
-
+                                    <th>Effective homme</th>
+                                    <th>Effective femme</th>
+                                    <th>Verified</th>
+                                    <th>Documents</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,8 +74,7 @@
                                 <tr>
 
                                     <td>
-                                        @item.Id
-
+                                        @item.FormeJuridique
                                     </td>
                                     <td>
                                         @item.PersAContact
@@ -91,7 +93,9 @@
                                     <td>
                                         @item.Email
                                     </td>
-
+                                    <td>
+                                        @item.region
+                                    </td>
                                     <td>
                                         @item.CodePostale
                                     </td>
@@ -105,8 +109,34 @@
                                     <td>
                                         @item.Secteur
                                     </td>
+                                    <td>
+                                        @item.EffectHomme
+                                    </td>
+                                    <td>
+                                        @item.EffectFemme
+                                    </td>
+                                    <td>
+                                        @{if (item.Verified)
+                                            { <div class="time-label">
+                                                    <span class="bg-green">verfied</span>
+                                                </div> }
+                                            else
+                                            { <div class="time-label">
+                                                    <span class="bg-red">Not verfied</span>
+                                                </div> }
+                                        }
 
+                                    </td>
+                                    <td>
+                                        @{ int i = 1;
+                                            foreach (var doc in item.EmployeDocuments)
+                                            {
 
+                                                <a href="~/Files/@doc.Filepath" target="_blank">doc @i </a>
+                                                i = i + 1;
+                                            }
+                                        }
+                                    </td>
 
                                     <td>
 
@@ -127,7 +157,21 @@
 </section>
 @section Scripts {
     <script>
-
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
     $("#myInput").on("keyup", function () {
 
         var textEnter = $(this).val();

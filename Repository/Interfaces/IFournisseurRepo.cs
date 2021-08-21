@@ -10,5 +10,7 @@ namespace Repository.Interfaces
    public interface IFournisseurRepo
     {
         public Task<string> Delete(Fournisseur entity);
+        public  Task<Fournisseur> GetFournisseurAsync(string id);
+        public IQueryable<Fournisseur> GetFournisseursAsync();
     }
 }

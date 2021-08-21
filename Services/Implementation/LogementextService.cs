@@ -24,9 +24,9 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(logement);
         }
 
-        public Task Delete(ServiceLogment logement)
+        public Task Delete(int id)
         {
-            return GenericRepo.DeleteAsync(logement.Id);
+            return GenericRepo.DeleteAsync(id);
         }
 
         public IList<ServiceLogment> GetAllLogements()

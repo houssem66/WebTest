@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
-@model IList<TourMe.Data.Entities.ServiceTransport>
+@model IList<Domaine.Entities.Utilisateur>
 
 
 
@@ -13,12 +13,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Voir la liste de tous les Transport </h1>
+                <h1 class="m-0 text-dark">Voir la liste de tous les comptes </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
-                    <li class="breadcrumb-item active">Voir tous les Services Transport</li>
+                    <li class="breadcrumb-item active">Voir tous les utilisateurs</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -32,7 +32,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tous les comptes</h3>
+                        <h3 class="card-title">Tous les utilisateur</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -46,17 +46,17 @@
                     </div>
 
                     <div class="card-body">
-                         <table id="example2" class="table table-bordered table-hover">
+                        <table id="example2" class="table table-bordered table-striped">
                             <thead>
 
                                 <tr>
-                                    <th>Personne a contacte</th>
-                                    <th>TypeTransport</th>
-                                    <th></</th>
-                                    <th>Region</th>
-
-                                    <th>DateDisp</th>
-                                   <th>Images</th>
+                                    <th>Nom</th>
+                                    <th>Prenom</th>
+                                    <th>Email</th>
+                                    <th>Adresse</th>
+                                    <th>Date de naissance</th>
+                                    <th>Réservations</th>
+                                    <th>Details</th>
                                     <th>Delete</th>
 
                                 </tr>
@@ -65,43 +65,49 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
+                                    <tr>
 
-                                    <td>
-                                        <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Fournisseur.Id" class="link-btn">@item.Fournisseur.PersAContact</a></span>
-                                    </td>
-                                    <td>
-                                        @item.TypeTransport
-                                    </td>
-                                    <td>
-                                        @item.NbrPlaces
-                                    </td>
-                                    <td>
-                                        @item.Region
-                                    </td>
-                                    <td>
-                                        @item.DateDisp
-                                    </td>
+                                        <td>
+                                            @item.Nom
 
-                                    <td>
-                                        @foreach (var doc in item.Documents)
-                                        {
-
-                                            <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
-
-                                        }
-                                    </td>
+                                        </td>
+                                        <td>
+                                            @item.Prenom
+                                        </td>
+                                        <td>
+                                            @item.Email
+                                        </td>
 
 
 
+                                        <td>
+                                            @item.Adresse
+                                        </td>
 
-                                    <td>
+                                        <td>
+                                            @item.BirthDate
+                                        </td>
+                                        <td>
+                                            <a asp-action="ManageUserClaims" asp-controller="Account" asp-route-id="@item.Id" style="text-decoration-color:white">Voir tous les réservations</a>
+                                        </td>
 
-                                        <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
 
-                                    </td>
 
-                                </tr>
+                                        <td>
+
+                                            <span> <a asp-action="Profil" asp-controller="Account" asp-route-id="@item.Id" class="link-btn">Details</a></span>
+                                        </td>
+
+
+
+
+                                        <td>
+
+                                            <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+
+                                        </td>
+
+                                    </tr>
                                 }
                             </tbody>
                         </table>
@@ -113,6 +119,7 @@
     </div>
 </section>
 @section Scripts {
+   
     <script>
         $(function () {
             $("#example1").DataTable({
