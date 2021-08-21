@@ -16,6 +16,7 @@ namespace TourMe.Data.Entities
      
 
         public decimal PrixParNuit { get; set; }
+      
         public string Adresse { get; set; }
         public string Titre { get; set; }
         public string Description { get; set; }
@@ -23,5 +24,6 @@ namespace TourMe.Data.Entities
 
         public Fournisseur Fournisseur { get; set; }
         public virtual IList<LNDocuments> Documents { get; set; }
+        public Panier Panier { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace TourMe.Web.Models
         public string Category { get; set; }
         public string Type { get; set; }
         public List<IFormFile> FileP { get; set; }
-        
+       
         public decimal PrixParNuit { get; set; }
         public string Adresse { get; set; }
         public string Description { get; set; }

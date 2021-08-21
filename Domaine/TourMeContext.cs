@@ -26,6 +26,7 @@ namespace TourMe.Data
         public DbSet<ServiceTransport> ServiceTransports { get; set; }
         public DbSet<Fournisseur> Fournisseurs { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
+        public DbSet<Panier> Paniers { get; set; }
         public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -112,7 +113,7 @@ namespace TourMe.Data
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<ServiceNouritture>().HasMany(e => e.Documents).WithOne(x => x.ServiceNouritture).OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<ServiceTransport>().HasMany(e => e.Documents).WithOne(x => x.ServiceTransport).OnDelete(DeleteBehavior.Cascade);
+
         }
 
     }

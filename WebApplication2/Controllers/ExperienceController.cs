@@ -79,9 +79,20 @@ namespace TourMe.Web.Controllers
             if (!(searchTerm.Count() == 0))
             {
                 foreach (var ch in searchTerm)
-                {
-                    var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
-                    list = list.Concat(list2).ToList();
+                { try
+                    { var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+
+                        list = list.Concat(list2).ToList();
+                    }
+                    catch(Exception e)
+                    {
+                          var list2= ExperienceService.GetAllExperienceDetails(null).ToList();
+                        list = list.Concat(list2).ToList();
+
+                    }
+                  
+                   
+                
                 }
                 ;
 
