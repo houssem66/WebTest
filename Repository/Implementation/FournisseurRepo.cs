@@ -1,4 +1,5 @@
-﻿using Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,20 @@ namespace Repository.Implementation
 
             }
             return "success";
+        }
+
+        public async Task<Fournisseur> GetFournisseurAsync(string id)
+        {
+            var Fournisseur = await dbContext.Fournisseurs.Include(x => x.EmployeDocuments).SingleAsync(f => f.Id == id);
+            dbContext.Entry(Fournisseur).Collection(U => U.EmployeDocuments).Query().Load();
+            dbContext.Entry(Fournisseur).State = EntityState.Detached;
+            return Fournisseur;
+        }
+
+        public IQueryable<Fournisseur> GetFournisseursAsync()
+        {
+            var Fournisseur = dbContext.Fournisseurs.Where(ex => ex.Id != null).Include(x => x.EmployeDocuments);
+            return Fournisseur;
         }
     }
 }

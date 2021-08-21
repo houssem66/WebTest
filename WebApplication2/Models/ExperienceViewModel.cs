@@ -17,6 +17,8 @@ namespace TourMe.Web.Models
         [Range(0.01, 999999999, ErrorMessage = "Price must be greater than 0.00")]
         [DisplayName("Tarif (dt)")]
         public decimal tarif { get; set; }
+        public string Theme { get; set; }
+
         public int ExperienceId { get; set; }
         public int ActiviteId { get; set; }
 

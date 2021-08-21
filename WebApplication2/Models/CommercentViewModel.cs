@@ -35,6 +35,8 @@ namespace TourMe.Web.Models
         public string Identifiant_fiscale { get; set; }
         [Display(Name = "Secteur")]
         public string Secteur { get; set; }
+        [Display(Name = "Secteur")]
+        public string secteur { get; set; }
         public string Titre { get; set; }
 
         [Required(ErrorMessage = "Password is required")]

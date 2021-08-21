@@ -20,6 +20,7 @@ namespace TourMe.Data.Entities
         public int ExperienceId { get; set; }
         [Required]
         public string Titre { get; set; }
+        public string Theme { get; set; }
         public string Description { get; set; }
         [Required]
         public TypeExperience TypeExperience { get; set; }
@@ -34,7 +35,8 @@ namespace TourMe.Data.Entities
         public string ImagesExperience { get; set; }
         public string Activité { get; set; }
         public string Rating { get; set; }
-
+        [DefaultValue(false)]
+        public Boolean Programmed { get; set; }
         public int NbPlaces { get; set; }
         public string AvgRating { get; set; }
         //navigation Property

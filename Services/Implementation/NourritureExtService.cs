@@ -25,12 +25,12 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(logement);
         }
 
-        public Task Delete(ServiceNouritture logement)
+        public Task Delete(int id)
         {
-            return GenericRepo.DeleteAsync(logement.Id);
+            return GenericRepo.DeleteAsync(id);
         }
 
-        public IList<ServiceNouritture> GetAllLogements()
+        public IList<ServiceNouritture> GetAllNourriture()
         {
             return nourritureExtRepo.GetAll().ToList();
         }
@@ -47,7 +47,7 @@ namespace Services.Implementation
 
         public IList<ServiceNouritture> GetNourritureByUser(string id)
         {
-            return GenericRepo.GetAll().Where(e => e.FournisseurId.Equals(id)).ToList();
+            return GenericRepo.GetAll().Where(e => e.Fournisseur.Id.Equals(id)).ToList();
 
         }
 

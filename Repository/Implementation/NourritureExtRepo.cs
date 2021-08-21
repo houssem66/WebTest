@@ -22,7 +22,7 @@ namespace Repository.Implementation
 
         public IQueryable<ServiceNouritture> GetAll()
         {
-            var Experience = dbContext.ServiceNourittures.Where(exp => exp.Id != 0).Include(x => x.Documents);
+            var Experience = dbContext.ServiceNourittures.Where(exp => exp.Id != 0).Include(x => x.Fournisseur).Include(x => x.Documents);
 
             return Experience;
         }

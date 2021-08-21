@@ -44,12 +44,44 @@
                         <div class="card-footer">
                             <input type="submit" value="Update" class="btn btn-primary"
                                    style="width:auto" />
-                            <a asp-action="EditUser" asp-route-id="@Model.id"
+                            <a asp-action="GetAllUsers" asp-controller="Administration" asp-route-id="@Model.id"
                                class="btn btn-primary" style="width:auto">Cancel</a>
+
+                            <input type="button" id="test" class="btn btn-danger btn-lg" value="Make Admin"/>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
+        <input  type="hidden" value="@Model.id" id="UserId"/>
     </div>
 </section>
+@section Scripts{ 
+    <script>
+      function makeRequest1(x) {
+           $.ajax({
+
+                               url: '@Url.Action("MakeAdmin", "Administration")',
+                               data: { "x": $("#UserId").val() },
+                               type: "post",
+                               success: function (data) {
+                                  
+                }
+            });
+        }
+    $(document).ready(function () {
+
+        $("#test").click(function () {
+            if (confirm('Are you sure you want to save this thing into the database?')) {
+             //    alert("saved !!");
+                var x = "ss";
+               makeRequest1("x");
+               
+            } else {
+                // Do nothing!
+
+            }
+        });
+    });
+
+    </script>}

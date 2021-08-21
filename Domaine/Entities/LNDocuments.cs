@@ -13,6 +13,8 @@ namespace TourMe.Data.Entities
      
         public virtual ServiceLogment ServiceLogment { get; set; }
         public virtual ServiceNouritture ServiceNouritture { get; set; }
- 
+     
+
+
     }
 }

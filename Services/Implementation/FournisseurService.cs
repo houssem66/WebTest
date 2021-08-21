@@ -35,12 +35,12 @@ namespace Services.Implementation
 
         public IList<Fournisseur> GetAllFournisseurs()
         {
-            return genericRepo.GetAll().ToList();
+            return fournisseurRepo.GetFournisseursAsync().ToList();
         }
 
         public Task<Fournisseur> GetFournisseurById(string id)
         {
-            return genericRepo.GetByIdAsync(id);
+            return fournisseurRepo.GetFournisseurAsync(id);
         }
 
         public Task Update(Fournisseur fournisseur)

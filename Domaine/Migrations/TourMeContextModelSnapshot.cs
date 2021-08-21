@@ -361,9 +361,6 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("NbPlaces")
                         .HasColumnType("int");
 
-                    b.Property<int?>("PanierId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Rating")
                         .HasColumnType("nvarchar(max)");
 
@@ -372,6 +369,9 @@ namespace TourMe.Data.Migrations
 
                     b.Property<int>("SubExperience")
                         .HasColumnType("int");
+
+                    b.Property<string>("Theme")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Titre")
                         .IsRequired()
@@ -764,6 +764,26 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Transports");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.TransportDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Filepath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ServiceTransportId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ServiceTransportId");
+
+                    b.ToTable("TransportDocument");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
@@ -801,9 +821,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("PersAContact")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Rib")
+                    b.Property<string>("Rib")
                         .HasMaxLength(20)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Secteur")
                         .HasColumnType("nvarchar(max)");
@@ -1031,16 +1051,9 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
                 {
-                    b.HasOne("TourMe.Data.Entities.Fournisseur", null)
+                    b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
                         .WithMany("ServiceNourittures")
                         .HasForeignKey("FournisseurId");
-
-                    b.HasOne("TourMe.Data.Entities.Panier", "Panier")
-                        .WithMany("Nourittures")
-                        .HasForeignKey("PanierId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Panier");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
@@ -1067,6 +1080,16 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("TourMe.Data.Entities.Transport", "ExperienceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.TransportDocument", b =>
+                {
+                    b.HasOne("TourMe.Data.Entities.ServiceTransport", "ServiceTransport")
+                        .WithMany("Documents")
+                        .HasForeignKey("ServiceTransportId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("ServiceTransport");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
@@ -1110,6 +1133,11 @@ namespace TourMe.Data.Migrations
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
+                {
+                    b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
                 {
                     b.Navigation("Documents");
                 });

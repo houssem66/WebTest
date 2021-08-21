@@ -1,0 +1,89 @@
+﻿@model TourMe.Data.Entities.ServiceLogment
+
+
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Vous vouler supprimer @Model.Titre </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active">Voir tous les utilisateurs</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+
+                    </div> <form asp-action="DeleteLogement">
+    <div class="card-body">
+        <h4>Logement</h4>
+        <hr />
+        <ul>
+
+            <li>
+                <h4>Titre</h4>
+                @Html.DisplayFor(model => model.Titre)
+            </li>
+            <li>
+                <h4>Personne a contacter</h4>
+                @Html.DisplayFor(model => model.Fournisseur.Email)
+            </li>
+            <li>
+                <h4>Type</h4>
+                @Html.DisplayFor(model => model.Type)
+            </li>
+            <li>
+                <h4>Category</h4>
+                @Html.DisplayFor(model => model.Category)
+            </li>
+            <li>
+                <h4>Prix par nuit</h4>
+                @Html.DisplayFor(model => model.PrixParNuit)$
+            <li>
+                <h4>Document</h4>
+
+                @foreach (var doc in Model.Documents)
+                {
+
+                    <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
+
+                }
+
+            </li>
+
+
+
+        </ul>
+
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="GetAllUsers">Back to List</a>
+
+    </div>
+</form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

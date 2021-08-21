@@ -430,7 +430,16 @@
     <section>
         <div class="rows inner_banner inner_banner_2">
             <div class="container">
-                <h2><span>@Model.Titre</span></h2>
+                <h2><span>@Model.Titre @{string ch = ""; if (Model.Programmed == true)
+                    {
+                        ch = " programmé";
+
+                    }
+                    else
+                    {
+                        ch = "Personnalisé";
+
+                    } }(@ch)</span></h2>
                 <ul>
                     <li>
                         <a href="#inner-page-title">Home</a>
@@ -440,7 +449,7 @@
                         <a href="#inner-page-title" class="bread-acti">Hotel Booking</a>
                     </li>
                 </ul>
-                <p>@Model.Lieu</p>
+                <p>@Model.Theme</p>
             </div>
         </div>
     </section>

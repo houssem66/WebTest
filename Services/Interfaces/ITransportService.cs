@@ -13,5 +13,7 @@ namespace Services.Interfaces
         public Transport GetTransport(int id);
         public Task Update(Transport entity);
         public Task<Transport> GetTransportById(int id);
+        public Task Delete(int id);
+
     }
 }

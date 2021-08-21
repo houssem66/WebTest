@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="~/Theme/plugins/fontawesome-free/css/all.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="~/Theme/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/Theme/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <!-- Tempusdominus Bbootstrap 4 -->
     <link rel="stylesheet" href="~/Theme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -112,6 +115,31 @@
                             </li>
                         </ul>}
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-comments"></i>
+                        <span class="badge badge-danger navbar-badge">3</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <a href="#" class="dropdown-item">
+                            <!-- Message Start -->
+                            <div class="media">
+                                <img src="~/Theme/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                                <div class="media-body">
+                                    <h3 class="dropdown-item-title">
+                                        Brad Diesel
+                                        <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                                    </h3>
+                                    <p class="text-sm">Call me whenever you can...</p>
+                                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                                </div>
+                            </div>
+                            <!-- Message End -->
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -141,13 +169,12 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                         with font-awesome or any other icon font library -->
-
-
+                        <!-- gestion des Roles-->
                         <li class="nav-item has-treeview">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Gestion des role et Comptes
+                                    Gestion des role
                                     <i class="fas fa-angle-left right"></i>
 
                                 </p>
@@ -165,16 +192,118 @@
                                         <p>Voir tous les rôle</p>
                                     </a>
                                 </li>
+
+                            </ul>
+                        </li>
+                        <!-- gestion des Comptes-->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Gestion des Comptes
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
                                 <li class="nav-item">
                                     <a asp-action="GetAllUsers" asp-controller="Administration" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
-                                        <p>Voir tous les utilisateurs</p>
+                                        <p>tous les comptes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetALLUtilisateur" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>utilisateurs</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetALlCommercant" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Commercants</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetALlHostes" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Hostes</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="BecomeCommercant" asp-controller="Service" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Créer un Commercant</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetALLUtilisateur" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Créer un utilisateurs</p>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+                        <!-- gestion des Services-->
 
-                        <li class="nav-header">EXAMPLES</li>
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Gestion des Services
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a asp-action="GetLogements" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les logement</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetTransport" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les transports</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetNourriture" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les nourritures</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- gestion des expériences-->
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Gestion des expériences
+                                    <i class="fas fa-angle-left right"></i>
+
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a asp-action="CreateExperience" asp-controller="Experience" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Ajouter une expérience</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-action="GetALLExp" asp-controller="Administration" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Voir tous les expériences</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
 
                     </ul>
                 </nav>
@@ -189,7 +318,7 @@
 
             @RenderBody()
 
-            
+
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
@@ -236,10 +365,15 @@
     <script src="~/Theme/dist/js/demo.js"></script>
     <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="~/Theme/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Theme/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/Theme/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/Theme/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
 
     @if (IsSectionDefined("Scripts"))
     {
         @await RenderSectionAsync("Scripts", required: true)}
+
 </body>
 
 </html>

@@ -34,7 +34,7 @@ namespace Domaine.Entities
         public string Cin { get; set; }
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [StringLength(20, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
-        public int Rib { get; set; }
+        public string Rib { get; set; }
         // ajouté le 11/06/2021
         [RegularExpression(@"([0-9]+)", ErrorMessage = "Must be a Number.")]
         [StringLength(4, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
