@@ -50,13 +50,14 @@
                             <thead>
 
                                 <tr>
+                                    <th>Id</th>
                                     <th>Personne a contacte</th>
                                     <th>TypeTransport</th>
                                     <th></</th>
                                     <th>Region</th>
 
                                     <th>DateDisp</th>
-                                   <th>Images</th>
+                                    <th>Images</th>
                                     <th>Delete</th>
 
                                 </tr>
@@ -66,7 +67,9 @@
                                 {
 
                                 <tr>
-
+                                    <td>
+                                        @item.Id
+                                    </td>
                                     <td>
                                         <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Fournisseur.Id" class="link-btn">@item.Fournisseur.PersAContact</a></span>
                                     </td>

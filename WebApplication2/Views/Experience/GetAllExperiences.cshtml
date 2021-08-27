@@ -1,0 +1,339 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AdminLTE 3 | Advanced form elements</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Theme/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="~/Theme/plugins/daterangepicker/daterangepicker.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="~/Theme/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <!-- Bootstrap Color Picker -->
+    <link rel="stylesheet" href="~/Theme/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css">
+    <!-- Tempusdominus Bbootstrap 4 -->
+    <link rel="stylesheet" href="~/Theme/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+    <!-- Select2 -->
+    <link rel="stylesheet" href="~/Theme/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="~/Theme/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="~/Theme/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Theme/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="~/Theme/dist/css/Mine.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition layout-top-nav">
+    <div class="wrapper">
+
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand-md navbar-light navbar-white">
+            <div class="container">
+                <a href="../../index3.html" class="navbar-brand">
+                    <img src="~/Theme/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                         style="opacity: .8">
+                    <span class="brand-text font-weight-light">Bag&Go</span>
+                </a>
+
+                <button class="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+
+                <!-- Right navbar links -->
+                <style>
+
+                    .navbar .navbar-nav .nav-item .nav-link {
+                        padding: 0 0.5em;
+                    }
+
+                    .navbar .navbar-nav .nav-item:not(:last-child) .nav-link {
+                        border-right: 2px solid #000000;
+                    }
+                </style>
+                <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
+                    <li class="nav-item">
+                        <a href="index3.html" class="nav-link">Acceuil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Expériences</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">Service</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="AdminHome" asp-controller="Home">Espace privé</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-calendar"></i>
+                            <span class="badge badge-danger navbar-badge"></span>
+                        </a>
+
+                    </li>
+                    <!-- Notifications Dropdown Menu -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="fas fa-globe"></i>
+                            <span class="badge badge-warning navbar-badge"></span>
+                        </a>
+
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container">
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-md-2 offset-md-3">
+                            <div class="input-group rounded">
+                                <input type="search" class="form-control rounded" placeholder="Ou ?" aria-label="Search"
+                                       aria-describedby="search-addon" />
+                                <span class="input-group-text border-0" id="search-addon">
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                               
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </span>
+                                    </div>
+                                    <input type="text" class="form-control float-right" id="reservation">
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <a class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                <i class="fas fa-user" aria-hidden="true"> Qui</i>
+                            </a>
+                        </div>
+                        
+                        <!-- Drop Downlist Type -->
+                        <div class="col-md-1 offset-md-3">
+                            <div class="form-group">
+
+                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()" class="select2" multiple="multiple" data-placeholder="Type" style="width: 100%;">
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- Drop Downlist Saison -->
+                        <div class="col-sm-2  col-sm-offset-5">
+                            <div class="form-group">
+
+                                <select class="select2" multiple="multiple" data-placeholder="Saison" style="width: 100%;">
+                                    <option>Été </option>
+                                    <option>Automne </option>
+                                    <option> Hiver</option>
+                                    <option>Printemps</option>
+
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                        </div>
+
+
+                        <!-- Drop Downlist Ville -->
+                        <div class="col-sm-2">
+                            <div class="form-group">
+
+                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()" class="select2" multiple="multiple" data-placeholder="Ville" style="width: 100%;">
+                                </select>
+                            </div>
+                            <!-- /.form-group -->
+                            <!-- /.form-group -->
+                        </div>
+                        <!-- Drop Downlist Prix -->
+                        <div class="col-md-2">
+                            <a class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                <i class="fa fa-money-bill" aria-hidden="true"> Prix</i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                    </div>
+                    <!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+        <!-- Control Sidebar -->
+        <!-- /.control-sidebar -->
+        <!-- Main Footer -->
+        <footer class="main-footer">
+            <!-- To the right -->
+            <div class="float-right d-none d-sm-inline">
+                Anything you want
+            </div>
+            <!-- Default to the left -->
+            <strong>Copyright &copy; 2014-2019 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+        </footer>
+    </div>
+    <!-- jQuery -->
+    <script src="~/Theme/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/Theme/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Select2 -->
+    <script src="~/Theme/plugins/select2/js/select2.full.min.js"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="~/Theme/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/Theme/plugins/moment/moment.min.js"></script>
+    <script src="~/Theme/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="~/Theme/plugins/daterangepicker/daterangepicker.js"></script>
+    <!-- bootstrap color picker -->
+    <script src="~/Theme/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="~/Theme/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <!-- Bootstrap Switch -->
+    <script src="~/Theme/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Theme/dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/Theme/dist/js/demo.js"></script>
+    <!-- Page script -->
+    <script>
+        $(function () {
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Initialize Select2 Elements
+            $('.select2bs4').select2({
+                theme: 'bootstrap4'
+            })
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+
+            //Date range picker
+            $('#reservationdate').datetimepicker({
+                format: 'L'
+            });
+            //Date range picker
+            $('#reservation').daterangepicker()
+            //Date range picker with time picker
+            $('#reservationtime').daterangepicker({
+                timePicker: true,
+                timePickerIncrement: 30,
+                locale: {
+                    format: 'MM/DD/YYYY hh:mm A'
+                }
+            })
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+
+            //Timepicker
+            $('#timepicker').datetimepicker({
+                format: 'LT'
+            })
+
+            //Bootstrap Duallistbox
+            $('.duallistbox').bootstrapDualListbox()
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            $('.my-colorpicker2').on('colorpickerChange', function (event) {
+                $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+            });
+
+            $("input[data-bootstrap-switch]").each(function () {
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            });
+
+        })
+    </script>
+
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Choisir le prix</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-6">
+                        <input id="range_1" type="text" name="range_1" value="">
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+</body>
+
+</html>
+
