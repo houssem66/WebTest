@@ -66,7 +66,17 @@ namespace TourMe.Web.Controllers
             return View(list);
 
         }
+        [HttpGet]
+        [AllowAnonymous]
 
+        public IActionResult GetAllExperiences()
+
+        {
+           
+           
+            return View();
+
+        }
         [HttpGet]
         [AllowAnonymous]
 
@@ -302,6 +312,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                TempData["test3"] = "5dmt 3.0";
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
@@ -584,6 +595,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 string uniqueFileName = null;
                 if (model.ImageNourriture != null)
                 {
