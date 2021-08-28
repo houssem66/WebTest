@@ -1,983 +1,525 @@
+@{ Layout = null; }
 @model TourMe.Data.Entities.Experience
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 
 
+<!DOCTYPE html>
+<html lang="zxx">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Bag And Go Template">
+    <meta name="keywords" content="Bag And Go, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bag And Go | Template</title>
 
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/font-awesome.min.css" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/flaticon.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/jquery-ui.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/Theme/BagAndGo/css/style.css" type="text/css">
+</head>
 
+<body>
 
-<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:01:37 GMT -->
-<!--<head>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
 
-    <title>The Travel - Tour Travel</title>-->
-    <!--== META TAGS ==-->
-    <!--<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">-->
-    <!-- FAV ICON -->
-
-    
-    <!-- GOOGLE FONTS -->
-    <!--<link href="https://fonts.googleapis.com/css?family=Poppins%7CQuicksand:400,500,700" rel="stylesheet">-->
-    <!-- FONT-AWESOME ICON CSS -->
-    <!--<link href="~/Theme/Template2/css/animate.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/font-awesome.min.css" rel="stylesheet" />-->
-    <!--== ALL CSS FILES ==-->
-    <!--<link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/materialize.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/mob.css" rel="stylesheet" />
-    <link href="~/Theme/Template2/css/style.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
-
-
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/html5shiv.js"></script>
-    <script src="~/Theme/Template2/~/Theme/Template2/js/respond.min.js"></script>
-    <![endif]-->
-<!--</head>
-
-<body>-->
-
-    <!-- Preloader -->
-    <!--<div id="preloader">
-        <div id="status">&nbsp;</div>
-    </div>-->
-
-    <!-- MOBILE MENU -->
-    <!--<section>
-        <div class="ed-mob-menu">
-            <div class="ed-mob-menu-con">
-                <div class="ed-mm-left">
-                    <div class="wed-logo">
-                        <a href="https://localhost:44326">
-                            <img src="~/Theme/Template2/images/logo.png" alt="" />
-                        </a>
-                    </div>
+    <!-- Offcanvas Menu Section Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="canvas-open">
+        <i class="icon_menu"></i>
+    </div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="canvas-close">
+            <i class="icon_close"></i>
+        </div>
+        <div class="search-icon search-switch">
+            <i class="icon_search"></i>
+        </div>
+        <div class="header-configure-area">
+            <div class="language-option">
+                <img src="~/Theme/BagAndGo/img/flag.jpg" alt="">
+                <span>EN <i class="fa fa-angle-down"></i></span>
+                <div class="flag-dropdown">
+                    <ul>
+                        <li><a href="#">Zi</a></li>
+                        <li><a href="#">Fr</a></li>
+                    </ul>
                 </div>
-                <div class="ed-mm-right">
-                    <div class="ed-mm-menu">
-                        <a href="#!" class="ed-micon"><i class="fa fa-bars"></i></a>
-                        <div class="ed-mm-inn">
-                            <a href="#!" class="ed-mi-close"><i class="fa fa-times"></i></a>
-                            <h4>Home pages</h4>
-                            <ul>
-                                <li><a href="booking-all.html">Home page 1</a></li>
-                                <li><a href="booking-all.html">Home page 2</a></li>
-                                <li><a href="booking-tour-package.html">Home page 3</a></li>
-                                <li><a href="booking-hotel.html">Home page 4</a></li>
-                                <li><a href="booking-car-rentals.html">Home page 5</a></li>
-                                <li><a href="booking-flight.html">Home page 6</a></li>
-                                <li><a href="booking-slider.html">Home page 7</a></li>
-                            </ul>
-                            <h4>Tour Packages</h4>
-                            <ul>
-                                <li><a href="all-package.html">All Package</a></li>
-                                <li><a href="family-package.html">Family Package</a></li>
-                                <li><a href="honeymoon-package.html">Honeymoon Package</a></li>
-                                <li><a href="group-package.html">Group Package</a></li>
-                                <li><a href="weekend-package.html">WeekEnd Package</a></li>
-                                <li><a href="regular-package.html">Regular Package</a></li>
-                                <li><a href="custom-package.html">Custom Package</a></li>
-                            </ul>
-                            <h4>Sighe Seeings Pages</h4>
-                            <ul>
-                                <li><a href="places.html">Seight Seeing 1</a></li>
-                                <li><a href="places-1.html">Seight Seeing 2</a></li>
-                                <li><a href="places-2.html">Seight Seeing 3</a></li>
-                            </ul>
-                            <h4>User Dashboard</h4>
-                            <ul>
-                                <li><a href="dashboard.html">My Bookings</a></li>
-                                <li><a href="db-my-profile.html">My Profile</a></li>
-                                <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
-                                <li><a href="db-travel-booking.html">Tour Packages</a></li>
-                                <li><a href="db-hotel-booking.html">Hotel Bookings</a></li>
-                                <li><a href="db-event-booking.html">Event bookings</a></li>
-                                <li><a href="db-payment.html">Make Payment</a></li>
-                                <li><a href="db-refund.html">Cancel Bookings</a></li>
-                                <li><a href="db-all-payment.html">Prient E-Tickets</a></li>
-                                <li><a href="db-event-details.html">Event booking details</a></li>
-                                <li><a href="db-hotel-details.html">Hotel booking details</a></li>
-                                <li><a href="db-travel-details.html">Travel booking details</a></li>
-                            </ul>
-                            <h4>Other pages:1</h4>
-                            <ul>
-                                <li><a href="tour-details.html">Travel details</a></li>
-                                <li><a href="hotel-details.html">Hotel details</a></li>
-                                <li><a href="all-package.html">All package</a></li>
-                                <li><a href="hotels-list.html">All hotels</a></li>
-                                <li><a href="booking.html">Booking page</a></li>
-                            </ul>
-                            <h4 class="ed-dr-men-mar-top">User login pages</h4>
-                            <ul>
-                                <li><a href="register.html">Register</a></li>
-                                <li><a href="login.html">Login and Sign in</a></li>
-                                <li><a href="forgot-pass.html">Forgot pass</a></li>
-                            </ul>
-                            <h4>Other pages:2</h4>
-                            <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="testimonials.html">Testimonials</a></li>
-                                <li><a href="events.html">Events</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="tips.html">Tips Before Travel</a></li>
-                                <li><a href="price-list.html">Price List</a></li>
-                                <li><a href="discount.html">Discount</a></li>
-                                <li><a href="faq.html">FAQ</a></li>
-                                <li><a href="sitemap.html">Site map</a></li>
-                                <li><a href="404.html">404 Page</a></li>
-                                <li><a href="contact.html">Contact Us</a></li>
-                            </ul>
+            </div>
+            <a href="#" class="bk-btn">Booking Now</a>
+        </div>
+        <nav class="mainmenu mobile-menu">
+            <ul>
+                <li class="active"><a href="./index.html">Home</a></li>
+                <li><a href="./rooms.html">Rooms</a></li>
+                <li><a href="./about-us.html">About Us</a></li>
+                <li>
+                    <a href="./pages.html">Pages</a>
+                    <ul class="dropdown">
+                        <li><a href="./room-details.html">Room Details</a></li>
+                        <li><a href="./blog-details.html">Blog Details</a></li>
+                        <li><a href="#">Family Room</a></li>
+                        <li><a href="#">Premium Room</a></li>
+                    </ul>
+                </li>
+                <li><a href="./blog.html">News</a></li>
+                <li><a href="./contact.html">Contact</a></li>
+            </ul>
+        </nav>
+        <div id="mobile-menu-wrap"></div>
+        <div class="top-social">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-twitter"></i></a>
+            <a href="#"><i class="fa fa-tripadvisor"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+        <ul class="top-widget">
+            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
+            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
+        </ul>
+    </div>
+    <!-- Offcanvas Menu Section End -->
+    <!-- Header Section Begin -->
+    <header class="header-section header-normal">
+
+        <div class="menu-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="logo">
+                            <a asp-action="Index" asp-controller="Home">
+                                @*<img src="~/Theme/BagAndGo/img/logo.png" alt="">*@
+                                <h2>BagAndGo</h2>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-10">
+                        <div class="nav-menu">
+                            <nav class="mainmenu">
+                                <ul>
+                                    <li><a href="./index.html">Acceuil</a></li>
+                                    <li class="active"><a href="./rooms.html">Experience</a></li>
+                                    <li><a href="./about-us.html">Service</a></li>
+
+                                    <li><a href="./contact.html">Espace Privé</a></li>
+                                </ul>
+                            </nav>
+                            <div class="nav-right search-switch">
+                                <i class="icon_search"></i>
+
+                            </div>
+                            <div class="nav-right">
+                                <i class="icon-user"></i>
+
+                            </div>
+                            <div class="nav-right">
+                                <i class="fa fa-language" aria-hidden="true"></i>
+
+                            </div>
+
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>-->
-    <!--HEADER SECTION-->
-    <!--<section>-->
-        <!-- TOP BAR -->
-        <!--<div class="ed-top">
+    </header>
+    <!-- Header End -->
+    <!-- Breadcrumb Section Begin -->
+    <div class="breadcrumb-section">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="ed-com-t1-left">
-                            <ul>
-                                <li>
-                                    <a href="#">Contact: Lake Road, Suite 180 Farmington Hills, U.S.A.</a>
-                                </li>
-                                <li>
-                                    <a href="#">Phone: +101-1231-1231</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ed-com-t1-right">
-                            <ul>
-                                <li>
-                                    <a href="login.html">Sign In</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Sign Up</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="ed-com-t1-social">
-                            <ul>
-                                <li>
-                                    <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
-                                </li>
-                                <li>
-                                    <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                                </li>
-                            </ul>
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-text">
+                            @*<h2></h2>*@
+                            <div class="bt-option">
+                                @*<a href="./home.html">Home</a>*@
+                                @*<span>Rating</span>*@
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
+    <!-- Breadcrumb Section End -->
+    <!-- Room Details Section Begin -->
+    <section class="room-details-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="room-details-item">
+                        @{ int i = 1;
+                            decimal s = ViewBag.avg;
+                            for (i = 1; i <= ViewBag.avg; i++)
+                            {
+                    <i class="icon_star" aria-hidden="true">
+                    </i> }
+                            s = Math.Abs((s - i));
+                            if ((s < 1) && (s > 0))
+                            {<i class="icon_star-half_alt" aria-hidden="true">
+                    </i> } }
+                        <div class="tour_head1 hotel-book-room">
+                            <h3>@Model.Titre     <span class="rating">@ViewBag.avg</span></h3>
 
-        <!-- LOGO AND MENU SECTION -->
-        <!--<div class="top-logo" data-spy="affix" data-offset-top="250">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="wed-logo">
-                            <a href="https://localhost:44326/">
-                                <img src="~/Theme/Template2/images/logo.png" alt="" />
-                            </a>
-                        </div>
-                        <div class="main-menu">
-                            <ul>
-                                <li>
-                                    <a href="main.html">Home</a>
-                                </li>
-                                <li class="about-menu">
-                                    <a href="family-package.html" class="mm-arr">Packages</a>-->
-                                    <!-- MEGA MENU 1 -->
-                                    <!--<div class="mm-pos">
-                                        <div class="about-mm m-menu">
-                                            <div class="m-menu-inn">
-                                                <div class="mm1-com mm1-s1">
-                                                    <div class="ed-course-in">
-                                                        <a class="course-overlay menu-about" href="all-package.html">
-                                                            <img src="~/Theme/Template2/images/sight/5.jpg" alt="">
-                                                            <span>Popular Package</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                                <div class="mm1-com mm1-s2">
-                                                    <p>Want to change the world? At Berkeley we’re doing just that. When you join the Golden Bear community, you’re part of an institution that shifts the global conversation every single day.</p>
-                                                    <a href="all-package.html" class="mm-r-m-btn">Read more</a>
-                                                </div>
-                                                <div class="mm1-com mm1-s3">
-                                                    <ul>
-                                                        <li><a href="booking-all.html">All Booking</a></li>
-                                                        <li><a href="booking-tour-package.html">Tour Package Booking</a></li>
-                                                        <li><a href="booking-hotel.html">Hotel Booking</a></li>
-                                                        <li><a href="booking-car-rentals.html">Car Rentals Booking</a></li>
-                                                        <li><a href="booking-flight.html">Flight Booking</a></li>
-                                                        <li><a href="booking-slider.html">Slider Booking</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-s4">
-                                                    <ul>
-                                                        <li><a href="all-package.html">All Package</a></li>
-                                                        <li><a href="family-package.html">Family Package</a></li>
-                                                        <li><a href="honeymoon-package.html">Honeymoon Package</a></li>
-                                                        <li><a href="group-package.html">Group Package</a></li>
-                                                        <li><a href="weekend-package.html">WeekEnd Package</a></li>
-                                                        <li><a href="regular-package.html">Regular Package</a></li>
-                                                        <li><a href="custom-package.html">Custom Package</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="admi-menu">
-                                    <a href="#" class="mm-arr">Seight Seeing</a>-->
-                                    <!-- MEGA MENU 1 -->
-                                    <!--<div class="mm-pos">
-                                        <div class="admi-mm m-menu">
-                                            <div class="m-menu-inn">
-                                                <div class="mm2-com mm1-com mm1-s1">
-                                                    <div class="ed-course-in">
-                                                        <a class="course-overlay" href="places.html">
-                                                            <img src="~/Theme/Template2/images/sight/1.jpg" alt="">
-                                                            <span>Seight Seeing - 1</span>
-                                                        </a>
-                                                    </div>
-                                                    <p>Donec lacus libero, rutrum ac sollicitudin sed, mattis non eros. Vestibulum congue nec eros quis lacinia. Mauris non tincidunt lectus. Nulla mollis, orci vitae accumsan rhoncus.</p>
-                                                    <a href="places.html" class="mm-r-m-btn">Read more</a>
-                                                </div>
-                                                <div class="mm2-com mm1-com mm1-s1">
-                                                    <div class="ed-course-in">
-                                                        <a class="course-overlay" href="places-1.html">
-                                                            <img src="~/Theme/Template2/images/sight/2.jpg" alt="">
-                                                            <span>Seight Seeing - 2</span>
-                                                        </a>
-                                                    </div>
-                                                    <p>Donec lacus libero, rutrum ac sollicitudin sed, mattis non eros. Vestibulum congue nec eros quis lacinia. Mauris non tincidunt lectus. Nulla mollis, orci vitae accumsan rhoncus.</p>
-                                                    <a href="places-1.html" class="mm-r-m-btn">Read more</a>
-                                                </div>
-                                                <div class="mm2-com mm1-com mm1-s1">
-                                                    <div class="ed-course-in">
-                                                        <a class="course-overlay" href="places-2.html">
-                                                            <img src="~/Theme/Template2/images/sight/3.jpg" alt="">
-                                                            <span>Seight Seeing - 3</span>
-                                                        </a>
-                                                    </div>
-                                                    <p>Donec lacus libero, rutrum ac sollicitudin sed, mattis non eros. Vestibulum congue nec eros quis lacinia. Mauris non tincidunt lectus. Nulla mollis, orci vitae accumsan rhoncus.</p>
-                                                    <a href="places-2.html" class="mm-r-m-btn">Read more</a>
-                                                </div>
-                                                <div class="mm2-com mm1-com mm1-s4">
-                                                    <div class="ed-course-in">
-                                                        <a class="course-overlay" href="places-3.html">
-                                                            <img src="~/Theme/Template2/images/sight/4.jpg" alt="">
-                                                            <span>Seight Seeing - 4</span>
-                                                        </a>
-                                                    </div>
-                                                    <p>Donec lacus libero, rutrum ac sollicitudin sed, mattis non eros. Vestibulum congue nec eros quis lacinia. Mauris non tincidunt lectus. Nulla mollis, orci vitae accumsan rhoncus.</p>
-                                                    <a href="places-3.html" class="mm-r-m-btn">Read more</a>
-                                                </div>
+                            <div id="myCarousel1" class="carousel slide">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators carousel-indicators-1">
+                                    @{int x = 0;
+                                        foreach (var item in Model.Activites)
+                                        {
+                            <li data-target="#myCarousel1" data-slide-to="@x">
+                                <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
+                            </li>
+                                            x++;
+                                        } }
+                                </ol>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li><a href="hotels-list.html">Hotels</a></li>-->
-                                <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
-                                <!--<li class="cour-menu">
-                                    <a href="#!" class="mm-arr">All Pages</a>-->
-                                    <!-- MEGA MENU 1 -->
-                                    <!--<div class="mm-pos">
-                                        <div class="cour-mm m-menu">
-                                            <div class="m-menu-inn">
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>Home pages</h4>
-                                                    <ul>
-                                                        <li><a href="booking-all.html">Home page 1</a></li>
-                                                        <li><a href="booking-all.html">Home page 2</a></li>
-                                                        <li><a href="booking-tour-package.html">Home page 3</a></li>
-                                                        <li><a href="booking-hotel.html">Home page 4</a></li>
-                                                        <li><a href="booking-car-rentals.html">Home page 5</a></li>
-                                                        <li><a href="booking-flight.html">Home page 6</a></li>
-                                                        <li><a href="booking-slider.html">Home page 7</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>Tour Packages</h4>
-                                                    <ul>
-                                                        <li><a href="all-package.html">All Package</a></li>
-                                                        <li><a href="family-package.html">Family Package</a></li>
-                                                        <li><a href="honeymoon-package.html">Honeymoon Package</a></li>
-                                                        <li><a href="group-package.html">Group Package</a></li>
-                                                        <li><a href="weekend-package.html">WeekEnd Package</a></li>
-                                                        <li><a href="regular-package.html">Regular Package</a></li>
-                                                        <li><a href="custom-package.html">Custom Package</a></li>
-                                                    </ul>
-                                                    <h4 class="ed-dr-men-mar-top">Sighe Seeings Pages</h4>
-                                                    <ul>
-                                                        <li><a href="places.html">Seight Seeing 1</a></li>
-                                                        <li><a href="places-1.html">Seight Seeing 2</a></li>
-                                                        <li><a href="places-2.html">Seight Seeing 3</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>User Dashboard</h4>
-                                                    <ul>
-                                                        <li><a href="dashboard.html">My Bookings</a></li>
-                                                        <li><a href="db-my-profile.html">My Profile</a></li>
-                                                        <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
-                                                        <li><a href="db-travel-booking.html">Tour Packages</a></li>
-                                                        <li><a href="db-hotel-booking.html">Hotel Bookings</a></li>
-                                                        <li><a href="db-event-booking.html">Event bookings</a></li>
-                                                        <li><a href="db-payment.html">Make Payment</a></li>
-                                                        <li><a href="db-refund.html">Cancel Bookings</a></li>
-                                                        <li><a href="db-all-payment.html">Prient E-Tickets</a></li>
-                                                        <li><a href="db-event-details.html">Event booking details</a></li>
-                                                        <li><a href="db-hotel-details.html">Hotel booking details</a></li>
-                                                        <li><a href="db-travel-details.html">Travel booking details</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>Other pages:1</h4>
-                                                    <ul>
-                                                        <li><a href="tour-details.html">Travel details</a></li>
-                                                        <li><a href="hotel-details.html">Hotel details</a></li>
-                                                        <li><a href="all-package.html">All package</a></li>
-                                                        <li><a href="hotels-list.html">All hotels</a></li>
-                                                        <li><a href="booking.html">Booking page</a></li>
-                                                    </ul>
-                                                    <h4 class="ed-dr-men-mar-top">User login pages</h4>
-                                                    <ul>
-                                                        <li><a href="register.html">Register</a></li>
-                                                        <li><a href="login.html">Login and Sign in</a></li>
-                                                        <li><a href="forgot-pass.html">Forgot pass</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s4">
-                                                    <h4>Other pages:2</h4>
-                                                    <ul>
-                                                        <li><a href="about.html">About Us</a></li>
-                                                        <li><a href="testimonials.html">Testimonials</a></li>
-                                                        <li><a href="events.html">Events</a></li>
-                                                        <li><a href="blog.html">Blog</a></li>
-                                                        <li><a href="tips.html">Tips Before Travel</a></li>
-                                                        <li><a href="price-list.html">Price List</a></li>
-                                                        <li><a href="discount.html">Discount</a></li>
-                                                        <li><a href="faq.html">FAQ</a></li>
-                                                        <li><a href="sitemap.html">Site map</a></li>
-                                                        <li><a href="404.html">404 Page</a></li>
-                                                        <li><a href="contact.html">Contact Us</a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <a href="events.html">Events</a>
-                                </li>
-                                <li>
-                                    <a href="dashboard.html">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="contact.html">Contact us</a>
-                                </li>
-                            </ul>
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner carousel-inner1">
+                                    @{ foreach (var item in Model.Activites)
+                                        {
+                            <div class="item @(item == Model.Activites.First() ? " active" : " ")">
+                                <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
+                            </div> } }
+                                </div>
+                                <input id="default"
+                                       name="defaultsrc"
+                                       type="hidden"
+                                       value="@Model.Activites.First().Image" />
+
+
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+                                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
+                            </div>
                         </div>
+
+
+
+
+
+
+
+
+
+                        @*<img src="~/Theme/BagAndGo/img/room/room-details.jpg" alt="">*@
+                        <div class="rd-text">
+                            <div class="rd-title">
+
+
+                                <div class="rdt-right">
+
+
+
+
+                                    @*<div class="rating">
+                    <i class="icon_star"></i>
+                    <i class="icon_star"></i>
+                    <i class="icon_star"></i>
+                    <i class="icon_star"></i>
+                    <i class="icon_star-half_alt"></i>
+                    </div>*@
+                                    @*<a href="#">Booking Now</a>*@
+                                </div>
+                            </div>
+                         
+                            <table>
+                <tbody>
+                    <tr>
+                        <td class="r-o">Thème:</td>
+                        <td>@Model.TypeExperience</td>
+                    </tr>
+                    <tr>
+                        <td class="r-o">Saison:</td>
+                        <td>@Model.Saison</td>
+                    </tr>
+                    <tr>
+                        <td class="r-o">Nb Places:</td>
+                        <td>@Model.NbPlaces</td>
+                    </tr>
+                    <tr>
+                        <td class="r-o">Services:</td>
+                        <td>Wifi, Television, Bathroom,...</td>
+                    </tr>
+                </tbody>
+            </table>
+                            <p class="f-para">
+                                <h2>A propos Du programme</h2>
+
+                                <div id="loadpartial">
+
+                                </div>
+
+                            </p>
+                            <p class="f-para">
+                                <h2>A propos De l'hôte</h2>
+
+                                @Model.Description
+
+                            </p>
+                        </div>
+                    </div>
+                    <div class="rd-reviews">
+                        <h4>Reviews</h4>
+                        <div class="review-item">
+                            <div class="ri-pic">
+                                <img src="~/Theme/BagAndGo/img/room/avatar/avatar-1.jpg" alt="">
+                            </div>
+                            <div class="ri-text">
+                                <span>27 Aug 2019</span>
+                                <div class="rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star-half_alt"></i>
+                                </div>
+                                <h5>Brandon Kelley</h5>
+                                <p>
+                                    Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
+                                    magnam.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="review-item">
+                            <div class="ri-pic">
+                                <img src="~/Theme/BagAndGo/img/room/avatar/avatar-2.jpg" alt="">
+                            </div>
+                            <div class="ri-text">
+                                <span>27 Aug 2019</span>
+                                <div class="rating">
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star"></i>
+                                    <i class="icon_star-half_alt"></i>
+                                </div>
+                                <h5>Brandon Kelley</h5>
+                                <p>
+                                    Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
+                                    magnam.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="review-add">
+                        <h4>Ajouter Review</h4>
+                        <form action="#" class="ra-form">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Name*">
+                                </div>
+                                <div class="col-lg-6">
+                                    <input type="text" placeholder="Email*">
+                                </div>
+                                <div class="col-lg-12">
+                                    <div>
+                                        <h5>You Rating:</h5>
+                                        <div class="rating">
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star"></i>
+                                            <i class="icon_star-half_alt"></i>
+                                        </div>
+                                    </div>
+                                    <textarea placeholder="Your Review"></textarea>
+                                    <button type="submit">Submit Now</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="room-booking">
+                        <h5>@Model.tarif dt<span>/Personne</span></h5>
+                        <form action="#">
+                            <div class="check-date">
+                                @*<label for="date-in">:</label>*@
+                                <input type="text" class="date-input" id="date-in" placeholder="Arrivée">
+                                <i class="icon_calendar"></i>
+                            </div>
+                            <div class="check-date">
+                                @*<label for="date-out">Check Out:</label>*@
+                                <input type="text" placeholder="Client" id="date-out">
+                                <i class="icon-user"></i>
+                            </div>
+                            <div class="select-option">
+                                <label for="guest">Guests:</label>
+                                <select id="guest">
+                                    <option value="">3 Adults</option>
+                                </select>
+                            </div>
+                            <div class="select-option">
+                                <label for="room">Room:</label>
+                                <select id="room">
+                                    <option value="">1 Room</option>
+                                </select>
+                            </div>
+                            <button type="submit">Choisir</button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>-->
-
-        <!-- TOP SEARCH BOX -->
-        <!--<div class="search-top">
-            <div class="container">
+        </div>
+    </section>
+    <!-- Room Details Section End -->
+    <!-- Footer Section Begin -->
+    <footer class="footer-section">
+        <div class="container">
+            <div class="footer-text">
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="search-form">
-                            <form class="tourz-search-form">
-                                <div class="input-field">
-                                    <input type="text" id="select-city" class="autocomplete">
-                                    <label for="select-city">Enter city</label>
-                                </div>
-                                <div class="input-field">
-                                    <input type="text" id="select-search" class="autocomplete">
-                                    <label for="select-search" class="search-hotel-type">Search over a million tour and travels, sight seeings, hotels and more</label>
-                                </div>
-                                <div class="input-field">
-                                    <input type="submit" value="search" class="waves-effect waves-light tourz-sear-btn">
-                                </div>
+                    <div class="col-lg-4">
+                        <div class="ft-about">
+                            <div class="logo">
+                                <a asp-action="Index" asp-controller="Home">
+                                    @*<img src="~/Theme/BagAndGo/img/footer-logo.png" alt="">*@
+                                    <h2>BagAndGo</h2>
+                                </a>
+                            </div>
+                         
+                            <div class="fa-social">
+                                <a href="#"><i class="fa fa-facebook"></i></a>
+                                <a href="#"><i class="fa fa-twitter"></i></a>
+                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="#"><i class="fa fa-youtube-play"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="ft-contact">
+                            <h6>Services</h6>
+                            <ul>
+                                <li>logement</li>
+                                <li>Transport</li>
+                                <li>Restauration</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="ft-contact">
+                            <h6>Espace privé</h6>
+                            <ul>
+                                <li>Hôte</li>
+                                <li>Commerçant Transport</li>
+                                <li>Restaurateurs</li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="col-lg-3 offset-lg-1">
+                        <div class="ft-newslatter">
+                            <h6>Soumettre</h6>
+
+                            <form action="#" class="fn-form">
+                                <input type="text" placeholder="Email">
+                                <button type="submit"><i class="fa fa-send"></i></button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
-        <!-- END TOP SEARCH BOX -->
-    <!--</section>-->
-    <!--END HEADER SECTION-->
-    <!--====== BANNER ==========-->
-    <section>
-        <div class="rows inner_banner inner_banner_2">
+        </div>
+        <div class="copyright-option">
             <div class="container">
-                <h2><span>@Model.Titre @{string ch = ""; if (Model.Programmed == true)
-                    {
-                        ch = " programmé";
+                <div class="row">
 
-                    }
-                    else
-                    {
-                        ch = "Personnalisé";
-
-                    } }(@ch)</span></h2>
-                <ul>
-                    <li>
-                        <a href="#inner-page-title">Home</a>
-                    </li>
-                    <li><i class="fa fa-angle-right" aria-hidden="true"></i> </li>
-                    <li>
-                        <a href="#inner-page-title" class="bread-acti">Hotel Booking</a>
-                    </li>
-                </ul>
-                <p>@Model.Theme</p>
-            </div>
-        </div>
-    </section>
-    <!--====== TOUR DETAILS - BOOKING ==========-->
-    <section>
-        <div class="rows banner_book" id="inner-page-title">
-            <div class="container">
-                <div class="banner_book_1">
-                    <ul>
-                        <li class="dl1">@Model.Lieu</li>
-                        <li class="dl2">@Model.tarif DT</li>
-
-                        <li class="dl4"><a asp-action="Reserver" asp-controller="Reservation" asp-route-id="@Model.ExperienceId">Reserver</a> </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--====== TOUR DETAILS ==========-->
-    <section>
-        <div class="rows inn-page-bg com-colo">
-            <div class="container inn-page-con-bg tb-space">
-                <div class="col-md-9">
-                    <!--====== TOUR TITLE ==========-->
-
-                    <div class="tour_head">
-                        <h2>
-                            @Model.Titre
-                            <span class="tour_star">
-                                @{ int i = 1;
-                                    decimal s = ViewBag.avg;
-                                    for (i = 1; i <= ViewBag.avg; i++)
-                                    {
-                                        <i class="fa fa-star" aria-hidden="true">
-                                        </i> }
-                                    s = Math.Abs((s - i));
-                                    if ((s < 1) && (s > 0))
-                                    {<i class="fa fa-star-half-o" aria-hidden="true">
-                                        </i> } }
-                            </span><span class="tour_rat">@ViewBag.avg</span>
-                        </h2>
-
-                    </div>
-                    <!--====== TOUR DESCRIPTION ==========-->
-                    <div class="tour_head1 hotel-com-color">
-                        <h3> @Model.Titre</h3>
-
-
-                    </div>
-
-                    <!--====== ROOMS: HOTEL BOOKING ==========-->
-                    <div class="tour_head1 hotel-book-room">
-                        <h3>Photo Gallery</h3>
-                        <div id="myCarousel1" class="carousel slide">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators carousel-indicators-1">
-                                @{int x = 0;
-                                    foreach (var item in Model.Activites)
-                                    {
-                                        <li data-target="#myCarousel1" data-slide-to="@x">
-                                            <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
-                                        </li>
-                                        x++;
-                                    }
-                                }
-                            </ol>
-
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner carousel-inner1">
-                                @{
-                                    foreach (var item in Model.Activites)
-                                    {
-                                        <div class="item @(item == Model.Activites.First() ? " active" : " ")">
-                                            <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
-                                        </div>
-                                    }
-                                }
-                            </div>
-                            <input id="default"
-                                   name="defaultsrc"
-                                   type="hidden"
-                                   value="@Model.Activites.First().Image" />
-
-
-                            <!-- Left and right controls -->
-                            <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
-                            <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
+                    <div class="col-lg-7">
+                        <div class="co-text">
+                            <p>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> All rights reserved | BagAndGo <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/wissem-khaskhoussy/" target="_blank">Wissem Khaskhoussy</a>
+                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        
+                            </p>
                         </div>
+                        
                     </div>
-                    <!--====== ABOUT THE TOUR ==========-->
-
-                    <div class="tour_head1 l-info-pack-days days">
-                        <h3>Description de l'experience</h3>
-                                  <p>
-                                    @Model.Description
-                                </p>
-                            
-
-                       
-                    </div>
-                    <div id="loadpartial">
-
-                    </div>
-                    @{ if (Model.Logement != null)
-                        { <div class="tour_head1 l-info-pack-days days">
-                                <h3>Logement</h3>
-                                <ul>
-
-                                    <li class="l-info-pack-plac">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                        <h4> Du<span> @Model.Logement.Datedebut.Date.ToString("d")</span> A  <span>@Model.Logement.DateFin.Date.ToString("d")</span></h4>
-                                        <h4> Type Logement<span> @Model.Logement.Type</span>  </h4>
-                                        <h4> Prix Par nuit<span> @Model.Logement.Prix dt</span>  </h4>
-                                        <img src="~/images/@Model.Logement.Image" alt="Chania" style="width:250px;height:250px;">
-                                    </li>
-
-                                </ul>
-                            </div> } }
-                    @{ if (Model.Nourriture != null)
-                        {<div class="tour_head1 l-info-pack-days days">
-                                <h3>Nourriture</h3>
-                                <ul>
-
-                                    <li class="l-info-pack-plac">
-                                        <i class="fa fa-10x" aria-hidden="true"></i>
-
-                                        <h4> Type Nourriture<span> @Model.Nourriture.Type</span>  </h4>
-                                        <h4> Prix<span> @Model.Nourriture.Prix dt</span>  </h4>
-                                        <p>
-                                            @Model.Nourriture.Description
-                                        </p>
-                                        <img src="~/images/@Model.Nourriture.Image" alt="pas d'image" style="width:250px;height:250px;">
-
-                                    </li>
-
-                                </ul>
-                            </div> } }
-
-                    @{ if (Model.Transport != null)
-                        { <div class="tour_head1 l-info-pack-days days">
-                                <h3>Transport</h3>
-                                <ul>
-
-                                    <li class="l-info-pack-plac">
-                                        <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                        <h4> Disponible du<span> @Model.Transport.DateDisp.ToString("d")</span> </h4>
-                                        <h4> Type Transport<span> @Model.Transport.TypeTransport</span>  </h4>
-                                        <h4> Prix<span> @Model.Transport.Prix dt</span>  </h4>
-
-                                        <img src="~/images/@Model.Transport.Image" alt="pas d'image" style="width:250px;height:250px;">
-                                    </li>
-
-                                </ul>
-                            </div> } }
-
-
-                    <!--====== HOTEL ROOM TYPES ==========-->
-                    <!--====== AMENITIES ==========-->
-                    <!--====== TOUR LOCATION ==========-->
-
-                    <div>
-                        @if (signInManager.IsSignedIn(User))
-                        {
-
-                            <div class="dir-rat">
-                                <form method="post" asp-controller="Experience" asp-action="Details">
-                                    <div class="dir-rat-inn dir-rat-title">
-                                        <h3>Write Your Rating Here</h3>
-                                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
-
-                                        <fieldset class="rating">
-                                            <input type="radio" id="star5" name="Rating" value="5" />
-                                            <label class="full" for="star5" title="Awesome - 5 stars"></label>
-
-
-                                            <input type="radio" id="star4" name="Rating" value="4" />
-                                            <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                            <input type="radio" id="star3half" name="Rating" value="3 and a half" />
-                                            <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                            <input type="radio" id="star3" name="Rating" value="3" />
-                                            <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                            <input type="radio" id="star2half" name="Rating" value="2 and a half" />
-                                            <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                            <input type="radio" id="star2" name="Rating" value="2" />
-                                            <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
-
-                                            <input type="radio" id="star1" name="Rating" value="1" />
-                                            <label class="full" for="star1" title="Sucks big time - 1 star"></label>
-
-                                        </fieldset>
-                                    </div>
-                                    <div class="dir-rat-inn">
-
-
-                                        <div class="form-group col-md-12 pad-left-o">
-                                            <textarea name="comment" placeholder="Write your message"></textarea>
-                                        </div>
-                                        <div class="form-group col-md-12 pad-left-o">
-                                            <input type="submit" value="SUBMIT" class="link-btn">
-                                        </div>
-                                        <input type="hidden" asp-for="ExperienceId" />
-
-
-                                    </div>
-
-                                    <!--COMMENT RATING-->
-                                    @{ if (Model.Ratings != null)
-                                        {
-                                            foreach (var item in Model.Ratings)
-                                            {
-
-
-                                                if (item.Commentaire != null)
-                                                {
-                                                    <div class="dir-rat-inn dir-rat-review">
-                                                        <div class="row">
-                                                            <div class="col-md-3 dir-rat-left">
-
-                                                                <p>
-                                                                    @{ if (@item.utilisateur.Nom != null)
-                                                                        {@item.utilisateur.Nom }
-                                                                    else
-                                                                    { @item.utilisateur.Prenom}
-                                                                    }
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-md-9 dir-rat-right">
-                                                                <!--calculatign number of stars-->
-                                                                <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
-                                                                <p>@item.Commentaire</p>
-                                                                <ul>
-                                                                    <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                                                    <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>}
-                                            }
-                                        }
-                                    }
-
-                                    <!--COMMENT RATING-->
-                                    <!--COMMENT RATING-->
-                                </form>
-                            </div>}
-                    </div>
-                </div>
-                <div class="col-md-3 tour_r">
-                    <!--====== SPECIAL OFFERS ==========-->
-                    <div class="tour_right tour_offer">
-                        <div class="band1"><img src="~/Theme/Template2/images/offer.png" alt="" /> </div>
-                        <p>Special Offer</p>
-                        <h4>
-                            $500<span class="n-td">
-                                <span class="n-td-1">$800</span>
-                            </span>
-                        </h4> <a href="booking.html" class="link-btn">Book Now</a>
-                    </div>
-                    <!--====== TRIP INFORMATION ==========-->
-                    <div class="tour_right tour_incl tour-ri-com">
-                        <h3>Trip Information</h3>
-                        <ul>
-                            <li>Location : Rio,Brazil</li>
-                            <li>Arrival Date: Nov 12, 2017</li>
-                            <li>Departure Date: Nov 21, 2017</li>
-                            <li>Free Sightseeing & Hotel</li>
-                        </ul>
-                    </div>
-                    <!--====== PACKAGE SHARE ==========-->
-                    <div class="tour_right head_right tour_social tour-ri-com">
-                        <h3>Share This Package</h3>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                            <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                            <li><a href="#"><i class="fa fa-whatsapp" aria-hidden="true"></i></a> </li>
-                        </ul>
-                    </div>
-                    <!--====== HELP PACKAGE ==========-->
-                    <div class="tour_right head_right tour_help tour-ri-com">
-                        <h3>Help & Support</h3>
-                        <div class="tour_help_1">
-                            <h4 class="tour_help_1_call">Call Us Now</h4>
-                            <h4><i class="fa fa-phone" aria-hidden="true"></i> 10-800-123-000</h4>
-                        </div>
-                    </div>
-                    <!--====== PUPULAR TOUR PACKAGES ==========-->
-                    <div class="tour_right tour_rela tour-ri-com">
-                        <h3>Popular Packages</h3>
-                        <div class="tour_rela_1">
-                            <img src="~/Theme/Template2/images/related1.png" alt="" />
-                            <h4>Dubai 7Days / 6Nights</h4>
-                            <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text</p> <a href="#" class="link-btn">View this Package</a>
-                        </div>
-                        <div class="tour_rela_1">
-                            <img src="~/Theme/Template2/images/related2.png" alt="" />
-                            <h4>Mauritius 4Days / 3Nights</h4>
-                            <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text</p> <a href="#" class="link-btn">View this Package</a>
-                        </div>
-                        <div class="tour_rela_1">
-                            <img src="~/Theme/Template2/images/related3.png" alt="" />
-                            <h4>India 14Days / 13Nights</h4>
-                            <p>Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text</p> <a href="#" class="link-btn">View this Package</a>
-                        </div>
+                    <div class="fa-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-tripadvisor"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-    <!--====== TIPS BEFORE TRAVEL ==========-->
-    <!--<section>
-        <div class="rows tips tips-home tb-space home_title">
-            <div class="container tips_1">-->
-                <!-- TIPS BEFORE TRAVEL -->
-                <!--<div class="col-md-4 col-sm-6 col-xs-12">
-                    <h3>Tips Before Travel</h3>
-                    <div class="tips_left tips_left_1">
-                        <h5>Bring copies of your passport</h5>
-                        <p>Aliquam pretium id justo eget tristique. Aenean feugiat vestibulum blandit.</p>
-                    </div>
-                    <div class="tips_left tips_left_2">
-                        <h5>Register with your embassy</h5>
-                        <p>Mauris efficitur, ante sit amet rhoncus malesuada, orci justo sollicitudin.</p>
-                    </div>
-                    <div class="tips_left tips_left_3">
-                        <h5>Always have local cash</h5>
-                        <p>Donec et placerat ante. Etiam et velit in massa. </p>
-                    </div>
-                </div>-->
-                <!-- CUSTOMER TESTIMONIALS -->
-                <!--<div class="col-md-8 col-sm-6 col-xs-12 testi-2">-->
-                    <!-- TESTIMONIAL TITLE -->
-                    <!--<h3>Customer Testimonials</h3>
-                    <div class="testi">
-                        <h4>John William</h4>
-                        <p>Ut sed sem quis magna ultricies lacinia et sed tortor. Ut non tincidunt nisi, non elementum lorem. Aliquam gravida sodales</p> <address>Illinois, United States of America</address>
-                    </div>-->
-                    <!-- ARRANGEMENTS & HELPS -->
-                    <!--<h3>Arrangement & Helps</h3>
-                    <div class="arrange">
-                        <ul>-->
-                            <!-- LOCATION MANAGER -->
-                            <!--<li>
-                                <a href="#"><img src="~/Theme/Template2/images/Location-Manager.png" alt=""> </a>
-                            </li>-->
-                            <!-- PRIVATE GUIDE -->
-                            <!--<li>
-                                <a href="#"><img src="~/Theme/Template2/images/Private-Guide.png" alt=""> </a>
-                            </li>-->
-                            <!-- ARRANGEMENTS -->
-                            <!--<li>
-                                <a href="#"><img src="~/Theme/Template2/images/Arrangements.png" alt=""> </a>
-                            </li>-->
-                            <!-- EVENT ACTIVITIES -->
-                            <!--<li>
-                                <a href="#"><img src="~/Theme/Template2/images/Events-Activities.png" alt=""> </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+    </footer>
+    <!-- Footer Section End -->
+    <!-- Search model Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch"><i class="icon_close"></i></div>
+            <form class="search-model-form">
+                <input type="text" id="search-input" placeholder="Search here.....">
+            </form>
         </div>
-    </section>-->
-    <!--====== FOOTER 1 ==========-->
-    <!--<section>
-        <div class="rows">
-            <div class="footer1 home_title tb-space">
-                <div class="pla1 container">-->
-                    <!-- FOOTER OFFER 1 -->
-                    <!--<div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="disco">
-                            <h3>30%<span>OFF</span></h3>
-                            <h4>Eiffel Tower,Rome</h4>
-                            <p>valid only for 24th Dec</p> <a href="booking.html">Book Now</a>
-                        </div>
-                    </div>-->
-                    <!-- FOOTER OFFER 2 -->
-                    <!--<div class="col-md-3 col-sm-6 col-xs-12">
-                        <div class="disco1 disco">
-                            <h3>42%<span>OFF</span></h3>
-                            <h4>Colosseum,Burj Al Arab</h4>
-                            <p>valid only for 18th Nov</p> <a href="booking.html">Book Now</a>
-                        </div>
-                    </div>-->
-                    <!-- FOOTER MOST POPULAR VACATIONS -->
-                    <!--<div class="col-md-6 col-sm-12 col-xs-12 foot-spec footer_places">
-                        <h4><span>Most Popular</span> Vacations</h4>
-                        <ul>
-                            <li><a href="tour-details.html">Angkor Wat</a> </li>
-                            <li><a href="tour-details.html">Buckingham Palace</a> </li>
-                            <li><a href="tour-details.html">High Line</a> </li>
-                            <li><a href="tour-details.html">Sagrada Família</a> </li>
-                            <li><a href="tour-details.html">Statue of Liberty </a> </li>
-                            <li><a href="tour-details.html">Notre Dame de Paris</a> </li>
-                            <li><a href="tour-details.html">Taj Mahal</a> </li>
-                            <li><a href="tour-details.html">The Louvre</a> </li>
-                            <li><a href="tour-details.html">Tate Modern, London</a> </li>
-                            <li><a href="tour-details.html">Gothic Quarter</a> </li>
-                            <li><a href="tour-details.html">Table Mountain</a> </li>
-                            <li><a href="tour-details.html">Bayon</a> </li>
-                            <li><a href="tour-details.html">Great Wall of China</a> </li>
-                            <li><a href="tour-details.html">Hermitage Museum</a> </li>
-                            <li><a href="tour-details.html">Yellowstone</a> </li>
-                            <li><a href="tour-details.html">Musée d'Orsay</a> </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>-->
-    <!--====== FOOTER 2 ==========-->
-    <!--<section>
-        <div class="rows">
-            <div class="footer">
-                <div class="container">
-                    <div class="foot-sec2">
-                        <div>
-                            <div class="row">
-                                <div class="col-sm-3 foot-spec foot-com">
-                                    <h4><span>Holiday</span> Tour & Travels</h4>
-                                    <p>World's leading tour and travels Booking website,Over 30,000 packages worldwide.</p>
-                                </div>
-                                <div class="col-sm-3 foot-spec foot-com">
-                                    <h4><span>Address</span> & Contact Info</h4>
-                                    <p>28800 Orchard Lake Road, Suite 180 Farmington Hills, U.S.A. Landmark : Next To Airport</p>
-                                    <p> <span class="strong">Phone: </span> <span class="highlighted">+101-1231-1231</span> </p>
-                                </div>
-                                <div class="col-sm-3 col-md-3 foot-spec foot-com">
-                                    <h4><span>SUPPORT</span> & HELP</h4>
-                                    <ul class="two-columns">
-                                        <li> <a href="#">About Us</a> </li>
-                                        <li> <a href="#">FAQ</a> </li>
-                                        <li> <a href="#">Feedbacks</a> </li>
-                                        <li> <a href="#">Blog </a> </li>
-                                        <li> <a href="#">Use Cases</a> </li>
-                                        <li> <a href="#">Advertise us</a> </li>
-                                        <li> <a href="#">Discount</a> </li>
-                                        <li> <a href="#">Vacations</a> </li>
-                                        <li> <a href="#">Branding Offers </a> </li>
-                                        <li> <a href="#">Contact Us</a> </li>
-                                    </ul>
-                                </div>
-                                <div class="col-sm-3 foot-social foot-spec foot-com">
-                                    <h4><span>Follow</span> with us</h4>
-                                    <p>Join the thousands of other There are many variations of passages of Lorem Ipsum available</p>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                        <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>-->
-    <!--====== FOOTER - COPYRIGHT ==========-->
-    <!--<section>
-        <div class="rows copy">
-            <div class="container">
-                <p>Copyrights © 2017 Company Name. All Rights Reserved</p>
-            </div>
-        </div>
-    </section>
-    <section>
-        <div class="icon-float">
-            <ul>
-                <li><a href="#" class="sh">1k <br> Share</a> </li>
-                <li><a href="#" class="fb1"><i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                <li><a href="#" class="gp1"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                <li><a href="#" class="tw1"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                <li><a href="#" class="li1"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                <li><a href="#" class="wa1"><i class="fa fa-whatsapp" aria-hidden="true"></i></a> </li>
-                <li><a href="#" class="sh1"><i class="fa fa-envelope-o" aria-hidden="true"></i></a> </li>
-            </ul>
-        </div>
-    </section>-->
-    <!--========= Scripts ===========-->
-
-    <script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
-    <script src="~/Theme/Template2/js/bootstrap.js"></script>
-    <script src="~/Theme/Template2/js/wow.min.js"></script>
-    <script src="~/Theme/Template2/js/materialize.min.js"></script>
-    <script src="~/Theme/Template2/js/custom.js"></script>
+    </div>
+    <!-- Search model end -->
+    <!-- Js Plugins -->
+    <script src="~/Theme/BagAndGo/js/jquery-3.3.1.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/bootstrap.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/jquery.nice-select.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/jquery-ui.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/jquery.slicknav.js"></script>
+    <script src="~/Theme/BagAndGo/js/owl.carousel.min.js"></script>
+    <script src="~/Theme/BagAndGo/js/main.js"></script>
     <script>
-        function request(imageSrc) { $.ajax({
+            function request(imageSrc) { $.ajax({
 
-                    url: '@Url.Action("Description", "Experience")',
-                                                 data: { 'src': imageSrc },
-                                                 type: "Get",
-                    success: function (data) {
-                    $("#loadpartial").html(data);
-                }
-            });}
+             url: '@Url.Action("Description", "Experience")',
+                                                     data: { 'src': imageSrc },
+                                                     type: "Get",
+                                                     success: function (data) {
+                                                      $("#loadpartial").html(data);
+                         }
+                });}
 
-                        $(document).ready(function () {
-                            var x = $('.active').find('img').attr('src');
-                            request(x);
-                            $("#myCarousel1").on('slid.bs.carousel', function () {
-
-                               
-                                var totalItems = $('.item').text().length;
-
-                                var imageSrc = $('.active').find('img').attr('src');
-                                console.log(imageSrc);
-                                console.log('target: ' + totalItems
-                                    );
-
-                                request(imageSrc);
+                            $(document).ready(function () {
+                                var x = $('.active').find('img').attr('src');
+                                request(x);
+                                $("#myCarousel1").on('slid.bs.carousel', function () {
 
 
-                                      });
-                        });
-    </script>
-<!--</body>-->
+                                    var totalItems = $('.item').text().length;
+
+                                    var imageSrc = $('.active').find('img').attr('src');
+                                    console.log(imageSrc);
+                                    console.log('target: ' + totalItems
+                                        );
+
+                                    request(imageSrc);
 
 
-<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
-<!--</html>-->
+                                          });
+                            });
+        </script>
+</body>
+
+</html>

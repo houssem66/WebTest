@@ -1,10 +1,15 @@
 ﻿@model PanierViewModel
 @using System.Linq;
 @using TourMe.Data.Entities;
+@using Services;
+@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@inject Services.Interfaces.IPanierService servicePanier;
 
 
+@{ Layout = null;
+   
 
-@{ Layout = null; }
+    }
 
 <!doctype html>
 <html lang="en">
@@ -95,6 +100,7 @@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
+
                 <div class="col-sm-12">
 
                     <!--      Wizard container        -->
@@ -102,11 +108,19 @@
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="ReserverService" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
+                                <input type="hidden" id="prixExperience" value="@servicePanier.GetPanierByuserId(signInManager.UserManager.GetUserId(User)).Last().Prix" />
+                                <input type="hidden" id="prixlogement" value="0" />
+
+
 
                                 <div class="wizard-header" id="5dmt">
                                     <h3 class="wizard-title">Réservation</h3>
                                     <p id="demo" style="font-size:18px;" class="category">Bonjour Veuillez choisir vos besoins au cours de cette éxperience.</p>
                                 </div>
+
+
+
+
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 15%;"></div>
@@ -147,7 +161,7 @@
                                             <h5 class="info-text">logement</h5>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
-             
+
 
 
                                                     <p class="description">
@@ -180,9 +194,9 @@
                                                 </div>
                                                 <div class="col-sm-4">
                                                     <div class="form-group">
-                                                        <label>Choisir Date Fin</label><br>
-                                                        <input asp-for="DateFinL" class="form-control" />
-                                                        <span asp-validation-for="DateFinL"></span>
+                                                        <label>Choisirnombre de jours</label><br>
+                                                        <input asp-for="NbrJoursLogement" class="form-control" />
+                                                        <span asp-validation-for="NbrJoursLogement"></span>
 
                                                     </div>
 
@@ -237,7 +251,35 @@
 
 
 
+                                            <div id="dtd1">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir Date Début</label><br>
+                                                        <input asp-for="DateDispoTrans" class="form-control" />
+                                                        <span asp-validation-for="DateDispoTrans"></span>
 
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir nombre de jours</label><br>
+                                                        <input asp-for="NbrJoursTrans" class="form-control" />
+                                                        <span asp-validation-for="NbrJoursTrans"></span>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="col-sm-8 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <textarea id="TextArea" class="form-control" rows="5" placeholder="Donnez vos remarques pour qu'on les prennes on considération" name="RemarquesTransport"></textarea>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
 
 
 
@@ -273,7 +315,35 @@
                                             </div>
 
 
+                                            <div id="dtd2">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir Date Début</label><br>
+                                                        <input asp-for="DateReservationRes" class="form-control" />
+                                                        <span asp-validation-for="DateReservationRes"></span>
 
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir nombre de plats</label><br>
+                                                        <input asp-for="NbrPlat" class="form-control" />
+                                                        <span asp-validation-for="NbrPlat"></span>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="col-sm-8 col-sm-offset-1">
+                                                    <div class="form-group">
+                                                        <textarea id="TextArea" class="form-control" rows="5" placeholder="Donnez vos remarques pour qu'on les prennes on considération" name="RemarquesNourriture"></textarea>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
 
                                         </div>
 
@@ -299,6 +369,27 @@
                         </div>
                     </div>
                 </div> <!-- wizard container -->
+
+            </div>
+            <div class="row pt-4">
+
+                <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal">Prix</h4>
+                        </div>
+                        <div class="card-body">
+                            <h1><b id="Total"> </b><small class="text-muted"></small></h1>
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <li>20 users included</li>
+                                <li>10 GB of storage</li>
+                                <li>Priority email support</li>
+                                <li>Help center access</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div> <!-- row -->
     </div> <!--  big container -->
@@ -362,6 +453,38 @@
             </div>
         </div>
     </div>
+
+
+
+    <div class="modal" id="myModal3">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title"> Choisir Transport  </h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body row" id="Preview3">
+
+
+
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="Close" data-dismiss="modal">Close</button>
+                    <input id="Ajout3" type="submit" value="Ajouter" class="btn" />
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="~/wizard/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
     <script src="~/wizard/assets/js/bootstrap.min.js" type="text/javascript"></script>
     <script src="~/wizard/assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
@@ -380,16 +503,31 @@
 
         $(document).ready(function () {
 
-
-
              loadModalLogement();
              LoadDataNourriture();
+            LoadDataTransport();
+            Prix_Logement();
 
 
         });
 
 
+function Prix_Logement() {
 
+    $('#NbrJoursLogement').on('keyup', function () {
+        @*var prixL = '@ViewData["L"]';*@
+       
+           var prixL = '@TempData["tet"]';
+      
+        console.log("le prix est " + prixL);
+        var a = parseFloat(prixL);
+
+        alert(prixL);
+        calc_total(prixL);
+
+
+})
+        };
  function loadModalLogement() {
 
                 $('#dtd').hide();
@@ -409,7 +547,7 @@
                 });
         };
  function LoadDataNourriture() {
-
+     $('#dtd2').hide();
 
 
                 $("#sub2").click(function () {
@@ -426,14 +564,32 @@
                 });
         };
 
+function LoadDataTransport() {
+             $('#dtd1').hide();
 
 
+                $("#sub3").click(function () {
+                    $.ajax({
+                        type: "Get",
+                        url: '@Url.Action("GetDetailTransport", "Reservation")',
+                        data: '',
+                        success: function (data) {
+                            $('#Preview3').html(data);
+                            $('#myModal3').modal('show');
+                        }
 
+                    })
+                });
+        };
 
+function calc_total(prix) {
 
-
-
-
+    var sum = $('#prixExperience').val() + $('#prixlogement').val(parseFloat(prix));
+    console.log($('#prixlogement').val(prix));
+    document.getElementById('Total').innerHTML = $('#prixExperience').val() + 'dt';
+            $('#Tota').val(sum);
+            //  alert($('#Tota').val());
+};
 
 
 

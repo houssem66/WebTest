@@ -21,10 +21,13 @@ namespace Repository.Implementation
             genericRepoPanier = _GenericRepoPanier;
         }
 
-        public  IEnumerable<Panier> GetPanierByuserIdAsync(string id)
+        public async  Task<Panier> GetPanier(int id)
         {
-            var panier =  dbContext.Paniers.Include(x => x.Experiences).Where(x => x.User.Id.Equals(id));
-             
+            var panier =  await dbContext.Paniers.Include(x => x.Experiences).SingleAsync(x => x.Id.Equals(id));
+            dbContext.Entry(panier).Collection(pa => pa.Logments).Query().Load();
+            dbContext.Entry(panier).Collection(pa => pa.Nourittures).Query().Load();
+            dbContext.Entry(panier).Collection(pa => pa.Transports).Query().Load();
+            dbContext.Entry(panier).State = EntityState.Detached;
             return panier;
         }
 
@@ -70,11 +73,34 @@ namespace Repository.Implementation
 
         }
 
-        public async Task Update(Panier panier)
+        public async Task Update(Panier panier,ServiceLogment serviceLogment)
         {
-            var pan = await dbContext.Paniers.SingleAsync(e => e.Id == panier.Id);
-            dbContext.Entry(pan).State = EntityState.Detached;
-            dbContext.Entry(panier).State = EntityState.Modified;
+           
+            var pan = await dbContext.Paniers.Include(e=>e.Experiences).SingleAsync(x => x.Id.Equals(panier.Id));
+            dbContext.Entry(pan).Collection(pa => pa.Logments).Query().Load();
+
+
+            //panier.Experiences = pan.Experiences;
+           
+            //panier.Experiences.Clear();
+            //foreach (var experience in pan.Experiences)
+            //{     
+
+            //    panier.Experiences.Add(experience);
+
+            //}
+
+
+            if (pan.Logments.FirstOrDefault()==serviceLogment)
+            dbContext.Entry(panier).State = EntityState.Unchanged;
+            else
+            {
+                panier.Logments = new List<ServiceLogment>();
+                panier.Logments.Add(serviceLogment);
+                dbContext.Entry(panier).State = EntityState.Modified;
+
+            }
+           
             try
             {
                 await dbContext.SaveChangesAsync();
@@ -85,6 +111,123 @@ namespace Repository.Implementation
 
             }
         }
+
+
+
+        public async Task InsertAsync(Panier panier, int id)
+
+        {
+            try
+            {
+                var experiences = await dbContext.Experience.SingleAsync(p => p.ExperienceId.Equals(id));
+                panier.Experiences.Add(experiences);
+                await dbContext.Paniers.AddAsync(panier);
+
+
+
+                await dbContext.SaveChangesAsync();
+            }
+            catch
+            {
+
+
+
+
+            }
+
+
+        }
+
+        public IEnumerable<Panier>GetPanierByuserIdAsync(string id)
+        {
+            var panier = dbContext.Paniers.Include(x => x.Experiences).Where(x => x.User.Id.Equals(id));
+         
+            
+        
+            return panier;
+          
+        }
+
+        public Task<Panier> GetPan(int id)
+        {
+            return genericRepoPanier.GetByIdAsync(id);
+        }
+
+        public async  Task UpdateNourriture(Panier panier, ServiceNouritture serviceNouritture)
+        {
+
+            var pan = await dbContext.Paniers.Include(e => e.Experiences).SingleAsync(x => x.Id.Equals(panier.Id));
+            dbContext.Entry(pan).Collection(pa => pa.Nourittures).Query().Load();
+            //panier.Experiences = pan.Experiences;
+            if (pan.Nourittures.FirstOrDefault()==serviceNouritture)
+
+                dbContext.Entry(panier).State = EntityState.Unchanged;
+
+            else
+            {
+                panier.Nourittures = new List<ServiceNouritture>();
+                panier.Nourittures.Add(serviceNouritture);
+                dbContext.Entry(panier).State = EntityState.Modified;
+
+            }
+     
+  
+         
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+
+            }
+        }
+
+
+        public async Task UpdateTransport(Panier panier, ServiceTransport serviceTransport)
+        {
+
+            var pan = await dbContext.Paniers.Include(e => e.Experiences).SingleAsync(x => x.Id.Equals(panier.Id));
+            dbContext.Entry(pan).Collection(pa => pa.Transports).Query().Load();
+            //panier.Experiences = pan.Experiences;
+          
+
+            if ( pan.Transports.FirstOrDefault()== serviceTransport)
+
+                dbContext.Entry(panier).State = EntityState.Unchanged;
+
+            else
+            {
+                panier.Transports = new List<ServiceTransport>();
+                panier.Transports.Add(serviceTransport);
+
+                dbContext.Entry(panier).State = EntityState.Modified;
+            }
+
+
+
+         
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+
+            }
+        }
+
+        public async Task<Panier> GetPanUser(string id)
+        {
+            var panier = await dbContext.Paniers.Include(x => x.Experiences).LastAsync(x => x.Id.Equals(id));
+            dbContext.Entry(panier).Collection(pa => pa.Logments).Query().Load();
+            dbContext.Entry(panier).Collection(pa => pa.Nourittures).Query().Load();
+            dbContext.Entry(panier).Collection(pa => pa.Transports).Query().Load();
+            dbContext.Entry(panier).State = EntityState.Detached;
+            return panier;
         }
     }
+}
 

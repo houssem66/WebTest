@@ -10,5 +10,7 @@ namespace Services.Interfaces
   public  interface IReservationService
     {
         public Task Ajout(Reservation reservation);
+        public Task InsertAsync(Panier reservation, int id);
+      
     }
 }

@@ -1,6 +1,9 @@
 ﻿
-
+@inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
+@inject Services.Interfaces.IPanierService servicePanier;
 @model X.PagedList.IPagedList<TourMe.Data.Entities.ServiceLogment>;
+@using Newtonsoft.Json;
+@using TourMe.Data.Entities;
 
 @using X.PagedList.Mvc.Core;
 
@@ -30,38 +33,38 @@
                             <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
                                 <div class="portfolio-item">
 
-                                                        <form action="AjoutLogement" method="post" enctype="multipart/form-data">
+                                    <form action="AjoutLogement" method="post" enctype="multipart/form-data">
 
-                                                            <input type="hidden"  name="id" value="@item.Id"/>
+                                        <input type="hidden" name="id" value="@item.Id" />
 
-                                                            <a asp-action="Detailslogement" asp-controller="Service" asp-route-id="@item.Id">
-                                                                <h4>
+                                        <a asp-action="Detailslogement" asp-controller="Service" asp-route-id="@item.Id">
+                                            <h4>
 
-                                                                    @item.Titre
-                                                                </h4>
-                                                            </a>
-                                                            <div class="hover-bg">
-
-
-                                                                <div class="hover-text">
+                                                @item.Titre
+                                            </h4>
+                                        </a>
+                                        <div class="hover-bg">
 
 
-                                                                    <span>
-                                                                        <p>Prix: @item.PrixParNuit</p>
-                                                                    </span>
-
-                                                                    <input id="AjouterLogement" type="submit" value="Ajouter" class="btn" />
-
-                                                                </div>
-
-                                                                <img src="~/Files/@item.Documents.First().Filepath" class="col-sm-6" alt="Project Title">
+                                            <div class="hover-text">
 
 
+                                                <span>
+                                                    <p>Prix: @item.PrixParNuit</p>
+                                                </span>
+
+                                                <input  type="submit" value="Ajouter" class="btn" />
+
+                                            </div>
+
+                                            <img src="~/Files/@item.Documents.First().Filepath" class="col-sm-6" alt="Project Title">
 
 
 
-                                                            </div>
-                                                        </form>
+
+
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -95,7 +98,11 @@
 </div>
 
 
+@*@{ 
 
+    var a = @ViewBag.L.PrixParNuit;
+
+}*@
 
 
 
@@ -108,7 +115,7 @@
 <script>
 
     $(document).ready(function () {
-       
+
 
 
     $('#myPager').on('click', 'a', function (e) {
@@ -128,13 +135,16 @@
     });
 
 
-        $('#AjouterLogement').click(function () {
+        $('.btn').click(function () {
             $('#myModal').modal('toggle');
             $('#sub').val('logement ajouté');
             $('#dtd').show();
 
-            
-            
+
+          //  alert(a);
+               @*var a = @servicePanier.GetPanUser(signInManager.UserManager.GetUserId(User)).Result.Logments.OrderBy(e=>e.PrixParNuit).LastOrDefault().PrixParNuit;
+       ;*@
+
     });
 
     });

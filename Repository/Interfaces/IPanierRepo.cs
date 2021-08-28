@@ -9,8 +9,14 @@ namespace Repository.Interfaces
 {
  public   interface IPanierRepo
     {
-        public Task Update(Panier panier);
+        public Task Update(Panier panier, ServiceLogment serviceLogment);
+        public Task UpdateNourriture(Panier panier, ServiceNouritture serviceNouritture); 
+        public Task UpdateTransport(Panier panier, ServiceTransport serviceTransport);
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours);
         public IEnumerable<Panier> GetPanierByuserIdAsync(string id);
+        public Task<Panier> GetPanier(int id);
+        public Task<Panier> GetPan(int id);
+        Task InsertAsync(Panier panier, int id);
+        public Task<Panier> GetPanUser(string id);
     }
 }
