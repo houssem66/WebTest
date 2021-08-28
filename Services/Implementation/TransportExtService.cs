@@ -15,24 +15,24 @@ namespace Services.Implementation
         private readonly IGenericRepository<ServiceTransport> GenericRepo;
         private readonly ITransportExtRepo transportExtRepo;
 
-        public TransportExtService(IGenericRepository<ServiceTransport> genericRepo, ITransportExtRepo transportExtRepo)
+        public TransportExtService(IGenericRepository<ServiceTransport> genericRepo, ITransportExtRepo TransportExtRepo)
         {
             GenericRepo = genericRepo;
-            this.transportExtRepo = transportExtRepo;
+            transportExtRepo = TransportExtRepo;
         }
         public Task Ajout(ServiceTransport logement)
         {
             return GenericRepo.InsertAsync(logement);
         }
 
-        public Task Delete(ServiceTransport logement)
+        public Task Delete(int  id)
         {
-            return GenericRepo.DeleteAsync(logement.Id);
+            return GenericRepo.DeleteAsync(id);
         }
 
-        public IList<ServiceTransport> GetAllLogements()
+        public IList<ServiceTransport> GetAllTransports()
         {
-            return GenericRepo.GetAll().ToList();
+            return transportExtRepo.GetAll().ToList();
         }
 
         public Task<ServiceTransport> GetLogementById(int id)

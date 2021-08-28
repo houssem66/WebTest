@@ -66,7 +66,17 @@ namespace TourMe.Web.Controllers
             return View(list);
 
         }
+        [HttpGet]
+        [AllowAnonymous]
 
+        public IActionResult GetAllExperiences()
+
+        {
+           
+           
+            return View();
+
+        }
         [HttpGet]
         [AllowAnonymous]
 
@@ -137,8 +147,8 @@ namespace TourMe.Web.Controllers
         [HttpPost]
 
         [Authorize(Policy = "CreateExperiencePolicy")]
-        public async Task<IActionResult> CreateExperience(ExperienceViewModel model)
-        {
+        public async Task<IActionResult> CreateExperience(ExperienceViewModel model,string Programmed,string obligatoire)
+        { Boolean bol =false;
             if (TempData["Nourriture"] != null)
             { ViewData["supp"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
             if (TempData["Transport"] != null)
@@ -148,67 +158,141 @@ namespace TourMe.Web.Controllers
 
             if (TempData["list"] != null)
             { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
-            if (ModelState.IsValid)
+           if (Programmed == "Oui")
             {
-                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-                IList<Activite> list = (IList<Activite>)ViewData["list"];
-                string id = userManager.GetUserId(User);
-
-                Experience experience = new Experience
+                if (ModelState.IsValid)
                 {
-                    Titre = model.Titre,
-                    Lieu = model.Lieu,
-                    TypeExperience = model.TypeExperience,
-                    dateDebut = model.dateDebut,
-                    dateFin = model.dateFin,
-                    Saison = model.Saison,
-                    NbPlaces = model.NbPlaces,
-                    tarif = model.tarif,
-                    Activites = list,
-                    Description = model.Description,
-                    Commerçant = await commercantService.GetCommerçantById(id),
-                };
-                var result = await ExperienceService.InsertExperience(experience);
-                Experience experience1 = await ExperienceService.GetById((int)result);
-                if (TempData["Nourriture"] != null)
-                {
-                    ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
-                    var nourriture = (Nourriture)ViewData["Nourriture"];
-                    nourriture.ExperienceId = experience1.ExperienceId;
-                    if (nourriture.Prix > 0)
+                    ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                    IList<Activite> list = (IList<Activite>)ViewData["list"];
+                    string id = userManager.GetUserId(User);
+                    if (Programmed == "Oui")
+                    { bol = true; }
+                    Experience experience = new Experience
+                    {Theme=obligatoire,
+                        Titre = model.Titre,
+                        Lieu = model.Lieu,
+                        TypeExperience = model.TypeExperience,
+                        dateDebut = model.dateDebut,
+                        dateFin = model.dateFin,
+                        Saison = model.Saison,
+                        NbPlaces = model.NbPlaces,
+                        tarif = model.tarif,
+                        Activites = list,
+                        Description = model.Description,
+                        Commerçant = await commercantService.GetCommerçantById(id),
+                        Programmed = bol
+                    };
+                    var result = await ExperienceService.InsertExperience(experience);
+                    Experience experience1 = await ExperienceService.GetById((int)result);
+                    if (TempData["Nourriture"] != null)
                     {
-                        await NourritureService.Ajout(nourriture);
+                        ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
+                        var nourriture = (Nourriture)ViewData["Nourriture"];
+                        nourriture.ExperienceId = experience1.ExperienceId;
+                        if (nourriture.Prix > 0)
+                        {
+                            await NourritureService.Ajout(nourriture);
+                        }
+
                     }
-                   
-                }
-                if (TempData["Logement"] != null)
-                {
-                    ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
-                    var logement = (Logement)ViewData["Logement"];
-                    logement.ExperienceId = experience1.ExperienceId;
-                    if (logement.Prix > 0)
+                    if (TempData["Logement"] != null)
                     {
-                        await LogementService.Ajout(logement);
+                        ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
+                        var logement = (Logement)ViewData["Logement"];
+                        logement.ExperienceId = experience1.ExperienceId;
+                        if (logement.Prix > 0)
+                        {
+                            await LogementService.Ajout(logement);
+                        }
+
+                    }
+                    if (TempData["Transport"] != null)
+                    {
+                        ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
+                        var transport = (Transport)ViewData["Transport"];
+                        transport.ExperienceId = experience1.ExperienceId;
+                        if (transport.Prix > 0)
+                        {
+                            await TransportService.Ajout(transport);
+                        }
+
                     }
 
+
+
+
+
+                    return RedirectToAction("Details", new { id = experience1.ExperienceId });
                 }
-                if (TempData["Transport"] != null)
+            }
+               else if (Programmed == "Non")
+            {
+                model.dateDebut = DateTime.Today;
+                model.dateFin = DateTime.Today;
+                if (ModelState.IsValid)
                 {
-                    ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
-                    var transport = (Transport)ViewData["Transport"];
-                    transport.ExperienceId = experience1.ExperienceId;
-                    if (transport.Prix > 0)
+                    ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                    IList<Activite> list = (IList<Activite>)ViewData["list"];
+                    string id = userManager.GetUserId(User);
+                    if (Programmed == "Oui")
+                    { bol = true; }
+                    Experience experience = new Experience
+                    { Theme = obligatoire,
+                        Titre = model.Titre,
+                        Lieu = model.Lieu,
+                        TypeExperience = model.TypeExperience,
+                        dateDebut = model.dateDebut,
+                        dateFin = model.dateFin,
+                        Saison = model.Saison,
+                        NbPlaces = model.NbPlaces,
+                        tarif = model.tarif,
+                        Activites = list,
+                        Description = model.Description,
+                        Commerçant = await commercantService.GetCommerçantById(id),
+                        Programmed = bol
+                    };
+                    var result = await ExperienceService.InsertExperience(experience);
+                    Experience experience1 = await ExperienceService.GetById((int)result);
+                    if (TempData["Nourriture"] != null)
                     {
-                        await TransportService.Ajout(transport);
+                        ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
+                        var nourriture = (Nourriture)ViewData["Nourriture"];
+                        nourriture.ExperienceId = experience1.ExperienceId;
+                        if (nourriture.Prix > 0)
+                        {
+                            await NourritureService.Ajout(nourriture);
+                        }
+
+                    }
+                    if (TempData["Logement"] != null)
+                    {
+                        ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
+                        var logement = (Logement)ViewData["Logement"];
+                        logement.ExperienceId = experience1.ExperienceId;
+                        if (logement.Prix > 0)
+                        {
+                            await LogementService.Ajout(logement);
+                        }
+
+                    }
+                    if (TempData["Transport"] != null)
+                    {
+                        ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
+                        var transport = (Transport)ViewData["Transport"];
+                        transport.ExperienceId = experience1.ExperienceId;
+                        if (transport.Prix > 0)
+                        {
+                            await TransportService.Ajout(transport);
+                        }
+
                     }
 
+
+
+
+
+                    return RedirectToAction("Details", new { id = experience1.ExperienceId });
                 }
-               
-               
-               
-                
-                
-                return RedirectToAction("Details",new { id = experience1.ExperienceId });
             }
 
 
@@ -229,6 +313,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                TempData["test3"] = "5dmt 3.0";
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
@@ -511,6 +596,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                
                 string uniqueFileName = null;
                 if (model.ImageNourriture != null)
                 {

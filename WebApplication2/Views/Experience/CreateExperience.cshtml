@@ -97,7 +97,7 @@
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="CreateExperience" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
-
+                                <input type="hidden" id="secret" name="obligatoire" value="oof" />
                                 <div class="wizard-header" id="5dmt">
                                     <h3 class="wizard-title">Créer une Expérience</h3>
                                     <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à Créer une Expérience.</p>
@@ -165,6 +165,32 @@
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">Choisir un Théme</button>
                                             </div>
+                                            <div class="col-sm-7 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <label>Votre expérience est programmé :<small style="font-weight: normal;">(valable une seule fois)</small>: </label>
+                                                    <input type="radio" name="Programmed" value="Oui">Oui
+                                                    <input type="radio" name="Programmed" value="Non">Non
+                                                </div>
+                                                <div id="DateD" class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir Date Début</label><br>
+                                                        <input asp-for="dateDebut" class="form-control" />
+                                                        <span asp-validation-for="dateDebut"></span>
+
+                                                    </div>
+
+                                                </div>
+                                                <div id="DateF" class="col-sm-4">
+                                                    <div class="form-group">
+                                                        <label>Choisir Date Fin</label><br>
+                                                        <input asp-for="dateFin" class="form-control" />
+                                                        <span asp-validation-for="dateFin"></span>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
                                             <div class="col-sm-6 col-sm-offset-1" id="Lieu">
                                                 <label>Entrer le Lieu de l'Expérience</label>
                                                 <input asp-for="Lieu" class="form-control" />
@@ -228,24 +254,7 @@
                                                 </div>
 
                                             </div>
-                                            <div class="col-sm-4 col-sm-offset-1">
-                                                <div class="form-group">
-                                                    <label>Choisir Date Début</label><br>
-                                                    <input asp-for="dateDebut" class="form-control" />
-                                                    <span asp-validation-for="dateDebut"></span>
 
-                                                </div>
-
-                                            </div>
-                                            <div class="col-sm-4">
-                                                <div class="form-group">
-                                                    <label>Choisir Date Fin</label><br>
-                                                    <input asp-for="dateFin" class="form-control" />
-                                                    <span asp-validation-for="dateFin"></span>
-
-                                                </div>
-
-                                            </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Choisir le saison</label><br>
@@ -330,7 +339,7 @@
                                                     <label>
                                                         Autres critères (facultatif)
                                                     </label>
-                                                    <textarea class="form-control" id="test2" rows="4" placeholder="Ex : les voyageurs doivent déjà avoir surfé, les voyageurs doivent disposer d'un permis de plongée, les voyageurs doivent être à l'aise avec les chiens, etc."name="Details"></textarea>
+                                                    <textarea class="form-control" id="test2" rows="4" placeholder="Ex : les voyageurs doivent déjà avoir surfé, les voyageurs doivent disposer d'un permis de plongée, les voyageurs doivent être à l'aise avec les chiens, etc." name="Details"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -352,7 +361,7 @@
                                             </div>
                                             <div class="col-sm-7 col-sm-offset-1">
                                                 <div class="form-group">
-                                                    <label>Votre expérience contient un Transport </label>
+                                                    <label>Votre expérience contient un Transport<small style="font-weight: normal;">(si une des activités est une nourriture choisir non)</small>: </label>
                                                     <input type="radio" name="Transport" value="Oui">Oui
                                                     <input type="radio" name="Transport" value="Non">Non
                                                 </div>
@@ -422,7 +431,7 @@
                 <div class="modal-body row">
                     <div class="col-sm-12">
                         <div class="form-group" id="test">
-
+                           
                             <select asp-for="TypeExperience" class="form-control" placeholder="Choisir Type d'Experience xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()">
                                 <option value="null" default>Choisir Théme ..</option>
                             </select>
@@ -1142,6 +1151,7 @@
                 <!-- Modal footer -->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" id="close" data-dismiss="modal">Close</button>
+                   
                 </div>
 
             </div>
@@ -1420,6 +1430,20 @@
 
                 }
             });
+            $("#DateD").hide();
+            $("#DateF").hide();
+        
+            $('input[name="Programmed"]').change(function () {
+                var x = this.value;
+                if (x == "Non") {
+                    $("#DateD").hide();
+                    $("#DateF").hide();}
+                else
+                {
+                    $("#DateD").show();
+                    $("#DateF").show();
+                }
+            });
             $("#Culture,#Event, #Health, #Nature,#Food").hide();
             $('select[name="TypeExperience"]').change(function () {
                 $("#autre").hide();
@@ -1500,6 +1524,8 @@
             });
             // Choose theme button getting the value from the modal
             $("#close").click(function () {
+                var affiche = '@TempData["test3"]';
+                alert(affiche);
                 var SubTheme = $("input[name='Forme']:checked").val();
                 var theme = $('select[name="TypeExperience"]').find(":selected").text();
                 Category = $("input[name='sub']:checked").val();
@@ -1511,10 +1537,15 @@
                 if ((SubTheme.length > 1) && !(SubTheme.includes("Autre"))) {
 
                     $("#choose").html(SubTheme + "," + Category);
+                    document.getElementById("secret").value = SubTheme + ", " + Category;;
+                    
+                  
                 }
                 else if ($("#type").val().length > 1) {
-
+                    document.getElementById("secret").value = theme + ", " + $("#type").val();
+                  
                     $("#choose").html(theme + ", " + $("#type").val());
+                 
                 }
             });
         });

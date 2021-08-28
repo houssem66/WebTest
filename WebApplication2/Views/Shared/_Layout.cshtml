@@ -1,6 +1,9 @@
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 @inject UserManager<Domaine.Entities.Utilisateur> userManager;
 @using Microsoft.AspNetCore.Identity;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@using Microsoft.AspNetCore.Http
 
 <!DOCTYPE html>
 <html lang="en">
@@ -240,7 +243,7 @@
                                     <a asp-action="getAll" asp-controller="Experience">Expériences</a>
                                     @if (User.IsInRole("Administrateur"))
                                     {
-                                    <li><a asp-controller="Administration" asp-action="GetAllUsers" class="nav-link">GetAllAccounts</a></li>
+                                    <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
                                     <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
                                 }
                                     <!-- MEGA MENU 1 -->
@@ -259,7 +262,7 @@
                                                     <ul>
                                                         @{ if (User.IsInRole("Administrateur"))
                                                             {
-                                                                <li><a asp-controller="Account" asp-action="GetAll" class="nav-link">GetAllAccounts</a></li>
+                                                                <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
                                                                 <li><a asp-controller="Account" asp-action="GetAllCommercant" class="nav-link">GetAllCommercant</a></li>
 
                                                             }
@@ -300,10 +303,10 @@
                                         </div>
                                     </div>
                                     </li>
-                                @{  string id = userManager.GetUserId(User);}
+                                    @{ string id = userManager.GetUserId(User);}
                                     @if (User.IsInRole("Commercant"))
                                     {
-                                       
+
                                         <li>
 
                                             <a asp-controller="Account" asp-route-id="@id" asp-action="ProfilCommerc" class="nav-link">Profil</a>
@@ -346,10 +349,10 @@
 
 
                 </div>
-               
+
 
             </div>
-    
+
             <!-- TOP SEARCH BOX -->
             <div class="search-top">
                 <div class="container">
@@ -387,10 +390,6 @@
 
 
         @RenderBody()
-
-        @if (IsSectionDefined("Scripts"))
-        {
-            @await RenderSectionAsync("Scripts", required: true)}
 
 
 

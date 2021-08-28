@@ -12,6 +12,7 @@ namespace Domaine.Entities
 {
     public class Utilisateur : IdentityUser
     {
+      
         public string NickName { get; set; }
         public Region region { get; set; }
         public string Carte { get; set; }

@@ -25,6 +25,11 @@ namespace Services.Implementation
             return GenericRepo.InsertAsync(entity);
         }
 
+        public Task DeleteLogementAsnc(int id)
+        {
+            return GenericRepo.DeleteAsync(id);
+        }
+
         public Logement GetLogement(int id)
         {
             var a = GenericRepo.GetAll().Where(e => e.ExperienceId == id).ToList().First();

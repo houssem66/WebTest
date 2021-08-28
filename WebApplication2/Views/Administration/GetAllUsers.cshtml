@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Voir la liste de tous les utilisateurs </h1>
+                <h1 class="m-0 text-dark">Voir la liste de tous les comptes </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -46,10 +46,11 @@
                     </div>
 
                     <div class="card-body">
-                        <table id="myTable" class="table table-bordered table-hover dataTable dtr-inline">
+                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
+                                    <th>Id</th>
                                     <th>Nom</th>
                                     <th>Prenom</th>
                                     <th>Email</th>
@@ -66,7 +67,7 @@
                                 {
 
                                     <tr>
-
+                                        <td> @item.Id</td>
                                         <td>
                                             @item.Nom
 
@@ -119,7 +120,21 @@
     </div>
 </section>
 @section Scripts {<script>
-
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true,
+            "autoWidth": false,
+        });
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
+    });
     $("#myInput").on("keyup", function () {
 
         var textEnter = $(this).val();

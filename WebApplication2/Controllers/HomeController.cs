@@ -36,7 +36,7 @@ namespace TourMe.Web.Controllers
             {
                 experiences = ExperienceService.GetAllExperienceDetails(null).OrderBy(x => x.AvgRating).Take(5).ToList();
                 logements = LogementExtService.GetAllLogements().OrderBy(x => x.PrixParNuit).Take(6).ToList();
-                nourritures = NourritureExtService.GetAllLogements().OrderBy(x => x.Prix).Take(6).ToList();
+                nourritures = NourritureExtService.GetAllNourriture().OrderBy(x => x.Prix).Take(6).ToList();
             }
             catch (Exception e)
             {
@@ -55,7 +55,7 @@ namespace TourMe.Web.Controllers
 
             return View(homeViewModel);
         }
-
+        
         public IActionResult Privacy()
         {
             return View();

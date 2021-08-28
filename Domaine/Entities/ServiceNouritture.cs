@@ -34,7 +34,8 @@ namespace TourMe.Data.Entities
         [DisplayName("Tarif (dt)")]
         public decimal Prix { get; set; }
         public virtual IList<LNDocuments> Documents { get; set; }
-        public string FournisseurId { get; set; }
+        public Fournisseur Fournisseur { get; set; }
+
         public virtual IList<Panier> Paniers { get; set; }
     }
 }

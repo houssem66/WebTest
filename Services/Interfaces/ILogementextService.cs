@@ -14,7 +14,7 @@ namespace Services.Interfaces
         public IList<ServiceLogment> GetAllLogements();
         public Task Update(ServiceLogment logement);
         public Task<ServiceLogment> GetLogementById(int id);
-        public Task Delete(ServiceLogment logement);
+        public Task Delete(int id);
         public  Task<ServiceLogment> GetById(int id);
     }
 }

@@ -239,7 +239,7 @@ namespace TourMe.Web.Controllers
         {
             int pageSize = 2;
             int pageNumber = (page ?? 1);
-            return PartialView("_DetailNourriture", nourritureExtService1.GetAllLogements().ToPagedList(pageNumber, pageSize));
+            return PartialView("_DetailNourriture", nourritureExtService1.GetAllNourriture().ToPagedList(pageNumber, pageSize));
         }
 
 
