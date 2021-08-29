@@ -250,7 +250,7 @@ namespace TourMe.Web.Controllers
         {
             int pageSize = 2;
             int pageNumber = (page ?? 1);
-            return PartialView("_DetailTransport", transportExtService.GetAllLogements().ToPagedList(pageNumber, pageSize));
+            return PartialView("_DetailTransport", transportExtService.GetAllTransports().ToPagedList(pageNumber, pageSize));
         }
 
 
