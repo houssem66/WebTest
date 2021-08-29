@@ -20,13 +20,13 @@ namespace Services.Implementation
         {
             this.genericRepo = genericRepo;
             this.panierRepo = panierRepo;
-         
+
         }
-        public  Task Ajout(Panier panier)
-        { 
-            
+        public Task Ajout(Panier panier)
+        {
+
             return genericRepo.InsertAsync(panier);
-          
+
         }
 
         public Task<Panier> GetPanierById(int id)
@@ -35,10 +35,10 @@ namespace Services.Implementation
             return panier;
         }
 
-        public IEnumerable<Panier>  GetPanierByuserId(string id)
+        public IEnumerable<Panier> GetPanierByuserId(string id)
         {
-            
-             return panierRepo.GetPanierByuserIdAsync(id);
+
+            return panierRepo.GetPanierByuserIdAsync(id);
         }
 
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours)
@@ -46,9 +46,38 @@ namespace Services.Implementation
             return panierRepo.PrixTotal(panier, nbrNuit, nbrRepats, nbrJours);
         }
 
-        public async Task Update(Panier panier)
+        public async Task Update(Panier panier, ServiceLogment serviceLogment)
         {
-           await panierRepo.Update(panier);
+            await panierRepo.Update(panier, serviceLogment);
+        }
+        public Task InsertAsync(Panier reservation, int id)
+        {
+            return panierRepo.InsertAsync(reservation, id);
+        }
+
+        public Task<Panier> GetPanier(int id)
+        {
+            return panierRepo.GetPanier(id);
+        }
+
+        public Task<Panier> GetPan(int id)
+        {
+            return panierRepo.GetPan(id);
+        }
+
+        public Task UpdateNourriture(Panier panier, ServiceNouritture serviceNouritture)
+        {
+            return panierRepo.UpdateNourriture(panier, serviceNouritture);
+        }
+
+        public Task UpdateTransport(Panier panier, ServiceTransport serviceTransport)
+        {
+            return panierRepo.UpdateTransport(panier, serviceTransport);
+        }
+
+        public Task<Panier> GetPanUser(string id)
+        {
+            return panierRepo.GetPanUser(id);
         }
     }
 }

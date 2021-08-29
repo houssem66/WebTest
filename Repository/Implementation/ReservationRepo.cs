@@ -1,4 +1,5 @@
-﻿using Repository.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Repository.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,15 +10,46 @@ using TourMe.Data.Entities;
 
 namespace Repository.Implementation
 {
-  public  class ReservationRepo :IReservationRepo
+    public class ReservationRepo : IReservationRepo
     {
         private readonly TourMeContext dbContext;
-        private readonly IGenericRepository<ServiceLogment> genericRepoRate;
+        private readonly IGenericRepository<Panier> genericRepoRate;
+      //  private readonly DbSet<Panier> dbSet;
 
-        public ReservationRepo(TourMeContext dbContext, IGenericRepository<ServiceLogment> _GenericRepoRate)
+        public ReservationRepo(TourMeContext _dbContext, IGenericRepository<Panier> _GenericRepoRate/*, DbSet<Panier> DbSet*/)
         {
-            this.dbContext = dbContext;
+            dbContext = _dbContext;
             genericRepoRate = _GenericRepoRate;
+          //  dbSet = DbSet;
         }
-    }
+
+        public async Task InsertAsync(Panier panier, int id)
+
+        {
+            try
+            {
+                var experiences =await  dbContext.Experience.SingleAsync(p => p.ExperienceId.Equals(id));
+                panier.Experiences.Add(experiences);
+                await dbContext.Paniers.AddAsync(panier);
+            
+
+
+                await dbContext.SaveChangesAsync();
+            }
+            catch
+            {
+
+
+
+
+            }
+
+
+        }
+           
+
 }
+
+        
+}
+

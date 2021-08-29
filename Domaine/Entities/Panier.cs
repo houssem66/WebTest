@@ -14,9 +14,12 @@ namespace TourMe.Data.Entities
         public decimal? Prix { get; set; }
         public int? Quantite { get; set; }
         public DateTime? DatedebutL { get; set; }
-        public DateTime? DateFinL { get; set; }
-        public int? NbrPlat { get; set; }
         public DateTime? DateDispoTrans { get; set; }
+        public DateTime? DateReservationRes { get; set; }
+        public int? NbrJoursLogement { get; set; }
+        public int? NbrPlat { get; set; }
+       
+        public int? NbrJoursTrans { get; set; }
         public string RemarquesLogement { get; set; }
         public string RemarquesTransport { get; set; }
         public string RemarquesNourriture { get; set; }
