@@ -1,29 +1,55 @@
 ﻿
 @model UserClaimsViewModel
+@{
 
-<form method="post">
-    <div class="card">
-        <div class="card-header">
-            <h2>Manage User Claims</h2>
-        </div>
-        <div class="card-body">
-            @for (int i = 0; i < Model.Cliams.Count; i++)
-            {
-                <div class="form-check m-1">
-                    <input type="hidden" asp-for="@Model.Cliams[i].ClaimType" />
-                    <input asp-for="@Model.Cliams[i].IsSelected" class="form-check-input" />
-                    <label class="form-check-label" asp-for="@Model.Cliams[i].IsSelected">
-                        @Model.Cliams[i].ClaimType
-                    </label>
-                </div>
-            }
-            <div asp-validation-summary="All" class="text-danger"></div>
-        </div>
-        <div class="card-footer">
-            <input type="submit" value="Update" class="btn btn-primary"
-                   style="width:auto" />
-            <a asp-action="EditUser" asp-route-id="@Model.id"
-               class="btn btn-primary" style="width:auto">Cancel</a>
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Voir les autorisations</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="GetAllUsers" asp-controller="Administration">Voir tous les utilisateurs</a></li>
+                    <li class="breadcrumb-item active">Gérer les autorisation</li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10">
+                <form method="post">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Manage User Claims</h2>
+                        </div>
+                        <div class="card-body">
+                            @for (int i = 0; i < Model.Cliams.Count; i++)
+                            {
+                                <div class="form-check m-1">
+                                    <input type="hidden" asp-for="@Model.Cliams[i].ClaimType" />
+                                    <input asp-for="@Model.Cliams[i].IsSelected" class="form-check-input" />
+                                    <label class="form-check-label" asp-for="@Model.Cliams[i].IsSelected">
+                                        @Model.Cliams[i].ClaimType
+                                    </label>
+                                </div>
+                            }
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" value="Update" class="btn btn-primary"
+                                   style="width:auto" />
+                            <a asp-action="EditUser" asp-route-id="@Model.id"
+                               class="btn btn-primary" style="width:auto">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</form>
+</section>

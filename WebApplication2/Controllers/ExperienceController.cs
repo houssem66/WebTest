@@ -24,7 +24,7 @@ namespace TourMe.Web.Controllers
         readonly private IExperienceService ExperienceService;
 
         private readonly SignInManager<Utilisateur> signInManager;
-
+        private readonly ICommercantService commercantService;
         public ICollection<Activite> Activites = new Collection<Activite>();
 
         readonly private IActiviteService ActiviteService;
@@ -38,7 +38,7 @@ namespace TourMe.Web.Controllers
         private readonly IRatingService ratingService;
         readonly private IUserService UserService;
 
-        public ExperienceController(ITransportService transportService, ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager)
+        public ExperienceController(ITransportService transportService, ILogementService _LogementService, IUserService _UserService, INourritureService _NourritureService, IWebHostEnvironment hostingEnvironment, IExperienceService experienceService, IActiviteService activiteService, UserManager<Utilisateur> userManager, IRatingService ratingService, SignInManager<Utilisateur> signInManager,ICommercantService _commercantService)
         {
             TransportService = transportService;
             LogementService = _LogementService;
@@ -49,6 +49,7 @@ namespace TourMe.Web.Controllers
             ActiviteService = activiteService;
             this.userManager = userManager;
             this.signInManager = signInManager;
+            commercantService = _commercantService;
             userService = _UserService;
             this.ratingService = ratingService;
 
@@ -165,7 +166,7 @@ namespace TourMe.Web.Controllers
                     tarif = model.tarif,
                     Activites = list,
                     Description = model.Description,
-                    Commerçant = (Commerçant)await userService.GetById(id),
+                    Commerçant = await commercantService.GetCommerçantById(id),
                 };
                 var result = await ExperienceService.InsertExperience(experience);
                 Experience experience1 = await ExperienceService.GetById((int)result);
@@ -896,8 +897,35 @@ namespace TourMe.Web.Controllers
             return PartialView("_Individu");
 
         }
-      
 
+        [HttpGet]
+        public async Task<IActionResult> ModifierExperience(int id)
+        {
+            var exp = await ExperienceService.GetById(id);
+            ExperienceViewModel experienceViewModel = new ExperienceViewModel { dateDebut = exp.dateDebut,
+                Titre = exp.Titre,
+                
+                Lieu = exp.Lieu,
+                TypeExperience = exp.TypeExperience,
+              
+                dateFin = exp.dateFin,
+                Saison = exp.Saison,
+                NbPlaces = exp.NbPlaces,
+                tarif = exp.tarif,
+                
+                Description = exp.Description,
+               
+            };
+            return View(experienceViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ModifierExperience(Experience model)
+        {
+            return View(); 
+        }
     }
+  
 }
+
+
 

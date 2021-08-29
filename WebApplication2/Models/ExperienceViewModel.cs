@@ -24,6 +24,7 @@ namespace TourMe.Web.Models
         [MinLength(2)]
         public string Titre { get; set; }
         public string Description { get; set; }
+        public Region Region { get; set; }
         [Required]
 
         public TypeExperience TypeExperience { get; set; }
