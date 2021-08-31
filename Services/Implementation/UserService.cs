@@ -62,17 +62,9 @@ namespace Services.Implementation
             return GenericRepo.GetByIdAsync(id);
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        
+        public Task<Utilisateur> FindByMail(string mail)
+        {
+            return UserRepo.FindByEmail(mail);
+        }
     }
 }
