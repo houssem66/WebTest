@@ -38,6 +38,10 @@ html, body {
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
+
+
+
+
 h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	color: #111111;
@@ -73,6 +77,8 @@ p {
 img {
 	max-width: 100%;
 }
+
+
 input:focus, select:focus, button:focus, textarea:focus {
 	outline: none;
 }
@@ -834,13 +840,13 @@ ul, ol {
 .testimonial-slider .ts-item .ti-author {
 	margin-bottom: 60px;
 }
-.testimonial-slider .ts-item .ti-author .rating {
+/*.testimonial-slider .ts-item .ti-author .rating {
 	display: inline-block;
 }
 .testimonial-slider .ts-item .ti-author .rating i {
 	color: #f5b917;
 	font-size: 16px;
-}
+}*/
 .testimonial-slider .ts-item .ti-author h5 {
 	font-size: 20px;
 	color: #19191a;
@@ -1248,14 +1254,14 @@ ul, ol {
 	float: right;
 	text-align: right;
 }
-.room-details-item .rd-text .rd-title .rdt-right .rating {
+/*.room-details-item .rd-text .rd-title .rdt-right .rating {
 	display: inline-block;
 	margin-right: 25px;
 	margin-bottom: 10px;
 }
 .room-details-item .rd-text .rd-title .rdt-right .rating i {
 	color: #f5b917;
-}
+}*/
 .room-details-item .rd-text .rd-title .rdt-right a {
 	display: inline-block;
 	color: #ffffff;
@@ -1336,14 +1342,14 @@ ul, ol {
 	text-transform: uppercase;
 	letter-spacing: 3px;
 }
-.rd-reviews .review-item .ri-text .rating {
+/*.rd-reviews .review-item .ri-text .rating {
 	position: absolute;
 	right: 0;
 	top: 0;
 }
 .rd-reviews .review-item .ri-text .rating i {
 	color: #f5b917;
-}
+}*/
 .rd-reviews .review-item .ri-text h5 {
 	color: #19191a;
 	margin-top: 4px;
@@ -1389,14 +1395,14 @@ ul, ol {
 	float: left;
 	margin-right: 10px;
 }
-.review-add .ra-form .rating {
+/*.review-add .ra-form .rating {
 	padding-top: 3px;
 	display: inline-block;
 }
 .review-add .ra-form .rating i {
 	color: #f5b917;
 	font-size: 16px;
-}
+}*/
 .review-add .ra-form textarea {
 	width: 100%;
 	height: 132px;
@@ -2294,7 +2300,18 @@ ul, ol {
 		margin-bottom: 10px;
 	}
 }
+
+
+
+
+
 /* Small Mobile: 320px */
+
+
+
+
+
+
 
 @media only screen and (max-width: 479px) {
 	.footer-section .copyright-option ul li {
@@ -2307,9 +2324,9 @@ ul, ol {
 		float: none;
 		margin-bottom: 30px;
 	}
-	.rd-reviews .review-item .ri-text .rating {
+	/*.rd-reviews .review-item .ri-text .rating {
 		position: relative;
-	}
+	}*/
 	.rd-reviews .review-item .ri-text, .blog-details-text .comment-option .single-comment-item.second-comment .sc-text, .blog-details-text .comment-option .single-comment-item.first-comment .sc-text {
 		padding-left: 0;
 	}

@@ -140,7 +140,7 @@ namespace Repository.Implementation
 
         public IEnumerable<Panier>GetPanierByuserIdAsync(string id)
         {
-            var panier = dbContext.Paniers.Include(x => x.Experiences).Where(x => x.User.Id.Equals(id));
+            var panier = dbContext.Paniers.Include(x => x.Experiences).Include(x=>x.Logments).Include(x=>x.Nourittures).Include(x=>x.Transports).Where(x => x.User.Id.Equals(id));
          
             
         
@@ -221,12 +221,28 @@ namespace Repository.Implementation
 
         public async Task<Panier> GetPanUser(string id)
         {
-            var panier = await dbContext.Paniers.Include(x => x.Experiences).LastAsync(x => x.Id.Equals(id));
-            dbContext.Entry(panier).Collection(pa => pa.Logments).Query().Load();
-            dbContext.Entry(panier).Collection(pa => pa.Nourittures).Query().Load();
-            dbContext.Entry(panier).Collection(pa => pa.Transports).Query().Load();
+            var panier = await dbContext.Paniers.OrderByDescending(e=>e.Prix).Include(x => x.Logments).LastOrDefaultAsync(x => x.User.Id.Equals(id));
+
+            //dbContext.Entry(panier).Collection(pa => pa.Nourittures).Query().Load();
+            //dbContext.Entry(panier).Collection(pa => pa.Transports).Query().Load();
             dbContext.Entry(panier).State = EntityState.Detached;
             return panier;
+        }
+
+        public async Task UpdatePanier(Panier entity)
+        {
+            var Panier = await dbContext.Paniers.SingleAsync(e => e.Id == entity.Id);
+            dbContext.Entry(Panier).State = EntityState.Detached;
+            dbContext.Entry(entity).State = EntityState.Modified;
+            try
+            {
+                await dbContext.SaveChangesAsync();
+            }
+            catch (Exception)
+            {
+                throw new NotImplementedException();
+            }
+
         }
     }
 }
