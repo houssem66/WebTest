@@ -44,7 +44,7 @@ namespace Repository.Implementation
             _dbContext.Entry(Experience).Reference(x => x.Nourriture).Query().Load();
             _dbContext.Entry(Experience).Reference(experience => experience.Logement).Query().Load();
             _dbContext.Entry(Experience).Reference(experience => experience.Transport).Query().Load();
-            _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
+            //_dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Load();
             _dbContext.Entry(Experience).Collection(experience => experience.Ratings).Query().Include(x => x.utilisateur).Load();
             _dbContext.Entry(Experience).State = EntityState.Detached;
 

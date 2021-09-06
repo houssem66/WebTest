@@ -21,6 +21,7 @@ using System;
 using System.Net;
 using TourMe.Data;
 using TourMe.Web;
+using TourMe.Web.Controllers;
 using Twilio;
 
 namespace WebApplication2
@@ -95,9 +96,9 @@ namespace WebApplication2
              .AddDefaultTokenProviders();
 
             TwilioClient.Init("AC57fc209fe337678b3790258f07270630", "b5a9e55ae688771f16b492df05ee622e");
-           
 
-    
+
+            services.AddHttpClient<ReservationController>();
             services.AddSingleton<CountryService>();
             services.AddControllersWithViews();
             services.AddAuthentication().AddFacebook(options =>

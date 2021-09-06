@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebPages" Version="3.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
@@ -49,6 +50,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Theme\BagAndGo\fonts\ElegantIcons.svg" />
+    <None Include="wwwroot\Theme\BagAndGo\fonts\Flaticon.svg" />
+    <None Include="wwwroot\Theme\BagAndGo\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Theme\BagAndGo\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Theme\BagAndGo\js\bootstrap.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\jquery-3.3.1.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\jquery-ui.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\jquery.slicknav.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\main.js" />
+    <None Include="wwwroot\Theme\BagAndGo\js\owl.carousel.min.js" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\bootstrap-4.4.1-dist.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\elegant_font.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\Flaticon.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\font-awesome-4.7.0.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\jquery-nice-select-1.1.0.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\jquery-ui-1.12.1.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\Magnific-Popup-master.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\OwlCarousel2-2.3.4.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\sass.zip" />
+    <None Include="wwwroot\Theme\BagAndGo\Source\SlickNav-master.zip" />
     <None Include="wwwroot\Theme\build\config\postcss.config.js" />
     <None Include="wwwroot\Theme\build\config\rollup.config.js" />
     <None Include="wwwroot\Theme\build\js\.jscsrc" />

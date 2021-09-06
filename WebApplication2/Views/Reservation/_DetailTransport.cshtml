@@ -1,0 +1,141 @@
+﻿
+
+@model X.PagedList.IPagedList<TourMe.Data.Entities.ServiceTransport>;
+
+@using X.PagedList.Mvc.Core;
+
+@using X.PagedList
+
+<!-- Google Tag Manager -->
+
+
+
+<div class="col-sm-12">
+    <div id="portfolio">
+
+        <div class="container">
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="portfolio-items">
+                    @{
+
+
+                        foreach (var item in Model)
+                        {
+
+
+
+                            <div class="col-sm-6 col-md-4 col-lg-4 breakfast">
+                                <div class="portfolio-item">
+
+                                    <form action="AjoutTransport" method="post" enctype="multipart/form-data">
+
+                                        <input type="hidden" name="id" value="@item.Id" />
+
+                                      
+                                            <h4>
+
+                                                @item.TypeTransport
+                                            </h4>
+                                      
+                                        <div class="hover-bg">
+
+
+                                            <div class="hover-text">
+
+
+                                                <span>
+                                                    <p>Prix: @item.Prix</p>
+                                                </span>
+
+                                                <input  type="submit" value="Ajouter" class="btn" />
+
+                                            </div>
+
+                                            <img src="~/Files/@item.Image" class="col-sm-6" alt="Project Title">
+
+
+
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+                    }
+
+                </div>
+
+
+
+
+
+
+            </div>
+            <div id="myPager">
+                @Html.PagedListPager(Model, page => Url.Action("GetDetailTransport", "Reservation", new { page }))
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+
+
+    $('#myPager').on('click', 'a', function (e) {
+        //prevent action link normal functionality
+        e.preventDefault();
+        if (this.href != null && this.href != "") {
+            $.ajax({
+                url: this.href,
+                type: 'GET',
+                cache: false,
+                success: function (result) {
+                    $('#Preview').html(result);
+                }
+            });
+            return false;
+        }
+    });
+
+
+        $('.btn').click(function () {
+            $('#myModal3').modal('hide');
+            $('#sub3').val('Transport ajouté');
+            $('#dtd1').show();
+
+
+
+    });
+
+    });
+</script>
