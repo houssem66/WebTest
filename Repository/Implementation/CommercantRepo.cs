@@ -28,5 +28,12 @@ namespace Repository.Implementation
             var commercant = dbContext.Commercant.Where(ex => ex.Id != null).Include(x => x.EmployeDocuments);
             return commercant;
         }
+        public IEnumerable<EmployeDocuments> GetListfile(string id)
+        {
+
+
+            return dbContext.EmployeDocuments.ToList().Where(x => x.Commerçant.Id == id);
+        }
+
     }
 }

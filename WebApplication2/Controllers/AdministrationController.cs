@@ -1,15 +1,26 @@
 ﻿using Domaine.Entities;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
+using MimeKit;
+using NETCore.MailKit.Core;
 using Services.Implementation;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
+
 using System.Linq;
+
 using System.Threading.Tasks;
+
 using TourMe.Data.Entities;
+
 using TourMe.Web.Models;
+
 
 namespace TourMe.Web.Controllers
 {
@@ -380,6 +391,57 @@ namespace TourMe.Web.Controllers
                 return RedirectToAction("GetAllUsers", "Administration");
             }
             return NoContent();
+        }
+        [HttpGet]
+
+        public async Task<IActionResult> Verify(string id)
+        {
+            var user = await commercantService.GetCommerçantById(id);
+
+            var file = commercantService.GetListfile(id);
+
+            ViewBag.path = file;
+            return View(user);
+
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Verify(Commerçant commerçant, string Id)
+        {
+            try
+            {
+                var user = await commercantService.GetCommerçantById(commerçant.Id);
+                user.Verified = true;
+
+
+                await commercantService.Update(user);
+                await UserManager.AddClaimAsync(user, ClaimsStore.AllClaims[0]);
+
+
+                var mailMessage = new MimeMessage();
+
+                mailMessage.From.Add(new MailboxAddress("from TourME", "wissem.khaskhoussy@esprit.tn"));
+                mailMessage.To.Add(new MailboxAddress("Client", user.Email));
+                mailMessage.Subject = "Email Confirmation";
+                mailMessage.Body = new TextPart("plain")
+                {
+                    Text = $" your account are verified now welcome to TourMe    "
+                };
+
+                using (var smtpClient = new SmtpClient())
+                {
+                    smtpClient.CheckCertificateRevocation = false;
+                    smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
+                    smtpClient.Authenticate("wissem.khaskhoussy@esprit.tn", "wiss20/20");
+                    smtpClient.Send(mailMessage);
+                    smtpClient.Disconnect(true);
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("GetAllCommercant");
+            }
+            return RedirectToAction("GetAllCommercant");
         }
     }
 }

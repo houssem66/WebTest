@@ -98,8 +98,8 @@
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
                                 <div class="wizard-header" id="5dmt">
-                                    <h3 class="wizard-title" >Devenir Commercant</h3>
-                                    <p id="demo"  style="font-size:18px;"class="category">Bonjour nous allons vous aider à devenir un commercant.</p>
+                                    <h3 class="wizard-title">Devenir Commercant</h3>
+                                    <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à devenir un commercant.</p>
                                 </div>
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
@@ -162,10 +162,12 @@
                                         <h5 class="info-text">Choisir le type de service ?</h5>
                                         <div class="row">
                                             <div class="col-sm-8 col-sm-offset-3">
+
                                                 <div class="col-sm-3">
                                                     <div class="radio" data-toggle="wizard-checkbox">
-                                                        <input type="radio" name="jobb" value="Transport">
+                                                        <input type="radio" name="jobb" value="Transport" required>
                                                         <div class="card card-checkboxes card-hover-effect">
+
                                                             <i class="ti-car"></i>
                                                             <p>Transport</p>
                                                         </div>
@@ -197,7 +199,7 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="picture-container">
                                                     <div class="picture">
-                                                        <img  src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
+                                                        <img src="~/wizard/assets/img/default-avatar.jpg" class="picture-src" id="wizardPicturePreview" title="" />
                                                         <input asp-for="FileP" id="wizard-picture">
                                                     </div>
                                                     <h6>Choisir Logo </h6>
@@ -207,11 +209,12 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Nom Juridique de la société <small>(required)</small></label>
-                                                    <input name="Titre" type="text" class="form-control" placeholder="Nom Juridique de la société">
+
+                                                    <input name="Tit" type="text" placeholder="Nom Juridique de la société" required pattern="[A-Z||a-z]{2,}" title="Must contain  letter,   at least 2 or more characters  and  Legal status " class="form-control">
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Personne a contacter <small>(optional)</small></label>
-                                                    <input name="PersAContact" type="text" class="form-control" placeholder="Personne a contacter">
+                                                    <input name="PersAContact" type="text" class="form-control" pattern="[A-Z||a-z]{2,}" placeholder="Personne a contacter">
                                                 </div>
                                             </div>
 
@@ -224,21 +227,22 @@
                                             <div class="col-sm-7">
                                                 <div class="form-group">
                                                     <label>Email <small>(required)</small></label>
-                                                    <input asp-for="Email" class="form-control" placeholder="andrew@creative-tim.com">
+                                                    <input asp-for="Email" name="email" required pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" title="Invalid email address" class="form-control" placeholder="andrew@creative-tim.com">
                                                 </div>
                                             </div>
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Saisir votre Mot de passe<small>(required)</small></label>
-                                                    <input asp-for="Password" class="form-control" />
-                                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                                    <input name="Password" id="Password" asp-for="Password" class="form-control" />
+                                                    <span name="pass" asp-validation-for="Password" class="text-danger"></span>
                                                 </div>
                                             </div>
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Confirmer votre Mot de passe<small>(required)</small></label>
-                                                    <input asp-for="ConfirmPassword" class="form-control" />
-                                                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+                                                    <input name="ConfirmPassword" asp-for="Password" data-rule-equalTo="#Password" class="form-control" />
+                                                    <span name="ConfirmPassword" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>
@@ -256,12 +260,12 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Numéro Téléphone</label>
-                                                    <input asp-for="Telephone" class="form-control">
+                                                    <input type="tel" asp-for="Telephone" required pattern="[0-9]{2,}" title="Invalid phone" class="form-control">
                                                     <span asp-validation-for="Telephone" class="text-danger"></span>
                                                 </div>
                                             </div>
 
-                                           
+
                                             <div class="col-sm-2 col-sm-offset-1">
                                                 <div class="form-group" id="test">
                                                     <label id="gouvLabel">Entrer le Governourat </label>
@@ -282,7 +286,7 @@
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <label>Entrer l' Adresse</label>
-                                                    <input asp-for="Adresse" autocomplete="off" class="form-control">
+                                                    <input asp-for="Adresse" class="form-control">
                                                     <span asp-validation-for="Adresse" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -348,22 +352,22 @@
                                             <div class="col-sm-5">
                                                 <div class="form-group">
                                                     <label>Acvitité</label><br>
-                                                                           <select id="transport" name="secteur" class="form-control valid" aria-invalid="false">
-                                                                               <option value="TransportReguliers"> Transport Réguliers de voyageurs,interurbain </option>
-                                                                               <option value="service auxiliers"> Service auxiliers de transport </option>
-                                                                               <option value="Transport urbain"> Transport urbain et suburbain de transport </option>
-                                                                               <option value="Transport publique non réguliers"> Transport publique non réguliers(louage,taxi...) </option>
-                                                                               <option value="Tranposrt touristique"> Transport touristique </option>
-                                                                               <option value="Tranposrt privé"> Transport privé </option>
-                                                                               <option value="Autre"> Autre </option>
-                                                                           </select>
+                                                    <select id="transport" name="secteur" class="form-control valid" aria-invalid="false">
+                                                        <option value="TransportReguliers"> Transport Réguliers de voyageurs,interurbain </option>
+                                                        <option value="service auxiliers"> Service auxiliers de transport </option>
+                                                        <option value="Transport urbain"> Transport urbain et suburbain de transport </option>
+                                                        <option value="Transport publique non réguliers"> Transport publique non réguliers(louage,taxi...) </option>
+                                                        <option value="Tranposrt touristique"> Transport touristique </option>
+                                                        <option value="Tranposrt privé"> Transport privé </option>
+                                                        <option value="Autre"> Autre </option>
+                                                    </select>
                                                     <select id="nourriture" name="secteur" class="form-control valid" aria-invalid="false">
 
                                                         <option value="Débit de boissons alcoolisées"> Débit de boissons alcoolisées </option>
                                                         <option value="Cafés"> Cafés </option>
                                                         <option value="Services des traiteurs"> Services des traiteurs </option>
                                                         <option value="Resatauration rapide"> Resatauration rapide </option>
-                                                        <option value="Resatauration traditionnelle "> Resatauration traditionnelle </option>                                                       
+                                                        <option value="Resatauration traditionnelle "> Resatauration traditionnelle </option>
                                                         <option value="Autre"> Autre </option>
                                                     </select>
                                                     <select id="logement" name="secteur" class="form-control valid" aria-invalid="false">
@@ -384,8 +388,8 @@
                                                     <input name="SecteurAutre" type="text" class="form-control" placeholder="Secteur">
                                                 </div>
                                             </div>
-                                            
-                                            
+
+
 
                                             <div class="col-sm-2 col-sm-offset-2">
                                                 <div class="form-group">
@@ -411,21 +415,21 @@
                                                 <div class="form-group">
                                                     <div class="custom-file">
                                                         <label class="custom-file-label">Veulleir Telecharger un copie de  la patente<small>(PDF)</small>...</label>
-                                                        <input asp-for="Documents" id="PATENTEUPLOAD" multiple class="form-control custom-file-input">
+                                                        <input type="file" onchange="return fileValidation()" required accept="docx/pdf" id="PATENTEUPLOAD" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="custom-file">
                                                         <label class="custom-file-label">Veulleir Telecharger un copie de  la RNE</label>
-                                                        <input asp-for="Documents" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+                                                        <input asp-for="Documents" name="Documents" type="file" id="RNEUPLOAD" required accept="docx/pdf" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
                                                 <div class="form-group" id="optionalFile">
                                                     <div class="custom-file">
                                                         <label class="custom-file-label" id="optionalLabel">Veulleir Telecharger un copie de  la RNE</label>
-                                                        <input asp-for="Documents" id="depends" multiple class="form-control custom-file-input">
+                                                        <input asp-for="Documents" name="Documents" type="file" id="depends" required accept="docx/pdf" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
@@ -442,8 +446,8 @@
                                                     </p>
                                                 </div>
                                             </div>
-                                         
-                                           
+
+
                                         </div>
 
 
@@ -496,7 +500,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Numéro téléphone :</label>
-                                                    <input type="text" class="form-control" id="telEntreprise" disabled />
+                                                    <input type="text" class="form-control" required pattern="[0,9]{6,}" id="telEntreprise" disabled />
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
@@ -601,9 +605,9 @@
 
     <script>
         $(document).ready(function () {
-            
-            var $div = '<p style="font-size:18px;" id="demo"class="category">' + 'Bonjour nous allons vous aider à devenir un commercant de '+'</p>';
-             
+
+            var $div = '<p style="font-size:18px;" id="demo"class="category">' + 'Bonjour nous allons vous aider à devenir un commercant de ' + '</p>';
+
             $("[name=jobb]").on('change', function () {
                 $("#optionalFile").hide();
                 $("#depends").val('');
@@ -615,8 +619,8 @@
                     $("#logement").hide();
                     $("#transport").val('');
                     $("#logement").val('');
-                    
-                    document.getElementById("demo").innerHTML = $div + '<b>Restauration</b>' +'<i style="font-size:18px;" class="ti-apple"></i> '+'<b>!</b>';
+
+                    document.getElementById("demo").innerHTML = $div + '<b>Restauration</b>' + '<i style="font-size:18px;" class="ti-apple"></i> ' + '<b>!</b>';
                 }
                 else if (value == "Logement") {
 
@@ -624,7 +628,7 @@
                     $("#transport").hide();
                     $("#logement").show();
                     $("#transport").val('');
-                    $("#nourriture").val('');                  
+                    $("#nourriture").val('');
                     document.getElementById("demo").innerHTML = $div + '<b>Hebergement</b> ' + '<i style="font-size:18px;" class="ti-home"></i> ' + '<b>!</b>';
                 }
                 else {
@@ -633,9 +637,9 @@
                     $("#transport").show();
                     $("#logement").hide();
                     $("#nourriture").val('');
-                    $("#logement").val('');                 
+                    $("#logement").val('');
                     document.getElementById("demo").innerHTML = $div + '<b>Transport</b>' + ' <i style="font-size:18px;"  class="ti-car"></i> ' + '<b>!</b>';
-                   
+
 
                 }
 
@@ -647,18 +651,18 @@
             $("#logement").hide();
             $("#transport").val('');
             $("#logement").val('');
-            $("#nourriture").val('');         
+            $("#nourriture").val('');
         });
 
     </script>
     @*afficher le drop list secteur avec le valuer du service*@
-   
+
     <script>
-       
+
 
         $(document).ready(function () {
 
-            $('select[name="secteur"]').change(function () {    
+            $('select[name="secteur"]').change(function () {
                 $("#depends").val('');
                 $docAlc = '<label class="custom-file-label" id="optionalLabel">';
                 if ($(this).val() == "Autre") {
@@ -673,8 +677,7 @@
                     $("#Suggestion").hide();
                     $("#optionalFile").hide();
                     $("#writing").hide();
-                    if (($(this).val() == "Débit de boissons alcoolisées") || ($(this).val() == "TransportReguliers")   || ($(this).val() == "Transport publique non réguliers") || ($(this).val() == "Tranposrt touristique") || ($(this).val() == "Tranposrt privé"))
-                    {
+                    if (($(this).val() == "Débit de boissons alcoolisées") || ($(this).val() == "TransportReguliers") || ($(this).val() == "Transport publique non réguliers") || ($(this).val() == "Tranposrt touristique") || ($(this).val() == "Tranposrt privé")) {
                         $("#optionalFile").show();
                         $("#writing").show();
 
@@ -682,10 +685,8 @@
                             document.getElementById("optionalLabel").innerHTML = $docAlc + 'Veulleir Telecharger une copie de la Licence pour débits de boissons de deuxième et troisième catégorie et Restaurants avec boissons alcoolisées' + '</label>';
                             document.getElementById("writing").innerHTML = ('<b>-la Licence pour débits de boissons de deuxième et troisième catégorie et Restaurants avec boissons alcoolisées<b>');
                         }
-                        else
-                        {
-                            switch ($(this).val())                        
-                            {
+                        else {
+                            switch ($(this).val()) {
                                 case "TransportReguliers":
                                     document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport réguliers' + '</label>';
                                     document.getElementById("writing").innerHTML = ('<b>-CAD transport réguliers<b>');
@@ -698,16 +699,16 @@
                                     document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport touristique' + '</label>';
                                     document.getElementById("writing").innerHTML = ('<b>-CAD transport touristique<b>');
                                     break;
-                                default: 
+                                default:
                                     document.getElementById("optionalLabel").innerHTML = $docAlc + 'CAD transport privé' + '</label>';
                                     document.getElementById("writing").innerHTML = ('<b>-CAD transport privé<b>');
-                            } 
-                            
+                            }
+
 
                         }
-                    }              
-            }
-               
+                    }
+                }
+
             });
             $("#writing").hide();
             $("#optionalFile").hide();
@@ -749,14 +750,14 @@
                 var NumPersAcontacter = $("input[name='NumPersAcontacter']").val();
                 var Email = $("input[name='Email']").val();
                 var Telephone = $("input[name='Telephone']").val();
-                var PhoneNumberCountryCode = $('select[name="PhoneNumberCountryCode"]').find(":selected").text();               
+                var PhoneNumberCountryCode = $('select[name="PhoneNumberCountryCode"]').find(":selected").text();
                 var region = $('select[name="region"]').find(":selected").text();
                 var CodePostale = $("input[name='CodePostale']").val();
                 var Adresse = $("input[name='Adresse']").val();
-                var EffectHomme = $("input[name='EffectHomme']").val(); 
+                var EffectHomme = $("input[name='EffectHomme']").val();
                 var EffectFemme = $("input[name='EffectFemme']").val();
                 var Forme = $("input[name='Forme']").val();
-                var secteur = $('select[name="secteur"]').find(":selected").text();            
+                var secteur = $('select[name="secteur"]').find(":selected").text();
                 var NumCnss = $("input[name='NumCnss']").val();
                 var Identifiant_fiscale = $("input[name='Identifiant_fiscale']").val();
                 var Documents = $("input[name='Documents']").val();
@@ -771,21 +772,19 @@
                 $("#regionShow").val(region);
                 $("#telEntreprise").val(Telephone);
                 $("#adresse").val(Adresse);
-                
+
                 if (secteur.match("Autre")) {
-                    
-                    $("#activité").val(secteurAutre); 
+
+                    $("#activité").val(secteurAutre);
                 } else {
                     $("#activité").val(secteur);
-                  
+
                 }
-                if (fileOption == "")
-                {
-                    
+                if (fileOption == "") {
+
                     $("#fileOptional2").hide();
                 }
-                else
-                {
+                else {
                     $("#fileOptional2").show();
                     $("#optional").val(fileOption);
 
@@ -794,8 +793,8 @@
                 $("#matFiscale").val(Identifiant_fiscale);
                 $("#patente").val(filePatente);
                 $("#rne").val(fileRNE);
-               
-                
+
+
 
             });
         });
