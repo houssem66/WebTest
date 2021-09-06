@@ -12,6 +12,7 @@ namespace Services.Interfaces
         public Task Ajout(Panier panier);
 
         public Task Update(Panier panier, ServiceLogment serviceLogment);
+        public Task UpdatePanier(Panier panier);
         public Task<Panier> GetPanierById(int id);
         public IEnumerable<Panier> GetPanierByuserId(string id);
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours);

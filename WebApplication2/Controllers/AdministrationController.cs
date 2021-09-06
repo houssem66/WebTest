@@ -282,18 +282,18 @@ namespace TourMe.Web.Controllers
 
             return View(list);
         }
-        //public async Task<IActionResult> GetNourriture()
-        //{
-        //    var list = nourritureExtService.GetAllNourriture().ToList();
+        public async Task<IActionResult> GetNourriture()
+        {
+            var list = nourritureExtService.GetAllNourriture().ToList();
 
-        //    return View(list);
-        //}
-        //public async Task<IActionResult> GetTransport()
-        //{
-        //    var list = transportExtService.GetAllTransports();
+            return View(list);
+        }
+        public async Task<IActionResult> GetTransport()
+        {
+            var list = transportExtService.GetAllTransports();
 
-        //    return View(list);
-        //}
+            return View(list);
+        }
         public IActionResult GetALlHostes()
         {
             var list = commercantService.GetAllCommerçants().ToList();
@@ -341,8 +341,38 @@ namespace TourMe.Web.Controllers
             var list = experienceService.GetAllExperienceDetails("").ToList();
 
             return View(list);
-
         }
+        public async Task<IActionResult> DeleteLogement(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var utilisateur = await logementextService.GetById(id);
+            if (utilisateur == null)
+            {
+                return NotFound();
+            }
+
+            return View(utilisateur);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+
+        public async Task<IActionResult> DeleteLogement(ServiceLogment model)
+        {
+            await logementextService.Delete(model.Id);
+            //    var utilisateur = await _context.User.FindAsync(id);
+            //    _context.User.Remove(utilisateur);
+            //    await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GetAllUsers));
+        }
+
+
+        public async Task<IActionResult> MakeAdmin(string x)
+        {
+            var user = await UserManager.FindByIdAsync(x);
 
             if (!(UserManager.IsInRoleAsync(user, "Administrateur").Result))
             {

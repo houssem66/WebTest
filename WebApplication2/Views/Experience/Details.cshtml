@@ -20,7 +20,8 @@
     <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/bootstrap.min.css" type="text/css">
+    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/Theme/BagAndGo/css/bootstrap.min.css" type="text/css">*@
     <link rel="stylesheet" href="~/Theme/BagAndGo/css/font-awesome.min.css" type="text/css">
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link rel="stylesheet" href="~/Theme/BagAndGo/css/elegant-icons.css" type="text/css">
@@ -31,6 +32,7 @@
     <link rel="stylesheet" href="~/Theme/BagAndGo/css/magnific-popup.css" type="text/css">
     <link rel="stylesheet" href="~/Theme/BagAndGo/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="~/Theme/BagAndGo/css/style.css" type="text/css">
+
 </head>
 
 <body>
@@ -164,118 +166,136 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">
-                    <div class="room-details-item">
-                        @{ int i = 1;
-                            decimal s = ViewBag.avg;
-                            for (i = 1; i <= ViewBag.avg; i++)
-                            {
-                    <i class="icon_star" aria-hidden="true">
-                    </i> }
-                            s = Math.Abs((s - i));
-                            if ((s < 1) && (s > 0))
-                            {<i class="icon_star-half_alt" aria-hidden="true">
-                    </i> } }
-                        <div class="tour_head1 hotel-book-room">
-                            <h3>@Model.Titre     <span class="rating">@ViewBag.avg</span></h3>
+                    <div>
+                        <div class="room-details-item">
+                          
+                            <div class="tour_head1 hotel-book-room">
+                                <h3>
+                                    @Model.Titre     @{ int i = 1;
+                                                                    decimal s = ViewBag.avg;
+                                                                    for (i = 1; i <= ViewBag.avg; i++)
+                                                                    {
+                                                                        <i class="icon_star" aria-hidden="true">
+                                                                        </i> }
+                                                                    s = Math.Abs((s - i));
+                                                                    if ((s < 1) && (s > 0))
+                                                                    {<i class="icon_star-half_alt" aria-hidden="true">
+                                                                        </i> } } <span class="rating"></span>
+                                </h3>
 
-                            <div id="myCarousel1" class="carousel slide">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators carousel-indicators-1">
-                                    @{int x = 0;
-                                        foreach (var item in Model.Activites)
-                                        {
-                            <li data-target="#myCarousel1" data-slide-to="@x">
-                                <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
-                            </li>
-                                            x++;
-                                        } }
-                                </ol>
+                                <div id="myCarousel1" class="carousel slide">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators carousel-indicators-1">
+                                        @{int x = 0;
+                                            foreach (var item in Model.Activites)
+                                            {
+                                                <li data-target="#myCarousel1" data-slide-to="@x">
+                                                    <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
+                                                </li>
+                                                x++;
+                                            } }
+                                    </ol>
 
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner carousel-inner1">
-                                    @{ foreach (var item in Model.Activites)
-                                        {
-                            <div class="item @(item == Model.Activites.First() ? " active" : " ")">
-                                <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
-                            </div> } }
-                                </div>
-                                <input id="default"
-                                       name="defaultsrc"
-                                       type="hidden"
-                                       value="@Model.Activites.First().Image" />
-
-
-                                <!-- Left and right controls -->
-                                <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
-                                <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
-                            </div>
-                        </div>
+                                    <!-- Wrapper for slides -->
+                                    <div class="carousel-inner carousel-inner1" style="width:150%">
+                                        @{ foreach (var item in Model.Activites)
+                                            {
+                                                <div class="item @(item == Model.Activites.First() ? " active" : " ")">
+                                                    <img src="~/images/@item.Image" alt="Chania" style="width:1000px;height:500px;">
+                                                </div> } }
+                                    </div>
+                                    <input id="default"
+                                           name="defaultsrc"
+                                           type="hidden"
+                                           value="@Model.Activites.First().Image" />
 
 
-
-
-
-
-
-
-
-                        @*<img src="~/Theme/BagAndGo/img/room/room-details.jpg" alt="">*@
-                        <div class="rd-text">
-                            <div class="rd-title">
-
-
-                                <div class="rdt-right">
-
-
-
-
-                                    @*<div class="rating">
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star"></i>
-                    <i class="icon_star-half_alt"></i>
-                    </div>*@
-                                    @*<a href="#">Booking Now</a>*@
+                                    <!-- Left and right controls -->
+                                    <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+                                    <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
                                 </div>
                             </div>
-                         
-                            <table>
-                <tbody>
-                    <tr>
-                        <td class="r-o">Thème:</td>
-                        <td>@Model.TypeExperience</td>
-                    </tr>
-                    <tr>
-                        <td class="r-o">Saison:</td>
-                        <td>@Model.Saison</td>
-                    </tr>
-                    <tr>
-                        <td class="r-o">Nb Places:</td>
-                        <td>@Model.NbPlaces</td>
-                    </tr>
-                    <tr>
-                        <td class="r-o">Services:</td>
-                        <td>Wifi, Television, Bathroom,...</td>
-                    </tr>
-                </tbody>
-            </table>
-                            <p class="f-para">
-                                <h2>A propos Du programme</h2>
 
-                                <div id="loadpartial">
 
+
+
+
+
+
+
+
+                            @*<img src="~/Theme/BagAndGo/img/room/room-details.jpg" alt="">*@
+                            <div class="position-relative rd-text">
+                                <div class="rd-title">
+
+
+                                    <div class="rdt-right">
+
+
+
+
+                                        @*<div class="rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star-half_alt"></i>
+                                </div>*@
+                                        @*<a href="#">Booking Now</a>*@
+                                    </div>
                                 </div>
+                                </br>
+                                </br>
+                                </br>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="r-o">Thème:</td>
+                                            <td>@Model.TypeExperience</td>
+                                        </tr>
+                                
+                                    </tbody>
+                                </table>
 
-                            </p>
-                            <p class="f-para">
-                                <h2>A propos De l'hôte</h2>
+                                <p class="f-para">
+                                    <h2>A propos Du programme</h2>
 
-                                @Model.Description
+                                    <div id="loadpartial">
 
-                            </p>
+                                    </div>
+
+                                </p>
+
+
+                                <p class="f-para">
+                                    <h2>A propos De l'hôte</h2>
+
+                                    @Model.Description
+
+                                </p>
+
+
+
+
+
+
+
+                            </div>
+
+
+
                         </div>
                     </div>
+
+
+
+            
+
+
+
+
+
+
                     <div class="rd-reviews">
                         <h4>Reviews</h4>
                         <div class="review-item">
@@ -322,65 +342,169 @@
                         </div>
                     </div>
                     <div class="review-add">
-                        <h4>Ajouter Review</h4>
-                        <form action="#" class="ra-form">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Name*">
-                                </div>
-                                <div class="col-lg-6">
-                                    <input type="text" placeholder="Email*">
-                                </div>
-                                <div class="col-lg-12">
-                                    <div>
-                                        <h5>You Rating:</h5>
-                                        <div class="rating">
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star"></i>
-                                            <i class="icon_star-half_alt"></i>
+                        @*<h4>Ajouter Review</h4>
+            <form action="#" class="ra-form">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <input type="text" placeholder="Name*">
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" placeholder="Email*">
+                    </div>
+                    <div class="col-lg-12">
+                        <div>
+                            <h5>You Rating:</h5>
+                            <div class="rating">
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star"></i>
+                                <i class="icon_star-half_alt"></i>
+                            </div>
+                        </div>
+                        <textarea placeholder="Your Review"></textarea>
+                        <button type="submit">Submit Now</button>
+                    </div>
+                </div>
+            </form>
+        </div>*@
+
+                       
+                            @if (signInManager.IsSignedIn(User))
+                            {
+
+                                <div class="rating">
+                                    <form method="post" asp-controller="Experience" asp-action="Details">
+                                        <div class="dir-rat-inn dir-rat-title">
+                                            <h3>Write Your Rating Here</h3>
+                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
+
+                                            <fieldset class="rating">
+                                                <input type="radio" id="star5" name="Rating" value="5" />
+                                                <label class="full" for="star5" title="Awesome - 5 stars"></label>
+
+
+                                                <input type="radio" id="star4" name="Rating" value="4" />
+                                                <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                                <input type="radio" id="star3half" name="Rating" value="3 and a half" />
+                                                <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                                <input type="radio" id="star3" name="Rating" value="3" />
+                                                <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                                <input type="radio" id="star2half" name="Rating" value="2 and a half" />
+                                                <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                                <input type="radio" id="star2" name="Rating" value="2" />
+                                                <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
+
+                                                <input type="radio" id="star1" name="Rating" value="1" />
+                                                <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+
+                                            </fieldset>
                                         </div>
-                                    </div>
-                                    <textarea placeholder="Your Review"></textarea>
-                                    <button type="submit">Submit Now</button>
+                                        <div class="dir-rat-inn">
+
+                                            <textarea name="comment" placeholder="Your Review"></textarea>
+                                            <div class="form-group col-md-12 pad-left-o">
+                                                <input type="submit" value="SUBMIT" class="link-btn">
+                                            </div>
+                                            <input type="hidden" asp-for="ExperienceId" />
+
+
+                                        </div>
+
+                                        <!--COMMENT RATING-->
+                                        @{ if (Model.Ratings != null)
+                                            {
+                                                foreach (var item in Model.Ratings)
+                                                {
+
+
+                                                    if (item.Commentaire != null)
+                                                    {
+                                                        <div class="dir-rat-inn dir-rat-review">
+                                                            <div class="row">
+                                                                <div class="col-md-3 dir-rat-left">
+
+                                                                    <p>
+                                                                        @{ if (@item.utilisateur.Nom != null)
+                                                                            {@item.utilisateur.Nom }
+                                                                        else
+                                                                        { @item.utilisateur.Prenom}
+                                                                        }
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-9 dir-rat-right">
+                                                                    <!--calculatign number of stars-->
+                                                                    <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
+                                                                    <p>@item.Commentaire</p>
+                                                                    <ul>
+                                                                        <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
+                                                                        <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>}
+                                                }
+                                            }
+                                        }
+
+                                        <!--COMMENT RATING-->
+                                        <!--COMMENT RATING-->
+                                    </form>
+                                </div>}
+                        </div>
+                 
+
+
+                </div>
+               
+                    
+
+                                <div class="col-lg-4 ">
+                                    <div class="room-booking" style="padding-top:820px">
+                                        <h5>@Model.tarif dt<span>/Personne</span></h5>
+                                        <form action="#">
+                                            <div class="check-date">
+                                                @*<label for="date-in">:</label>*@
+                                                <input type="text" class="date-input" id="date-in" placeholder="Arrivée">
+                                                <i class="icon_calendar"></i>
+                                            </div>
+                                            <div class="check-date">
+                                                @*<label for="date-out">Check Out:</label>*@
+                                                <input type="text" placeholder="Client" id="date-out">
+                                                <i class="icon-user"></i>
+                                            </div>
+                                          
+                                            <div class="select-option">
+                                                <label for="room">Date:</label>
+                                              
+                                            </div>
+                                            <button type="submit">Réserver maintenant</button>
+                                        </form>
+                                    </div>  
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="room-booking">
-                        <h5>@Model.tarif dt<span>/Personne</span></h5>
-                        <form action="#">
-                            <div class="check-date">
-                                @*<label for="date-in">:</label>*@
-                                <input type="text" class="date-input" id="date-in" placeholder="Arrivée">
-                                <i class="icon_calendar"></i>
-                            </div>
-                            <div class="check-date">
-                                @*<label for="date-out">Check Out:</label>*@
-                                <input type="text" placeholder="Client" id="date-out">
-                                <i class="icon-user"></i>
-                            </div>
-                            <div class="select-option">
-                                <label for="guest">Guests:</label>
-                                <select id="guest">
-                                    <option value="">3 Adults</option>
-                                </select>
-                            </div>
-                            <div class="select-option">
-                                <label for="room">Room:</label>
-                                <select id="room">
-                                    <option value="">1 Room</option>
-                                </select>
-                            </div>
-                            <button type="submit">Choisir</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+
+
+
+
+
+
+</div>
         </div>
+
+
+
+
+
+      
+
+
     </section>
     <!-- Room Details Section End -->
     <!-- Footer Section Begin -->

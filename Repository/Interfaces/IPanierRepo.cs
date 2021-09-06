@@ -10,6 +10,7 @@ namespace Repository.Interfaces
  public   interface IPanierRepo
     {
         public Task Update(Panier panier, ServiceLogment serviceLogment);
+        public Task UpdatePanier(Panier panier);
         public Task UpdateNourriture(Panier panier, ServiceNouritture serviceNouritture); 
         public Task UpdateTransport(Panier panier, ServiceTransport serviceTransport);
         public decimal PrixTotal(Panier panier, int nbrNuit, int nbrRepats, int nbrJours);

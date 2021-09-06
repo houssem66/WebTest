@@ -79,5 +79,10 @@ namespace Services.Implementation
         {
             return panierRepo.GetPanUser(id);
         }
+
+        public Task UpdatePanier(Panier panier)
+        {
+           return  panierRepo.UpdatePanier(panier);
+        }
     }
 }
