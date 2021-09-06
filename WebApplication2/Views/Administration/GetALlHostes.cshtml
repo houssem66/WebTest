@@ -65,6 +65,8 @@
                                     <th>Effective femme</th>
                                     <th>Verified</th>
                                     <th>Documents</th>
+                                    <th>Delete</th>
+                                    <th>Verify</th>
 
                                 </tr>
                             </thead>
@@ -139,7 +141,11 @@
                                         <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
 
                                     </td>
+                                    <td>
 
+                                        <span> <a asp-action="Verify" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Verifier</a></span>
+
+                                    </td>
                                 </tr>
                                 }
                             </tbody>
@@ -178,7 +184,7 @@
                                     <th>Nom</th>
                                     <th>Prénom</th>
 
-                                  
+
                                     <th>Email</th>
                                     <th>Numéro Téléphone</th>
                                     <th>Code postale</th>
@@ -187,9 +193,11 @@
                                     <th>Region</th>
                                     <th>Verified</th>
                                     <th>Docs</th>
-                                    <th>profil
+                                    <th>
+                                        profil
                                     </th>
-                                    <th></th>
+                                    <th>Delete</th>
+                                    <th>Verify</th>
 
                                 </tr>
                             </thead>
@@ -258,7 +266,11 @@
                                         <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
 
                                     </td>
+                                    <td>
 
+                                        <span> <a asp-action="Verify" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Verifier le  hoste</a></span>
+
+                                    </td>
                                 </tr>
                                 }
                             </tbody>
