@@ -25,7 +25,7 @@ namespace TourMe.Web.Controllers
         private readonly ILogementextService logementextService;
         private readonly INourritureExtService nourritureExtService;
 
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService,IExperienceService _experienceService,ITransportExtService _transportExtService,ILogementextService _logementextService,INourritureExtService _nourritureExtService)
+        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService, IExperienceService _experienceService, ITransportExtService _transportExtService, ILogementextService _logementextService, INourritureExtService _nourritureExtService)
         {
             this.roleManager = roleManager;
             UserManager = userManager;
@@ -144,7 +144,7 @@ namespace TourMe.Web.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Delete (EditRoleViewModel model)
+        public async Task<IActionResult> Delete(EditRoleViewModel model)
         {
 
             var role = await roleManager.FindByIdAsync(model.Id);
@@ -156,7 +156,7 @@ namespace TourMe.Web.Controllers
             }
             else
             {
-                
+
 
                 // Update the Role using UpdateAsync
                 var result = await roleManager.DeleteAsync(role);
@@ -179,19 +179,20 @@ namespace TourMe.Web.Controllers
         public async Task<IActionResult> CreateRole(CreateViewModel model)
         {
 
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                IdentityRole identityrole = new IdentityRole {
+                IdentityRole identityrole = new IdentityRole
+                {
                     Name = model.RoleName
                 };
 
                 IdentityResult result = await roleManager.CreateAsync(identityrole);
-                if(result.Succeeded)
+                if (result.Succeeded)
                 {
 
                     return RedirectToAction("GetAllRoles", "Administration");
                 }
-              
+
 
             }
             return View(model);
@@ -228,8 +229,9 @@ namespace TourMe.Web.Controllers
                     }
                     else
                     {
-                        mod.role = "Commercant"; }
-                     }
+                        mod.role = "Commercant";
+                    }
+                }
                 users.Add(mod);
 
             }
@@ -242,7 +244,7 @@ namespace TourMe.Web.Controllers
         [Authorize(Roles = "Administrateur")]
         public IActionResult GetALLExperienceNonVerifier(string src)
         {
-            var list = experienceService.GetAllExperienceDetails("").Where(x=>x.Commerçant.Verified==false).ToList();
+            var list = experienceService.GetAllExperienceDetails("").Where(x => x.Commerçant.Verified == false).ToList();
 
             return View(list);
 
@@ -280,34 +282,35 @@ namespace TourMe.Web.Controllers
 
             return View(list);
         }
-        public async Task<IActionResult> GetNourriture()
-        {
-            var list = nourritureExtService.GetAllNourriture().ToList();
+        //public async Task<IActionResult> GetNourriture()
+        //{
+        //    var list = nourritureExtService.GetAllNourriture().ToList();
 
-            return View(list);
-        }
-        public async Task<IActionResult> GetTransport()
-        {
-            var list = transportExtService.GetAllTransports();
+        //    return View(list);
+        //}
+        //public async Task<IActionResult> GetTransport()
+        //{
+        //    var list = transportExtService.GetAllTransports();
 
-            return View(list);
-        }
+        //    return View(list);
+        //}
         public IActionResult GetALlHostes()
         {
             var list = commercantService.GetAllCommerçants().ToList();
-            var listF= fournisseurService.GetAllFournisseurs().ToList();
+            var listF = fournisseurService.GetAllFournisseurs().ToList();
             IList<Commerçant> listI = new List<Commerçant>();
             IList<Commerçant> listO = new List<Commerçant>();
             int i = 0;
-            foreach(var item in list) 
+            foreach (var item in list)
             {
-            if (!(listF.Contains(item)))
-           { if (item.Type == "Organisme")
+                if (!(listF.Contains(item)))
+                {
+                    if (item.Type == "Organisme")
                     { listO.Add(item); }
-                    else if (item.Type=="Individu")
+                    else if (item.Type == "Individu")
                     { listI.Add(item); }
-              }
-              i++;
+                }
+                i++;
             }
             ViewBag.Orga = listO;
             ViewBag.Indi = listI;
@@ -324,7 +327,8 @@ namespace TourMe.Web.Controllers
             var list = userService.GetAllUtilisateurs().ToList();
             List<Utilisateur> users = new List<Utilisateur>();
             foreach (var item in list)
-            {if (await UserManager.IsInRoleAsync(item, "Utilisateur")) 
+            {
+                if (await UserManager.IsInRoleAsync(item, "Utilisateur"))
                 {
                     users.Add(item);
                 }
@@ -337,44 +341,15 @@ namespace TourMe.Web.Controllers
             var list = experienceService.GetAllExperienceDetails("").ToList();
 
             return View(list);
+
         }
-        public async Task<IActionResult> DeleteLogement(int id)
-        {
-            if (id == null)
+
+            if (!(UserManager.IsInRoleAsync(user, "Administrateur").Result))
             {
-                return NotFound();
+                await UserManager.AddToRoleAsync(user, "Administrateur");
+                return RedirectToAction("GetAllUsers", "Administration");
             }
-
-            var utilisateur = await logementextService.GetById(id);
-            if (utilisateur == null)
-            {
-                return NotFound();
-            }
-
-            return View(utilisateur);
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-
-        public async Task<IActionResult> DeleteLogement(ServiceLogment model)
-        {
-            await logementextService.Delete(model.Id);
-            //    var utilisateur = await _context.User.FindAsync(id);
-            //    _context.User.Remove(utilisateur);
-            //    await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(GetAllUsers));
-        }
-      
-
-        public async Task<IActionResult> MakeAdmin(string x)
-        {
-            var user = await UserManager.FindByIdAsync(x);
-            
-                if (!(UserManager.IsInRoleAsync(user, "Administrateur").Result))
-                    { await UserManager.AddToRoleAsync(user, "Administrateur");
-             return   RedirectToAction("GetAllUsers", "Administration");
-            }
-                    return NoContent();
+            return NoContent();
         }
     }
 }
