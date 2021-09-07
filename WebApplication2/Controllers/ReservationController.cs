@@ -146,8 +146,11 @@ namespace TourMe.Web.Controllers
 
                 var liste = JsonConvert.DeserializeObject<IList<Experience>>(HttpContext.Session.GetString("Experience"));
                 p.Experiences = liste;
+                if (liste.Count == 0)
 
-                 }
+                    return RedirectToAction("PanierVide", "Reservation");
+
+            }
            catch
             {
                 return RedirectToAction("PanierVide", "Reservation");
@@ -521,8 +524,18 @@ namespace TourMe.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Facture()
         {
-
+            var count =  HttpContext.Session.GetString("ExperienceCount");
+          
+            var xd = int.Parse(count);
+            xd--;
+           
+            HttpContext.Session.SetString("ExperienceCount", JsonConvert.SerializeObject(xd));
             Panier panier =  panierService.GetPanierByuserId(userManager.GetUserId(User)).LastOrDefault();
+            var liste = JsonConvert.DeserializeObject<IList<Experience>>(HttpContext.Session.GetString("Experience"));
+            Experience e =liste.SingleOrDefault(e=>e.ExperienceId== panier.Experiences.LastOrDefault().ExperienceId) ;
+            liste.Remove(e);
+
+            HttpContext.Session.SetString("Experience", JsonConvert.SerializeObject(liste));
 
 
             var request = new HttpRequestMessage(HttpMethod.Post,
@@ -568,19 +581,7 @@ namespace TourMe.Web.Controllers
             return View(panier);
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> Facture(Panier panier)
-        {
-
-            
-
-
-      
-
-
-            return View();
-        }
+     
 
 
 
