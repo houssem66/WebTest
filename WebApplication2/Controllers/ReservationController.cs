@@ -550,9 +550,10 @@ namespace TourMe.Web.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                //var x = response.Content.ReadAsStringAsync().Result.Remove(76,32) ;
+                string x = response.Content.ToString();
                 //Output output =
-                // JsonSerializer.Deserialize<Output>(response);
+                //JsonSerializer.Deserialize<Output>( );
+                
 
             }
             else

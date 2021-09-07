@@ -1,649 +1,338 @@
-@{ Layout = null; }
 @model TourMe.Data.Entities.Experience
 @using Microsoft.AspNetCore.Identity;
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 
 
-<!DOCTYPE html>
-<html lang="zxx">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="description" content="Bag And Go Template">
-    <meta name="keywords" content="Bag And Go, unica, creative, html">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bag And Go | Template</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cabin:400,500,600,700&display=swap" rel="stylesheet">
 
-    <!-- Css Styles -->
-    <link href="~/Theme/Template2/css/bootstrap.css" rel="stylesheet" />
-    @*<link rel="stylesheet" href="~/Theme/BagAndGo/css/bootstrap.min.css" type="text/css">*@
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/font-awesome.min.css" type="text/css">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/elegant-icons.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/flaticon.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/owl.carousel.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/nice-select.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/jquery-ui.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/magnific-popup.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/slicknav.min.css" type="text/css">
-    <link rel="stylesheet" href="~/Theme/BagAndGo/css/style.css" type="text/css">
 
-</head>
 
-<body>
 
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
-    <!-- Offcanvas Menu Section Begin -->
-    <div class="offcanvas-menu-overlay"></div>
-    <div class="canvas-open">
-        <i class="icon_menu"></i>
-    </div>
-    <div class="offcanvas-menu-wrapper">
-        <div class="canvas-close">
-            <i class="icon_close"></i>
-        </div>
-        <div class="search-icon search-switch">
-            <i class="icon_search"></i>
-        </div>
-        <div class="header-configure-area">
-            <div class="language-option">
-                <img src="~/Theme/BagAndGo/img/flag.jpg" alt="">
-                <span>EN <i class="fa fa-angle-down"></i></span>
-                <div class="flag-dropdown">
-                    <ul>
-                        <li><a href="#">Zi</a></li>
-                        <li><a href="#">Fr</a></li>
-                    </ul>
-                </div>
-            </div>
-            <a href="#" class="bk-btn">Booking Now</a>
-        </div>
-        <nav class="mainmenu mobile-menu">
+<section>
+    <div class="rows inner_banner inner_banner_2">
+        <div class="container">
+            <h2><span>@Model.Titre</span></h2>
             <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./rooms.html">Rooms</a></li>
-                <li><a href="./about-us.html">About Us</a></li>
                 <li>
-                    <a href="./pages.html">Pages</a>
-                    <ul class="dropdown">
-                        <li><a href="./room-details.html">Room Details</a></li>
-                        <li><a href="./blog-details.html">Blog Details</a></li>
-                        <li><a href="#">Family Room</a></li>
-                        <li><a href="#">Premium Room</a></li>
-                    </ul>
+                    <a href="#inner-page-title">Experiences</a>
                 </li>
-                <li><a href="./blog.html">News</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li><i class="fa fa-angle-right" aria-hidden="true"></i> </li>
+                <li>
+                    <a href="#inner-page-title" class="bread-acti">Details</a>
+                </li>
             </ul>
-        </nav>
-        <div id="mobile-menu-wrap"></div>
-        <div class="top-social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-tripadvisor"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
+            <p>@Model.Theme</p>
         </div>
-        <ul class="top-widget">
-            <li><i class="fa fa-phone"></i> (12) 345 67890</li>
-            <li><i class="fa fa-envelope"></i> info.colorlib@gmail.com</li>
-        </ul>
     </div>
-    <!-- Offcanvas Menu Section End -->
-    <!-- Header Section Begin -->
-    <header class="header-section header-normal">
-
-        <div class="menu-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2">
-                        <div class="logo">
-                            <a asp-action="Index" asp-controller="Home">
-                                @*<img src="~/Theme/BagAndGo/img/logo.png" alt="">*@
-                                <h2>BagAndGo</h2>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-10">
-                        <div class="nav-menu">
-                            <nav class="mainmenu">
-                                <ul>
-                                    <li><a href="./index.html">Acceuil</a></li>
-                                    <li class="active"><a href="./rooms.html">Experience</a></li>
-                                    <li><a href="./about-us.html">Service</a></li>
-
-                                    <li><a href="./contact.html">Espace Privé</a></li>
-                                </ul>
-                            </nav>
-                            <div class="nav-right search-switch">
-                                <i class="icon_search"></i>
-
-                            </div>
-                            <div class="nav-right">
-                                <i class="icon-user"></i>
-
-                            </div>
-                            <div class="nav-right">
-                                <i class="fa fa-language" aria-hidden="true"></i>
-
-                            </div>
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- Header End -->
-    <!-- Breadcrumb Section Begin -->
-    <div class="breadcrumb-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="breadcrumb-text">
-                            @*<h2></h2>*@
-                            <div class="bt-option">
-                                @*<a href="./home.html">Home</a>*@
-                                @*<span>Rating</span>*@
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <!-- Breadcrumb Section End -->
-    <!-- Room Details Section Begin -->
-    <section class="room-details-section spad">
+</section>
+<!--====== TOUR DETAILS - BOOKING ==========-->
+<section>
+    <div class="rows banner_book" id="inner-page-title">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div>
-                        <div class="room-details-item">
-                          
-                            <div class="tour_head1 hotel-book-room">
-                                <h3>
-                                    @Model.Titre     @{ int i = 1;
-                                                                    decimal s = ViewBag.avg;
-                                                                    for (i = 1; i <= ViewBag.avg; i++)
-                                                                    {
-                                                                        <i class="icon_star" aria-hidden="true">
-                                                                        </i> }
-                                                                    s = Math.Abs((s - i));
-                                                                    if ((s < 1) && (s > 0))
-                                                                    {<i class="icon_star-half_alt" aria-hidden="true">
-                                                                        </i> } } <span class="rating"></span>
-                                </h3>
+            <div class="banner_book_1">
+                <ul>
+                    <li class="dl1">@Model.Lieu</li>
+                    <li class="dl2">@Model.tarif DT</li>
 
-                                <div id="myCarousel1" class="carousel slide">
-                                    <!-- Indicators -->
-                                    <ol class="carousel-indicators carousel-indicators-1">
-                                        @{int x = 0;
-                                            foreach (var item in Model.Activites)
-                                            {
-                                                <li data-target="#myCarousel1" data-slide-to="@x">
-                                                    <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
-                                                </li>
-                                                x++;
-                                            } }
-                                    </ol>
+                    <li class="dl4"><a asp-action="Reserver" asp-controller="Reservation" asp-route-id="@Model.ExperienceId">Reserver</a> </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+<!--====== TOUR DETAILS ==========-->
+<section>
+    <div class="rows inn-page-bg com-colo">
+        <div class="container inn-page-con-bg tb-space">
+            <div class="col-md-9">
+                <!--====== TOUR TITLE ==========-->
 
-                                    <!-- Wrapper for slides -->
-                                    <div class="carousel-inner carousel-inner1" style="width:150%">
-                                        @{ foreach (var item in Model.Activites)
-                                            {
-                                                <div class="item @(item == Model.Activites.First() ? " active" : " ")">
-                                                    <img src="~/images/@item.Image" alt="Chania" style="width:1000px;height:500px;">
-                                                </div> } }
+                <div class="tour_head">
+                    <h2>
+                        @Model.Titre
+                        <span class="tour_star">
+                            @{ int i = 1;
+                                decimal s = ViewBag.avg;
+                                for (i = 1; i <= ViewBag.avg; i++)
+                                {
+                                    <i class="fa fa-star" aria-hidden="true">
+                                    </i> }
+                                s = Math.Abs((s - i));
+                                if ((s < 1) && (s > 0))
+                                {<i class="fa fa-star-half-o" aria-hidden="true">
+                                    </i> } }
+                        </span>
+                        <span class="tour_rat">@ViewBag.avg</span>
+                    </h2>
+
+                </div>
+                <!--====== TOUR DESCRIPTION ==========-->
+                <div class="tour_head1 hotel-com-color">
+                    <h3> @Model.Titre</h3>
+
+
+                </div>
+
+                <!--====== ROOMS: HOTEL BOOKING ==========-->
+                <div class="tour_head1 hotel-book-room">
+                    <h3>Photo Gallery</h3>
+                    <div id="myCarousel1" class="carousel slide">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators carousel-indicators-1">
+                            @{int x = 0;
+                                foreach (var item in Model.Activites)
+                                {
+                                    <li data-target="#myCarousel1" data-slide-to="@x">
+                                        <img width="460" height="345" src="~/images/@item.Image" alt="Chania">
+                                    </li>
+                                    x++;
+                                }
+                            }
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner carousel-inner1">
+                            @{
+                                foreach (var item in Model.Activites)
+                                {
+                                    <div class="item @(item == Model.Activites.First() ? " active" : " ")">
+                                        <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
                                     </div>
-                                    <input id="default"
-                                           name="defaultsrc"
-                                           type="hidden"
-                                           value="@Model.Activites.First().Image" />
-
-
-                                    <!-- Left and right controls -->
-                                    <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
-                                    <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
-                                </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-                            @*<img src="~/Theme/BagAndGo/img/room/room-details.jpg" alt="">*@
-                            <div class="position-relative rd-text">
-                                <div class="rd-title">
-
-
-                                    <div class="rdt-right">
-
-
-
-
-                                        @*<div class="rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star-half_alt"></i>
-                                </div>*@
-                                        @*<a href="#">Booking Now</a>*@
-                                    </div>
-                                </div>
-                                </br>
-                                </br>
-                                </br>
-                                <table>
-                                    <tbody>
-                                        <tr>
-                                            <td class="r-o">Thème:</td>
-                                            <td>@Model.TypeExperience</td>
-                                        </tr>
-                                
-                                    </tbody>
-                                </table>
-
-                                <p class="f-para">
-                                    <h2>A propos Du programme</h2>
-
-                                    <div id="loadpartial">
-
-                                    </div>
-
-                                </p>
-
-
-                                <p class="f-para">
-                                    <h2>A propos De l'hôte</h2>
-
-                                    @Model.Description
-
-                                </p>
-
-
-
-
-
-
-
-                            </div>
-
-
-
+                                }
+                            }
                         </div>
-                    </div>
+                        <input id="default"
+                               name="defaultsrc"
+                               type="hidden"
+                               value="@Model.Activites.First().Image" />
 
 
-
-            
-
-
-
-
-
-
-                    <div class="rd-reviews">
-                        <h4>Reviews</h4>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="~/Theme/BagAndGo/img/room/avatar/avatar-1.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>
-                                    Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.
-                                </p>
-                            </div>
-                        </div>
-                        <div class="review-item">
-                            <div class="ri-pic">
-                                <img src="~/Theme/BagAndGo/img/room/avatar/avatar-2.jpg" alt="">
-                            </div>
-                            <div class="ri-text">
-                                <span>27 Aug 2019</span>
-                                <div class="rating">
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star"></i>
-                                    <i class="icon_star-half_alt"></i>
-                                </div>
-                                <h5>Brandon Kelley</h5>
-                                <p>
-                                    Neque porro qui squam est, qui dolorem ipsum quia dolor sit amet, consectetur,
-                                    adipisci velit, sed quia non numquam eius modi tempora. incidunt ut labore et dolore
-                                    magnam.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-add">
-                        @*<h4>Ajouter Review</h4>
-            <form action="#" class="ra-form">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <input type="text" placeholder="Name*">
-                    </div>
-                    <div class="col-lg-6">
-                        <input type="text" placeholder="Email*">
-                    </div>
-                    <div class="col-lg-12">
-                        <div>
-                            <h5>You Rating:</h5>
-                            <div class="rating">
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star"></i>
-                                <i class="icon_star-half_alt"></i>
-                            </div>
-                        </div>
-                        <textarea placeholder="Your Review"></textarea>
-                        <button type="submit">Submit Now</button>
+                        <!-- Left and right controls -->
+                        <a class="left carousel-control" href="#myCarousel1" role="button" data-slide="prev"> <span><i class="fa fa-angle-left hotel-gal-arr" aria-hidden="true"></i></span> </a>
+                        <a class="right carousel-control" href="#myCarousel1" role="button" data-slide="next"> <span><i class="fa fa-angle-right hotel-gal-arr hotel-gal-arr1" aria-hidden="true"></i></span> </a>
                     </div>
                 </div>
-            </form>
-        </div>*@
+                <!--====== ABOUT THE TOUR ==========-->
 
-                       
-                            @if (signInManager.IsSignedIn(User))
-                            {
-
-                                <div class="rating">
-                                    <form method="post" asp-controller="Experience" asp-action="Details">
-                                        <div class="dir-rat-inn dir-rat-title">
-                                            <h3>Write Your Rating Here</h3>
-                                            <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
-
-                                            <fieldset class="rating">
-                                                <input type="radio" id="star5" name="Rating" value="5" />
-                                                <label class="full" for="star5" title="Awesome - 5 stars"></label>
+                <div class="tour_head1 l-info-pack-days days">
+                    <h3>Description de l'experience</h3>
+                    <p>
+                        @Model.Description
+                    </p>
 
 
-                                                <input type="radio" id="star4" name="Rating" value="4" />
-                                                <label class="full" for="star4" title="Pretty good - 4 stars"></label>
-                                                <input type="radio" id="star3half" name="Rating" value="3 and a half" />
-                                                <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
-                                                <input type="radio" id="star3" name="Rating" value="3" />
-                                                <label class="full" for="star3" title="Meh - 3 stars"></label>
-                                                <input type="radio" id="star2half" name="Rating" value="2 and a half" />
-                                                <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
-                                                <input type="radio" id="star2" name="Rating" value="2" />
-                                                <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
 
-                                                <input type="radio" id="star1" name="Rating" value="1" />
-                                                <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+                </div>
+                <div id="loadpartial">
 
-                                            </fieldset>
-                                        </div>
-                                        <div class="dir-rat-inn">
+                </div>
+                @{ if (Model.Logement != null)
+                    { <div class="tour_head1 l-info-pack-days days">
+                            <h3>Logement</h3>
+                            <ul>
 
-                                            <textarea name="comment" placeholder="Your Review"></textarea>
-                                            <div class="form-group col-md-12 pad-left-o">
-                                                <input type="submit" value="SUBMIT" class="link-btn">
-                                            </div>
-                                            <input type="hidden" asp-for="ExperienceId" />
+                                <li class="l-info-pack-plac">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <h4> Du<span> @Model.Logement.Datedebut.Date.ToString("d")</span> A  <span>@Model.Logement.DateFin.Date.ToString("d")</span></h4>
+                                    <h4> Type Logement<span> @Model.Logement.Type</span>  </h4>
+                                    <h4> Prix Par nuit<span> @Model.Logement.Prix dt</span>  </h4>
+                                    <img src="~/images/@Model.Logement.Image" alt="Chania" style="width:250px;height:250px;">
+                                </li>
+
+                            </ul>
+                        </div> } }
+                @{ if (Model.Nourriture != null)
+                    {<div class="tour_head1 l-info-pack-days days">
+                            <h3>Nourriture</h3>
+                            <ul>
+
+                                <li class="l-info-pack-plac">
+                                    <i class="fa fa-10x" aria-hidden="true"></i>
+
+                                    <h4> Type Nourriture<span> @Model.Nourriture.Type</span>  </h4>
+                                    <h4> Prix<span> @Model.Nourriture.Prix dt</span>  </h4>
+                                    <p>
+                                        @Model.Nourriture.Description
+                                    </p>
+                                    <img src="~/images/@Model.Nourriture.Image" alt="pas d'image" style="width:250px;height:250px;">
+
+                                </li>
+
+                            </ul>
+                        </div> } }
+
+                @{ if (Model.Transport != null)
+                    { <div class="tour_head1 l-info-pack-days days">
+                            <h3>Transport</h3>
+                            <ul>
+
+                                <li class="l-info-pack-plac">
+                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                    <h4> Disponible du<span> @Model.Transport.DateDisp.ToString("d")</span> </h4>
+                                    <h4> Type Transport<span> @Model.Transport.TypeTransport</span>  </h4>
+                                    <h4> Prix<span> @Model.Transport.Prix dt</span>  </h4>
+
+                                    <img src="~/images/@Model.Transport.Image" alt="pas d'image" style="width:250px;height:250px;">
+                                </li>
+
+                            </ul>
+                        </div> } }
 
 
-                                        </div>
+                <!--====== HOTEL ROOM TYPES ==========-->
+                <!--====== AMENITIES ==========-->
+                <!--====== TOUR LOCATION ==========-->
 
-                                        <!--COMMENT RATING-->
-                                        @{ if (Model.Ratings != null)
-                                            {
-                                                foreach (var item in Model.Ratings)
-                                                {
+                <div>
+                    @if (signInManager.IsSignedIn(User))
+                    {
+
+                        <div class="dir-rat">
+                            <form method="post" asp-controller="Experience" asp-action="Details">
+                                <div class="dir-rat-inn dir-rat-title">
+                                    <h3>Write Your Rating Here</h3>
+                                    <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text</p>
+
+                                    <fieldset class="rating">
+                                        <input type="radio" id="star5" name="Rating" value="5" />
+                                        <label class="full" for="star5" title="Awesome - 5 stars"></label>
 
 
-                                                    if (item.Commentaire != null)
-                                                    {
-                                                        <div class="dir-rat-inn dir-rat-review">
-                                                            <div class="row">
-                                                                <div class="col-md-3 dir-rat-left">
+                                        <input type="radio" id="star4" name="Rating" value="4" />
+                                        <label class="full" for="star4" title="Pretty good - 4 stars"></label>
+                                        <input type="radio" id="star3half" name="Rating" value="3 and a half" />
+                                        <label class="half" for="star3half" title="Meh - 3.5 stars"></label>
+                                        <input type="radio" id="star3" name="Rating" value="3" />
+                                        <label class="full" for="star3" title="Meh - 3 stars"></label>
+                                        <input type="radio" id="star2half" name="Rating" value="2 and a half" />
+                                        <label class="half" for="star2half" title="Kinda bad - 2.5 stars"></label>
+                                        <input type="radio" id="star2" name="Rating" value="2" />
+                                        <label class="full" for="star2" title="Kinda bad - 2 stars"></label>
 
-                                                                    <p>
-                                                                        @{ if (@item.utilisateur.Nom != null)
-                                                                            {@item.utilisateur.Nom }
-                                                                        else
-                                                                        { @item.utilisateur.Prenom}
-                                                                        }
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-md-9 dir-rat-right">
-                                                                    <!--calculatign number of stars-->
-                                                                    <div class="dir-rat-star"> <i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star" aria-hidden="true"></i><i class="fa fa-star-o" aria-hidden="true"></i> </div>
-                                                                    <p>@item.Commentaire</p>
-                                                                    <ul>
-                                                                        <li><a href="#"><span>Like</span><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Dis-Like</span><i class="fa fa-thumbs-o-down" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Report</span> <i class="fa fa-flag-o" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Comments</span> <i class="fa fa-commenting-o" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><span>Share Now</span>  <i class="fa fa-facebook" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a> </li>
-                                                                        <li><a href="#"><i class="fa fa-youtube" aria-hidden="true"></i></a> </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-                                                        </div>}
+                                        <input type="radio" id="star1" name="Rating" value="1" />
+                                        <label class="full" for="star1" title="Sucks big time - 1 star"></label>
+
+                                    </fieldset>
+                                </div>
+                                <div class="dir-rat-inn">
+
+
+                                    <div class="form-group col-md-12 pad-left-o">
+                                        <textarea name="comment" placeholder="Write your message"></textarea>
+                                    </div>
+                                    <div class="form-group col-md-12 pad-left-o">
+                                        <input type="submit" value="SUBMIT" class="link-btn">
+                                    </div>
+                                    <input type="hidden" asp-for="ExperienceId" />
+
+
+                                </div>
+
+                                <!--COMMENT RATING-->
+                                @{ if (Model.Ratings != null)
+                                    {
+                                        foreach (var item in Model.Ratings)
+                                        {
+                                            <style>
+                                                img {
+                                                    border: 1px solid #ddd;
+                                                    border-radius: 4px;
+                                                    padding: 5px;
+                                                    width: 120px;
                                                 }
-                                            }
+                                            </style>
+
+                                            if (item.Commentaire != null)
+                                            {
+                                                <div class="dir-rat-inn dir-rat-review">
+                                                    <div class="row">
+                                                        <div class="col-md-3 dir-rat-left">
+                                                            <img src="~/images/@item.utilisateur.ProfilePhoto" alt="">
+                                                            <p>
+                                                                @{ if (@item.utilisateur.Nom != null)
+                                                                    {@item.utilisateur.Nom
+                                                                }
+                                                                else
+                                                                { @item.utilisateur.Prenom
+
+                                                            }
+                                                                }
+                                                            </p>
+                                                        </div>
+                                                        <div class="col-md-9 dir-rat-right">
+                                                            <!--calculatign number of stars-->
+                                                            <div class="dir-rat-star">
+                                                               
+                                                                @{ int y = 1;
+                                                                    decimal z =decimal.Parse(@item.note);
+                                                                    for (y = 1; y <= decimal.Parse(@item.note); y++)
+                                                                    {
+                                                                        <i class="fa fa-star" aria-hidden="true">
+                                                                        </i> }
+                                                                    z = Math.Abs((z - y));
+                                                                    if ((z < 1) && (z    > 0))
+                                                                    {<i class="fa fa-star-half-o" aria-hidden="true">
+                                                                        </i> } }
+                                                            </div>
+                                                            <p>@item.Commentaire</p>
+                                                           
+                                                           
+                                                        </div>
+                                                    </div>
+                                                </div>}
                                         }
+                                    }
+                                }
 
-                                        <!--COMMENT RATING-->
-                                        <!--COMMENT RATING-->
-                                    </form>
-                                </div>}
-                        </div>
-                 
-
-
-                </div>
-               
-                    
-
-                                <div class="col-lg-4 ">
-                                    <div class="room-booking" style="padding-top:820px">
-                                        <h5>@Model.tarif dt<span>/Personne</span></h5>
-                                        <form action="#">
-                                            <div class="check-date">
-                                                @*<label for="date-in">:</label>*@
-                                                <input type="text" class="date-input" id="date-in" placeholder="Arrivée">
-                                                <i class="icon_calendar"></i>
-                                            </div>
-                                            <div class="check-date">
-                                                @*<label for="date-out">Check Out:</label>*@
-                                                <input type="text" placeholder="Client" id="date-out">
-                                                <i class="icon-user"></i>
-                                            </div>
-                                          
-                                            <div class="select-option">
-                                                <label for="room">Date:</label>
-                                              
-                                            </div>
-                                            <button type="submit">Réserver maintenant</button>
-                                        </form>
-                                    </div>  
-                                </div>
-
-
-
-
-
-
-</div>
-        </div>
-
-
-
-
-
-      
-
-
-    </section>
-    <!-- Room Details Section End -->
-    <!-- Footer Section Begin -->
-    <footer class="footer-section">
-        <div class="container">
-            <div class="footer-text">
-                <div class="row">
-                    <div class="col-lg-4">
-                        <div class="ft-about">
-                            <div class="logo">
-                                <a asp-action="Index" asp-controller="Home">
-                                    @*<img src="~/Theme/BagAndGo/img/footer-logo.png" alt="">*@
-                                    <h2>BagAndGo</h2>
-                                </a>
-                            </div>
-                         
-                            <div class="fa-social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-tripadvisor"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
-                                <a href="#"><i class="fa fa-youtube-play"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 offset-lg-1">
-                        <div class="ft-contact">
-                            <h6>Services</h6>
-                            <ul>
-                                <li>logement</li>
-                                <li>Transport</li>
-                                <li>Restauration</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 offset-lg-1">
-                        <div class="ft-contact">
-                            <h6>Espace privé</h6>
-                            <ul>
-                                <li>Hôte</li>
-                                <li>Commerçant Transport</li>
-                                <li>Restaurateurs</li>
-                            </ul>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="col-lg-3 offset-lg-1">
-                        <div class="ft-newslatter">
-                            <h6>Soumettre</h6>
-
-                            <form action="#" class="fn-form">
-                                <input type="text" placeholder="Email">
-                                <button type="submit"><i class="fa fa-send"></i></button>
+                                <!--COMMENT RATING-->
+                                <!--COMMENT RATING-->
                             </form>
-                        </div>
-                    </div>
+                        </div>}
                 </div>
             </div>
-        </div>
-        <div class="copyright-option">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-7">
-                        <div class="co-text">
-                            <p>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;
-                                <script>document.write(new Date().getFullYear());</script> All rights reserved | BagAndGo <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://www.linkedin.com/in/wissem-khaskhoussy/" target="_blank">Wissem Khaskhoussy</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        
-                            </p>
-                        </div>
-                        
-                    </div>
-                    <div class="fa-social">
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                        <a href="#"><i class="fa fa-tripadvisor"></i></a>
-                        <a href="#"><i class="fa fa-instagram"></i></a>
-                        <a href="#"><i class="fa fa-youtube-play"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- Footer Section End -->
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
+            
         </div>
     </div>
-    <!-- Search model end -->
-    <!-- Js Plugins -->
-    <script src="~/Theme/BagAndGo/js/jquery-3.3.1.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/bootstrap.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/jquery.nice-select.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/jquery-ui.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/jquery.slicknav.js"></script>
-    <script src="~/Theme/BagAndGo/js/owl.carousel.min.js"></script>
-    <script src="~/Theme/BagAndGo/js/main.js"></script>
-    <script>
-            function request(imageSrc) { $.ajax({
+</section>
+<!--====== Bag and Go New Template ==========-->
+<!--========= Scripts ===========-->
 
-             url: '@Url.Action("Description", "Experience")',
-                                                     data: { 'src': imageSrc },
-                                                     type: "Get",
-                                                     success: function (data) {
-                                                      $("#loadpartial").html(data);
-                         }
-                });}
+<script src="~/Theme/Template2/js/jquery-latest.min.js"></script>
+<script src="~/Theme/Template2/js/bootstrap.js"></script>
+<script src="~/Theme/Template2/js/wow.min.js"></script>
+<script src="~/Theme/Template2/js/materialize.min.js"></script>
+<script src="~/Theme/Template2/js/custom.js"></script>
+<script>
+        function request(imageSrc) { $.ajax({
 
-                            $(document).ready(function () {
-                                var x = $('.active').find('img').attr('src');
-                                request(x);
-                                $("#myCarousel1").on('slid.bs.carousel', function () {
+                    url: '@Url.Action("Description", "Experience")',
+                                                 data: { 'src': imageSrc },
+                                                 type: "Get",
+                    success: function (data) {
+                    $("#loadpartial").html(data);
+                }
+            });}
 
-
-                                    var totalItems = $('.item').text().length;
-
-                                    var imageSrc = $('.active').find('img').attr('src');
-                                    console.log(imageSrc);
-                                    console.log('target: ' + totalItems
-                                        );
-
-                                    request(imageSrc);
+                        $(document).ready(function () {
+                            var x = $('.active').find('img').attr('src');
+                            request(x);
+                            $("#myCarousel1").on('slid.bs.carousel', function () {
 
 
-                                          });
-                            });
-        </script>
-</body>
+                                var totalItems = $('.item').text().length;
 
-</html>
+                                var imageSrc = $('.active').find('img').attr('src');
+                                console.log(imageSrc);
+                                console.log('target: ' + totalItems
+                                    );
+
+                                request(imageSrc);
+
+
+                                      });
+                        });
+</script>
+<!--</body>-->
+<!-- Mirrored from rn53themes.net/themes/demo/travelz/hotel-details.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 23 Mar 2021 14:03:26 GMT -->
+<!--</html>-->
