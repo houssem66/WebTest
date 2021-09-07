@@ -174,9 +174,11 @@
                                 </td>
                                 <td>
 
-                                    <form method="post" asp-action="Facture">
-
-                                        <button type="submit">Payer</button>
+                                    <form method="post" action="https://sandbox.paymee.tn/gateway/">
+                                        <input type="hidden" name="payment_token" value=@ViewBag.token>
+                                        <input type="hidden" name="url_ok" value="https://localhost:44326/">
+                                        <input type="hidden" name="url_ko" value="https://example.com/ko.php">
+                                        <button>Payer</button>
                                     </form>
 
                                 </td>

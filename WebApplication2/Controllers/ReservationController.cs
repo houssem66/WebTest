@@ -519,11 +519,52 @@ namespace TourMe.Web.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Facture()
+        public async Task<IActionResult> Facture()
         {
 
             Panier panier =  panierService.GetPanierByuserId(userManager.GetUserId(User)).LastOrDefault();
-      
+
+
+            var request = new HttpRequestMessage(HttpMethod.Post,
+      "https://sandbox.paymee.tn/api/v1/payments/create");
+            request.Headers.Add("Authorization", "Token af8b516edd51a1ba30c0b049c8781a1152c4e30f");
+            //request.Headers.Add("Content-Type", "application/json");
+            Payme obj = new Payme { vendor = 1925, amount = (float)panier.Prix, note = "command" };
+            // request.Content.CopyToAsync("data");
+            request.Content = new StringContent(JsonConvert.SerializeObject(obj), System.Text.Encoding.UTF8, "application/json");
+
+
+            var client = clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                int i = 62;
+                var x = response.Content.ReadAsStringAsync().Result;
+                ////Output output =
+                //JsonSerializer.Deserialize<Output>(response.Content);
+                //var x = response.RequestMessage;
+                var ch = "";
+                while (x[i] != '"')
+                {
+
+                    ch = ch + x[i];
+                    i++;
+
+                }
+
+                ViewBag.token = ch;
+            }
+            else
+            {
+
+            }
+
+
+
+
             return View(panier);
         }
 
@@ -535,32 +576,7 @@ namespace TourMe.Web.Controllers
             
 
 
-            var request = new HttpRequestMessage(HttpMethod.Post,
-            "https://sandbox.paymee.tn/api/v1/payments/create");
-            request.Headers.Add("Authorization", "Token af8b516edd51a1ba30c0b049c8781a1152c4e30f");
-            //request.Headers.Add("Content-Type", "application/json");
-            Payme obj = new Payme { vendor = 1925, amount = 30, note = "command" };
-            // request.Content.CopyToAsync("data");
-            request.Content = new StringContent(JsonConvert.SerializeObject(obj), System.Text.Encoding.UTF8, "application/json");
-
-
-            var client = clientFactory.CreateClient();
-            var response = await client.SendAsync(request);
-            
-
-            if (response.IsSuccessStatusCode)
-            {
-                string x = response.Content.ToString();
-                //Output output =
-                //JsonSerializer.Deserialize<Output>( );
-                
-
-            }
-            else
-            {
-             
-            }
-
+      
 
 
             return View();
