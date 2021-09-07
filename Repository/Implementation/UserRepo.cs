@@ -17,6 +17,14 @@ namespace Repository.Implementation
         {
             _dbContext = dbContext;
         }
+
+        public async Task<Utilisateur> FindByEmail(string mail)
+        {
+            var user = await _dbContext.User.SingleAsync(x => x.Email == mail);
+            _dbContext.Entry(user);
+            return user;
+        }
+
         public IEnumerable<Utilisateur> GetAllUserAsync()
         {
             var User = _dbContext.User.Where(User => User.Id != "");

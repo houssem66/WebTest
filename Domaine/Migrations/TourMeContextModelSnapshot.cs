@@ -421,6 +421,12 @@ namespace TourMe.Data.Migrations
                     b.Property<int>("NbPlaces")
                         .HasColumnType("int");
 
+                    b.Property<bool>("Programmed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Saison")
                         .HasColumnType("nvarchar(max)");
 
@@ -562,6 +568,36 @@ namespace TourMe.Data.Migrations
 
                     b.Property<DateTime?>("DateDispoTrans")
                         .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateReservationRes")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DatedebutL")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NbrJoursLogement")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NbrJoursTrans")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("NbrPlat")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("Prix")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int?>("Quantite")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RemarquesLogement")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RemarquesNourriture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RemarquesTransport")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -1146,7 +1182,9 @@ namespace TourMe.Data.Migrations
                 {
                     b.HasOne("TourMe.Data.Entities.Fournisseur", "Fournisseur")
                         .WithMany("ServiceNourittures")
+                        .HasForeignKey("FournisseurId");
 
+                    b.Navigation("Fournisseur");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.ServiceTransport", b =>
@@ -1204,7 +1242,12 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Transport");
                 });
 
- 
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceLogment", b =>
+                {
+                    b.Navigation("Documents");
+                });
+
+            modelBuilder.Entity("TourMe.Data.Entities.ServiceNouritture", b =>
                 {
                     b.Navigation("Documents");
                 });

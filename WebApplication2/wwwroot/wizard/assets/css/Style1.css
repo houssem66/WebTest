@@ -1,4 +1,159 @@
-﻿
+﻿@font-face {
+    font-family: "Muli-Regular";
+    src: url("../fonts/muli/Muli-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Muli-SemiBold";
+    src: url("../fonts/muli/Muli-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: "Muli-Bold";
+    src: url("../fonts/muli/Muli-Bold.ttf");
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Muli-Regular";
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+ 
+}
+
+input, textarea, select, button {
+    font-family: "Muli-Regular";
+    color: #333;
+    font-size: 13px;
+
+}
+
+p, h1, h2, h3, h4, h5, h6, ul {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+ul {
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+:focus {
+    outline: none;
+}
+
+.wrapper {
+    min-height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    background: #9053c7;
+    background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+     
+}
+
+.inner {
+    border-radius: 10px;
+    min-width: 850px;
+    margin: auto;
+    padding-top: 68px;
+    padding-bottom: 48px;
+    background-image: url('../../../images/registration-form-2.jpg')
+}
+
+    .inner h3 {
+        text-transform: uppercase;
+        font-size: 22px;
+        font-family: "Muli-Bold";
+        text-align: center;
+        margin-bottom: 32px;
+        color: #333;
+        letter-spacing: 2px;
+    }
+
+form {
+    width: 50%;
+    padding-left: 45px;
+    
+}
+
+.form-group {
+    display: flex;
+
+    
+}
+
+    .form-group .form-wrapper {
+        width: 50%;
+    }
+
+        .form-group .form-wrapper:first-child {
+            margin-right: 20px;
+        }
+
+.form-wrapper {
+    margin-bottom: 17px;
+    box-shadow: #999999 0 5px;
+    border-radius: 25px;
+    text-align: center;
+}
+.input-icons i {
+    position: absolute;
+}
+
+.input-icons {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.wrap-input100 {
+    position: relative;
+    width: 100%;
+    z-index: 1;
+    box-shadow: #999999 0 5px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+}
+
+.symbol-input100 {
+    font-size: 15px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    border-radius: 25px;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding-left: 35px;
+    pointer-events: none;
+    color: #666666;
+    -webkit-transition: all 0.4s;
+    -o-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    transition: all 0.4s;
+}
+
 
 
 
@@ -199,6 +354,7 @@ iframe {
     width: 100%;
     margin: 10;
 }
+
 .site-identity {
     float: left;
 }
@@ -228,6 +384,7 @@ iframe {
         display: inline-block;
         margin: 1.4em 1em 1em 1em;
     }
+
 .container-login100 {
     width: 100%;
     min-height: 100vh;
@@ -266,7 +423,6 @@ iframe {
 [  ]*/
 .login100-pic {
     width: 500px;
-   
 }
 
     .login100-pic img {
@@ -316,7 +472,16 @@ iframe {
     position: relative;
     width: 100%;
     z-index: 1;
-    box-shadow: #999999 0   5px;
+    box-shadow: #999999 0 5px;
+    margin-bottom: 10px;
+    border-radius: 25px;
+
+}
+.wrap-input101 {
+    width: 50%;
+    z-index: 1;
+    margin-left:20%;
+    box-shadow: #999999 0 5px;
     margin-bottom: 10px;
     border-radius: 25px;
 }
@@ -344,17 +509,18 @@ iframe {
     font-size: 20px;
     font-weight: 500;
 }
+
 .input100 {
     font-family: Poppins-Medium;
     font-size: 15px;
     line-height: 1.5;
     color: #666666;
     display: block;
-    width: 20%;
+    width: 50%;
     background: none;
     height: 50px;
     /* box-shadow */
-
+   
     border-radius: 25px;
     padding: 0 30px 0 68px;
 }
@@ -510,7 +676,7 @@ iframe {
 [ Alert validate ]*/
 
 .validate-input {
-    position: relative;
+    position: center;
 }
 
 .alert-validate::before {
@@ -10405,3 +10571,120 @@ iframe {
 
 
 
+
+.input100:focus + .focus-input100 + .symbol-input100 {
+    color: #57b846;
+    padding-left: 28px;
+}
+.icon {
+    padding: 13px;
+    width: 13px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px;
+   
+}
+    .form-wrapper label {
+        margin-bottom: 9px;
+        display: block;
+    }
+
+.form-control {
+    border: 1px solid #ccc;
+    display: block;
+    width: 100%;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 20px;
+    font-family: "Muli-Bold";
+    background: none;
+}
+
+    .form-control:focus {
+        border: 1px solid #ae3c33;
+    }
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+    padding-left: 20px;
+}
+
+    select option[value=""][disabled] {
+        display: none;
+    }
+
+
+
+  
+
+
+.checkbox {
+    position: relative;
+}
+
+    .checkbox label {
+        padding-left: 22px;
+        cursor: pointer;
+    }
+
+    .checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+        .checkbox input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+.checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 12px;
+    width: 13px;
+    border-radius: 2px;
+    background-color: #ebebeb;
+    border: 1px solid #ccc;
+    font-family: Material-Design-Iconic-Font;
+    color: #000;
+    font-size: 10px;
+    font-weight: bolder;
+}
+
+    .checkmark:after {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        content: '\f26b';
+    }
+
+@media (max-width: 991px) {
+    .inner {
+        min-width: 768px;
+    }
+}
+
+@media (max-width: 767px) {
+    .inner {
+        min-width: auto;
+        background: none;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    form {
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+}
+
+/*# sourceMappingURL=style.css.map */
