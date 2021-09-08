@@ -13,6 +13,7 @@ namespace Repository.Interfaces
         public  Task PutUserAsync(string id, Utilisateur entity);
         public IEnumerable<Utilisateur> GetAllUserAsync();
         public Task updateUser(string id, Utilisateur entity);
-      
+        public Task<Utilisateur> FindByEmail(string mail);
+
     }
 }

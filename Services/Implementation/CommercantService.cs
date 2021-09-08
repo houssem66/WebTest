@@ -46,5 +46,9 @@ namespace Services.Implementation
         {
             return genericRepo.PutAsync(Commerçant.Id, Commerçant);
         }
+        public IEnumerable<EmployeDocuments> GetListfile(string id)
+        {
+            return commerçantRepo.GetListfile(id);
+        }
     }
 }

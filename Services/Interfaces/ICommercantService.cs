@@ -18,5 +18,6 @@ namespace Services.Interfaces
         public Task Update(Commerçant Commerçant);
         public Task<Commerçant> GetCommerçantById(string id);
         public Task Delete(Commerçant Commerçant);
+        public IEnumerable<EmployeDocuments> GetListfile(string id);
     }
 }

@@ -24,7 +24,7 @@ namespace Services.Implementation
         public Task<Utilisateur> GetById(string id);
 
 
-
+        public Task<Utilisateur> FindByMail(string mail);
 
 
     }

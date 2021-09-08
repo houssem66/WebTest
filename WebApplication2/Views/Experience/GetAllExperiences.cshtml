@@ -151,7 +151,7 @@
                         <div class="col-md-1 offset-md-3">
                             <div class="form-group">
 
-                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()" class="select2" multiple="multiple" data-placeholder="Type" style="width: 100%;">
+                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.TypeExperience>()" class="form-control" data-placeholder="Type" style="width: 100%;">
                                 </select>
                             </div>
                             <!-- /.form-group -->
@@ -161,7 +161,7 @@
                         <div class="col-sm-2  col-sm-offset-5">
                             <div class="form-group">
 
-                                <select class="select2" multiple="multiple" data-placeholder="Saison" style="width: 100%;">
+                                <select  class="form-control" data-placeholder="Saison" style="width: 100%;">
                                     <option>Été </option>
                                     <option>Automne </option>
                                     <option> Hiver</option>
@@ -178,7 +178,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
 
-                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()" class="select2" multiple="multiple" data-placeholder="Ville" style="width: 100%;">
+                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()"  class="form-control" data-placeholder="Ville" style="width: 100%;">
                                 </select>
                             </div>
                             <!-- /.form-group -->

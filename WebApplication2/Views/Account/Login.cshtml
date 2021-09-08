@@ -3,126 +3,213 @@
 @{
     ViewBag.Title = "User Login";
 }
+<link href="~/wizard/assets/css/style.css" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<!-- Latest compiled and minified JavaScript -->
+@*<section>
+        <div class="tr-register col-6">
+            <div class="tr-regi-form">
+                <h4>Se connecter</h4>
+
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
 
 
-@*<div class="login-box">
 
-    <div class="col-md-6">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label asp-for="RememberMe">
-                        <input asp-for="RememberMe" />
-                        @Html.DisplayNameFor(m => m.RememberMe)
-                    </label>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Email" placeholder="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                            <label>Password</label>
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                            <label>Password</label>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="submit" value="LogIn" class="waves-effect waves-light btn-large full-btn">
+                        </div>
+                    </div>
+                </form>
+                <p>
+                    Pas de compte ? <a asp-controller="Account" asp-action="RegisterUser">Cliquez pour le créer</a>
+                </p>
+
+                <div>
+                    <h1>External Login</h1>
+                    @{
+                        if (Model.ExternalLogins.Count == 0)
+                        {
+
+
+                            <div>No external logins configured</div>
+                        }
+
+
+
+                        else
+                        {<form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                             <div class="social-auth-links text-center">
+
+                                 @foreach (var provider in Model.ExternalLogins)
+                                 {<button name="provider" value="@provider.Name" title="Login usin your @provider.DisplayName account" type="submit" class="btn btn-block btn-primary">
+                                         <i class="fab fa-facebook mr-2"></i>
+                                         @provider.DisplayName
+
+                                     </button>
+                                     }
+                             </div>
+                            </form>}
+                    }
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-    </div>
-</div>*@
+
+       </div>
+
+
+
+
+
+    </section>
 
 
 
 
 
 
-<section>
-    <div class="tr-register col-6">
-        <div class="tr-regi-form">
-            <h4>Se connecter</h4>
-            
-            <form method="post">
+*@
+<div class="limiter">
+
+    <div class="container-login100">
+        <div class="wrap-login100">
+
+
+
+            <form class="login100-form validate-form" method="post">
+
                 <div asp-validation-summary="All" class="text-danger"></div>
-
-
-
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Email" placeholder="Email" class="form-control" />
-                        <span asp-validation-for="Email" class="text-danger"></span>
-                        <label>Password</label>
-                    </div>
+                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                    <input asp-for="Email" required pattern="^[a-zA-Z0-9._+-]+@("@")[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$" title="Invalid email address" class="input100" type="text" name="Email" placeholder="Email">
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="bi bi-person"></i>
+                    </span>
                 </div>
-
-
-
-
-
-
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input asp-for="Password" placeholder="Mot de passe" class="form-control" />
-                        <span asp-validation-for="Password" class="text-danger"></span>
-                        <label>Password</label>
-                    </div>
+                <br />
+                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                    <input asp-for="Password" required title="votre mote de passe" class="input100" type="password" name="Password" placeholder="Password">
+                    <span class="focus-input100"></span>
+                    <span class="symbol-input100">
+                        <i class="bi bi-lock"></i>
+                    </span>
                 </div>
+                <table>
+                    <td>
+
+                        <a asp-controller="Account" asp-action="RegisterUser" class="txt2">
+                            Create your Account
+                            <i aria-hidden="true"></i>
+                        </a>
+
+                    </td>
+                    <td>
+
+                        <a class="txt2" href="#">
+                            mot de passe oublié
+                            <i aria-hidden="true"></i>
+                        </a>
+
+                    </td>
+                    <td>
+                        <input type="submit" value="LogIn" class="login100-form-btn">
 
 
-                <div class="row">
-                    <div class="input-field col s12">
-                        <input type="submit" value="LogIn" class="waves-effect waves-light btn-large full-btn">
-                    </div>
-                </div>
+
+
+
+                    </td>
+
+                </table>
+
+
+
+
+
+
+
             </form>
-            <p>
-                Pas de compte ? <a asp-controller="Account" asp-action="RegisterUser">Cliquez pour le créer</a>
-            </p>
+            <div class="login100-pic js-tilt" data-tilt>
+                <img src="~/images/pexels-photo-3363331.jpg" alt="IMG">
+            </div>
+            <form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+                <table>
+                    <td>
 
-            <div>
-                <h1>External Login</h1>
-                @{
-                    if (Model.ExternalLogins.Count == 0)
-                    {
+                        <span href="#">
+                            S’inscrire avec
+
+                        </span>
+
+                    </td>
+
+                    @{
+                        if (Model.ExternalLogins.Count == 0)
+                        {
 
 
-                        <div>No external logins configured</div>
+                            <div>No external logins configured</div>
+                        }
+
+
+
+                        else
+                        {
+
+
+                            @foreach (var provider in Model.ExternalLogins)
+
+                            {
+                                <td style="width:20%">
+                                    <button asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" name="provider" value="@provider.Name" title="Login usin your @provider.DisplayName account" type="submit" class="txt2">
+
+                                        @provider.DisplayName
+
+                                    </button>
+                                </td>
+                            }
+
+
+                        }
                     }
 
 
 
-                    else
-                    {<form method="post" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
-                         <div class="social-auth-links text-center">
 
-                             @foreach (var provider in Model.ExternalLogins)
-                             {<button name="provider" value="@provider.Name" title="Login usin your @provider.DisplayName account" type="submit" class="btn btn-block btn-primary">
-                                     <i class="fab fa-facebook mr-2"></i>
-                                     @provider.DisplayName
 
-                                 </button>
-                                 }
-                         </div>
-                        </form>}
-                }
-            </div>
+
+
+                </table>
+
+
+            </form>
+
         </div>
-
     </div>
 
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
+</div>
