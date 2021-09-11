@@ -28,7 +28,7 @@ namespace Services.Implementation
             return GenericRepo.DeleteAsync(id);
         }
 
-        public IEnumerable<Experience> GetAllExperienceDetails(string searchTerm = null)
+        public IList<Experience> GetAllExperienceDetails(string searchTerm = null)
         {
             if (!(string.IsNullOrEmpty(searchTerm)))
             {if (searchTerm.Length == 1)
@@ -36,16 +36,18 @@ namespace Services.Implementation
 
 
                     Debug.WriteLine("the value of searchSterm is : " + ch);
-                    return ExperienceRepo.GetAllExperienceAsync().Where(e => e.AvgRating.StartsWith (searchTerm));
+                    return ExperienceRepo.GetAllExperienceAsync().Where(e => e.AvgRating.StartsWith (searchTerm)).ToList();
                     //return from Experience in ExperienceRepo.GetAllExperienceAsync()
                     //       where Experience.AvgRating.First().Equals(ch)
                     //       select Experience;
                 }
-                return ExperienceRepo.GetAllExperienceAsync().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                            e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
+            var list = ExperienceRepo.GetAllExperienceAsync().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) 
+                                             || e.Saison.ToLower().Contains(searchTerm.ToLower()) || e.Lieu.ToLower().Contains(searchTerm.ToLower())).ToList();
+                
+                return list;
             }
 
-            return ExperienceRepo.GetAllExperienceAsync();
+            return ExperienceRepo.GetAllExperienceAsync().ToList();
         }
         public IEnumerable<Experience> GetAllExperienceDetails()
         {

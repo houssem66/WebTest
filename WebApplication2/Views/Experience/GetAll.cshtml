@@ -70,6 +70,7 @@
                                             <input type="submit" value="Rechercher">
                                         </li>
                                     </ul>
+
                                 </form>
                             </div>
                         </div>
@@ -117,31 +118,7 @@
 
 
 
-                                @*<script>
-                                       var form = document.getElementById('search');
-
-                                try {
-                                    form.addEventListener("submit", submitFn, false);
-                                } catch (e) {
-                                    form.attachEvent("onsubmit", submitFn); //IE8
-                                }
-
-                                function submitFn(event) {
-                                    event.preventDefault();
-                                    var boxes = document.getElementsByClassName('checkbox');
-                                    var checked = [];
-                                    for (var i = 0; boxes[i]; ++i) {
-                                        if (boxes[i].checked) {
-                                            checked.push(boxes[i].name);
-                                        }
-                                    }
-
-                                    var searchTerm = checked.join();
-
-                                    alert(searchTerm);
-
-                                    return false;
-                                }</script>*@
+                               
                             </div>
                         </div>
                         <!--END PART 4 : LEFT LISTINGS-->
@@ -263,37 +240,43 @@
                                 <!--END LISTINGS-->
                                 <!--LISTINGS START-->
                                 <!--LISTINGS START-->
-                                @{ foreach (var item in Model)
-
+                                @{ if (Model != null)
                                     {
-                                        <div class="hot-page2-alp-r-list">
-                                            <div class="col-md-3 hot-page2-alp-r-list-re-sp">
-                                                <a href="javascript:void(0);">
-                                                    <div class="hotel-list-score">@item.AvgRating</div>
-                                                    <div class="hot-page2-hli-1"> <img src="~/images/@item.Activites.First().Image" alt=""> </div>
-                                                    <div class="hom-hot-av-tic hom-hot-av-tic-list">Nombre de place   @item.NbPlaces </div>
-                                                </a>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="hot-page2-alp-ri-p2">
-                                                    <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId"><h3>@item.Titre</h3></a>
-                                                    <ul>
-                                                        <li>@item.Lieu </li>
-                                                        <li>+101-1231-1231, +61 6541-4561-12</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="hot-page2-alp-ri-p3">
-                                                    <span class="hot-list-p3-1">Prix Par person</span> <span class="hot-list-p3-2">@item.tarif Dt</span><span class="hot-list-p3-4">
-                                                        <a asp-action="AddToCart" asp-controller="Reservation" asp-route-id="@item.ExperienceId" class="pull-right"> <i class="fas fa-plus"> </i>    Ajouter au Panier</a>
+                                        foreach (var item in Model)
 
-                                                    </span>
+                                        {
+                                            <div class="hot-page2-alp-r-list">
+                                                <div class="col-md-3 hot-page2-alp-r-list-re-sp">
+                                                    <a href="javascript:void(0);">
+                                                        <div class="hotel-list-score">@item.AvgRating</div>
+                                                        <div class="hot-page2-hli-1"> <img src="~/images/@item.Activites.First().Image" alt=""> </div>
+                                                        <div class="hom-hot-av-tic hom-hot-av-tic-list">Nombre de place   @item.NbPlaces </div>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="hot-page2-alp-ri-p2">
+                                                        <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId"><h3>@item.Titre</h3></a>
+                                                        <ul>
+                                                            <li>@item.Lieu </li>
+                                                            <li>+101-1231-1231, +61 6541-4561-12</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="hot-page2-alp-ri-p3">
+                                                        <span class="hot-list-p3-1">Prix Par person</span> <span class="hot-list-p3-2">@item.tarif Dt</span><span class="hot-list-p3-4">
+                                                            <a asp-action="AddToCart" asp-controller="Reservation" asp-route-id="@item.ExperienceId" class="pull-right"> <i class="fas fa-plus"> </i>    Ajouter au Panier</a>
+
+                                                        </span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        }
                                     }
-
+                                    else
+                                    {
+                                        
+                                    }
                                 } <!--END LISTINGS-->
                             </div>
                         </div>

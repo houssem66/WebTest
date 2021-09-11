@@ -379,15 +379,15 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CommerçantId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Filepath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HôteId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("CommerçantId");
+                    b.HasIndex("HôteId");
 
                     b.ToTable("EmployeDocuments");
                 });
@@ -859,7 +859,7 @@ namespace TourMe.Data.Migrations
                     b.ToTable("TransportDocument");
                 });
 
-            modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
+            modelBuilder.Entity("Domaine.Entities.Hôte", b =>
                 {
                     b.HasBaseType("Domaine.Entities.Utilisateur");
 
@@ -918,12 +918,12 @@ namespace TourMe.Data.Migrations
                     b.Property<bool>("Verified")
                         .HasColumnType("bit");
 
-                    b.HasDiscriminator().HasValue("Commerçant");
+                    b.HasDiscriminator().HasValue("Hôte");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Fournisseur", b =>
                 {
-                    b.HasBaseType("Domaine.Entities.Commerçant");
+                    b.HasBaseType("Domaine.Entities.Hôte");
 
                     b.Property<long>("NumCnss")
                         .HasColumnType("bigint");
@@ -1068,17 +1068,17 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.EmployeDocuments", b =>
                 {
-                    b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
+                    b.HasOne("Domaine.Entities.Hôte", "Hôte")
                         .WithMany("EmployeDocuments")
-                        .HasForeignKey("CommerçantId")
+                        .HasForeignKey("HôteId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.Navigation("Commerçant");
+                    b.Navigation("Hôte");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
-                    b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
+                    b.HasOne("Domaine.Entities.Hôte", "Commerçant")
                         .WithMany("Experiences")
                         .HasForeignKey("CommerçantId");
 
@@ -1257,7 +1257,7 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Documents");
                 });
 
-            modelBuilder.Entity("Domaine.Entities.Commerçant", b =>
+            modelBuilder.Entity("Domaine.Entities.Hôte", b =>
                 {
                     b.Navigation("EmployeDocuments");
 

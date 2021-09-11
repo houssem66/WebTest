@@ -13,7 +13,7 @@ namespace TourMe.Data
 
         }
         public DbSet<Utilisateur> User { get; set; }
-        public DbSet<Commerçant> Commercant { get; set; }
+        public DbSet<Hôte> Commercant { get; set; }
         public DbSet<Experience> Experience { get; set; }
         public DbSet<Commentaire> Commentaires { get; set; }
         public DbSet<Rating> Ratings { get; set; }
@@ -27,7 +27,7 @@ namespace TourMe.Data
         public DbSet<Fournisseur> Fournisseurs { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Panier> Paniers { get; set; }
-        public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
+        public DbSet<HôteDocuments> EmployeDocuments { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -63,7 +63,7 @@ namespace TourMe.Data
 
 
 
-            builder.Entity<Commerçant>().HasMany(e => e.Experiences).WithOne(f => f.Commerçant);
+            builder.Entity<Hôte>().HasMany(e => e.Experiences).WithOne(f => f.Commerçant);
 
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceLogments).WithOne(f => f.Fournisseur).OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Fournisseur>().HasMany(f => f.ServiceNourittures).WithOne(f=>f.Fournisseur);
@@ -109,7 +109,7 @@ namespace TourMe.Data
 
          );
 
-            builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Commerçant).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Hôte>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Hôte).OnDelete(DeleteBehavior.Cascade);
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
             

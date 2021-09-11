@@ -136,7 +136,7 @@ namespace TourMe.Web.Controllers
 
             string idx = userManager.GetUserId(User);
             var com = commercantService.GetCommerçantById(idx).Result;
-            Commerçant com2 = (Commerçant)userService.GetById(idx).Result;
+            Hôte com2 = (Hôte)userService.GetById(idx).Result;
             var fournisseur = new Fournisseur
             {
                 UserName = com.Email,
@@ -492,13 +492,13 @@ namespace TourMe.Web.Controllers
             {
                 Debug.WriteLine("valid" + ModelState.IsValid.ToString());
                 string uniqueFileName = null;
-                List<EmployeDocuments> emp = new List<EmployeDocuments>();
+                List<HôteDocuments> emp = new List<HôteDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
                     {
-                        EmployeDocuments employe = new EmployeDocuments();
+                        HôteDocuments employe = new HôteDocuments();
                         // The file must be uploaded to the images folder in wwwroot
                         // To get the path of the wwwroot folder we are using the injected
                         // IHostingEnvironment service provided by ASP.NET Core
