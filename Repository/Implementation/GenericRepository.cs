@@ -34,8 +34,7 @@ namespace Repository.Interfaces
             }
             catch (Exception)
             {
-
-                throw new NotImplementedException();
+                  throw new NotImplementedException();
             }
 
         }
