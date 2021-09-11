@@ -89,22 +89,16 @@ namespace TourMe.Web.Controllers
             if (!(searchTerm.Count() == 0))
             {
                 foreach (var ch in searchTerm)
-                { try
-                    { var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+                {
+                    var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
 
-                        list = list.Concat(list2).ToList();
-                    }
-                    catch(Exception e)
-                    {
-                          var list2= ExperienceService.GetAllExperienceDetails(null).ToList();
-                        list = list.Concat(list2).ToList();
+                    list = list.Concat(list2).ToList();
 
-                    }
-                  
-                   
-                
+
+
+
+
                 }
-                ;
 
                 return View(list);
             }
@@ -451,16 +445,7 @@ namespace TourMe.Web.Controllers
             return PartialView("_Modal");
 
         }
-        [HttpGet]
-        [Authorize(Policy = "CreateExperiencePolicy")]
-        public IActionResult GetAllExperience(string searchTerm)
-        {
-
-            return View(ExperienceService.Search(searchTerm));
-
-        }
-
-
+        
 
 
 

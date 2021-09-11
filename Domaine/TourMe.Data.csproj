@@ -13,6 +13,8 @@
   <ItemGroup>
     <Compile Include="Migrations\20210906202530_new.cs" />
     <Compile Include="Migrations\20210906202530_new.Designer.cs" />
+    <Compile Include="Migrations\20210910161726_Hôte.cs" />
+    <Compile Include="Migrations\20210910161726_Hôte.Designer.cs" />
     <Compile Include="Migrations\TourMeContextModelSnapshot.cs" />
   </ItemGroup>
 
