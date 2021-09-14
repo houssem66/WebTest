@@ -63,341 +63,7 @@ namespace TourMe.Web.Controllers
 
             return View();
         }
-        //[HttpPost]
-        //[AllowAnonymous]
-        //public async Task<IActionResult> AjouterLogement(LogementExtViewModel model)
-        //{
-        //    ViewBag.id = userManager.GetUserId(User);
-        //    string uniqueFileName = null;
-        //    if (ModelState.IsValid)
-        //    {
-        //        if (model.Documents != null)
-        //        {
-        //            // The image must be uploaded to the images folder in wwwroot
-        //            // To get the path of the wwwroot folder we are using the inject
-        //            // HostingEnvironment service provided by ASP.NET Core
-        //            string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-        //            // To make sure the file name is unique we are appending a new
-        //            // GUID value and and an underscore to the file name
-        //            uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Documents.FileName;
-        //            string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-        //            // Use CopyTo() method provided by IFormFile interface to
-        //            // copy the file to wwwroot/images folder
-        //            model.Documents.CopyTo(new FileStream(filePath, FileMode.Create));
-        //        }
-        //        var logment = new ServiceLogment
-        //        {
-        //            Adresse = model.Adresse,
-
-        //            PrixParNuit = model.PrixParNuit,
-        //            Titre = model.Titre,
-
-        //            Documents = uniqueFileName,
-        //            Category = model.Category,
-        //            Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
-        //        };
-        //        var x = logment;
-        //        await logementService.Ajout(logment);
-        //        return RedirectToAction("Index", "Home");
-        //    }
-        //    return View(model);
-        //}
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult TypeService()
-        {
-            string idx = userManager.GetUserId(User);
-            //if (idx == null)
-            //{
-
-            //    return View("New");
-            //}
-
-            return View();
-        }
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult ChangerEnFournisseur(CommercentViewModel model)
-        {
-
-            return View(model);
-        }
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult CommercantPersonne(CommercentViewModel model)
-        {
-
-            return View(model);
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> CommercantPersonne(CommercentViewModel model, string Password, string email)
-        {
-
-            string idx = userManager.GetUserId(User);
-            var com = commercantService.GetCommerçantById(idx).Result;
-            Hôte com2 = (Hôte)userService.GetById(idx).Result;
-            var fournisseur = new Fournisseur
-            {
-                UserName = com.Email,
-
-                PhoneNumber = com.PhoneNumber,
-                PersAContact = com.PersAContact,
-                Email = com.Email,
-                FormeJuridique = model.Forme,
-                Secteur = model.Secteur,
-                DomainActivite = model.Domaine,
-                SituationEntreprise = model.SituationEntreprise,
-                EffectFemme = model.EffectFemme.Value,
-                EffectHomme = model.EffectHomme.Value,
-                Type = com.Type,
-                TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
-
-            };
-            await commercantService.Delete(com);
-            var result = await userManager.CreateAsync(fournisseur, Password);
-            if (result.Succeeded)
-            {
-
-                Debug.WriteLine("cest un user");
-                await userManager.AddToRoleAsync(fournisseur, "Commercant");
-                await signInManager.SignInAsync(fournisseur, isPersistent: false);
-
-            }
-            return RedirectToAction("Index", "Home");
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ChangerEnFournisseur(string passowrd, string email, CommercentViewModel model)
-        {
-            string idx = userManager.GetUserId(User);
-            var com = commercantService.GetCommerçantById(idx).Result;
-            var fournisseur = new Fournisseur
-            {
-                UserName = com.Email,
-
-                PhoneNumber = com.PhoneNumber,
-                PersAContact = com.PersAContact,
-                Email = com.Email,
-                FormeJuridique = com.FormeJuridique,
-                Secteur = com.Secteur,
-                DomainActivite = com.DomainActivite,
-                SituationEntreprise = com.SituationEntreprise,
-                EffectFemme = com.EffectFemme,
-                EffectHomme = com.EffectHomme,
-                Type = com.Type,
-
-                TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
-
-            };
-            await commercantService.Delete(com);
-            var result = await userManager.CreateAsync(fournisseur, passowrd);
-            if (result.Succeeded)
-            {
-
-                Debug.WriteLine("cest un user");
-                await userManager.AddToRoleAsync(fournisseur, "Commercant");
-                await signInManager.SignInAsync(fournisseur, isPersistent: false);
-
-            }
-            return RedirectToAction("Index", "Home");
-        }
-        //[HttpGet]
-        //[AllowAnonymous]
-        //public IActionResult DevnirFournisseurAlimentaire(string id)
-        //{
-        //    ViewData["countries"] = AvailableCountries;
-
-        //    string idx = userManager.GetUserId(User);
-        //    if (idx == null)
-        //    {
-        //        var user = new CommercentViewModel { TypseService = id };
-        //        return View("NewFournisseurAlimentaire", user);
-        //    }
-        //    var userCo = fournisseurService.GetFournisseurById(idx);
-        //    if (idx != null && (userCo.Result != null))
-        //    {
-
-        //        return RedirectToAction("AjouterLogement", "Service");
-
-        //    }
-        //    else
-        //    {
-        //        var com = commercantService.GetCommerçantById(idx).Result;
-        //        var user = new CommercentViewModel { TypseService = id };
-        //        if (com.SituationEntreprise != null)
-        //        {
-
-
-        //            return RedirectToAction("ChangerEnFournisseur", "Service", user);
-        //        }
-
-
-
-        //        return RedirectToAction("CommercantPersonne", "service", user);
-        //    }
-
-
-        //}
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult DevnirFournisseurLogement(string id)
-        {
-            ViewData["countries"] = AvailableCountries;
-
-            string idx = userManager.GetUserId(User);
-            if (idx == null)
-            {
-                var user = new CommercentViewModel { TypseService = id };
-                return View("New", user);
-            }
-            var userCo = fournisseurService.GetFournisseurById(idx);
-            if (idx != null && (userCo.Result != null))
-            {
-
-                return RedirectToAction("AjouterLogement", "Service");
-
-            }
-            else
-            {
-                var com = commercantService.GetCommerçantById(idx).Result;
-                var user = new CommercentViewModel { TypseService = id };
-                if (com.SituationEntreprise != null)
-                {
-
-
-                    return RedirectToAction("ChangerEnFournisseur", "Service", user);
-                }
-
-
-
-                return RedirectToAction("CommercantPersonne", "service", user);
-            }
-
-
-        }
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> DevnirFournisseurLogement(CommercentViewModel model)
-        {
-            ViewData["countries"] = AvailableCountries;
-            if (ModelState.IsValid)
-            {
-                Debug.WriteLine("valid" + ModelState.IsValid.ToString());
-                string uniqueFileName = null;
-                if (model.FileP != null)
-                {
-                    // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-                    // To make sure the file name is unique we are appending a new
-                    // GUID value and and an underscore to the file name
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.FileP.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    // Use CopyTo() method provided by IFormFile interface to
-                    // copy the file to wwwroot/images folder
-                    model.FileP.CopyTo(new FileStream(filePath, FileMode.Create));
-                }
-                //phone
-                try
-                {
-                    var numberDetails = await PhoneNumberResource.FetchAsync(
-                        pathPhoneNumber: new Twilio.Types.PhoneNumber(model.Telephone),
-                        countryCode: model.PhoneNumberCountryCode,
-
-                        type: new List<string> { "carrier" });
-                    // only allow user to set phone number if capable of receiving SMS
-                    if (numberDetails?.Carrier != null && numberDetails.Carrier.GetType().Equals(""))
-                    {
-                        ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
-                            $"Le format du numero ne convient pas à votre pays");
-                        return View();
-                    }
-
-                    var numberToSave = numberDetails.PhoneNumber.ToString();
-
-                    var user = new Fournisseur
-                    {
-                        UserName = model.Email,
-
-                        PhoneNumber = numberToSave,
-                        PersAContact = model.PersAContact,
-                        Email = model.Email,
-                        FormeJuridique = model.Forme,
-                        Secteur = model.Secteur,
-                        DomainActivite = model.Domaine,
-                        SituationEntreprise = model.SituationEntreprise,
-                        EffectFemme = model.EffectFemme.Value,
-                        EffectHomme = model.EffectHomme.Value,
-                        Type = model.TypeP,
-                        Patente = uniqueFileName,
-                        TypeService = (TypeService)Enum.Parse(typeof(TypeService), model.TypseService)
-
-                    };
-                    var result = await userManager.CreateAsync(user, model.Password);
-
-
-                    if (result.Succeeded)
-                    {
-                        System.Diagnostics.Debug.WriteLine("Country is" + model.PhoneNumberCountryCode);
-
-
-                        if (await roleManager.RoleExistsAsync("Commercant"))
-                        {
-                            await userManager.AddToRoleAsync(user, "Commercant");
-                        }
-                        else
-                        {
-                            IdentityRole identityrole = new IdentityRole
-                            {
-                                Name = "Commercant"
-
-                            };
-                            await roleManager.CreateAsync(identityrole);
-                            await userManager.AddToRoleAsync(user, "Commercant");
-
-                        }
-                        await signInManager.SignInAsync(user, isPersistent: false);
-
-                        if (user.TypeService.ToString() == "Logement")
-                        {
-
-                            return RedirectToAction("AjouterLogement", "Service");
-                        }
-                        if (user.TypeService.ToString() == "Nourriture")
-                        {
-                            return RedirectToAction("AjouterNourriture", "Service");
-                        }
-
-                        if (user.TypeService.ToString() == "Transport")
-                        {
-
-
-
-                        }
-
-                    }
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError("", error.Description);
-                    }
-
-                    return View(model);
-
-
-                }
-                catch (ApiException ex)
-                {
-                    ModelState.AddModelError($"{nameof(model.Telephone)}.{nameof(model.Telephone)}",
-                        $"Le numéro entré n'est pas valide  (Code d'erreur {ex.Code})");
-                    return View();
-                }
-
-            }
-            Debug.WriteLine("ma5dmtch" + ModelState.IsValid.ToString());
-            return View("New");
-        }
+       
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Annuler()
@@ -698,6 +364,8 @@ namespace TourMe.Web.Controllers
                     // copy the file to wwwroot/images folder
                     model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
+                Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+
                 var transport = new ServiceTransport
                 {
                     NbrPlaces = model.NbrPlaces,
@@ -708,10 +376,12 @@ namespace TourMe.Web.Controllers
                     Image = uniqueFileName,
                     ReservationPrive = model.TypeTransport,
                     TypeTransport=model.TypeTransport,
-                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result
+                    Fournisseur = f,
                 };
 
-                await transportExtService.Ajout(transport);
+                 var x= transportExtService.Ajout(transport);
+                if (x.IsCompleted)
+                { Console.WriteLine("ok"); }
                 return RedirectToAction("Index", "Home");
             }
 
@@ -761,6 +431,7 @@ namespace TourMe.Web.Controllers
 
 
                 Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+
                 ServiceLogment serviceLogment = new ServiceLogment
                 {
 
@@ -858,10 +529,11 @@ namespace TourMe.Web.Controllers
                 }
 
 
-              
+                Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+
                 ServiceNouritture nourriture = new ServiceNouritture
                 {
-                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result,
+                    Fournisseur = f,
                     TypeResto = model.TypeResto,
                     SpecialeResto = model.SpecialeResto,
                     NomRestau = model.NomRestau,
@@ -889,9 +561,13 @@ namespace TourMe.Web.Controllers
 
 
 
-                await nourritureService.Ajout(nourriture);
+                var x= nourritureService.Ajout(nourriture);
+              var T=   x.Exception;
+                if (x.IsCompleted)
+                {
+                    TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
+                }
 
-                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
 
                 return RedirectToAction("DetailsResto", "Service");
             }
@@ -996,7 +672,94 @@ namespace TourMe.Web.Controllers
 
 
 
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult ModifierLogement(int id)
+
+        {
+            
 
 
+          
+
+            ServiceLogment logment = logementService.GetById(id).Result;
+            return View(logment);
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+
+        public IActionResult ModifierLogement(ServiceLogment model)
+
+        {
+
+
+
+
+
+            
+            return View();
+
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult ModifierRestaurent(int id)
+
+        {
+
+
+
+
+
+            ServiceNouritture nouritture = nourritureService.GetById(id).Result;
+            return View(nouritture);
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ModifierRestaurent(ServiceNouritture model)
+
+        {
+
+
+
+
+
+
+            return View();
+
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult ModifierTransport(int id)
+
+        {
+
+
+
+
+
+            ServiceNouritture nouritture = nourritureService.GetById(id).Result;
+            return View(nouritture);
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult ModifierTransport(ServiceTransport model)
+
+        {
+
+
+
+
+
+
+            return View();
+
+        }
     }
 }

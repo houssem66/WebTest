@@ -1,6 +1,8 @@
 @inject SignInManager<Domaine.Entities.Utilisateur> signInManager;
 @inject UserManager<Domaine.Entities.Utilisateur> userManager;
 @using Microsoft.AspNetCore.Identity;
+@inject Services.Interfaces.IFournisseurService FournisseurService;
+
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
 @using Microsoft.AspNetCore.Http
@@ -97,6 +99,13 @@
     </section>
     <!--HEADER SECTION-->
     <section>
+        @{ TourMe.Data.Entities.Fournisseur fournisseur = new TourMe.Data.Entities.Fournisseur();
+            string id = "";
+            id = userManager.GetUserId(User);
+            if (id == "") {   }
+
+
+        }
         <!-- TOP BAR -->
         <div class="ed-top">
             <div class="container">
@@ -112,6 +121,7 @@
                                 </li>
                             </ul>
                         </div>
+
                         <div class="ed-com-t1-right">
                             @if (signInManager.IsSignedIn(User))
                             {
@@ -125,10 +135,28 @@
                                 </form>
                                 @if (User.IsInRole("Commercant"))
                                 {<ul>
+                                        @if (fournisseur != null)
+                                        {
+                                            if (fournisseur.TypeService.ToString().ToLower() == "transport")
+                                            {
+                                                <li><a class="nav-link" asp-controller="Service" asp-action="AjouterTransport">Créer Transport</a> </li>
+ }
+                                            if (fournisseur.TypeService.ToString().ToLower() == "logement")
+                                            {
+                                                <li><a class="nav-link" asp-controller="Service" asp-action="AddLogement">Créer Logement</a></li>
+}
+                                            if (fournisseur.TypeService.ToString().ToLower() == "nourriture")
+                                            {
+                                                <li><a class="nav-link" asp-controller="Service" asp-action="AddRestaurant">Créer Nourritue</a></li>
+}
+                                        }
+                                        @if (fournisseur == null)
+                                        {
+                                            <li>
+                                                <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                            </li>
+}
 
-                                        <li>
-                                            <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                        </li>
                                     </ul>} }
                             else
 
@@ -303,7 +331,8 @@
                                         </div>
                                     </div>
                                     </li>
-                                    @{ string id = userManager.GetUserId(User);}
+
+
                                     @if (User.IsInRole("Commercant"))
                                     {
 
