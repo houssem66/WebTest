@@ -1359,7 +1359,7 @@
                 setTimeout(function () {
                     makeRequest1("x");
                     makeRequest2("x")
-                }, 700);
+                }, 1000);
 
             });
             //Load partial(modal) Nourriture
@@ -1524,8 +1524,7 @@
             });
             // Choose theme button getting the value from the modal
             $("#close").click(function () {
-                var affiche = '@TempData["test3"]';
-                alert(affiche);
+                
                 var SubTheme = $("input[name='Forme']:checked").val();
                 var theme = $('select[name="TypeExperience"]').find(":selected").text();
                 Category = $("input[name='sub']:checked").val();

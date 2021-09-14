@@ -1,6 +1,8 @@
 ﻿@{
     Layout = null;
 }
+@model List<TourMe.Data.Entities.Experience>
+
 <!DOCTYPE html>
 <html>
 
@@ -127,7 +129,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                               
+
 
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -146,7 +148,7 @@
                                 <i class="fas fa-user" aria-hidden="true"> Qui</i>
                             </a>
                         </div>
-                        
+
                         <!-- Drop Downlist Type -->
                         <div class="col-md-1 offset-md-3">
                             <div class="form-group">
@@ -161,7 +163,7 @@
                         <div class="col-sm-2  col-sm-offset-5">
                             <div class="form-group">
 
-                                <select  class="form-control" data-placeholder="Saison" style="width: 100%;">
+                                <select class="form-control" data-placeholder="Saison" style="width: 100%;">
                                     <option>Été </option>
                                     <option>Automne </option>
                                     <option> Hiver</option>
@@ -178,7 +180,7 @@
                         <div class="col-sm-2">
                             <div class="form-group">
 
-                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()"  class="form-control" data-placeholder="Ville" style="width: 100%;">
+                                <select asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()" class="form-control" data-placeholder="Ville" style="width: 100%;">
                                 </select>
                             </div>
                             <!-- /.form-group -->
@@ -191,8 +193,31 @@
                             </a>
                         </div>
                     </div>
-                    <div class="row">
-
+                    <div class="row" style="margin-top:50px;   ">
+                        <div class="col-md-2 offset-md-1">
+                            <div class="card" style="width: 18rem;">
+                                <a asp-action="Index" asp-controller="Home">
+                                    <img class="card-img-top" src="~/images/00841998-2bda-4d18-8812-0ccaa0089837_xD.png" alt="Card image cap">
+                                </a>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Marsa, tunisia 150D
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="card" style="width: 18rem;">
+                                <a asp-action="Index" asp-controller="Home">
+                                    <img class="card-img-top" src="~/images/00841998-2bda-4d18-8812-0ccaa0089837_xD.png" alt="Card image cap">
+                                </a>
+                                <div class="card-body">
+                                    <p class="card-text">
+                                        Marsa, tunisia 150D
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.row -->
                 </div><!-- /.container-fluid -->

@@ -9,7 +9,7 @@ using TourMe.Data.Entities.Enum;
 
 namespace TourMe.Data.Entities
 {
-  public class Fournisseur :Commerçant
+  public class Fournisseur : Hôte
     {
        
         public long NumCnss { get; set; }

@@ -1,0 +1,295 @@
+﻿@model TransportExtViewModel
+@{ Layout = null; }
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <link rel="apple-touch-icon" sizes="76x76" href="~/wizard/assets/img/apple-icon.png" />
+    <link rel="icon" type="image/png" href="~/wizard/assets/img/favicon.png" />
+    <title>The Travel - Tour Travel</title>
+
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+    <meta name="viewport" content="width=device-width" />
+
+    <!-- Canonical SEO -->
+    <link rel="canonical" href="https://www.creative-tim.com/product/paper-bootstrap-wizard" />
+
+    <meta name="keywords" content="wizard, bootstrap wizard, creative tim, long forms, 3 step wizard, sign up wizard, beautiful wizard, long forms wizard, wizard with validation, paper design, paper wizard bootstrap, bootstrap paper wizard">
+    <meta name="description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors.">
+
+    <!-- Schema.org markup for Google+ -->
+    <meta itemprop="name" content="Paper Bootstrap Wizard by Creative Tim">
+    <meta itemprop="description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors.">
+    <meta itemprop="image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg">
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta name="twitter:title" content="Paper Bootstrap Wizard by Creative Tim">
+    <meta name="twitter:description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors.">
+
+    <meta name="twitter:image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg">
+
+    <!-- Open Graph data -->
+    <meta property="og:title" content="Paper Bootstrap Wizard by Creative Tim | Free Boostrap Wizard" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://demos.creative-tim.com/paper-bootstrap-wizard/wizard-list-place.html" />
+    <meta property="og:image" content="https://s3.amazonaws.com/creativetim_bucket/products/49/opt_pbw_thumbnail.jpg" />
+    <meta property="og:description" content="Paper Bootstrap Wizard is a fully responsive wizard that is inspired by our famous Paper Kit  and comes with 3 useful examples and 5 colors." />
+    <meta property="og:site_name" content="Creative Tim" />
+
+    <!-- CSS Files -->
+    <link href="~/wizard/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/wizard/assets/css/paper-bootstrap-wizard.css" rel="stylesheet" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href="~/wizard/assets/css/demo.css" rel="stylesheet" />
+
+    <!-- Fonts and Icons -->
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
+    <link href="~/wizard/assets/css/themify-icons.css" rel="stylesheet">
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-NKDMSK6');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    @{ var path = "~/wizard/assets/img/paper-1.jpeg";}
+    <!-- End Google Tag Manager (noscript) -->
+    <div class="image-container set-full-height" style="background-image: url(@Url.Content(path));">
+        <!--   Creative Tim Branding   -->
+        <a asp-action="Index" asp-controller="Home">
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="~/wizard/assets/img/new_logo.png">
+                </div>
+                <div class="brand">
+                    Tour Me
+                </div>
+            </div>
+        </a>
+
+        <!--  Made With Paper Kit  -->
+        <!--   Big container   -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+
+                    <!--      Wizard container        -->
+                    <div class="wizard-container">
+                        <div class="card wizard-card" data-color="green" id="wizard">
+                            <form action="AjouterTransport" method="post" enctype="multipart/form-data">
+                                <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
+
+                                <div class="wizard-header" id="5dmt">
+                                    <h3 class="wizard-title">Créer Un transport</h3>
+                                    <p id="demo" style="font-size:18px;" class="category">Maintentant vous allez créer vote premier service.</p>
+                                </div>
+                                <div class="wizard-navigation">
+                                    <div class="progress-with-circle">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="1" aria-valuemin="1" aria-valuemax="5" style="width: 15%;"></div>
+                                    </div>
+                                    <ul>
+                                        <li>
+                                            <a href="#service" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-archive"></i>
+                                                </div>
+                                                Questions
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#Document" data-toggle="tab">
+                                                <div class="icon-circle">
+                                                    <i class="ti-email"></i>
+                                                </div>
+                                                Informations essentiels
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="Document">
+                                        <h5 class="info-text"></h5>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-1">
+                                                <div class="form-group">
+                                                    <div class="custom-file">
+                                                        <label class="custom-file-label">Veulleir Telecharger Des images sur votre vehicule(s)</label>
+                                                        <input asp-for="Images" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <div class="form-group" id="test">
+                                                    <label id="gouvLabel">Chosir le Governourat </label>
+                                                    <select asp-for="Region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                    </select>
+
+                                                    <span asp-validation-for="Region" class="text-danger"></span>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Entrer le nombre de place</label>
+                                                    <input asp-for="NbrPlaces" class="form-control">
+                                                    <span asp-validation-for="NbrPlaces" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="service">
+                                        <h5 class="info-text"></h5>
+                                        <div class="row">
+
+                                            <div class="col-sm-5 col-sm-offset-1">
+                                                <label>
+                                                    Vous aller créer un transport réguliers ou non réguliers ?
+                                                    <small style="color:red;"></small>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Réguliers" name="TypeTransport">
+                                                        Oui
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Non Réguliers" name="TypeTransport">
+                                                        Non
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1" id="quest1">
+                                                <label>Transport collectif ou particulier ? </label>
+                                            </div>
+                                            <div class="col-sm-2" id="rep1">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Oui" name="Load">
+                                                        Oui
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Non" name="Load">
+                                                        Non
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-5 col-sm-offset-1" id="quest2">
+                                                <label id="">peut-être il est réservé en privé par groupe ? </label>
+                                            </div>
+                                            <div class="col-sm-2" id="rep2">
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Oui" name="ReservationPrive">
+                                                        Oui
+                                                    </label>
+                                                </div>
+                                                <div class="radio">
+                                                    <label>
+                                                        <input type="radio" value="Non" name="ReservationPrive">
+                                                        Non
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="wizard-footer">
+                                        <div class="pull-right">
+                                            <input type='button' class='btn btn-next btn-fill btn-wd btn-primary' name='next' value='Next' />
+                                            <input type='submit' class='btn btn-finish btn-fill btn-danger btn-wd' name='finish' value='Valider' />
+                                            <input type='button' class="btn btn-success" id="button" name='Confirm' value='Reviser' />
+                                        </div>
+
+                                        <div class="pull-left">
+                                            <input type='button' class='btn btn-previous btn-default btn-wd' name='previous' value='Previous' />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div> <!-- wizard container -->
+                </div>
+            </div> <!-- row -->
+        </div> <!--  big container -->
+
+        <div class="footer">
+
+        </div>
+
+    </div>
+    <script src="~/wizard/assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+    <script src="~/wizard/assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="~/wizard/assets/js/jquery.bootstrap.wizard.js" type="text/javascript"></script>
+
+    <!--  Plugin for the Wizard -->
+    <script src="~/wizard/assets/js/demo.js" type="text/javascript"></script>
+    <script src="~/wizard/assets/js/paper-bootstrap-wizard.js" type="text/javascript"></script>
+
+    <!--  More information about jquery.validate here: https://jqueryvalidation.org/	 -->
+    <script src="~/wizard/assets/js/jquery.validate.min.js" type="text/javascript"></script>
+    <script>
+        //preview button
+        $(document).ready(function () {
+            $("[name=TypeTransport]").on('change', function () {
+
+                if ($(this).val() == "Réguliers") {
+                    $("#quest1").hide();
+                    $("#quest2").hide();
+                    $("#rep1").hide();
+                    $("#rep2").hide();}
+                else if ($(this).val() == "Non Réguliers")
+                {
+                    $("#quest1").show();
+
+
+                    $("#rep1").show();
+                    $("[name=Load]").on('change', function () {
+                        if ($(this).val() == "Oui") {
+                            $("#quest2").show();
+                            $("#rep2").show();
+                        }
+                        else {
+                            $("#quest2").hide();
+                            $("#rep2").hide();
+                        }
+
+                    });
+                }
+
+
+            });
+            $("#quest1").hide();
+            $("#quest2").hide();
+            $("#rep1").hide();
+            $("#rep2").hide();
+
+        });</script>
+</body>
+
+< !--Core JS Files-- >
+
+
+</html>

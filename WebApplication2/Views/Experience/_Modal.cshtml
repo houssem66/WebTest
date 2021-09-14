@@ -33,8 +33,9 @@
                                         <label>
                                             Description de l'activité
                                         </label>
-                                        <textarea class="form-control"  id="test2" rows="4" placeholder="Expliquer aux participant le déroulement de votre Activité" name="Details">@item.Details</textarea>
+                                        <textarea class="form-control" id="test2" rows="4" placeholder="Expliquer aux participant le déroulement de votre Activité" name="Details">@item.Details</textarea>
                                     </div>
+
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="form-group">
@@ -62,6 +63,20 @@
                                             <option value="">7.5 Heure</option>
                                             <option value="">8 Heure</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <style>
+                                    .Custom {
+                                        border: 1px solid #ddd;
+                                        border-radius: 4px;
+                                        padding: 5px;
+                                        width: 120px;
+                                    }
+                                </style>
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlFile1">Your previous Image</label>
+                                        <img class="Custom" src="~/images/@item.Image" alt="">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
