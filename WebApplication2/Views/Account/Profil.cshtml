@@ -107,7 +107,8 @@
                                         <td>Date of birth</td>
                                         <td>:</td>
                                         <td>
-                                            <input asp-for="BirthDate" value="@Model.BirthDate.ToString("MM/dd/yyyy") ">
+                                            <strong> @Model.BirthDate.Date.ToString("yyyy-MM-dd") </strong>
+                                            <input asp-for="BirthDate" >
 
                                         </td>
 

@@ -531,6 +531,7 @@ namespace TourMe.Web.Controllers
 
                 Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
 
+
                 ServiceNouritture nourriture = new ServiceNouritture
                 {
                     Fournisseur = f,
@@ -550,10 +551,8 @@ namespace TourMe.Web.Controllers
                     Site = model.Site,
                     Rating = model.Rating,
                     Documents = emp,
-
-
-
-
+                    dateFerme=model.dateFerme,
+                    dateOuvert=model.dateOuvert
 
                 };
 
