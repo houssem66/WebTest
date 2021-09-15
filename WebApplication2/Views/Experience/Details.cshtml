@@ -96,7 +96,7 @@
                             @{
                                 foreach (var item in Model.Activites)
                                 {
-                                    <div class="item @(item == Model.Activites.First() ? " active" : " ")">
+                                    <div class="item @(item == Model.Activites.FirstOrDefault() ? " active" : " ")">
                                         <img src="~/images/@item.Image" alt="Chania" style="width:800px;height:500px;">
                                     </div>
                                 }
@@ -105,7 +105,7 @@
                         <input id="default"
                                name="defaultsrc"
                                type="hidden"
-                               value="@Model.Activites.First().Image" />
+                               value="@Model.Activites.FirstOrDefault().Image" />
 
 
                         <!-- Left and right controls -->

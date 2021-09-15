@@ -857,11 +857,11 @@ namespace TourMe.Web.Controllers
 
                 }
 
+                Fournisseur f =(Fournisseur)userManager.GetUserAsync(User).Result;
 
-              
                 ServiceNouritture nourriture = new ServiceNouritture
                 {
-                    Fournisseur = fournisseurService.GetFournisseurById(userManager.GetUserId(User)).Result,
+                    Fournisseur = f,
                     TypeResto = model.TypeResto,
                     SpecialeResto = model.SpecialeResto,
                     NomRestau = model.NomRestau,
@@ -878,10 +878,8 @@ namespace TourMe.Web.Controllers
                     Site = model.Site,
                     Rating = model.Rating,
                     Documents = emp,
-
-
-
-
+                    dateFerme=model.dateFerme,
+                    dateOuvert=model.dateOuvert
 
                 };
 
