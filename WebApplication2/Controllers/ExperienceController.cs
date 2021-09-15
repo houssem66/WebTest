@@ -1016,87 +1016,9 @@ namespace TourMe.Web.Controllers
             return View(experienceViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> ModifierExperience(ExperienceViewModel model, string obligatoire, int IDE)
+        public async Task<IActionResult> ModifierExperience(Experience model)
         {
-            Boolean bol = false;
-            if (TempData["Nourriture"] != null)
-            { ViewData["supp"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
-            if (TempData["Transport"] != null)
-            { ViewData["suppT"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport")); }
-            if (TempData["Logement"] != null)
-            { ViewData["suppL"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement")); }
-
-            if (TempData["list"] != null)
-            { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
-
-            if (ModelState.IsValid)
-            {
-                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-                IList<Activite> list = (IList<Activite>)ViewData["list"];
-
-                var exp = await ExperienceService.GetExperienceByIdAsync(IDE);
-
-                exp.Titre = model.Titre;
-                exp.Lieu = model.Lieu;
-                exp.TypeExperience = model.TypeExperience;
-                exp.dateDebut = model.dateDebut;
-                exp.dateFin = model.dateFin;
-                exp.Saison = model.Saison;
-                exp.NbPlaces = model.NbPlaces;
-                exp.tarif = model.tarif;
-                exp.Description = model.Description;
-
-                exp.Activites = list;
-                await ExperienceService.PutExperienceAsync(IDE, exp);
-
-                if (TempData["Nourriture"] != null)
-                {
-                    ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
-                    var nourriture = (Nourriture)ViewData["Nourriture"];
-                    nourriture.ExperienceId = model.ExperienceId;
-                    if (nourriture.Prix > 0)
-                    {
-                        await NourritureService.Update(nourriture);
-                    }
-
-                }
-                if (TempData["Logement"] != null)
-                {
-                    ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
-                    var logement = (Logement)ViewData["Logement"];
-                    logement.ExperienceId = model.ExperienceId;
-                    if (logement.Prix > 0)
-                    {
-                        await LogementService.Update(logement);
-                    }
-
-                }
-                if (TempData["Transport"] != null)
-                {
-                    ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
-                    var transport = (Transport)ViewData["Transport"];
-                    transport.ExperienceId = model.ExperienceId;
-                    if (transport.Prix > 0)
-                    {
-                        await TransportService.Update(transport);
-                    }
-
-
-
-
-
-
-
-
-                }
-                return RedirectToAction("GetALLExp", "Administration");
-            }
-
-
-
-            return RedirectToAction("GetALLExp", "Administration");
-
-
+            return View(); 
         }
 
 
