@@ -39,7 +39,7 @@ namespace Services.Implementation
 
         public Task<Commerçant> GetCommerçantById(string id)
         {
-            return genericRepo.GetByIdAsync(id);
+            return commerçantRepo.GetCommercantDetailsAsync(id);
         }
 
         public Task Update(Commerçant Commerçant)

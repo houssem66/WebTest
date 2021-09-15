@@ -12,5 +12,7 @@ namespace Repository.Interfaces
     {
         public IQueryable<Commerçant> GetAllCommercant();
         public IEnumerable<EmployeDocuments> GetListfile(string id);
+        public Task<Commerçant> GetCommercantDetailsAsync(string id);
+
     }
 }

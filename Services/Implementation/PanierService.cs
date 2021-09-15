@@ -84,5 +84,12 @@ namespace Services.Implementation
         {
            return  panierRepo.UpdatePanier(panier);
         }
+
+       
+        public IList<Panier> GetPanierByUser(string id)
+        {
+            return panierRepo.GetAllpanierAsync().Where(e => e.User.Id.Equals(id)).ToList();
+
+        }
     }
 }
