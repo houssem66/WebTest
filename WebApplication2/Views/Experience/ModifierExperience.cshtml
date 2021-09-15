@@ -1360,6 +1360,13 @@
         }
         //afficher region
         $(document).ready(function () {
+            setTimeout(function () {
+                var f = "x";
+
+                makeRequest1("x")
+                makeRequest2("x")
+            }, 1000);
+
             $('#AjouterActivite').click(function (e) {
                 $('#myModal3').modal('toggle');
 
