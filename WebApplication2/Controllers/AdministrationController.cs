@@ -398,10 +398,9 @@ namespace TourMe.Web.Controllers
         {
             var user = await commercantService.GetCommerçantById(id);
 
+            var file = commercantService.GetListfile(id);
 
-         
-         
-           
+            ViewBag.path = file;
             return View(user);
 
         }
@@ -440,9 +439,9 @@ namespace TourMe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("GetAllCommercant");
+                return RedirectToAction("GetALlHostes");
             }
-            return RedirectToAction("GetAllCommercant");
+            return RedirectToAction("GetALlHostes");
         }
     }
 }

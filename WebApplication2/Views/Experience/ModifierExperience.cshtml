@@ -90,7 +90,7 @@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
-
+            
                 <div class="col-sm-12">
 
                     <!--      Wizard container        -->
@@ -98,7 +98,7 @@
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="ModifierExperience" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
-
+                                <input type="hidden" value="@ViewBag.Id" name="IDE" />
                                 <div class="wizard-header" id="5dmt">
                                     <h3 class="wizard-title">Créer une Expérience</h3>
                                     <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à Créer une Expérience.</p>
@@ -223,7 +223,7 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Choisir Date Début</label><br>
-                                                    <input type="date" value="@Model.dateDebut.Date.ToString("yyyy-MM-dd")"  class="form-control" />
+                                                    <input type="date" value="@Model.dateDebut.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateDebut"></span>
 
                                                 </div>
@@ -233,8 +233,8 @@
                                                 <div class="form-group">
                                                     <label>Choisir Date Fin</label><br>
                                                     @*@{string DateString = @Model.dateFin.Date.ToString("d");
-                                                        IFormatProvider culture = new CultureInfo("en-US", true);
-                                                        DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
+                            IFormatProvider culture = new CultureInfo("en-US", true);
+                            DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
                                                     <input asp-for="dateFin" value="@Model.dateFin.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateFin"></span>
 
@@ -1190,7 +1190,7 @@
         </div>
     </div>
 
-    <form action="CreateActivite" method="post" enctype="multipart/form-data">
+    <form asp-action="CreateActivite" asp-controller="Experience" method="post" enctype="multipart/form-data">
         <div class="modal" id="myModal3">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -1258,7 +1258,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="Close" data-dismiss="modal">Close</button>
-                        <input id="AjouterActivite" type="submit" value="Ajouter" class="btn" />
+                        <input id="AjouterActivite" type="submit" value="AjouterAtester" class="btn" />
                     </div>
 
                 </div>
@@ -1360,13 +1360,6 @@
         }
         //afficher region
         $(document).ready(function () {
-            setTimeout(function () {
-                var f = "x";
-
-                makeRequest1("x")
-                makeRequest2("x")
-            }, 700);
-
             $('#AjouterActivite').click(function (e) {
                 $('#myModal3').modal('toggle');
 

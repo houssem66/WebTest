@@ -19,5 +19,6 @@ namespace Repository.Interfaces
         public Task<Panier> GetPan(int id);
         Task InsertAsync(Panier panier, int id);
         public Task<Panier> GetPanUser(string id);
+        public IQueryable<Panier> GetAllpanierAsync();
     }
 }

@@ -89,15 +89,20 @@ namespace TourMe.Web.Controllers
             if (!(searchTerm.Count() == 0))
             {
                 foreach (var ch in searchTerm)
-                {
-                    var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+                { try
+                    { var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
 
-                    list = list.Concat(list2).ToList();
+                        list = list.Concat(list2).ToList();
+                    }
+                    catch(Exception e)
+                    {
+                          var list2= ExperienceService.GetAllExperienceDetails(null).ToList();
+                        list = list.Concat(list2).ToList();
 
-
-
-
-
+                    }
+                  
+                   
+                
                 }
 
                 return View(list);
@@ -105,6 +110,7 @@ namespace TourMe.Web.Controllers
             return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
         }
+
 
         [HttpGet]
 
@@ -405,20 +411,9 @@ namespace TourMe.Web.Controllers
         [Authorize(Policy = "CreateExperiencePolicy")]
         public ActionResult AfficherActivite(string type)
         {
-            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-            TempData.Keep("list");
-
-            return PartialView("_Activité");
-
-        }
-        [HttpPost]
-        [Authorize(Policy = "CreateExperiencePolicy")]
-        public ActionResult AfficherActiviteForModification(string type)
-        {
-            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list2"));
-            TempData.Keep("list2");
-
-
+               ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                TempData.Keep("list");
+          
             return PartialView("_Activité");
 
         }
@@ -990,7 +985,6 @@ namespace TourMe.Web.Controllers
             return PartialView("_Individu");
 
         }
-
         [HttpGet]
         public async Task<IActionResult> ModifierExperience(int id)
         {
@@ -1012,15 +1006,15 @@ namespace TourMe.Web.Controllers
                 Description = exp.Description,
 
             };
-            TempData["list"] = JsonConvert.SerializeObject(exp.Activites);
-
             return View(experienceViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> ModifierExperience(Experience model)
         {
-            return View();
+            return View(); 
         }
+
+
     }
 
 }

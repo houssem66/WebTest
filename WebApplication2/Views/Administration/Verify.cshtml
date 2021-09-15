@@ -1,7 +1,6 @@
-﻿@model Domaine.Entities.Hôte
+﻿@model Domaine.Entities.Commerçant
 <div class="db">
     <!--LEFT SECTION-->
-    
     <!--CENTER SECTION-->
     <div class="db-2">
         <div class="db-2-com db-2-main">
@@ -13,67 +12,67 @@
                     {
                         var path = "db-not-done";
                         <table class="responsive-table">
-                                            <tbody>
-                                                <tr>
-                                                                    <td>NomGerant</td>
-                                                    <td>:</td>
-                                                    <td>@Model.NomGerant</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Personne A contacer</td>
-                                                    <td>:</td>
-                                                    <td>@Model.PersAContact</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Secteur</td>
-                                                    <td>:</td>
-                                                    <td>@Model.Secteur</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>DomainActivite</td>
-                                                    <td>:</td>
-                                                    <td>@Model.DomainActivite</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Email</td>
-                                                    <td>:</td>
-                                                    <td>@Model.Email</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>CodePostale</td>
-                                                    <td>:</td>
-                                                    <td>@Model.CodePostale</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Telephone</td>
-                                                    <td>:</td>Telephone
-                                                    <td>@Model.Telephone</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Forme Juridique</td>
-                                                    <td>:</td>
-                                                    <td>@Model.FormeJuridique</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Identifiant Fiscale</td>
-                                                    <td>:</td>
-                                                    <td>@Model.Identifiant_fiscale</td>
-                                                </tr>
+                            <tbody>
+                                <tr>
+                                    <td>NomGerant</td>
+                                    <td>:</td>
+                                    <td>@Model.NomGerant</td>
+                                </tr>
+                                <tr>
+                                    <td>Personne A contacer</td>
+                                    <td>:</td>
+                                    <td>@Model.PersAContact</td>
+                                </tr>
+                                <tr>
+                                    <td>Secteur</td>
+                                    <td>:</td>
+                                    <td>@Model.Secteur</td>
+                                </tr>
+                                <tr>
+                                    <td>DomainActivite</td>
+                                    <td>:</td>
+                                    <td>@Model.DomainActivite</td>
+                                </tr>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <td>@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <td>CodePostale</td>
+                                    <td>:</td>
+                                    <td>@Model.CodePostale</td>
+                                </tr>
+                                <tr>
+                                    <td>Telephone</td>
+                                    <td>:</td>Telephone
+                                    <td>@Model.Telephone</td>
+                                </tr>
+                                <tr>
+                                    <td>Forme Juridique</td>
+                                    <td>:</td>
+                                    <td>@Model.FormeJuridique</td>
+                                </tr>
+                                <tr>
+                                    <td>Identifiant Fiscale</td>
+                                    <td>:</td>
+                                    <td>@Model.Identifiant_fiscale</td>
+                                </tr>
 
-                                                <tr>
-                                                    <td>Rib</td>
-                                                    <td>:</td>
-                                                    <td>@Model.Rib</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Payment Status</td>
-                                                    <td>:</td>
-                                                    <td>
-                                                        <span class="@path">Pending</span>
-                                                    </td>
-                                                </tr>
+                                <tr>
+                                    <td>Rib</td>
+                                    <td>:</td>
+                                    <td>@Model.Rib</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Status</td>
+                                    <td>:</td>
+                                    <td>
+                                        <span class="@path">Pending</span>
+                                    </td>
+                                </tr>
 
-                                            </tbody>
+                            </tbody>
                         </table>
                     }
 
@@ -134,34 +133,34 @@
                                     <td>@Model.Rib</td>
                                 </tr>
                                 <tr>
-                                 
-<td>Payment Status</td>
+
+                                    <td>Payment Status</td>
                                     <td>:</td>
                                     <td>
                                         <span class="db-not-done">Pending</span>
                                     </td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
 
-                        }
                     }
+                }
                 @{
-                        var i = 0;
-                        foreach (var file in Model.EmployeDocuments)
-                        {
+                    var i = 0;
+                    foreach (var file in Model.EmployeDocuments)
+                    {
 
-                            i = i + 1;
+                        i = i + 1;
                         <div class="row">
-                                            <div class="col-md-4">
+                            <div class="col-md-4">
 
 
-                                               
-                                                <a href="~/Files/@file.Filepath" target="_blank">
-                                                  document @i
-                                                </a>
-                                            </div>
+
+                                <a href="~/Files/@file.Filepath" target="_blank">
+                                    document @i
+                                </a>
+                            </div>
                         </div>
                     }
                 }
@@ -178,6 +177,6 @@
         </div>
     </div>
     <!--RIGHT SECTION-->
-    
+
 </div>
 
