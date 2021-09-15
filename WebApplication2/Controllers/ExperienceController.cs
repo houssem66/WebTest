@@ -89,21 +89,24 @@ namespace TourMe.Web.Controllers
             if (!(searchTerm.Count() == 0))
             {
                 foreach (var ch in searchTerm)
-                { try
-                    { var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
-
-                        list = list.Concat(list2).ToList();
-                    }
-                    catch(Exception e)
+                {
+                    try
                     {
-                          var list2= ExperienceService.GetAllExperienceDetails(null).ToList();
+                        var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+
+                        list = list.Concat(list2).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        var list2 = ExperienceService.GetAllExperienceDetails(null).ToList();
                         list = list.Concat(list2).ToList();
 
                     }
-                  
-                   
-                
+
+
+
                 }
+                ;
 
                 return View(list);
             }
@@ -221,6 +224,9 @@ namespace TourMe.Web.Controllers
                     }
 
 
+
+
+
                     return RedirectToAction("Details", new { id = experience1.ExperienceId });
                 }
             }
@@ -313,7 +319,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                TempData["test3"] = "5dmt 3.0";
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
@@ -411,9 +417,9 @@ namespace TourMe.Web.Controllers
         [Authorize(Policy = "CreateExperiencePolicy")]
         public ActionResult AfficherActivite(string type)
         {
-               ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
-                TempData.Keep("list");
-          
+            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+            TempData.Keep("list");
+
             return PartialView("_Activité");
 
         }
@@ -451,17 +457,15 @@ namespace TourMe.Web.Controllers
             return PartialView("_Modal");
 
         }
-        [HttpPost]
+        [HttpGet]
         [Authorize(Policy = "CreateExperiencePolicy")]
-        public ActionResult AfficherModalForModification(string type)
+        public IActionResult GetAllExperience(string searchTerm)
         {
 
-            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list2"));
-            TempData.Keep("list2");
-
-            return PartialView("_Modal");
+            return View(ExperienceService.Search(searchTerm));
 
         }
+
 
 
 
@@ -1006,6 +1010,9 @@ namespace TourMe.Web.Controllers
                 Description = exp.Description,
 
             };
+            TempData["list"] = JsonConvert.SerializeObject(exp.Activites);
+
+            ViewBag.Id = id;
             return View(experienceViewModel);
         }
         [HttpPost]

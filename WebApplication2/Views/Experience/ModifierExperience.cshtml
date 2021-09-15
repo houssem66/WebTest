@@ -90,7 +90,7 @@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
-            
+
                 <div class="col-sm-12">
 
                     <!--      Wizard container        -->
@@ -162,7 +162,7 @@
                                                     <span asp-validation-for="Titre" class="text-danger"></span>
                                                 </div>
                                             </div>
-                                             
+
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">@Model.Theme</button>
                                             </div>
@@ -233,8 +233,8 @@
                                                 <div class="form-group">
                                                     <label>Choisir Date Fin</label><br>
                                                     @*@{string DateString = @Model.dateFin.Date.ToString("d");
-                            IFormatProvider culture = new CultureInfo("en-US", true);
-                            DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
+                                                        IFormatProvider culture = new CultureInfo("en-US", true);
+                                                        DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
                                                     <input asp-for="dateFin" value="@Model.dateFin.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateFin"></span>
 
@@ -452,21 +452,18 @@
                                                 @listc.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = modc; i < listc.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="Forme" value=" @listc.ElementAt(i).Text" />
-                                                @listc.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = modc; i < listc.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="Forme" value=" @listc.ElementAt(i).Text" />
+                                                            @listc.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -483,21 +480,18 @@
                                                 @listf.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = modf; i < listf.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
-                                                @listf.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = modf; i < listf.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
+                                                            @listf.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -514,21 +508,18 @@
                                                 @listf.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = modf; i < listf.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
-                                                @listf.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = modf; i < listf.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
+                                                            @listf.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -545,21 +536,18 @@
                                                 @listf.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = modf; i < listf.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
-                                                @listf.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = modf; i < listf.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
+                                                            @listf.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -576,21 +564,18 @@
                                                 @listf.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = modf; i < listf.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
-                                                @listf.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = modf; i < listf.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="Forme" value=" @listf.ElementAt(i).Text" />
+                                                            @listf.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -609,21 +594,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -640,21 +622,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -672,21 +651,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -704,21 +680,18 @@
 
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -735,21 +708,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -766,21 +736,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -798,21 +765,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -829,21 +793,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -860,21 +821,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod + 1; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod + 1; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -891,21 +849,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -922,21 +877,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod0; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod0; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -953,21 +905,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -984,21 +933,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -1015,21 +961,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -1047,21 +990,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -1078,21 +1018,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
@@ -1109,21 +1046,18 @@
                                                 @list.ElementAt(i).Text
 
                                             </label>
-                                        </div>}
-                                }
+                                        </div>} }
                             </div>
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group">
-                                @{
-                                    for (int i = mod; i < list.Count(); i++)
-                                    { <div class="radio">
-                                            <label>
-                                                <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
-                                                @list.ElementAt(i).Text
-                                            </label>
-                                        </div>}
-                                }
+                                @{ for (int i = mod; i < list.Count(); i++)
+                                                { <div class="radio">
+                                                        <label>
+                                                            <input type="radio" name="sub" value=" @list.ElementAt(i).Text" />
+                                                            @list.ElementAt(i).Text
+                                                        </label>
+                                                    </div>} }
                             </div>
                         </div>
                     </div>
