@@ -162,7 +162,7 @@
                                                     <span asp-validation-for="Titre" class="text-danger"></span>
                                                 </div>
                                             </div>
-
+                                             
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">@Model.Theme</button>
                                             </div>
@@ -1360,13 +1360,6 @@
         }
         //afficher region
         $(document).ready(function () {
-            setTimeout(function () {
-                var f = "x";
-
-                makeRequest1("x")
-                makeRequest2("x")
-            }, 1000);
-
             $('#AjouterActivite').click(function (e) {
                 $('#myModal3').modal('toggle');
 

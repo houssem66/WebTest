@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace TourMe.Data.Entities
 {
-   public class EmployeDocuments
+   public class HôteDocuments
     {
         public int Id { get; set; }
         public string Filepath { get; set; }
-        public Commerçant Commerçant { get; set; }
+        public Hôte Hôte { get; set; }
     }
 }
