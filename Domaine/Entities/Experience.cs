@@ -56,7 +56,7 @@ namespace TourMe.Data.Entities
 
 
 
-        public Commerçant Commerçant { get; set; }
+        public Hôte Commerçant { get; set; }
 
 
     }

@@ -28,11 +28,13 @@ namespace Services.Implementation
             return GenericRepo.DeleteAsync(id);
         }
 
-        public IEnumerable<Experience> GetAllExperienceDetails(string searchTerm = null)
+        public IList<Experience> GetAllExperienceDetails(string searchTerm = null)
         {
             if (!(string.IsNullOrEmpty(searchTerm)))
-            {if (searchTerm.Length == 1)
-                { var ch = searchTerm[0];
+            {
+                if (searchTerm.Length == 1)
+                {
+                    var ch = searchTerm[0];
 
 
                     Debug.WriteLine("the value of searchSterm is : " + ch);
@@ -45,7 +47,7 @@ namespace Services.Implementation
                                             e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
             }
 
-            return ExperienceRepo.GetAllExperienceAsync();
+            return ExperienceRepo.GetAllExperienceAsync().ToList();
         }
         public IEnumerable<Experience> GetAllExperienceDetails()
         {

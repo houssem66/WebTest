@@ -38,7 +38,7 @@ namespace Repository.Implementation
 
         public async Task<Fournisseur> GetFournisseurAsync(string id)
         {
-            var Fournisseur = await dbContext.Fournisseurs.Include(x => x.EmployeDocuments).SingleAsync(f => f.Id == id);
+            var Fournisseur = await dbContext.Fournisseurs.Include(x => x.EmployeDocuments).SingleOrDefaultAsync(f => f.Id == id);
             dbContext.Entry(Fournisseur).Collection(U => U.EmployeDocuments).Query().Load();
             dbContext.Entry(Fournisseur).State = EntityState.Detached;
             return Fournisseur;

@@ -90,7 +90,7 @@
         <!--   Big container   -->
         <div class="container">
             <div class="row">
-
+            
                 <div class="col-sm-12">
 
                     <!--      Wizard container        -->
@@ -98,7 +98,7 @@
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="ModifierExperience" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
-
+                                <input type="hidden" value="@ViewBag.Id" name="IDE" />
                                 <div class="wizard-header" id="5dmt">
                                     <h3 class="wizard-title">Créer une Expérience</h3>
                                     <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à Créer une Expérience.</p>
@@ -162,7 +162,7 @@
                                                     <span asp-validation-for="Titre" class="text-danger"></span>
                                                 </div>
                                             </div>
-
+                                             
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
                                                 <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">@Model.Theme</button>
                                             </div>
@@ -233,8 +233,8 @@
                                                 <div class="form-group">
                                                     <label>Choisir Date Fin</label><br>
                                                     @*@{string DateString = @Model.dateFin.Date.ToString("d");
-                                                        IFormatProvider culture = new CultureInfo("en-US", true);
-                                                        DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
+                            IFormatProvider culture = new CultureInfo("en-US", true);
+                            DateTime dateVal = DateTime.ParseExact(DateString, "yyyy-MM-dd", culture);}*@
                                                     <input asp-for="dateFin" value="@Model.dateFin.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateFin"></span>
 

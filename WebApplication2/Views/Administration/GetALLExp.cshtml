@@ -36,7 +36,7 @@
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" id="myInput" placeholder="Recherche Utilisateurs" title="Type in a name" class="form-control float-right">
+                                <input type="text" id="myInput" placeholder="Recherche" title="Type in a name" class="form-control float-right">
 
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="card-body">
-                         <table id="example2" class="table table-bordered table-hover">
+                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
@@ -63,24 +63,29 @@
                                     <th>Nourriture</th>
                                     <th>Logement</th>
                                     <th>Transport</th>
-                                    <th>Voir l expérience</th>
+                                    <th>Voir l'expérience</th>
+                                    <th>Modifier l'expérience</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
-                                    <td>@item.ExperienceId</td>
-                                    <td>
-                                        @item.Titre
+                                    <tr>
+                                        <td>@item.ExperienceId</td>
+                                        <td>
+                                            @item.Titre
 
-                                    </td>
-                                    <td>
-                                        @item.Theme
-                                    </td>
-                                    <td>
-                                        <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Commerçant.Id" class="link-btn">@item.Commerçant.Email</a></span>
+                                        </td>
+                                        <td>
+                                            @item.Theme
+                                        </td>
+                                        <td>
+                                            <span>
+                                                @{if (item.Commerçant != null)
+                                                    {<a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Commerçant.Id" class="link-btn">@item.Commerçant.Email</a> }
+                                            }
+                                        </span>
                                     </td>
                                     <td>
                                         @item.NbPlaces
@@ -99,18 +104,24 @@
                                         @item.tarif
                                     </td>
                                     <td>
-                                        @{if (item.Commerçant.Verified)
-                                            { <div class="time-label">
-                                                    <span class="bg-green">verfied</span>
-                                                </div> }
+                                        @{ if (item.Commerçant != null)
+                                            {
+                                                if (item.Commerçant.Verified)
+                                                { <div class="time-label">
+                                                        <span class="bg-green">verfied</span>
+                                                    </div> }
+                                                else
+                                                { <div class="time-label">
+                                                        <span class="bg-red">Not verfied</span>
+                                                    </div> }
+                                            }
                                             else
-                                            { <div class="time-label">
-                                                    <span class="bg-red">Not verfied</span>
-                                                </div> }
+                                            {<span>Admin created</span> }
+
                                         }
                                     </td>
                                     <td>
-                                        @{if (item.Nourriture!=null)
+                                        @{if (item.Nourriture != null)
                                             { <div class="time-label">
                                                     <span class="bg-cyan">Existe</span>
                                                 </div> }
@@ -142,14 +153,16 @@
                                                 </div> }
                                         }
                                     </td>
-                                   
+
 
                                     <td>
                                         <span> <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId" class="link-btn">Details</a></span>
                                     </td>
-
+                                    <td>
+                                        <span> <a asp-action="ModifierExperience" asp-controller="Experience" asp-route-id="@item.ExperienceId" class="link-btn">Modifier</a></span>
+                                    </td>
                                 </tr>
-                                }
+                            }
                             </tbody>
                         </table>
 
@@ -161,8 +174,8 @@
 </section>
 @section Scripts {
     <script>
-        $(function () {  
-           
+        $(function () {
+
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,

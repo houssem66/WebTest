@@ -14,39 +14,39 @@ namespace Services.Implementation
 {
     public class CommercantService : ICommercantService
     {
-        private readonly IGenericRepository<Commerçant> genericRepo;
-        private readonly ICommercantRepo commerçantRepo;
+        private readonly IGenericRepository<Hôte> genericRepo;
+        private readonly IHôteRepo commerçantRepo;
 
-        public CommercantService(IGenericRepository<Commerçant> genericRepo, ICommercantRepo CommerçantRepo)
+        public CommercantService(IGenericRepository<Hôte> genericRepo, IHôteRepo CommerçantRepo)
         {
             this.genericRepo = genericRepo;
             commerçantRepo = CommerçantRepo;
         }
-        public Task Ajout(Commerçant commerçant)
+        public Task Ajout(Hôte commerçant)
         {
             return genericRepo.InsertAsync(commerçant);
         }
 
-        public Task Delete(Commerçant Commerçant)
+        public Task Delete(Hôte Commerçant)
         {
             return genericRepo.DeleteAsync(Commerçant.Id);
         }
 
-        public IList<Commerçant> GetAllCommerçants()
+        public IList<Hôte> GetAllCommerçants()
         {
             return commerçantRepo.GetAllCommercant().ToList();
         }
 
-        public Task<Commerçant> GetCommerçantById(string id)
+        public Task<Hôte> GetCommerçantById(string id)
         {
-            return genericRepo.GetByIdAsync(id);
+            return commerçantRepo.GetCommercantDetailsAsync(id);
         }
 
-        public Task Update(Commerçant Commerçant)
+        public Task Update(Hôte Commerçant)
         {
             return genericRepo.PutAsync(Commerçant.Id, Commerçant);
         }
-        public IEnumerable<EmployeDocuments> GetListfile(string id)
+        public IEnumerable<HôteDocuments> GetListfile(string id)
         {
             return commerçantRepo.GetListfile(id);
         }

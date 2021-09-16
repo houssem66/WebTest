@@ -34,6 +34,13 @@ namespace Repository.Implementation
 
             return dbContext.EmployeDocuments.ToList().Where(x => x.Commerçant.Id == id);
         }
+        public async Task<Commerçant> GetCommercantDetailsAsync(string id)
+        {
+            var commerçant = await dbContext.Commercant.Include(x => x.EmployeDocuments).SingleOrDefaultAsync(c => c.Id == id);
+            dbContext.Entry(commerçant).Collection(x => x.EmployeDocuments).Query().Load();
+            dbContext.Entry(commerçant).State = EntityState.Detached;
+            return commerçant;
+        }
 
     }
 }
