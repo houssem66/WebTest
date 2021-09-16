@@ -242,6 +242,7 @@ namespace TourMe.Web.Controllers
             panier.NbrJoursLogement = model.NbrJoursLogement;
             panier.NbrJoursTrans = model.NbrJoursTrans;
             panier.NbrPlat = model.NbrPlat;
+            panier.DateReservationRes = model.DateReservationRes;
             panier.Quantite =(int)( panier.Prix / panier.Experiences.LastOrDefault().tarif);
             if (panier.Nourittures.Count != 0) countPlat = (int)model.NbrPlat* panier.Nourittures.LastOrDefault().Prix; 
             if (panier.Logments.Count != 0) countlogement = (int)model.NbrJoursLogement* panier.Logments.LastOrDefault().PrixParNuit; 
@@ -581,7 +582,18 @@ namespace TourMe.Web.Controllers
             return View(panier);
         }
 
-     
+        [HttpGet]
+        [AllowAnonymous]
+
+        public IActionResult MesReservations()
+
+        {
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+            // ViewBag.Best = ExperienceService.BestExperience();
+            var list = panierService.GetPanierByUser(userManager.GetUserId(User));
+            return View(list);
+
+        }
 
 
 

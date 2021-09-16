@@ -96,7 +96,7 @@
                     <!--      Wizard container        -->
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="green" id="wizard">
-                            <form action="CreateExperience" method="post" enctype="multipart/form-data">
+                            <form action="ModifierExperience" method="post" enctype="multipart/form-data">
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
                                 <div class="wizard-header" id="5dmt">
@@ -158,22 +158,22 @@
                                             <div class="col-sm-5 col-sm-offset-1">
                                                 <div class="form-group">
 
-                                                    <input asp-for="Titre"  value="@Model.Titre"placeholder="Titre éxperience" class="form-control" />
+                                                    <input asp-for="Titre" value="@Model.Titre" placeholder="Titre éxperience" class="form-control" />
                                                     <span asp-validation-for="Titre" class="text-danger"></span>
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-8 col-sm-offset-1" id="theme">
-                                                <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">Choisir un Théme</button>
+                                                <button type="button" data-toggle="modal" data-target="#myModal" id="choose" class="btn btn-dark btn-lg">@Model.Theme</button>
                                             </div>
                                             <div class="col-sm-6 col-sm-offset-1" id="Lieu">
                                                 <label>Entrer le Lieu de l'Expérience</label>
-                                                <input asp-for="Lieu" value="@Model.Lieu"class="form-control" />
+                                                <input asp-for="Lieu" value="@Model.Lieu" class="form-control" />
                                                 <span asp-validation-for="Lieu" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-2" id="Tarif">
                                                 <label>Entrer le tariff</label>
-                                                <input asp-for="tarif"value="@Model.tarif" class="form-control" />
+                                                <input asp-for="tarif" value="@Model.tarif" class="form-control" />
                                                 <span asp-validation-for="tarif" class="text-danger"></span>
                                             </div>
                                             <div class="col-sm-3" id="Nbr">
@@ -223,7 +223,7 @@
                                             <div class="col-sm-4 col-sm-offset-1">
                                                 <div class="form-group">
                                                     <label>Choisir Date Début</label><br>
-                                                    <input type="date" value="@Model.dateDebut.Date.ToString("yyyy-MM-dd")"  class="form-control" />
+                                                    <input type="date" value="@Model.dateDebut.Date.ToString("yyyy-MM-dd")" class="form-control" />
                                                     <span asp-validation-for="dateDebut"></span>
 
                                                 </div>
@@ -1190,7 +1190,7 @@
         </div>
     </div>
 
-    <form action="CreateActivite" method="post" enctype="multipart/form-data">
+    <form asp-action="CreateActivite" asp-controller="Experience" method="post" enctype="multipart/form-data">
         <div class="modal" id="myModal3">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -1258,7 +1258,7 @@
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" id="Close" data-dismiss="modal">Close</button>
-                        <input id="AjouterActivite" type="submit" value="Ajouter" class="btn" />
+                        <input id="AjouterActivite" type="submit" value="AjouterAtester" class="btn" />
                     </div>
 
                 </div>
@@ -1325,7 +1325,29 @@
                 }
             });
         }
-         function makeRequest2(x) {
+          function makeRequest3(x) {
+           $.ajax({
+
+                               url: '@Url.Action("AfficherActiviteForModification", "Experience")',
+                               data: { x: value },
+                               type: "post",
+                               success: function (data) {
+                               $("#loadpartial").html(data);
+                }
+            });
+        }
+         function makeRequest4(x) {
+           $.ajax({
+
+                               url: '@Url.Action("AfficherModalForModification", "Experience")',
+                               data: { x: value },
+                               type: "post",
+                               success: function (data) {
+                               $("#loadpartial2").html(data);
+                }
+            });
+        }
+        function makeRequest2(x) {
            $.ajax({
 
                                url: '@Url.Action("AfficherModal", "Experience")',
@@ -1338,13 +1360,20 @@
         }
         //afficher region
         $(document).ready(function () {
+            setTimeout(function () {
+                var f = "x";
+
+                makeRequest1("x")
+                makeRequest2("x")
+            }, 1000);
+
             $('#AjouterActivite').click(function (e) {
                 $('#myModal3').modal('toggle');
 
                 setTimeout(function () {
                     makeRequest1("x");
                     makeRequest2("x")
-                }, 700);
+                }, 1000);
 
             });
             //Load partial(modal) Nourriture
@@ -1393,9 +1422,7 @@
 
             });
 
-            $("#Lieu").hide();
-            $("#Tarif").hide();
-            $("#Nbr").hide();
+
             // les hide mta3 sub Theme
             $("#theme").hide();
             $("#autre").hide();
@@ -1494,19 +1521,27 @@
             });
             // Choose theme button getting the value from the modal
             $("#close").click(function () {
+
                 var SubTheme = $("input[name='Forme']:checked").val();
                 var theme = $('select[name="TypeExperience"]').find(":selected").text();
                 Category = $("input[name='sub']:checked").val();
                 $("#Lieu").show();
                 $("#Tarif").show();
                 $("#Nbr").show();
+                $("#region").show();
+
                 if ((SubTheme.length > 1) && !(SubTheme.includes("Autre"))) {
 
                     $("#choose").html(SubTheme + "," + Category);
+                    document.getElementById("secret").value = SubTheme + ", " + Category;;
+
+
                 }
                 else if ($("#type").val().length > 1) {
+                    document.getElementById("secret").value = theme + ", " + $("#type").val();
 
                     $("#choose").html(theme + ", " + $("#type").val());
+
                 }
             });
         });

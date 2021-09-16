@@ -244,6 +244,13 @@ namespace Repository.Implementation
             }
 
         }
+
+        public IQueryable<Panier> GetAllpanierAsync()
+        {
+            var Panier = dbContext.Paniers.Where(p => p.Id != 0).Include(x => x.Logments).Include(x => x.Experiences).Include(x => x.Nourittures).Include(x => x.Transports).Include(x => x.User);
+
+            return Panier;
+        }
     }
 }
 

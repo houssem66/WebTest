@@ -1,0 +1,69 @@
+﻿@model List<TourMe.Data.Entities.Panier>
+@inject UserManager<Domaine.Entities.Utilisateur> userManager;
+@{var photoPath = "~/images/" + (ViewBag.user.ProfilePhoto ?? "noimage.jpg");
+
+}
+<!--DASHBOARD-->
+<section>
+    <div class="db col-md-12">
+        <!--LEFT SECTION-->
+        <div class="db-l">
+            <div class="db-l-1">
+                <ul>
+                    <li>
+                        <img src="@photoPath" asp-append-version="true" alt="" />
+                    </li>
+
+                </ul>
+            </div>
+            <div class="db-l-2">
+                <ul>
+                    <li>
+                        <a asp-controller="Reservation" asp-action="MesReservations"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Réservations</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Account" asp-action="Profil" asp-route-id="@userManager.GetUserId(User)"><img src="~/Theme/Template2/images/icon/dbl6.png" alt="" /> My Profile</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <!--CENTER SECTION-->
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <h4>Mes Réservations</h4>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Date Réservation</th>
+                    
+                            <th>Prix</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+
+                                <td>@item.DateReservationRes</td>
+                             
+
+
+                                <td>@item.Prix dt</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!--RIGHT SECTION-->
+
+    </div>
+</section>
+<!--END DASHBOARD-->

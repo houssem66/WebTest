@@ -984,31 +984,48 @@ namespace TourMe.Web.Controllers
 
         }
 
+
+
+
+
         [HttpGet]
         public async Task<IActionResult> ModifierExperience(int id)
         {
             var exp = await ExperienceService.GetById(id);
-            ExperienceViewModel experienceViewModel = new ExperienceViewModel { dateDebut = exp.dateDebut,
+            ExperienceViewModel experienceViewModel = new ExperienceViewModel
+            {
+                dateDebut = exp.dateDebut, 
                 Titre = exp.Titre,
-                
+
                 Lieu = exp.Lieu,
                 TypeExperience = exp.TypeExperience,
-              
+
                 dateFin = exp.dateFin,
                 Saison = exp.Saison,
                 NbPlaces = exp.NbPlaces,
                 tarif = exp.tarif,
-                
+                Theme = exp.Theme,
+                Activites = exp.Activites,
                 Description = exp.Description,
-               
+
             };
+            TempData["list"] = JsonConvert.SerializeObject(exp.Activites);
+
             return View(experienceViewModel);
         }
         [HttpPost]
         public async Task<IActionResult> ModifierExperience(Experience model)
         {
-            return View(); 
+            return View();                            
         }
+        //Modifier Activité dans le view modification expérience
+ 
+
+
+
+
+   
+            
     }
   
 }
