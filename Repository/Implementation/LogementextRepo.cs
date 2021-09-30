@@ -30,7 +30,7 @@ namespace Repository.Implementation
 
         public async Task<ServiceLogment> GetlogementDetailsAsync(int id)
         {
-            var logment = await dbContext.ServiceLogments.Include(x => x.Documents).SingleAsync(e => e.Id == id);
+            var logment = await dbContext.ServiceLogments.Include(x => x.Documents).SingleOrDefaultAsync(e => e.Id == id);
             return logment;
         }
     }

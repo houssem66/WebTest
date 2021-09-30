@@ -101,7 +101,7 @@
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
-            <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Créer Logement</a>
+            <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Modifier Logement</a>
 
         </div>
     </header><!-- End Header -->
@@ -115,7 +115,7 @@
 
                     <div class="btns">
                         @*<a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>*@
-                        <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Créer Logement</a>
+                        <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Modifier Logement</a>
                     </div>
                 </div>
                 <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative" data-aos="zoom-in" data-aos-delay="200">
@@ -137,14 +137,15 @@
             <div class="container" data-aos="fade-up">
 
                 <div class="section-title">
-                    <h2>Création</h2>
+                    <h2>Modification</h2>
                     <p>
-                        Créer Logement
+                        Modifier Logement
                     </p>
                 </div>
 
 
-                <form asp-action="AddLogement" asp-controller="Service" method="post" enctype="multipart/form-data" class="form-group" data-aos="fade-up" data-aos-delay="100">
+                <form asp-action="ModifierLogement" asp-controller="Service" method="post" enctype="multipart/form-data" class="form-group" data-aos="fade-up" data-aos-delay="100">
+                   <input type="hidden"name="id" value="@ViewBag.LogementId" />
                     <div class="row">
                         <div class="col-lg-4 col-md-6 form-group">
                             @{
@@ -199,7 +200,7 @@
 
 
 
-                    <div class="text-center"><button class="btn-primary" type="submit">Créer Logement</button></div>
+                    <div class="text-center"><button class="btn-primary" type="submit">Modifier Logement</button></div>
                 </form>
 
             </div>
