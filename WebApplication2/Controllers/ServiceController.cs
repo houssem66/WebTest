@@ -63,7 +63,7 @@ namespace TourMe.Web.Controllers
 
             return View();
         }
-       
+
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Annuler()
@@ -208,19 +208,19 @@ namespace TourMe.Web.Controllers
                             $"Le format du numero ne convient pas à votre pays");
                         return View(model);
                     }
-                  
+
                     var numberToSave = numberDetails.PhoneNumber.ToString();
-                    
+
                     var user = new Fournisseur
                     {
                         UserName = model.Email,
                         PhoneNumber = numberToSave,
                         PersAContact = model.PersAContact,
-                        NumPersAcontacter= (int)model.NumPersAcontacter,
-                        CodePostale=model.CodePostale,
-                        NumCnss= (long)model.NumCnss,
+                        NumPersAcontacter = (int)model.NumPersAcontacter,
+                        CodePostale = model.CodePostale,
+                        NumCnss = (long)model.NumCnss,
                         FormeJuridique = model.Forme,
-                        Type=model.secteur,
+                        Type = model.secteur,
                         Email = model.Email,
                         Secteur = model.Secteur,
                         NomGerant = model.NomGerant,
@@ -291,24 +291,24 @@ namespace TourMe.Web.Controllers
 
 
                     }
-                  
-                    if(user.TypeService.ToString().ToLower()=="transport")
+
+                    if (user.TypeService.ToString().ToLower() == "transport")
                     {
                         return RedirectToAction("AjouterTransport", "Service");
 
                     }
-                  else  if(user.TypeService.ToString().ToLower()=="logement")
+                    else if (user.TypeService.ToString().ToLower() == "logement")
                     {
                         return RedirectToAction("AddLogement", "Service");
 
-                    } 
-                    else  if(user.TypeService.ToString().ToLower()=="nourriture")
+                    }
+                    else if (user.TypeService.ToString().ToLower() == "nourriture")
                     {
                         return RedirectToAction("AddRestaurant", "Service");
 
                     }
 
-                    
+
 
 
                 }
@@ -372,16 +372,15 @@ namespace TourMe.Web.Controllers
 
                     Load = model.Load,
                     Region = model.Region,
-                    
+
                     Image = uniqueFileName,
                     ReservationPrive = model.TypeTransport,
-                    TypeTransport=model.TypeTransport,
+                    TypeTransport = model.TypeTransport,
                     Fournisseur = f,
                 };
 
-                 var x= transportExtService.Ajout(transport);
-                if (x.IsCompleted)
-                { Console.WriteLine("ok"); }
+                await transportExtService.Ajout(transport);
+
                 return RedirectToAction("Index", "Home");
             }
 
@@ -551,8 +550,8 @@ namespace TourMe.Web.Controllers
                     Site = model.Site,
                     Rating = model.Rating,
                     Documents = emp,
-                    dateFerme=model.dateFerme,
-                    dateOuvert=model.dateOuvert
+                    dateFerme = model.dateFerme,
+                    dateOuvert = model.dateOuvert
 
                 };
 
@@ -560,8 +559,8 @@ namespace TourMe.Web.Controllers
 
 
 
-                var x= nourritureService.Ajout(nourriture);
-              var T=   x.Exception;
+                var x = nourritureService.Ajout(nourriture);
+                var T = x.Exception;
                 if (x.IsCompleted)
                 {
                     TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
@@ -590,6 +589,34 @@ namespace TourMe.Web.Controllers
 
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> DeleteTransport(int id)
+
+        {
+            var transport = await transportExtService.GetLogementById(id);
+
+
+            return View(transport);
+
+        }
+        [HttpPost]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> DeleteTransport(ServiceTransport model)
+
+        {
+
+
+            if (model.Id != null)
+            {
+                await transportExtService.Delete(model.Id);
+                return RedirectToAction("GetTransport", "Administration");
+            }
+            return View();
+
+        }
 
         [HttpGet]
         [AllowAnonymous]
@@ -677,29 +704,107 @@ namespace TourMe.Web.Controllers
         public IActionResult ModifierLogement(int id)
 
         {
-            
 
 
-          
+
 
             ServiceLogment logment = logementService.GetById(id).Result;
-            return View(logment);
+            ViewBag.LogementId = id;
+            LogementExtViewModel model = new LogementExtViewModel
+            {
+                Adresse = logment.Adresse,
+                Category = logment.Category,
+                Description = logment.Description,
+                PrixParNuit = logment.PrixParNuit,
+                Titre = logment.Titre,
+                Type = logment.Type,
+
+
+            };
+
+
+
+
+            return View(model);
 
         }
 
         [HttpPost]
         [AllowAnonymous]
 
-        public IActionResult ModifierLogement(ServiceLogment model)
+        public async Task<IActionResult> ModifierLogement(LogementExtViewModel model, int id)
 
         {
 
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+
+
+                List<LNDocuments> emp = new List<LNDocuments>();
+                if (model.FileP != null && model.FileP.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.FileP)
+                    {
+                        LNDocuments employe = new LNDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+
+
+                var serviceLogment = logementService.GetLogementById(id).Result;
 
 
 
 
-            
-            return View();
+                serviceLogment.Adresse = model.Adresse;
+                serviceLogment.Description = model.Description;
+                serviceLogment.PrixParNuit = model.PrixParNuit;
+                serviceLogment.Titre = model.Titre;
+                serviceLogment.Category = model.Category;
+
+
+
+                serviceLogment.Type = model.Type;
+
+
+
+
+                serviceLogment.Documents.Clear();
+
+
+            foreach (var item in serviceLogment.Documents) 
+                {
+                
+                
+                }
+
+                serviceLogment.Documents = emp;
+                await logementService.Update(serviceLogment);
+
+
+
+                return RedirectToAction("DetailsLogement", "Service");
+            }
+
+
+
+
+
+            return View(model);
 
         }
         [HttpGet]
@@ -758,7 +863,7 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> ModifierTransport(TransportExtViewModel model,int id)
+        public async Task<IActionResult> ModifierTransport(TransportExtViewModel model, int id)
 
         {
             var transport = transportExtService.GetLogementById(id).Result;
@@ -779,7 +884,7 @@ namespace TourMe.Web.Controllers
                     // copy the file to wwwroot/images folder
                     model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
                 }
-               
+
 
                 transport.NbrPlaces = model.NbrPlaces;
 
@@ -790,13 +895,13 @@ namespace TourMe.Web.Controllers
                 transport.ReservationPrive = model.TypeTransport;
                 transport.TypeTransport = model.TypeTransport;
 
-              
+
 
                 try
                 {
                     await transportExtService.Update(transport);
 
-                    return RedirectToAction("GetTransport","Administration");
+                    return RedirectToAction("GetTransport", "Administration");
                 }
                 catch (Exception e)
                 {

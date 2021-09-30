@@ -58,6 +58,8 @@
                                     <th>Description</th>
                                     <th>Prix par nuit</th>
                                     <th>Images</th>
+                                    <th>Delete</th>
+                                    <th>Modifier</th>
 
                                 </tr>
                             </thead>
@@ -102,11 +104,15 @@
                                     </td>
 
 
-                                        <td>
-                                            <span> <a asp-action="DeleteLogement" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
-                                        </td>
+                                    <td>
+                                        <span> <a asp-action="DeleteLogement" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+                                    </td>
+                                    <td>
+                                        <span> <a asp-action="ModifierLogement" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Modifier</a></span>
+                                    </td>
 
-                                    </tr>
+
+                                </tr>
                                 }
                             </tbody>
                         </table>
