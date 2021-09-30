@@ -60,6 +60,7 @@
                                     <th>Images</th>
                                     <th>Delete</th>
                                     <th>Modifier</th>
+                                    <th>Delete</th>
 
                                 </tr>
                             </thead>
@@ -110,9 +111,15 @@
                                             <span> <a asp-action="ModifierTransport" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Modifier</a></span>
 
                                         </td>
+                                        <td>
+                                            <span> <a asp-action="DeleteTransport" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+                                        </td>
+
                                     </tr>
+                                   
                                 }
                             </tbody>
+
                         </table>
 
                     </div>
@@ -121,6 +128,7 @@
         </div>
     </div>
 </section>
+
 @section Scripts {
     <script>
         $(function () {
@@ -157,6 +165,34 @@
 
 
         });
+
+    </script>
+    <script>
+      function makeRequest1(x) {
+           $.ajax({
+
+                               url: '@Url.Action("DeleteTransport", "Service")',
+                               data: { "x": $("#UserId").val() },
+                               type: "post",
+                               success: function (data) {
+
+                }
+            });
+        }
+    $(document).ready(function () {
+
+        $("#test").click(function () {
+            if (confirm('Are you sure you want to save this thing into the database?')) {
+             //    alert("saved !!");
+                var x = "ss";
+               makeRequest1("x");
+
+            } else {
+                // Do nothing!
+
+            }
+        });
+    });
 
     </script>
 }
