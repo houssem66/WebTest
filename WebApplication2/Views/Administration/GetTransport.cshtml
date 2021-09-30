@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="card-body">
-                         <table id="example2" class="table table-bordered table-hover">
+                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
@@ -59,6 +59,7 @@
                                     <th>DateDisp</th>
                                     <th>Images</th>
                                     <th>Delete</th>
+                                    <th>Modifier</th>
 
                                 </tr>
                             </thead>
@@ -66,45 +67,50 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
-                                    <td>
-                                        @item.Id
-                                    </td>
-                                    <td>
-                                        <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Fournisseur.Id" class="link-btn">@item.Fournisseur.PersAContact</a></span>
-                                    </td>
-                                    <td>
-                                        @item.TypeTransport
-                                    </td>
-                                    <td>
-                                        @item.NbrPlaces
-                                    </td>
-                                    <td>
-                                        @item.Region
-                                    </td>
-                                    <td>
-                                        @item.DateDisp
-                                    </td>
+                                    <tr>
+                                        <td>
+                                            @item.Id
+                                        </td>
+                                        <td>
+                                            <span> <a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Fournisseur.Id" class="link-btn">@item.Fournisseur.PersAContact</a></span>
+                                        </td>
+                                        <td>
+                                            @item.TypeTransport
+                                        </td>
+                                        <td>
+                                            @item.NbrPlaces
+                                        </td>
+                                        <td>
+                                            @item.Region
+                                        </td>
+                                        <td>
+                                            @item.DateDisp
+                                        </td>
 
-                                    <td>
-                                        @foreach (var doc in item.Documents)
-                                        {
+                                        <td>
+                                            @foreach (var doc in item.Documents)
+                                            {
 
-                                            <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
+                                                <a href="~/Files/@doc.Filepath" target="_blank">doc </a>
 
-                                        }
-                                    </td>
-
-
+                                            }
+                                        </td>
 
 
-                                    <td>
 
-                                        <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
 
-                                    </td>
+                                        <td>
 
-                                </tr>
+                                            <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+
+                                        </td>
+
+                                        <td>
+
+                                            <span> <a asp-action="ModifierTransport" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Modifier</a></span>
+
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
