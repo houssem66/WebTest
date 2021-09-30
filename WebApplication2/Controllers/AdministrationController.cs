@@ -309,8 +309,8 @@ namespace TourMe.Web.Controllers
         {
             var list = commercantService.GetAllCommerçants().ToList();
             var listF = fournisseurService.GetAllFournisseurs().ToList();
-            IList<Hôte> listI = new List<Hôte>();
-            IList<Hôte> listO = new List<Hôte>();
+            IList<Commerçant> listI = new List<Commerçant>();
+            IList<Commerçant> listO = new List<Commerçant>();
             int i = 0;
             foreach (var item in list)
             {
@@ -398,16 +398,15 @@ namespace TourMe.Web.Controllers
         {
             var user = await commercantService.GetCommerçantById(id);
 
+            var file = commercantService.GetListfile(id);
 
-         
-         
-           
+            ViewBag.path = file;
             return View(user);
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Verify(Hôte commerçant, string Id)
+        public async Task<IActionResult> Verify(Commerçant commerçant, string Id)
         {
             try
             {
@@ -440,9 +439,9 @@ namespace TourMe.Web.Controllers
             }
             catch (Exception ex)
             {
-                return RedirectToAction("GetAllCommercant");
+                return RedirectToAction("GetALlHostes");
             }
-            return RedirectToAction("GetAllCommercant");
+            return RedirectToAction("GetALlHostes");
         }
     }
 }

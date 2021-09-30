@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="card-body">
-                         <table id="example2" class="table table-bordered table-hover">
+                        <table id="example2" class="table table-bordered table-hover">
                             <thead>
 
                                 <tr>
@@ -71,18 +71,21 @@
                                 @foreach (var item in Model)
                                 {
 
-                                <tr>
-                                    <td>@item.ExperienceId</td>
-                                    <td>
-                                        @item.Titre
+                                    <tr>
+                                        <td>@item.ExperienceId</td>
+                                        <td>
+                                            @item.Titre
 
-                                    </td>
-                                    <td>
-                                        @item.Theme
-                                    </td>
-                                    <td>
-                                        <span>@{if (item.Commerçant!=null){<a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Commerçant.Id" class="link-btn">@item.Commerçant.Email</a> }
-                                        } </span>
+                                        </td>
+                                        <td>
+                                            @item.Theme
+                                        </td>
+                                        <td>
+                                            <span>
+                                                @{if (item.Commerçant != null)
+                                                    {<a asp-action="ProfilCommerc" asp-controller="Account" asp-route-id="@item.Commerçant.Id" class="link-btn">@item.Commerçant.Email</a> }
+                                            }
+                                        </span>
                                     </td>
                                     <td>
                                         @item.NbPlaces
@@ -112,12 +115,13 @@
                                                         <span class="bg-red">Not verfied</span>
                                                     </div> }
                                             }
-                                            else  {<span>Admin created</span> }
+                                            else
+                                            {<span>Admin created</span> }
 
                                         }
                                     </td>
                                     <td>
-                                        @{if (item.Nourriture!=null)
+                                        @{if (item.Nourriture != null)
                                             { <div class="time-label">
                                                     <span class="bg-cyan">Existe</span>
                                                 </div> }
@@ -149,7 +153,7 @@
                                                 </div> }
                                         }
                                     </td>
-                                   
+
 
                                     <td>
                                         <span> <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.ExperienceId" class="link-btn">Details</a></span>
@@ -158,7 +162,7 @@
                                         <span> <a asp-action="ModifierExperience" asp-controller="Experience" asp-route-id="@item.ExperienceId" class="link-btn">Modifier</a></span>
                                     </td>
                                 </tr>
-                                }
+                            }
                             </tbody>
                         </table>
 
@@ -170,8 +174,8 @@
 </section>
 @section Scripts {
     <script>
-        $(function () {  
-           
+        $(function () {
+
             $('#example2').DataTable({
                 "paging": true,
                 "lengthChange": false,

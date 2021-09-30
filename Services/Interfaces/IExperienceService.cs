@@ -16,7 +16,7 @@ namespace Services.Interfaces
         public Task DeleteExperienceAsync(int id);
         public IList<Experience> GetAllExperienceDetails(string searchTerm);
 
-      
+
         public Task PutExperienceAsync(int id, Experience entity);
         
 

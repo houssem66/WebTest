@@ -90,21 +90,30 @@ namespace TourMe.Web.Controllers
             {
                 foreach (var ch in searchTerm)
                 {
-                    var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
+                    try
+                    {
+                        var list2 = ExperienceService.GetAllExperienceDetails(ch).ToList();
 
-                    list = list.Concat(list2).ToList();
+                        list = list.Concat(list2).ToList();
+                    }
+                    catch (Exception e)
+                    {
+                        var list2 = ExperienceService.GetAllExperienceDetails(null).ToList();
+                        list = list.Concat(list2).ToList();
 
-
+                    }
 
 
 
                 }
+                ;
 
                 return View(list);
             }
             return View(ExperienceService.GetAllExperienceDetails("").ToList());
 
         }
+
 
         [HttpGet]
 
@@ -215,6 +224,9 @@ namespace TourMe.Web.Controllers
                     }
 
 
+
+
+
                     return RedirectToAction("Details", new { id = experience1.ExperienceId });
                 }
             }
@@ -307,7 +319,7 @@ namespace TourMe.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                TempData["test3"] = "5dmt 3.0";
                 string uniqueFileName = null;
                 if (model.FileP != null)
                 {
@@ -413,17 +425,6 @@ namespace TourMe.Web.Controllers
         }
         [HttpPost]
         [Authorize(Policy = "CreateExperiencePolicy")]
-        public ActionResult AfficherActiviteForModification(string type)
-        {
-            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list2"));
-            TempData.Keep("list2");
-
-
-            return PartialView("_Activité");
-
-        }
-        [HttpPost]
-        [Authorize(Policy = "CreateExperiencePolicy")]
         public ActionResult AfficherNourriture(string type)
         {
 
@@ -456,17 +457,15 @@ namespace TourMe.Web.Controllers
             return PartialView("_Modal");
 
         }
-        [HttpPost]
+        [HttpGet]
         [Authorize(Policy = "CreateExperiencePolicy")]
-        public ActionResult AfficherModalForModification(string type)
+        public IActionResult GetAllExperience(string searchTerm)
         {
 
-            ViewData["show"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list2"));
-            TempData.Keep("list2");
-
-            return PartialView("_Modal");
+            return View(ExperienceService.Search(searchTerm));
 
         }
+
 
 
 
@@ -990,7 +989,6 @@ namespace TourMe.Web.Controllers
             return PartialView("_Individu");
 
         }
-
         [HttpGet]
         public async Task<IActionResult> ModifierExperience(int id)
         {
@@ -1014,13 +1012,94 @@ namespace TourMe.Web.Controllers
             };
             TempData["list"] = JsonConvert.SerializeObject(exp.Activites);
 
+            ViewBag.Id = id;
             return View(experienceViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> ModifierExperience(Experience model)
+        public async Task<IActionResult> ModifierExperience(ExperienceViewModel model, string obligatoire, int IDE)
         {
-            return View();
+            Boolean bol = false;
+            if (TempData["Nourriture"] != null)
+            { ViewData["supp"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture")); }
+            if (TempData["Transport"] != null)
+            { ViewData["suppT"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport")); }
+            if (TempData["Logement"] != null)
+            { ViewData["suppL"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement")); }
+
+            if (TempData["list"] != null)
+            { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
+
+            if (ModelState.IsValid)
+            {
+                ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+                IList<Activite> list = (IList<Activite>)ViewData["list"];
+
+                var exp = await ExperienceService.GetExperienceByIdAsync(IDE);
+
+                exp.Titre = model.Titre;
+                exp.Lieu = model.Lieu;
+                exp.TypeExperience = model.TypeExperience;
+                exp.dateDebut = model.dateDebut;
+                exp.dateFin = model.dateFin;
+                exp.Saison = model.Saison;
+                exp.NbPlaces = model.NbPlaces;
+                exp.tarif = model.tarif;
+                exp.Description = model.Description;
+
+                exp.Activites = list;
+                await ExperienceService.PutExperienceAsync(IDE, exp);
+
+                if (TempData["Nourriture"] != null)
+                {
+                    ViewData["Nourriture"] = JsonConvert.DeserializeObject<Nourriture>((string)TempData.Peek("Nourriture"));
+                    var nourriture = (Nourriture)ViewData["Nourriture"];
+                    nourriture.ExperienceId = model.ExperienceId;
+                    if (nourriture.Prix > 0)
+                    {
+                        await NourritureService.Update(nourriture);
+                    }
+
+                }
+                if (TempData["Logement"] != null)
+                {
+                    ViewData["Logement"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement"));
+                    var logement = (Logement)ViewData["Logement"];
+                    logement.ExperienceId = model.ExperienceId;
+                    if (logement.Prix > 0)
+                    {
+                        await LogementService.Update(logement);
+                    }
+
+                }
+                if (TempData["Transport"] != null)
+                {
+                    ViewData["Transport"] = JsonConvert.DeserializeObject<Transport>((string)TempData.Peek("Transport"));
+                    var transport = (Transport)ViewData["Transport"];
+                    transport.ExperienceId = model.ExperienceId;
+                    if (transport.Prix > 0)
+                    {
+                        await TransportService.Update(transport);
+                    }
+
+
+
+
+
+
+
+
+                }
+                return RedirectToAction("GetALLExp", "Administration");
+            }
+
+
+
+            return RedirectToAction("GetALLExp", "Administration");
+
+
         }
+
+
     }
 
 }

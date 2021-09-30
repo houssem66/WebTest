@@ -23,6 +23,9 @@ namespace Services.Interfaces
         public Task UpdateNourriture(Panier panier, ServiceNouritture serviceNouritture);
         public Task UpdateTransport(Panier panier, ServiceTransport serviceTransport);
         public Task<Panier> GetPanUser(string id);
+        public IList<Panier> GetPanierByUser(string id);
+
+
 
     }
 }

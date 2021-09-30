@@ -56,7 +56,8 @@ namespace Repository.Implementation
         {
 
             _dbContext.Add(entity);
-
+            _dbContext.Entry(entity.Commerçant).State = EntityState.Detached;
+            _dbContext.Entry(entity.Commerçant).State = EntityState.Unchanged;
             await _dbContext.SaveChangesAsync();
             Experience experience = _dbContext.Experience.SingleOrDefault(x => x.Titre == entity.Titre && x.Saison == entity.Saison && x.Lieu == entity.Lieu && x.TypeExperience == entity.TypeExperience);
 
