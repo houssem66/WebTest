@@ -158,13 +158,13 @@ namespace TourMe.Web.Controllers
             {
                 Debug.WriteLine("valid" + ModelState.IsValid.ToString());
                 string uniqueFileName = null;
-                List<HôteDocuments> emp = new List<HôteDocuments>();
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
                     {
-                        HôteDocuments employe = new HôteDocuments();
+                        EmployeDocuments employe = new EmployeDocuments();
                         // The file must be uploaded to the images folder in wwwroot
                         // To get the path of the wwwroot folder we are using the injected
                         // IHostingEnvironment service provided by ASP.NET Core
@@ -742,21 +742,72 @@ namespace TourMe.Web.Controllers
 
 
 
-            ServiceNouritture nouritture = nourritureService.GetById(id).Result;
-            return View(nouritture);
+            var transport = transportExtService.GetLogementById(id).Result;
+            ViewBag.TransportId = id;
+            TransportExtViewModel model = new TransportExtViewModel
+            {
+                ImagesString = transport.Image,
+                Load = transport.Load,
+                NbrPlaces = transport.NbrPlaces,
+                Region = transport.Region,
+                ReservationPrive = transport.ReservationPrive,
+                TypeTransport = transport.TypeTransport
+            };
+            return View(model);
 
         }
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult ModifierTransport(ServiceTransport model)
+        public async Task<IActionResult> ModifierTransport(TransportExtViewModel model,int id)
 
         {
+            var transport = transportExtService.GetLogementById(id).Result;
+            string uniqueFileName = null;
+            if (ModelState.IsValid)
+            {
+                if (model.Images != null)
+                {
+                    // The image must be uploaded to the images folder in wwwroot
+                    // To get the path of the wwwroot folder we are using the inject
+                    // HostingEnvironment service provided by ASP.NET Core
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                    // To make sure the file name is unique we are appending a new
+                    // GUID value and and an underscore to the file name
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Images.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                    // Use CopyTo() method provided by IFormFile interface to
+                    // copy the file to wwwroot/images folder
+                    model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+               
+
+                transport.NbrPlaces = model.NbrPlaces;
+
+                transport.Load = model.Load;
+                transport.Region = model.Region;
+
+                transport.Image = uniqueFileName;
+                transport.ReservationPrive = model.TypeTransport;
+                transport.TypeTransport = model.TypeTransport;
+
+              
+
+                try
+                {
+                    await transportExtService.Update(transport);
+
+                    return RedirectToAction("GetTransport","Administration");
+                }
+                catch (Exception e)
+                {
+
+
+                    return View();
+                }
 
 
 
-
-
-
+            }
             return View();
 
         }

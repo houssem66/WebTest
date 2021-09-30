@@ -265,13 +265,13 @@ namespace Finance.Controllers
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
-                List<HôteDocuments> emp = new List<HôteDocuments>();
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
                     {
-                        HôteDocuments employe = new HôteDocuments();
+                        EmployeDocuments employe = new EmployeDocuments();
                         // The file must be uploaded to the images folder in wwwroot
                         // To get the path of the wwwroot folder we are using the injected
                         // IHostingEnvironment service provided by ASP.NET Core
@@ -327,7 +327,7 @@ namespace Finance.Controllers
 
 
 
-                    var user = new Hôte
+                    var user = new Commerçant
                     {
                         UserName = model.Email,
 
@@ -828,7 +828,7 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(Hôte model,string Id)
+        public async Task<IActionResult> EditUser(Commerçant model,string Id)
         {
 
 
@@ -989,7 +989,7 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async void Verify(Hôte commerçant,string Id)
+        public async void Verify(Commerçant commerçant,string Id)
         {
             var com = await commercantService.GetCommerçantById(commerçant.Id);
             com.Verified = true;

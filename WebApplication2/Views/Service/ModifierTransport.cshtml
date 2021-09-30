@@ -95,6 +95,7 @@
                     <div class="wizard-container">
                         <div class="card wizard-card" data-color="green" id="wizard">
                             <form action="AjouterTransport" method="post" enctype="multipart/form-data">
+                                <input type="hidden" name="id" value="@ViewBag.TransportId"/>
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
 
                                 <div class="wizard-header" id="5dmt">
@@ -132,7 +133,7 @@
                                                 <div class="form-group">
                                                     <div class="custom-file">
                                                         <label class="custom-file-label">Veulleir Telecharger Des images sur votre vehicule(s)</label>
-                                                        <input asp-for="Images" id="RNEUPLOAD" multiple class="form-control custom-file-input">
+                                                        <input asp-for="Images" value="" id="RNEUPLOAD" multiple class="form-control custom-file-input">
                                                     </div>
 
                                                 </div>
@@ -141,13 +142,14 @@
                                                 <div class="form-group" id="test">
                                                     <label id="gouvLabel">Chosir le Governourat </label>
                                                     <select asp-for="Region" class="form-control" placeholder="Choisir pays xx" asp-items="Html.GetEnumSelectList<TourMe.Data.Entities.Enum.Region>()">
+                                                        <option value="@Model.Region" selected> @Model.Region.ToString()</option>
                                                     </select>
 
                                                     <span asp-validation-for="Region" class="text-danger"></span>
                                                 </div>
                                                 <div class="form-group">
                                                     <label>Entrer le nombre de place</label>
-                                                    <input asp-for="NbrPlaces" class="form-control">
+                                                    <input asp-for="NbrPlaces" value="@Model.NbrPlaces" class="form-control">
                                                     <span asp-validation-for="NbrPlaces" class="text-danger"></span>
                                                 </div>
                                             </div>
@@ -259,9 +261,9 @@
                     $("#quest1").hide();
                     $("#quest2").hide();
                     $("#rep1").hide();
-                    $("#rep2").hide();}
-                else if ($(this).val() == "Non Réguliers")
-                {
+                    $("#rep2").hide();
+                }
+                else if ($(this).val() == "Non Réguliers") {
                     $("#quest1").show();
 
 
