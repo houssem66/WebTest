@@ -14,6 +14,7 @@ namespace Services.Interfaces
         public IList<ServiceTransport> GetAllTransports();
         public Task Update(ServiceTransport logement);
         public Task<ServiceTransport> GetLogementById(int id);
+        public IList<ServiceTransport> GetTransportByUser(string id);
         public Task Delete(int id);
     }
 }

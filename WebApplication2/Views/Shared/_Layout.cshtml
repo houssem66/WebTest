@@ -134,23 +134,26 @@
 
                                 </form>
                                 @if (User.IsInRole("Commercant"))
-                                {<ul>
-                                        @if (fournisseur != null)
+                                {
+
+                                    TourMe.Data.Entities.Fournisseur f = (TourMe.Data.Entities.Fournisseur)await userManager.GetUserAsync(User);
+                                    <ul>
+                                        @if (f != null)
                                         {
-                                            if (fournisseur.TypeService.ToString().ToLower() == "transport")
+                                            if ((int)f.TypeService==2)
                                             {
                                                 <li><a class="nav-link" asp-controller="Service" asp-action="AjouterTransport">Créer Transport</a> </li>
  }
-                                            if (fournisseur.TypeService.ToString().ToLower() == "logement")
+                                            if ((int)f.TypeService==0)
                                             {
                                                 <li><a class="nav-link" asp-controller="Service" asp-action="AddLogement">Créer Logement</a></li>
 }
-                                            if (fournisseur.TypeService.ToString().ToLower() == "nourriture")
+                                            if ((int)f.TypeService == 1)
                                             {
                                                 <li><a class="nav-link" asp-controller="Service" asp-action="AddRestaurant">Créer Nourritue</a></li>
 }
                                         }
-                                        @if (fournisseur == null)
+                                        @if (f == null)
                                         {
                                             <li>
                                                 <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
@@ -265,103 +268,110 @@
 
                                 </li>
 
-                                <li><a href="hotels-list.html">Hotels</a></li>
+
                                 <!--<li><a class='dropdown-button ed-sub-menu' href='#' data-activates='dropdown1'>Courses</a></li>-->
-                                <li class="cour-menu">
-                                    <a asp-action="getAll" asp-controller="Experience">Expériences</a></li>
-                                    @if (User.IsInRole("Administrateur"))
-                                    {
+                                <li>
+                                    <a asp-action="getAll" asp-controller="Experience">Expériences</a>
+                                </li>
+                                @if (User.IsInRole("Administrateur"))
+                                {
                                     <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
                                     <li> <a asp-controller="Administration" asp-action="GetALLExperienceNonVerifier">Expériences non vérifier</a></li>
-                                }  
-                                    <!-- MEGA MENU 1 -->
-                                    <div class="mm-pos">
-                                        <div class="cour-mm m-menu">
-                                            <div class="m-menu-inn">
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
+                                }
+                                <!-- MEGA MENU 1 -->
+                                <div class="mm-pos">
+                                    <div class="cour-mm m-menu">
+                                        <div class="m-menu-inn">
+                                            <div class="mm1-com mm1-cour-com mm1-s3">
 
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-
-
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>User Dashboard</h4>
-                                                    <ul>
-                                                        @{ if (User.IsInRole("Administrateur"))
-                                                            {
-                                                                <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
-                                                                <li><a asp-controller="Account" asp-action="GetAllCommercant" class="nav-link">GetAllCommercant</a></li>
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <li><a href="dashboard.html">My Bookings</a></li>
-                                                                <li><a href="db-my-profile.html">My Profile</a></li>
-                                                                <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
-                                                                <li><a href="db-travel-booking.html">Tour Packages</a></li>
-                                                            } }
+                                            </div>
+                                            <div class="mm1-com mm1-cour-com mm1-s3">
 
 
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s3">
-                                                    <h4>Other pages:1</h4>
-                                                    <ul>
-                                                        <li><a href="tour-details.html">Travel details</a></li>
+                                            </div>
+                                            <div class="mm1-com mm1-cour-com mm1-s3">
+                                                <h4>User Dashboard</h4>
+                                                <ul>
+                                                    @{ if (User.IsInRole("Administrateur"))
+                                                        {
+                                                            <li><a asp-controller="Home" asp-action="AdminHome" class="nav-link">Dashboard</a></li>
+                                                            <li><a asp-controller="Account" asp-action="GetAllCommercant" class="nav-link">GetAllCommercant</a></li>
 
-                                                    </ul>
-                                                    <h4 class="ed-dr-men-mar-top">User login pages</h4>
-                                                    <ul>
-                                                        <li><a href="register.html">Register</a></li>
-                                                        <li><a href="login.html">Login and Sign in</a></li>
-                                                        <li><a href="forgot-pass.html">Forgot pass</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="mm1-com mm1-cour-com mm1-s4">
-                                                    <h4>Other pages:2</h4>
-                                                    <ul>
-                                                        <li><a href="about.html">About Us</a></li>
-                                                        <li><a href="testimonials.html">Testimonials</a></li>
-                                                        <li><a href="events.html">Events</a></li>
+                                                        }
+                                                        else
+                                                        {
+                                                            <li><a href="dashboard.html">My Bookings</a></li>
+                                                            <li><a href="db-my-profile.html">My Profile</a></li>
+                                                            <li><a href="db-my-profile-edit.html">My Profile edit</a></li>
+                                                            <li><a href="db-travel-booking.html">Tour Packages</a></li>
+                                                        } }
 
-                                                    </ul>
-                                                </div>
+
+                                                </ul>
+                                            </div>
+                                            <div class="mm1-com mm1-cour-com mm1-s3">
+                                                <h4>Other pages:1</h4>
+                                                <ul>
+                                                    <li><a href="tour-details.html">Travel details</a></li>
+
+                                                </ul>
+                                                <h4 class="ed-dr-men-mar-top">User login pages</h4>
+                                                <ul>
+                                                    <li><a href="register.html">Register</a></li>
+                                                    <li><a href="login.html">Login and Sign in</a></li>
+                                                    <li><a href="forgot-pass.html">Forgot pass</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="mm1-com mm1-cour-com mm1-s4">
+                                                <h4>Other pages:2</h4>
+                                                <ul>
+                                                    <li><a href="about.html">About Us</a></li>
+                                                    <li><a href="testimonials.html">Testimonials</a></li>
+                                                    <li><a href="events.html">Events</a></li>
+
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
 
-                                 
+
+
+                                </li>
+
+
+
+                               
+                                @{
+                                    if (User.IsInRole("Commercant"))
+                                    {
+                                <li>
+
+                                    <a asp-controller="Account" asp-route-id="@id" asp-action="ProfilCommerc" class="nav-link">Profil</a>
+
+
+                                </li>
+                                <li>
+                                    <a asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                </li>
+                                    }
+                               
+
+                                
+                                    else if (User.IsInRole("Utilisateur"))
+                                    {
+                                    <li>
+
+                                        <a asp-controller="Account" asp-route-id="@id" asp-action="Profil" class="nav-link">Profil</a>
+
+
                                     </li>
+                                }
+                                }
 
 
-
-                                    @if (User.IsInRole("Commercant"))
-                                    {
-
-                                        <li>
-
-                                            <a asp-controller="Account" asp-route-id="@id" asp-action="ProfilCommerc" class="nav-link">Profil</a>
-
-
-                                        </li>
-                                        <li>
-                                            <a asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                        </li>
-                                    }
-                                    @if (User.IsInRole("Utilisateur"))
-                                    {
-                                        <li>
-
-                                            <a asp-controller="Account" asp-route-id="@id" asp-action="Profil" class="nav-link">Profil</a>
-
-
-                                        </li>
-                                    }
-
-
-                                </ul>
+                            </ul>
 
 
 

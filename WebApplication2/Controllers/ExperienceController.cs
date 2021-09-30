@@ -1027,12 +1027,17 @@ namespace TourMe.Web.Controllers
             { ViewData["suppL"] = JsonConvert.DeserializeObject<Logement>((string)TempData.Peek("Logement")); }
 
             if (TempData["list"] != null)
-            { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list")); }
+            { ViewData["ok"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+               
+            
+            }
 
             if (ModelState.IsValid)
             {
                 ViewData["list"] = JsonConvert.DeserializeObject<IList<Activite>>((string)TempData.Peek("list"));
+
                 IList<Activite> list = (IList<Activite>)ViewData["list"];
+               
 
                 var exp = await ExperienceService.GetExperienceByIdAsync(IDE);
 
@@ -1045,8 +1050,15 @@ namespace TourMe.Web.Controllers
                 exp.NbPlaces = model.NbPlaces;
                 exp.tarif = model.tarif;
                 exp.Description = model.Description;
+                for (int i=exp.Activites.Count;i<list.Count;i++)
+                {
+                    await ActiviteService.Ajout(list.ElementAt(i));
+                    exp.Activites.Add(list.ElementAt(i));
 
-                exp.Activites = list;
+                }
+             
+               
+
                 await ExperienceService.PutExperienceAsync(IDE, exp);
 
                 if (TempData["Nourriture"] != null)
@@ -1089,12 +1101,12 @@ namespace TourMe.Web.Controllers
 
 
                 }
-                return RedirectToAction("GetALLExp", "Administration");
+                return RedirectToAction("Index", "Home");
             }
 
 
 
-            return RedirectToAction("GetALLExp", "Administration");
+            return View(model);
 
 
         }
