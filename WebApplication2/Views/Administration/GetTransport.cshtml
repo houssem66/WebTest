@@ -100,11 +100,7 @@
 
 
 
-                                        <td>
-
-                                            <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
-
-                                        </td>
+                                       
 
                                         <td>
 
@@ -113,6 +109,9 @@
                                         </td>
                                         <td>
                                             <span> <a asp-action="DeleteTransport" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
+                                        </td>
+                                        <td>
+                                            <span> <a asp-action="DetailsTransport" asp-controller="Service" asp-route-id="@item.Id" class="link-btn">Details</a></span>
                                         </td>
 
                                     </tr>
