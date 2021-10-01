@@ -327,7 +327,7 @@ namespace Finance.Controllers
 
 
 
-                    var user = new Hôte
+                    var user = new Commerçant
                     {
                         UserName = model.Email,
 
@@ -828,7 +828,7 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditUser(Hôte model,string Id)
+        public async Task<IActionResult> EditUser(Commerçant model,string Id)
         {
 
 
@@ -989,7 +989,7 @@ namespace Finance.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async void Verify(Hôte commerçant,string Id)
+        public async void Verify(Commerçant commerçant,string Id)
         {
             var com = await commercantService.GetCommerçantById(commerçant.Id);
             com.Verified = true;

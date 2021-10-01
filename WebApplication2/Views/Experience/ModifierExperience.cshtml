@@ -100,8 +100,8 @@
                                 <!--        You can switch " data-color="green" "  with one of the next bright colors: "blue", "azure", "orange", "red"       -->
                                 <input type="hidden" value="@ViewBag.Id" name="IDE" />
                                 <div class="wizard-header" id="5dmt">
-                                    <h3 class="wizard-title">Créer une Expérience</h3>
-                                    <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à Créer une Expérience.</p>
+                                    <h3 class="wizard-title">Modifier    une Expérience</h3>
+                                    <p id="demo" style="font-size:18px;" class="category">Bonjour nous allons vous aider à modifier votre Expérience.</p>
                                 </div>
                                 <div class="wizard-navigation">
                                     <div class="progress-with-circle">
@@ -132,14 +132,14 @@
                                                 Page de l'Activité
                                             </a>
                                         </li>
-                                        <li>
+                                        @*<li>
                                             <a href="#Services" data-toggle="tab">
                                                 <div class="icon-circle">
                                                     <i class="ti-archive"></i>
                                                 </div>
                                                 Services
                                             </a>
-                                        </li>
+                                        </li>*@
                                         <li>
                                             <a href="#Propos" data-toggle="tab">
                                                 <div class="icon-circle">
@@ -330,7 +330,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="tab-pane" id="Services">
+                                    @*<div class="tab-pane" id="Services">
                                         <div class="row">
                                             <h5 class="info-text">Choisir les services que vous avez Ajouter</h5>
                                             <div class="col-sm-7 col-sm-offset-1">
@@ -370,7 +370,7 @@
                                                 <button type="button" data-toggle="modal" data-target="#ModalL" id="ChoisirT" class="btn btn-danger btn-lg">Ajouter un Logement</button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>*@
                                     <div class="wizard-footer">
                                         <div class="pull-right">
                                             <input type='button' class='btn btn-next btn-fill btn-wd btn-primary' name='next' value='Next' />
@@ -1299,7 +1299,7 @@
 
                 makeRequest1("x")
                 makeRequest2("x")
-            }, 1000);
+            }, 700);
 
             $('#AjouterActivite').click(function (e) {
                 $('#myModal3').modal('toggle');

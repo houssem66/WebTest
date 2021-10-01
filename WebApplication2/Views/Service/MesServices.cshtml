@@ -1,4 +1,5 @@
-﻿@model List<TourMe.Data.Entities.ServiceNouritture>
+﻿
+
 @{var photoPath = "~/images/" + (ViewBag.user.ProfilePhoto ?? "noimage.jpg");
 
 }
@@ -45,43 +46,152 @@
         <div class="col-md-6">
             <div class="col-md-6">
                 <h4>Mes Services</h4>
+                @{
 
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            
-                            <th>Type restaurant</th>
-                            <th>Spécialité Restaurant</th>
-                            <th>Plat</th>
-                            <th>Prix</th>
-                    
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                        <tr>
-                            <td>  <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id" style="color:black"><h3>@item.NomRestau</h3></a></td>
+                    if (ViewBag.listeL != null)
+                    {
 
-                            <td>@item.TypeResto</td>
-                            <td>@item.SpecialeResto</td>
-                            <td>@item.Plat</td>
-                            <td>@item.Prix</td>
-                           
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Type </th>
+                                    <th>Prix</th>
 
-                        
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.listeL)
+                                {
+                                <tr>
+                                  <td>  <a asp-action="DetailsLogement" asp-controller="Service" asp-route-id="@item.Id" style="color:black"><h3>@item.Titre</h3></a></td>
+
+                                    <td>@item.Category</td>
+                                    <td>@item.Type</td>
+
+                                    <td>@item.PrixParNuit</td>
 
 
-                            <td>
-                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
 
 
-                            </td>
-                        </tr>
-                        }
-                    </tbody>
-                </table>
+
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+
+
+
+                    }
+
+                    if (ViewBag.listeN != null)
+                    {
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+
+                                    <th>Type restaurant</th>
+                                    <th>Spécialité Restaurant</th>
+                                    <th>Plat</th>
+                                    <th>Prix</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.listeN)
+                                {
+                                <tr>
+                                    <td>  <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id" style="color:black"><h3>@item.NomRestau</h3></a></td>
+
+                                    <td>@item.TypeResto</td>
+                                    <td>@item.SpecialeResto</td>
+                                    <td>@item.Plat</td>
+                                    <td>@item.Prix</td>
+
+
+
+
+
+                                    <td>
+                                        <form method="post">
+                                            <span id="confirmDeleteSpan_@item.Id" style="display:none">
+                                                <span>Are you sure you want to delete?</span>
+
+                                                <button asp-action="DeleteNourriture" asp-controller="Service" asp-route-id="@item.Id" type="submit" class="btn btn-danger">Yes</button>
+
+                                                <a href="#" class="btn btn-primary"
+                                                   onclick="confirmDelete('@item.Id', false)">No</a>
+                                            </span>
+
+                                            <span id="deleteSpan_@item.Id">
+                                                <a href="#" class="btn btn-danger"
+                                                   onclick="confirmDelete('@item.Id', true)">Delete</a>
+                                            </span>
+                                        </form>
+
+                                    </td>
+                                    <td>
+                                        <a asp-action="ModifierRestaurent" asp-route-id="@item.Id">Modifier</a>
+
+
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    if (ViewBag.listeT != null)
+                    {
+
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>TypeTransport</th>
+
+                                    <th>Nombre places/th>
+                                  
+                                    <th>Prix</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.listeT)
+                                {
+                                <tr>
+                                    <td>  <a asp-action="DetailsResto" asp-controller="Service" asp-route-id="@item.Id" style="color:black"><h3>Transport</h3></a></td>
+
+                                    <td>@item.TypeTransport</td>
+
+                                    <td>@item.NbrPlaces</td>
+                                    <td>@item.Prix</td>
+
+
+
+
+
+                                    <td>
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+
+
+                                    </td>
+                 
+
+                                    
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+
+                }
+
             </div>
 
         </div>
@@ -89,4 +199,37 @@
 
     </div>
 </section>
+<script>
+    $(document).ready(function () {
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+        confirmDelete(uniqueId, isDeleteClicked);
+
+
+    });
+        function confirmDelete(uniqueId, isDeleteClicked) {
+            var deleteSpan = 'deleteSpan_' + uniqueId;
+            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
+
+            if (isDeleteClicked) {
+                $('#' + deleteSpan).hide();
+                $('#' + confirmDeleteSpan).show();
+            } else {
+                $('#' + deleteSpan).show();
+                $('#' + confirmDeleteSpan).hide();
+            }
+        }
+    
+
+</script>
 <!--END DASHBOARD-->

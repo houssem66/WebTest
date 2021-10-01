@@ -8,11 +8,9 @@ using TourMe.Data.Entities;
 
 namespace Repository.Interfaces
 {
-    public interface IHôteRepo
+   public interface IHôteRepo
     {
-        public IQueryable<Hôte> GetAllCommercant();
-        public IEnumerable<HôteDocuments> GetListfile(string id);
-        public Task<Hôte> GetCommercantDetailsAsync(string id);
-
+        public IQueryable<Commerçant> GetAllCommercant();
+        public IEnumerable<EmployeDocuments> GetListfile(string id);
     }
 }

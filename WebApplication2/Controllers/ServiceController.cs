@@ -379,9 +379,8 @@ namespace TourMe.Web.Controllers
                     Fournisseur = f,
                 };
 
-                 var x= transportExtService.Ajout(transport);
-                if (x.IsCompleted)
-                { Console.WriteLine("ok"); }
+                  await transportExtService.Ajout(transport);
+              
                 return RedirectToAction("Index", "Home");
             }
 
@@ -559,14 +558,13 @@ namespace TourMe.Web.Controllers
 
 
 
-
-                var x= nourritureService.Ajout(nourriture);
-              var T=   x.Exception;
-                if (x.IsCompleted)
-                {
-                    TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
-                }
-
+         await nourritureService.Ajout(nourriture);
+              //var T=   x.Exception;
+              //  if (x.IsCompleted)
+              //  {
+                  
+              //  }
+                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
 
                 return RedirectToAction("DetailsResto", "Service");
             }
@@ -583,10 +581,36 @@ namespace TourMe.Web.Controllers
         public IActionResult MesServices()
 
         {
+   
             ViewBag.user = userManager.GetUserAsync(User).Result;
+            Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
             // ViewBag.Best = ExperienceService.BestExperience();
-            var list = nourritureService.GetNourritureByUser(userManager.GetUserId(User));
-            return View(list);
+            string type = f.TypeService.ToString();
+           
+            if (type.Equals("Logement"))
+            {
+                var list = logementService.GetLogementByUser(userManager.GetUserId(User));
+                ViewBag.listeL = list;
+                return View();
+               
+            }
+            else if (type.Equals("Nourriture"))
+            {
+                var list = nourritureService.GetNourritureByUser(userManager.GetUserId(User));
+                ViewBag.listeN = list;
+                return View();
+
+            }
+            else if (type.Equals("Transport"))
+            {
+                var list = transportExtService.GetTransportByUser(userManager.GetUserId(User));
+                ViewBag.listeT = list;
+                return View();
+
+            }
+            else return View();
+
+          
 
         }
 
@@ -708,22 +732,116 @@ namespace TourMe.Web.Controllers
         public IActionResult ModifierRestaurent(int id)
 
         {
-
-
-
-
-
             ServiceNouritture nouritture = nourritureService.GetById(id).Result;
-            return View(nouritture);
+            NourritureExtViewModel model = new NourritureExtViewModel
+            {
+                Adresse=nouritture.Adresse,
+                dateFerme= nouritture.dateFerme,
+                dateOuvert=nouritture.dateOuvert,
+                NomRestau=nouritture.NomRestau,
+                Description=nouritture.Description,
+                Plat=nouritture.Plat,
+                regles= nouritture.regles,
+                Rating=nouritture.Rating,
+                Slogon=nouritture.Slogon,
+                
+                
+                
+
+            };
+
+
+
+
+            ViewBag.Id = id;
+            return View(model);
 
         }
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult ModifierRestaurent(ServiceNouritture model)
+        public async Task<IActionResult> ModifierRestaurent(NourritureExtViewModel model, int IDE)
 
         {
 
 
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                string uniqueFileName2 = null;
+
+                List<LNDocuments> emp = new List<LNDocuments>();
+                if (model.FileP != null && model.FileP.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.FileP)
+                    {
+                        LNDocuments employe = new LNDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+
+
+                if (model.FilePp != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName2 = Guid.NewGuid().ToString() + "_" + model.FilePp.FileName;
+                    string filePath1 = Path.Combine(uploadsFolder, uniqueFileName2);
+
+                    model.FilePp.CopyTo(new FileStream(filePath1, FileMode.Create));
+
+                }
+
+
+                Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+
+                 
+                ServiceNouritture nourriture = nourritureService.GetById(IDE).Result;
+
+                nourriture.Fournisseur = f;
+                nourriture.TypeResto = model.TypeResto;
+                    nourriture.SpecialeResto = model.SpecialeResto;
+                    nourriture.NomRestau = model.NomRestau;
+                    
+                    nourriture.Description = model.Description;
+                    nourriture.Plat = model.Plat;
+
+                    nourriture.Prix = model.Prix;
+                    nourriture.Menu = uniqueFileName2;
+                    nourriture.regles = model.regles;
+                    nourriture.Adresse = model.Adresse;
+                    nourriture.Slogon = model.Slogon
+                    ;
+                    nourriture.Site = model.Site;
+                    nourriture.Rating = model.Rating;
+                    nourriture.Documents = emp;
+                    nourriture.dateFerme = model.dateFerme;
+                    nourriture.dateOuvert = model.dateOuvert;
+
+              
+
+
+
+
+                await nourritureService.Update(nourriture);
+            
+                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
+
+                return RedirectToAction("DetailsResto", "Service");
+            }
 
 
 
@@ -759,6 +877,17 @@ namespace TourMe.Web.Controllers
 
             return View();
 
+        }
+        [HttpPost]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> DeleteNourriture(int id)
+        {
+            await nourritureService.Delete(id);
+            //    var utilisateur = await _context.User.FindAsync(id);
+            //    _context.User.Remove(utilisateur);
+            //    await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(GetAllNourriture));
         }
     }
 }

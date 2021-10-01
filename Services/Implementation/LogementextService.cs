@@ -45,6 +45,11 @@ namespace Services.Implementation
             return GenericRepo.GetByIdAsync(id);
         }
 
+        public IList<ServiceLogment> GetLogementByUser(string id)
+        {
+            return GenericRepo.GetAll().Where(e => e.Fournisseur.Id.Equals(id)).ToList();
+        }
+
         public Task Update(ServiceLogment logement)
         {
             return GenericRepo.PutAsync(logement.Id, logement);

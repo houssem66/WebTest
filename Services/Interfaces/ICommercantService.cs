@@ -13,11 +13,11 @@ namespace Services.Interfaces
 {
     public interface ICommercantService
     {
-        public Task Ajout(Hôte commerçant);
-        public IList<Hôte> GetAllCommerçants();
-        public Task Update(Hôte Commerçant);
-        public Task<Hôte> GetCommerçantById(string id);
-        public Task Delete(Hôte Commerçant);
+        public Task Ajout(Commerçant commerçant);
+        public IList<Commerçant> GetAllCommerçants();
+        public Task Update(Commerçant Commerçant);
+        public Task<Commerçant> GetCommerçantById(string id);
+        public Task Delete(Commerçant Commerçant);
         public IEnumerable<HôteDocuments> GetListfile(string id);
     }
 }

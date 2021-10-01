@@ -11,6 +11,6 @@ namespace TourMe.Data.Entities
     {
         public int Id { get; set; }
         public string Filepath { get; set; }
-        public Hôte Hôte { get; set; }
+        public Commerçant Hôte { get; set; }
     }
 }

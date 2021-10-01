@@ -38,13 +38,13 @@ namespace Services.Implementation
 
 
                     Debug.WriteLine("the value of searchSterm is : " + ch);
-                    return ExperienceRepo.GetAllExperienceAsync().Where(e => e.AvgRating.StartsWith (searchTerm));
+                    return ExperienceRepo.GetAllExperienceAsync().Where(e => e.AvgRating.StartsWith (searchTerm)).ToList();
                     //return from Experience in ExperienceRepo.GetAllExperienceAsync()
                     //       where Experience.AvgRating.First().Equals(ch)
                     //       select Experience;
                 }
                 return ExperienceRepo.GetAllExperienceAsync().Where(e => e.Titre.ToLower().Contains(searchTerm.ToLower()) ||
-                                            e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower()));
+                                            e.TypeExperience.ToString().ToLower().Contains(searchTerm.ToLower()) || e.Saison.ToLower().Contains(searchTerm.ToLower())||e.Lieu.ToLower().Contains(searchTerm.ToLower())).ToList();
             }
 
             return ExperienceRepo.GetAllExperienceAsync().ToList();

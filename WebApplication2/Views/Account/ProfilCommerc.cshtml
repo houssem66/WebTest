@@ -1,4 +1,4 @@
-﻿@model Domaine.Entities.Hôte
+﻿@model Domaine.Entities.Commerçant
 @{
     ViewBag.Title = "Commerçant";
 }
@@ -32,6 +32,14 @@
                         <li>
                             <a asp-controller="Experience" asp-action="MesExperiences"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Expériences</a>
                         </li>
+                        @if (User.IsInRole("Commercant"))
+                        {
+
+                            <li>
+                                <a asp-controller="Service" asp-action="MesServices"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Services</a>
+                            </li>
+
+                        }
                         <li>
                             <a href="db-travel-booking.html"><img src="~/Theme/Template2/images/icon/dbl2.png" alt="" /> Travel Bookings</a>
                         </li>

@@ -40,6 +40,11 @@ namespace Services.Implementation
             return GenericRepo.GetByIdAsync(id);
         }
 
+        public IList<ServiceTransport> GetTransportByUser(string id)
+        {
+            return GenericRepo.GetAll().Where(e => e.Fournisseur.Id.Equals(id)).ToList();
+        }
+
         public Task Update(ServiceTransport logement)
         {
             return GenericRepo.PutAsync(logement.Id, logement);
