@@ -37,7 +37,7 @@ namespace Services.Implementation
 
         public Task<ServiceTransport> GetLogementById(int id)
         {
-            return GenericRepo.GetByIdAsync(id);
+            return transportExtRepo.GetTransportDetailsAsync(id);
         }
 
         public Task Update(ServiceTransport logement)
