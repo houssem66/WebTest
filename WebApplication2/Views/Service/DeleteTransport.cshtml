@@ -1,0 +1,80 @@
+﻿@model TourMe.Data.Entities.ServiceTransport
+
+
+@{
+
+    Layout = "~/Views/Shared/_Dashboard.cshtml";
+}
+
+
+
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Vous vouler supprimer @Model.TypeTransport </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
+                    <li class="breadcrumb-item active"></li>
+                </ol>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</section>
+<section class="content">
+
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+
+
+
+                    </div>
+                    <div class="card-body">
+                        <h4>Transport</h4>
+                        <hr />
+                        <ul>
+
+                            <li>
+                                <h4>DateDisp</h4>
+                                @Html.DisplayFor(model => model.DateDisp)
+                            </li>
+                            <li>
+                                <h4>Load</h4>
+                                @Html.DisplayFor(model => model.Load)
+                            </li>
+                            <li>
+                                <h4>Prix</h4>
+                                @Html.DisplayFor(model => model.Prix)
+                            </li> <li>
+                                      <h4>Region</h4>
+                                @Html.DisplayFor(model => model.Region)
+                            </li> 
+                            <li>
+                                      <h4>NbrPlaces</h4>
+                                @Html.DisplayFor(model => model.NbrPlaces)
+                            </li>
+
+                            <li>
+                                <h4>Images</h4>
+                                <img src="~/images/@Model.Image" asp-append-version="true" alt="" />
+                            </li>
+
+                        </ul>
+                        <form asp-action="DeleteTransport">
+                            <input type="hidden" asp-for="Id" />
+                            <input type="submit" value="Delete" class="btn btn-danger" /> |
+                            <a asp-action="GetTransport">Back to List</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

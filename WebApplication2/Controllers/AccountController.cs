@@ -265,13 +265,13 @@ namespace Finance.Controllers
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
-                List<HôteDocuments> emp = new List<HôteDocuments>();
+                List<EmployeDocuments> emp = new List<EmployeDocuments>();
                 if (model.Documents != null && model.Documents.Count > 0)
                 {
                     // Loop thru each selected file
                     foreach (IFormFile photo in model.Documents)
                     {
-                        HôteDocuments employe = new HôteDocuments();
+                        EmployeDocuments employe = new EmployeDocuments();
                         // The file must be uploaded to the images folder in wwwroot
                         // To get the path of the wwwroot folder we are using the injected
                         // IHostingEnvironment service provided by ASP.NET Core

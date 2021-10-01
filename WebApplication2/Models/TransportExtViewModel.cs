@@ -10,6 +10,8 @@ namespace TourMe.Web.Models
         public string Load { get; set; }
         public string ReservationPrive { get; set; }
         public IFormFile Images { get; set; }
+        public string ImagesString { get; set; }
         public int NbrPlaces { get; set; }
+
     }
 }

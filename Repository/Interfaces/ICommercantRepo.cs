@@ -11,7 +11,7 @@ namespace Repository.Interfaces
     public interface ICommercantRepo
     {
         public IQueryable<Commerçant> GetAllCommercant();
-        public IEnumerable<HôteDocuments> GetListfile(string id);
+        public IEnumerable<EmployeDocuments> GetListfile(string id);
         public Task<Commerçant> GetCommercantDetailsAsync(string id);
 
     }

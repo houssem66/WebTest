@@ -40,6 +40,6 @@ namespace Domaine.Entities
         [StringLength(4, ErrorMessage = "The {0}  cannot exceed {1} characters. ")]
         public string CodePostale { get; set; }
         public virtual IList<Experience> Experiences { get; set; }
-        public virtual IList<HôteDocuments> EmployeDocuments { get; set; }
+        public virtual IList<EmployeDocuments> EmployeDocuments { get; set; }
     }
 }

@@ -139,7 +139,7 @@ namespace WebApplication2
             services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
             services.AddScoped(typeof(INourritureRepo), typeof(NourritureRepo));
-            services.AddScoped(typeof(ICommercantRepo), typeof(HôteRepo));
+            services.AddScoped(typeof(ICommercantRepo), typeof(CommercantRepo));
             services.AddScoped(typeof(INourritureExtRepo), typeof(NourritureExtRepo));
             services.AddScoped(typeof(IReservationRepo), typeof(ReservationRepo));
             services.AddScoped(typeof(ITransportRepo), typeof(TransportRepo));

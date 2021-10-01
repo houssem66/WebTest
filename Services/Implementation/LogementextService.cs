@@ -42,7 +42,7 @@ namespace Services.Implementation
 
         public Task<ServiceLogment> GetLogementById(int id)
         {
-            return GenericRepo.GetByIdAsync(id);
+            return LogementRepo.GetlogementDetailsAsync(id);
         }
 
         public IList<ServiceLogment> GetLogementByUser(string id)
