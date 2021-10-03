@@ -135,6 +135,7 @@ namespace WebApplication2
             services.AddCors();
             //sprint 3
             // add Repositories
+            services.AddScoped(typeof(IEmailRepo), typeof(EmailRepo));
             services.AddScoped(typeof(ILogementextRepo), typeof(LogementextRepo));
             services.AddScoped(typeof(IFournisseurRepo), typeof(FournisseurRepo));
             services.AddScoped(typeof(ILogementRepo), typeof(LogementRepo));
@@ -146,6 +147,7 @@ namespace WebApplication2
             services.AddScoped(typeof(ITransportExtRepo), typeof(TransportExtRepo));
             services.AddScoped(typeof(IPanierRepo), typeof(PanierRepo));
             //add Services
+            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<INourritureService, NourritureService>();
             services.AddTransient<ILogementService, LogementService>();
             services.AddTransient<ILogementextService, LogementextService>();
