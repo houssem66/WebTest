@@ -12,7 +12,7 @@ using TourMe.Data.Entities;
 
 namespace Repository.Implementation
 {
-   public class CommercantRepo :ICommercantRepo
+   public class CommercantRepo : ICommercantRepo
     {
         private readonly TourMeContext dbContext;
         private readonly IGenericRepository<Commerçant> genericRepoCommerçant;
@@ -28,11 +28,11 @@ namespace Repository.Implementation
             var commercant = dbContext.Commercant.Where(ex => ex.Id != null).Include(x => x.EmployeDocuments);
             return commercant;
         }
-        public IEnumerable<EmployeDocuments> GetListfile(string id)
+        public IEnumerable<HôteDocuments> GetListfile(string id)
         {
 
 
-            return dbContext.EmployeDocuments.ToList().Where(x => x.Commerçant.Id == id);
+            return dbContext.EmployeDocuments.ToList().Where(x => x.Hôte.Id == id);
         }
         public async Task<Commerçant> GetCommercantDetailsAsync(string id)
         {

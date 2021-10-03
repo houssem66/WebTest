@@ -70,7 +70,8 @@ namespace Repository.Implementation
         {
             var Experience = await _dbContext.Experience.SingleAsync(e => e.ExperienceId == entity.ExperienceId);
             _dbContext.Entry(Experience).State = EntityState.Detached;
-            _dbContext.Entry(entity).State = EntityState.Modified;
+            _dbContext.Entry(entity).State = EntityState.Modified;  
+        
             try
             {
                 await _dbContext.SaveChangesAsync();
