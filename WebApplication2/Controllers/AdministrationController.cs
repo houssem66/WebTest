@@ -2,7 +2,8 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,22 +13,24 @@ using Services.Implementation;
 using Services.Interfaces;
 using System;
 using System.Collections.Generic;
-
+using System.IO;
 using System.Linq;
-
+using System.Net.Mail;
 using System.Threading.Tasks;
 
 using TourMe.Data.Entities;
 
 using TourMe.Web.Models;
-
+using IEmailService = Services.Interfaces.IEmailService;
 
 namespace TourMe.Web.Controllers
 {
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> roleManager;
+        private readonly IEmailService sendMail;
         private readonly UserManager<Utilisateur> UserManager;
+        private readonly IWebHostEnvironment hostingEnvironment;
         private readonly IUserService userService;
         private readonly ICommercantService commercantService;
         private readonly IFournisseurService fournisseurService;
@@ -35,11 +38,13 @@ namespace TourMe.Web.Controllers
         private readonly ITransportExtService transportExtService;
         private readonly ILogementextService logementextService;
         private readonly INourritureExtService nourritureExtService;
-
-        public AdministrationController(RoleManager<IdentityRole> roleManager, UserManager<Utilisateur> userManager, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService, IExperienceService _experienceService, ITransportExtService _transportExtService, ILogementextService _logementextService, INourritureExtService _nourritureExtService)
+        public static string s = "";
+        public AdministrationController(RoleManager<IdentityRole> roleManager,IEmailService _SendMail, UserManager<Utilisateur> userManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService, IExperienceService _experienceService, ITransportExtService _transportExtService, ILogementextService _logementextService, INourritureExtService _nourritureExtService)
         {
             this.roleManager = roleManager;
+            sendMail = _SendMail;
             UserManager = userManager;
+            this.hostingEnvironment = hostingEnvironment;
             userService = _UserService;
             commercantService = _CommercantService;
             fournisseurService = _FournisseurService;
@@ -246,8 +251,8 @@ namespace TourMe.Web.Controllers
                 users.Add(mod);
 
             }
-
-            return View(users);
+            ViewBag.Users = users;
+            return View();
         }
 
 
@@ -428,7 +433,7 @@ namespace TourMe.Web.Controllers
                     Text = $" your account are verified now welcome to TourMe    "
                 };
 
-                using (var smtpClient = new SmtpClient())
+                using (var smtpClient = new MailKit.Net.Smtp.SmtpClient())
                 {
                     smtpClient.CheckCertificateRevocation = false;
                     smtpClient.Connect("smtp.gmail.com", 587, SecureSocketOptions.Auto);
@@ -443,5 +448,83 @@ namespace TourMe.Web.Controllers
             }
             return RedirectToAction("GetALlHostes");
         }
+        [HttpGet]
+        public IActionResult GetALLmails()
+        {
+            ViewBag.Mail = sendMail.GetMails();
+            return View();
+
+        }
+        [HttpGet]
+        public IActionResult MailDetails()
+        {
+                return View();
+            
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteMail(SendEmailViewModel model,string Id)
+        {if (Id != null) 
+            {
+            try
+                {
+                    await sendMail.Delete(Id);
+                
+                }
+
+            catch (Exception e)
+                {
+                    RedirectToAction("AdminHome", "Home");
+
+                }
+            }
+
+            return RedirectToAction("GetALLmails", "Administration");
+        }
+        public async Task<IActionResult> SendEmail(SendEmailViewModel em)
+        {
+
+            MailMessage msg = new MailMessage { From = new MailAddress(User.Identity.Name), Subject = em.Subject };
+            msg.To.Add(em.To);
+            msg.Body = em.Body;
+            List<LNDocuments> emp = new List<LNDocuments>();
+            
+            string uniqueFileName = null;
+
+            if (em.File != null)
+            {
+
+                foreach (IFormFile att in em.File)
+                {
+
+                    LNDocuments emailcommeranct = new LNDocuments();
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "EmailFiles");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + att.FileName;
+                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                    
+                      att.CopyTo(new FileStream(filePath, FileMode.Create));
+                  
+
+                    emailcommeranct.Filepath = uniqueFileName;
+                    emp.Add(emailcommeranct);
+                    msg.Attachments.Add(new Attachment(att.OpenReadStream(), att.FileName));
+                }
+
+            }
+            SendEmail email = new SendEmail
+            {
+                To = em.To,
+                Subject = em.Subject,
+                Body = em.Body,
+                File = emp
+            };
+            s = sendMail.SendEmail(User.Identity.Name, "wissem.khaskhoussy@esprit.tn", msg, email);
+
+
+            return RedirectToAction("GetAllUsers", "Administration");
+        }
     }
+
 }
