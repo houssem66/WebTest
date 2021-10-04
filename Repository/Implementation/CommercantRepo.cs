@@ -28,11 +28,11 @@ namespace Repository.Implementation
             var commercant = dbContext.Commercant.Where(ex => ex.Id != null).Include(x => x.EmployeDocuments);
             return commercant;
         }
-        public IEnumerable<HôteDocuments> GetListfile(string id)
+        public IEnumerable<EmployeDocuments> GetListfile(string id)
         {
 
 
-            return dbContext.EmployeDocuments.ToList().Where(x => x.Hôte.Id == id);
+            return dbContext.EmployeDocuments.ToList().Where(x => x.Commerçant.Id == id);
         }
         public async Task<Commerçant> GetCommercantDetailsAsync(string id)
         {

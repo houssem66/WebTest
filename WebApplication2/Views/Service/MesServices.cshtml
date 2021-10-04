@@ -54,6 +54,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>nom</th>
                                     <th>Category</th>
                                     <th>Type </th>
                                     <th>Prix</th>
@@ -76,7 +77,21 @@
 
 
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <form method="post">
+                                            <span id="confirmDeleteSpanL_@item.Id" style="display:none">
+                                                <span>Are you sure you want to delete?</span>
+
+                                                <button asp-action="DeleteLogement" asp-controller="Service" asp-route-id="@item.Id" type="submit" class="btn btn-danger">Yes</button>
+
+                                                <a href="#" class="btn btn-primary"
+                                                   onclick="confirmDeleteL('@item.Id', false)">No</a>
+                                            </span>
+
+                                            <span id="deleteSpanL_@item.Id">
+                                                <a href="#" class="btn btn-danger"
+                                                   onclick="confirmDeleteL('@item.Id', true)">Delete</a>
+                                            </span>
+                                        </form>
 
 
                                     </td>
@@ -177,7 +192,21 @@
 
 
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        <form method="post">
+                                            <span id="confirmDeleteSpanT_@item.Id" style="display:none">
+                                                <span>Are you sure you want to delete?</span>
+
+                                                <button asp-action="DeleteTransport" asp-controller="Service" asp-route-id="@item.Id" type="submit" class="btn btn-danger">Yes</button>
+
+                                                <a href="#" class="btn btn-primary"
+                                                   onclick="confirmDeleteT('@item.Id', false)">No</a>
+                                            </span>
+
+                                            <span id="deleteSpanT_@item.Id">
+                                                <a href="#" class="btn btn-danger"
+                                                   onclick="confirmDeleteT('@item.Id', true)">Delete</a>
+                                            </span>
+                                        </form>
 
 
                                     </td>
@@ -201,21 +230,10 @@
 </section>
 <script>
     $(document).ready(function () {
-        function confirmDelete(uniqueId, isDeleteClicked) {
-            var deleteSpan = 'deleteSpan_' + uniqueId;
-            var confirmDeleteSpan = 'confirmDeleteSpan_' + uniqueId;
-
-            if (isDeleteClicked) {
-                $('#' + deleteSpan).hide();
-                $('#' + confirmDeleteSpan).show();
-            } else {
-                $('#' + deleteSpan).show();
-                $('#' + confirmDeleteSpan).hide();
-            }
-        }
+     
         confirmDelete(uniqueId, isDeleteClicked);
-
-
+        confirmDeleteL(uniqueId, isDeleteClicked);
+        confirmDeleteT(uniqueId, isDeleteClicked);
     });
         function confirmDelete(uniqueId, isDeleteClicked) {
             var deleteSpan = 'deleteSpan_' + uniqueId;
@@ -228,7 +246,38 @@
                 $('#' + deleteSpan).show();
                 $('#' + confirmDeleteSpan).hide();
             }
+    }
+
+
+    function confirmDeleteT(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpanT_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpanT_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
         }
+    }
+
+
+
+
+    function confirmDeleteL(uniqueId, isDeleteClicked) {
+        var deleteSpan = 'deleteSpanL_' + uniqueId;
+        var confirmDeleteSpan = 'confirmDeleteSpanL_' + uniqueId;
+
+        if (isDeleteClicked) {
+            $('#' + deleteSpan).hide();
+            $('#' + confirmDeleteSpan).show();
+        } else {
+            $('#' + deleteSpan).show();
+            $('#' + confirmDeleteSpan).hide();
+        }
+    }
+
     
 
 </script>

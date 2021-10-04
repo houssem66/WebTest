@@ -397,8 +397,6 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Commentaires");
                 });
 
-<<<<<<< HEAD
-=======
             modelBuilder.Entity("TourMe.Data.Entities.EmployeDocuments", b =>
                 {
                     b.Property<int>("Id")
@@ -419,7 +417,6 @@ namespace TourMe.Data.Migrations
                     b.ToTable("EmployeDocuments");
                 });
 
->>>>>>> d95a8736eb71b53f745b6c80ccd597a50c879f47
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
                     b.Property<int>("ExperienceId")
@@ -485,26 +482,6 @@ namespace TourMe.Data.Migrations
                     b.HasIndex("CommerçantId");
 
                     b.ToTable("Experience");
-                });
-
-            modelBuilder.Entity("TourMe.Data.Entities.HôteDocuments", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Filepath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HôteId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("HôteId");
-
-                    b.ToTable("EmployeDocuments");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
@@ -1128,8 +1105,6 @@ namespace TourMe.Data.Migrations
                         .IsRequired();
                 });
 
-<<<<<<< HEAD
-=======
             modelBuilder.Entity("TourMe.Data.Entities.EmployeDocuments", b =>
                 {
                     b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
@@ -1140,7 +1115,6 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Commerçant");
                 });
 
->>>>>>> d95a8736eb71b53f745b6c80ccd597a50c879f47
             modelBuilder.Entity("TourMe.Data.Entities.Experience", b =>
                 {
                     b.HasOne("Domaine.Entities.Commerçant", "Commerçant")
@@ -1148,16 +1122,6 @@ namespace TourMe.Data.Migrations
                         .HasForeignKey("CommerçantId");
 
                     b.Navigation("Commerçant");
-                });
-
-            modelBuilder.Entity("TourMe.Data.Entities.HôteDocuments", b =>
-                {
-                    b.HasOne("Domaine.Entities.Commerçant", "Hôte")
-                        .WithMany("EmployeDocuments")
-                        .HasForeignKey("HôteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Hôte");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>

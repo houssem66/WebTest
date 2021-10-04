@@ -54,6 +54,7 @@ namespace TourMe.Web.Models
 
 
         [Phone]
+        [Required(ErrorMessage = "le numéro est erroné")]
         public string Telephone { get; set; }
         [Display(Name = "Phone number country")]
         public string PhoneNumberCountryCode { get; set; }
