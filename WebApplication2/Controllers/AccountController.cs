@@ -34,7 +34,6 @@ namespace Finance.Controllers
         private readonly TourMeContext _context;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly ILogger<AccountController> logger;
-        private readonly IEmailService emailService;
         private readonly UserManager<Utilisateur> userManager;
         private readonly ICommercantService commercantService;
         private readonly SignInManager<Utilisateur> signInManager;
@@ -42,7 +41,7 @@ namespace Finance.Controllers
         private readonly CountryService countryService;
         private readonly IWebHostEnvironment hostingEnvironment;
         public List<SelectListItem> AvailableCountries { get; }
-        public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager,ILogger<AccountController> logger,IEmailService emailService)
+        public AccountController(UserManager<Utilisateur> userManager,  ICommercantService _CommercantService, SignInManager<Utilisateur> signInManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, CountryService countryService, TourMeContext context, RoleManager<IdentityRole> roleManager,ILogger<AccountController> logger)
         {
             UserService = _UserService;
             this.countryService = countryService;
@@ -55,7 +54,7 @@ namespace Finance.Controllers
             _context = context;
             this.roleManager = roleManager;
             this.logger = logger;
-            this.emailService = emailService;
+            
         }
 
 

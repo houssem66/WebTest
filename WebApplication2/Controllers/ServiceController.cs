@@ -350,19 +350,27 @@ namespace TourMe.Web.Controllers
             string uniqueFileName = null;
             if (ModelState.IsValid)
             {
-                if (model.Images != null)
+                List<TransportDocument> emp = new List<TransportDocument>();
+                if (model.Images != null && model.Images.Count > 0)
                 {
-                    // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-                    // To make sure the file name is unique we are appending a new
-                    // GUID value and and an underscore to the file name
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Images.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    // Use CopyTo() method provided by IFormFile interface to
-                    // copy the file to wwwroot/images folder
-                    model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.Images)
+                    {
+                        TransportDocument employe = new TransportDocument();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
                 }
                 Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
 
@@ -372,11 +380,12 @@ namespace TourMe.Web.Controllers
 
                     Load = model.Load,
                     Region = model.Region,
-
+                    Documents=emp,
                     Image = uniqueFileName,
                     ReservationPrive = model.TypeTransport,
                     TypeTransport = model.TypeTransport,
                     Fournisseur = f,
+                    Prix=model.Prix
                 };
 
                 await transportExtService.Ajout(transport);
@@ -723,6 +732,29 @@ namespace TourMe.Web.Controllers
         [HttpGet]
         [AllowAnonymous]
 
+        public IActionResult DetailsTransport(int id)
+
+        {
+            if (id == 0)
+            {
+
+                ViewData["id"] = JsonConvert.DeserializeObject<int>((string)TempData["id"]);
+                TempData.Keep("id");
+
+                id = (int)ViewData["id"];
+
+            }
+
+
+            ViewBag.user = userManager.GetUserAsync(User).Result;
+          
+            var transport = transportExtService.GetLogementById(id).Result;
+            return View(transport);
+
+        }
+        [HttpGet]
+        [AllowAnonymous]
+
         public IActionResult GetAllNourriture()
 
         {
@@ -839,11 +871,7 @@ namespace TourMe.Web.Controllers
                 serviceLogment.Documents.Clear();
 
 
-            foreach (var item in serviceLogment.Documents) 
-                {
-                
-                
-                }
+           
 
                 serviceLogment.Documents = emp;
                 await logementService.Update(serviceLogment);
@@ -1015,22 +1043,33 @@ namespace TourMe.Web.Controllers
 
         {
             var transport = transportExtService.GetLogementById(id).Result;
-            string uniqueFileName = null;
+          
             if (ModelState.IsValid)
             {
-                if (model.Images != null)
+                string uniqueFileName = null;
+
+
+                List<TransportDocument> emp = new List<TransportDocument>();
+                if (model.Images != null && model.Images.Count > 0)
                 {
-                    // The image must be uploaded to the images folder in wwwroot
-                    // To get the path of the wwwroot folder we are using the inject
-                    // HostingEnvironment service provided by ASP.NET Core
-                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
-                    // To make sure the file name is unique we are appending a new
-                    // GUID value and and an underscore to the file name
-                    uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Images.FileName;
-                    string filePath = Path.Combine(uploadsFolder, uniqueFileName);
-                    // Use CopyTo() method provided by IFormFile interface to
-                    // copy the file to wwwroot/images folder
-                    model.Images.CopyTo(new FileStream(filePath, FileMode.Create));
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.Images)
+                    {
+                        TransportDocument employe = new TransportDocument();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
                 }
 
 
@@ -1042,8 +1081,9 @@ namespace TourMe.Web.Controllers
                 transport.Image = uniqueFileName;
                 transport.ReservationPrive = model.TypeTransport;
                 transport.TypeTransport = model.TypeTransport;
-
-
+                transport.Documents.Clear();
+                transport.Documents = emp;
+                transport.Prix = model.Prix;
 
                 try
                 {

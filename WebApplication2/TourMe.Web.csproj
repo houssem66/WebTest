@@ -48,6 +48,7 @@
   <ItemGroup>
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\Files\" />
+    <Folder Include="wwwroot\EmailFiles\" />
   </ItemGroup>
 
   <ItemGroup>

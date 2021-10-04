@@ -19,6 +19,31 @@ namespace TourMe.Data.Migrations
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Domaine.Entities.SendEmail", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MailcommercantId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("To")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MailcommercantId");
+
+                    b.ToTable("SendEmail");
+                });
+
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>
                 {
                     b.Property<string>("Id")
@@ -469,6 +494,9 @@ namespace TourMe.Data.Migrations
                     b.Property<string>("Filepath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SendEmailId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int?>("ServiceLogmentId")
                         .HasColumnType("int");
 
@@ -476,6 +504,8 @@ namespace TourMe.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("SendEmailId");
 
                     b.HasIndex("ServiceLogmentId");
 
@@ -937,6 +967,15 @@ namespace TourMe.Data.Migrations
                     b.HasDiscriminator().HasValue("Fournisseur");
                 });
 
+            modelBuilder.Entity("Domaine.Entities.SendEmail", b =>
+                {
+                    b.HasOne("Domaine.Entities.Commerçant", "Mailcommercant")
+                        .WithMany()
+                        .HasForeignKey("MailcommercantId");
+
+                    b.Navigation("Mailcommercant");
+                });
+
             modelBuilder.Entity("ExperiencePanier", b =>
                 {
                     b.HasOne("TourMe.Data.Entities.Experience", null)
@@ -1087,6 +1126,10 @@ namespace TourMe.Data.Migrations
 
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
                 {
+                    b.HasOne("Domaine.Entities.SendEmail", null)
+                        .WithMany("File")
+                        .HasForeignKey("SendEmailId");
+
                     b.HasOne("TourMe.Data.Entities.ServiceLogment", "ServiceLogment")
                         .WithMany("Documents")
                         .HasForeignKey("ServiceLogmentId")
@@ -1214,6 +1257,11 @@ namespace TourMe.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("ServiceTransport");
+                });
+
+            modelBuilder.Entity("Domaine.Entities.SendEmail", b =>
+                {
+                    b.Navigation("File");
                 });
 
             modelBuilder.Entity("Domaine.Entities.Utilisateur", b =>

@@ -1,11 +1,11 @@
 ﻿@model TourMe.Web.Models.SendEmailViewModel
-@{
 
+@{
+    ViewData["Title"] = "GetALLmails";
     Layout = "~/Views/Shared/_Dashboard.cshtml";
 }
 
-
-
+<h1>GetALLmails</h1>
 
 
 <section class="content-header">
@@ -17,7 +17,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a asp-action="AdminHome" asp-controller="Home">Home</a></li>
-                    <li class="breadcrumb-item active">Voir tous les utilisateurs</li>
+                    <li class="breadcrumb-item active">Voir tous les Emails</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -31,7 +31,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Tous les comptes</h3>
+                        <h3 class="card-title">Tous les Emails</h3>
 
                         <div class="card-tools">
                             <div class="input-group input-group-sm" style="width: 150px;">
@@ -50,68 +50,61 @@
 
                                 <tr>
                                     <th>Id</th>
-                                    <th>Nom</th>
-                                    <th>Prenom</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-
-                                    <th>Claims</th>
+                                    <th>A</th>
+                                    <th>Sujet</th>                                   
+                                    <th>Attachements</th>
                                     <th>Details</th>
-                                    <th>Delete</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @{ int i = 0;
 
-                                    foreach (var item in ViewBag.Users)
+                                    foreach (var item in ViewBag.Mail)
                                     {
                                         var dynamic = "#exampleModal" + i;
 
 
                                         <tr>
                                             <td> @item.Id</td>
+                                            
                                             <td>
-                                                @item.Nom
-
+                                                @item.To
                                             </td>
                                             <td>
-                                                @item.Prenom
-                                            </td>
-                                            <td>
-                                                @item.Email
+                                                @item.Subject
                                             </td>
 
 
 
+                                          
+
                                             <td>
-                                                @item.role
+                                                @{ int z = 1;
+                                                    if (item.File != null)
+                                                    {
+                                                        foreach (var doc in item.File)
+                                                        {
+
+                                                            <a href="~/EmailFiles/@doc.Filepath" target="_blank">doc @i </a>
+                                                            z = z + 1;
+                                                        }
+                                                    }
+                                                    else { <button value="empty"></button>}
+
+                                                }
                                             </td>
 
+
+
+                                          
+
+
+
+
+                                           
                                             <td>
-                                                <a asp-action="ManageUserClaims" asp-controller="Account" asp-route-id="@item.Id" style="text-decoration-color:white">ManageUserClaims</a>
-                                            </td>
-
-
-
-                                            <td>
-                                                @if (item.role.Contains("Commercant"))
-                                                {
-                                                    <span> <a asp-action="ProfilCommerc" asp-route-id="@item.Id" asp-controller="Account" class="link-btn">Details Commercant</a></span>}
-                                                else
-                                                { <span> <a asp-action="Profil" asp-controller="Account" asp-route-id="@item.Id" class="link-btn">Details</a></span>}
-                                            </td>
-
-
-
-
-                                            <td>
-
-                                                <span> <a asp-action="DeleteUser" asp-controller="Administration" asp-route-id="@item.Id" class="link-btn">Delete</a></span>
-
-                                            </td>
-                                            <td>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=@dynamic>Send-Email  </button>
+                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=@dynamic>Details  </button>
 
                                             </td>
                                         </tr>
@@ -127,16 +120,16 @@
     </div>
 </section>
 @{ int y = 0;
-    foreach (var item in ViewBag.Users)
+    foreach (var item in ViewBag.Mail)
     {
         var exp = "exampleModal" + y;
         <div class="modal" id=@exp>
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    
 
-                    <form method="post" enctype="multipart/form-data" asp-controller="Administration" asp-action="SendEmail">
-                       
+
+                    <form method="post" enctype="multipart/form-data" asp-controller="Administration" asp-action="DeleteMail">
+                        <input type="hidden" name="Id" value="@item.Id" />
                         <div class="modal-header">
 
                             <h5 class="modal-title" id="exampleModalLabel">Send email</h5>
@@ -148,33 +141,29 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label>to</label>
-                                <input type="text" asp-for="To" class="form-control" required="required" name="to" value=" @item.Email" />
+                                <input type="text" asp-for="To" class="form-control" required="required" name="to" value="@item.To" />
                             </div>
                             <div class="form-group">
                                 <label>Subject</label>
-                                <input type="text" class="form-control" asp-for="Subject" required="required" name="Subject" />
+                                <input type="text" class="form-control" value="@item.Subject" asp-for="Subject" required="required" name="Subject" />
                                 <h5 asp-action="SendEmail">
                             </div>
 
                             <div class="form-group">
                                 <label class="control-label" asp-for="Body">body</label>
 
-                                <textarea asp-for="Body" class="form-control" rows="3" cols="15"> </textarea>
+                                <textarea rows="4" name="Body" class="form-control" cols="15"> @item.Body </textarea>
                                 <span class="text-danger" asp-validation-for="Body"></span>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label" asp-for="File">body</label>
+                            @*Lazem Carousel*@
 
-                                <input type="file" asp-for="File" class="form-control" multiple />
-                                <span class="text-danger" asp-validation-for="File"></span>
-                            </div>
                             <i class="bi bi-alarm-fill"></i>
 
                         </div>
                         <div class="modal-footer">
 
-                            <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#example">
-                                send
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#example">
+                                Delete
                             </button>
                         </div>
 
@@ -226,7 +215,3 @@
     </script>
 }
 
-
-
-
-<!--====== FOOTER - COPYRIGHT ==========-->

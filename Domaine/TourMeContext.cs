@@ -28,6 +28,7 @@ namespace TourMe.Data
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Panier> Paniers { get; set; }
         public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
+        public DbSet<SendEmail> SendEmail { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
