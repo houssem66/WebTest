@@ -568,14 +568,10 @@ namespace TourMe.Web.Controllers
 
 
 
-                var x = nourritureService.Ajout(nourriture);
-                var T = x.Exception;
-                if (x.IsCompleted)
-                {
-                    TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
-                }
+                await nourritureService.Ajout(nourriture);
+              
 
-
+                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
                 return RedirectToAction("DetailsResto", "Service");
             }
 
@@ -585,47 +581,104 @@ namespace TourMe.Web.Controllers
         }
 
 
+
         [HttpGet]
         [AllowAnonymous]
 
         public IActionResult MesServices()
 
         {
+
             ViewBag.user = userManager.GetUserAsync(User).Result;
+            Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
             // ViewBag.Best = ExperienceService.BestExperience();
-            var list = nourritureService.GetNourritureByUser(userManager.GetUserId(User));
-            return View(list);
+            string type = f.TypeService.ToString();
+
+            if (type.Equals("Logement"))
+            {
+                var list = logementService.GetLogementByUser(userManager.GetUserId(User));
+                ViewBag.listeL = list;
+                return View();
+
+            }
+            else if (type.Equals("Nourriture"))
+            {
+                var list = nourritureService.GetNourritureByUser(userManager.GetUserId(User));
+                ViewBag.listeN = list;
+                return View();
+
+            }
+            else if (type.Equals("Transport"))
+            {
+                var list = transportExtService.GetTransportByUser(userManager.GetUserId(User));
+                ViewBag.listeT = list;
+                return View();
+
+            }
+            else return View();
+
+
 
         }
 
-        [HttpGet]
+        //[HttpGet]
+        //[AllowAnonymous]
+
+        //public async Task<IActionResult> DeleteTransport(int id)
+
+        //{
+        //    var transport = await transportExtService.GetLogementById(id);
+
+
+        //    return View(transport);
+
+        //}
+        //[HttpPost]
+        //[AllowAnonymous]
+
+        //public async Task<IActionResult> DeleteTransport(ServiceTransport model)
+
+        //{
+
+
+        //    if (model.Id != null)
+        //    {
+        //        await transportExtService.Delete(model.Id);
+        //        return RedirectToAction("GetTransport", "Administration");
+        //    }
+        //    return View();
+
+        //}
+
+
+        [HttpPost]
         [AllowAnonymous]
 
-        public async Task<IActionResult> DeleteTransport(int id)
-
+        public async Task<IActionResult> DeleteNourriture(int id)
         {
-            var transport = await transportExtService.GetLogementById(id);
-
-
-            return View(transport);
-
+            await nourritureService.Delete(id);
+       
+            return RedirectToAction(nameof(GetAllNourriture));
         }
         [HttpPost]
         [AllowAnonymous]
 
-        public async Task<IActionResult> DeleteTransport(ServiceTransport model)
-
+        public async Task<IActionResult> DeleteLogement(int id)
         {
+            await logementService.Delete(id);
 
-
-            if (model.Id != null)
-            {
-                await transportExtService.Delete(model.Id);
-                return RedirectToAction("GetTransport", "Administration");
-            }
-            return View();
-
+            return RedirectToAction(nameof(GetAllLogements));
         }
+        [HttpPost]
+        [AllowAnonymous]
+
+        public async Task<IActionResult> DeleteTransport(int id)
+        {
+            await transportExtService.Delete(id);
+
+            return RedirectToAction(nameof(GetAllLogements));
+        }
+
 
         [HttpGet]
         [AllowAnonymous]
@@ -841,22 +894,117 @@ namespace TourMe.Web.Controllers
         public IActionResult ModifierRestaurent(int id)
 
         {
-
-
-
-
-
             ServiceNouritture nouritture = nourritureService.GetById(id).Result;
-            return View(nouritture);
+            NourritureExtViewModel model = new NourritureExtViewModel
+            {
+                Adresse = nouritture.Adresse,
+                dateFerme = nouritture.dateFerme,
+                dateOuvert = nouritture.dateOuvert,
+                NomRestau = nouritture.NomRestau,
+                Description = nouritture.Description,
+                Plat = nouritture.Plat,
+                regles = nouritture.regles,
+                Rating = nouritture.Rating,
+                Slogon = nouritture.Slogon,
+                Site=nouritture.Site
+
+
+
+
+            };
+
+
+
+
+            ViewBag.Id = id;
+            return View(model);
 
         }
         [HttpPost]
         [AllowAnonymous]
-        public IActionResult ModifierRestaurent(ServiceNouritture model)
+        public async Task<IActionResult> ModifierRestaurent(NourritureExtViewModel model, int IDE)
 
         {
 
 
+            if (ModelState.IsValid)
+            {
+                string uniqueFileName = null;
+                string uniqueFileName2 = null;
+
+                List<LNDocuments> emp = new List<LNDocuments>();
+                if (model.FileP != null && model.FileP.Count > 0)
+                {
+                    // Loop thru each selected file
+                    foreach (IFormFile photo in model.FileP)
+                    {
+                        LNDocuments employe = new LNDocuments();
+                        // The file must be uploaded to the images folder in wwwroot
+                        // To get the path of the wwwroot folder we are using the injected
+                        // IHostingEnvironment service provided by ASP.NET Core
+                        string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+                        // To make sure the file name is unique we are appending a new
+                        // GUID value and and an underscore to the file name
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + photo.FileName;
+                        string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                        // Use CopyTo() method provided by IFormFile interface to
+                        // copy the file to wwwroot/images folder
+                        photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        employe.Filepath = uniqueFileName;
+                        emp.Add(employe);
+                    }
+                }
+
+
+                if (model.FilePp != null)
+                {
+
+                    string uploadsFolder = Path.Combine(hostingEnvironment.WebRootPath, "Files");
+
+                    uniqueFileName2 = Guid.NewGuid().ToString() + "_" + model.FilePp.FileName;
+                    string filePath1 = Path.Combine(uploadsFolder, uniqueFileName2);
+
+                    model.FilePp.CopyTo(new FileStream(filePath1, FileMode.Create));
+
+                }
+
+
+                Fournisseur f = (Fournisseur)userManager.GetUserAsync(User).Result;
+
+
+                ServiceNouritture nourriture = nourritureService.GetById(IDE).Result;
+
+                nourriture.Fournisseur = f;
+                nourriture.TypeResto = model.TypeResto;
+                nourriture.SpecialeResto = model.SpecialeResto;
+                nourriture.NomRestau = model.NomRestau;
+
+                nourriture.Description = model.Description;
+                nourriture.Plat = model.Plat;
+
+                nourriture.Prix = model.Prix;
+                nourriture.Menu = uniqueFileName2;
+                nourriture.regles = model.regles;
+                nourriture.Adresse = model.Adresse;
+                nourriture.Slogon = model.Slogon
+                ;
+                nourriture.Site = model.Site;
+                nourriture.Rating = model.Rating;
+                nourriture.Documents = emp;
+                nourriture.dateFerme = model.dateFerme;
+                nourriture.dateOuvert = model.dateOuvert;
+
+
+
+
+
+
+                await nourritureService.Update(nourriture);
+
+                TempData["id"] = JsonConvert.SerializeObject(nourriture.Id);
+
+                return RedirectToAction("DetailsResto", "Service");
+            }
 
 
 
