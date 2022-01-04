@@ -41,5 +41,6 @@ namespace Domaine.Entities
         public string CodePostale { get; set; }
         public virtual IList<Experience> Experiences { get; set; }
         public virtual IList<EmployeDocuments> EmployeDocuments { get; set; }
+        public virtual IList<Hebergement>  Hebergements { get; set; }
     }
 }

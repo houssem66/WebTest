@@ -24,5 +24,34 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row"></div>
+        <div class="row">&nbsp;</div>
+        @{ var id = User.Identity.Name;}
+        <input type="hidden" value="@id" id="userInput" />
+
+        <div class="row">
+            <div class="col-2">Message</div>
+            <div class="col-4"><input type="text" id="messageInput" /></div>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">
+                <input type="button" id="sendButton" value="Send Message" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
     </div><!-- /.container-fluid -->
 </section>
+@section Scripts {
+
+   
+}

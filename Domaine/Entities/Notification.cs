@@ -9,6 +9,8 @@ namespace TourMe.Data.Entities
  public   class Notification
     {
         public int Id { get; set; }
+        public string UserID { get; set; }
+        public string Message { get; set; }
 
     }
 }

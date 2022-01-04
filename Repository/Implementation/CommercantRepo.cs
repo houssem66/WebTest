@@ -38,6 +38,7 @@ namespace Repository.Implementation
         {
             var commerçant = await dbContext.Commercant.Include(x => x.EmployeDocuments).SingleOrDefaultAsync(c => c.Id == id);
             dbContext.Entry(commerçant).Collection(x => x.EmployeDocuments).Query().Load();
+            dbContext.Entry(commerçant).Collection(x => x.Hebergements).Query().Load();
             dbContext.Entry(commerçant).State = EntityState.Detached;
             return commerçant;
         }
