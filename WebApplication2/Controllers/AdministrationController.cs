@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.SignalR;
 using MimeKit;
 using NETCore.MailKit.Core;
 using Services.Implementation;
@@ -19,7 +19,7 @@ using System.Net.Mail;
 using System.Threading.Tasks;
 
 using TourMe.Data.Entities;
-
+using TourMe.Web.Hubs;
 using TourMe.Web.Models;
 using IEmailService = Services.Interfaces.IEmailService;
 
@@ -38,8 +38,9 @@ namespace TourMe.Web.Controllers
         private readonly ITransportExtService transportExtService;
         private readonly ILogementextService logementextService;
         private readonly INourritureExtService nourritureExtService;
+        private readonly IHubContext<ChatHub> hubContext;
         public static string s = "";
-        public AdministrationController(RoleManager<IdentityRole> roleManager,IEmailService _SendMail, UserManager<Utilisateur> userManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService, IExperienceService _experienceService, ITransportExtService _transportExtService, ILogementextService _logementextService, INourritureExtService _nourritureExtService)
+        public AdministrationController(RoleManager<IdentityRole> roleManager,IEmailService _SendMail, UserManager<Utilisateur> userManager, IWebHostEnvironment hostingEnvironment, IUserService _UserService, ICommercantService _CommercantService, IFournisseurService _FournisseurService, IExperienceService _experienceService, ITransportExtService _transportExtService, ILogementextService _logementextService, INourritureExtService _nourritureExtService, IHubContext<ChatHub> hubContext)
         {
             this.roleManager = roleManager;
             sendMail = _SendMail;
@@ -52,6 +53,8 @@ namespace TourMe.Web.Controllers
             transportExtService = _transportExtService;
             logementextService = _logementextService;
             nourritureExtService = _nourritureExtService;
+            this.hubContext = hubContext;
+            
         }
         [HttpGet]
         public IActionResult GetAllRoles()
@@ -64,6 +67,7 @@ namespace TourMe.Web.Controllers
             return View();
         }
         [HttpGet]
+        
         public async Task<IActionResult> EditRole(string id)
         {
             // Find the role by Role ID
@@ -524,6 +528,15 @@ namespace TourMe.Web.Controllers
 
 
             return RedirectToAction("GetAllUsers", "Administration");
+        }
+        public IActionResult Testing(string friend)
+        {
+            var message = "created many things";
+            var currentUser = User.Identity.Name;
+            hubContext.Clients.User(currentUser).SendAsync("Kinda");
+            //hubContext.Clients.All.SendAsync("worked",currentUser,message);        
+            hubContext.Clients.User(currentUser).SendAsync("worked", friend, message);
+             return NoContent();
         }
     }
 

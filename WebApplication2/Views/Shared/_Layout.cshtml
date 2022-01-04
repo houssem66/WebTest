@@ -135,32 +135,45 @@
                                 </form>
                                 @if (User.IsInRole("Commercant"))
                                 {
+                                    TourMe.Data.Entities.Fournisseur f = new TourMe.Data.Entities.Fournisseur();
+                                    Domaine.Entities.Commerçant x = new Domaine.Entities.Commerçant();
+                                    try
+                                    {  f = (TourMe.Data.Entities.Fournisseur)await userManager.GetUserAsync(User); }
 
-                                    TourMe.Data.Entities.Fournisseur f = (TourMe.Data.Entities.Fournisseur)await userManager.GetUserAsync(User);
-                                    <ul>
-                                        @if (f != null)
-                                        {
-                                            if ((int)f.TypeService==2)
-                                            {
-                                                <li><a class="nav-link" asp-controller="Service" asp-action="AjouterTransport">Créer Transport</a> </li>
- }
-                                            if ((int)f.TypeService==0)
-                                            {
-                                                <li><a class="nav-link" asp-controller="Service" asp-action="AddLogement">Créer Logement</a></li>
-}
-                                            if ((int)f.TypeService == 1)
-                                            {
-                                                <li><a class="nav-link" asp-controller="Service" asp-action="AddRestaurant">Créer Nourritue</a></li>
-}
-                                        }
-                                        @if (f == null)
-                                        {
-                                            <li>
-                                                <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
-                                            </li>
-}
+                                    catch( Exception e)
 
-                                    </ul>} }
+                                    {
+                                         x = (Domaine.Entities.Commerçant)await userManager.GetUserAsync(User);
+
+
+                                    }
+                        <ul>
+                            @if ((f != null)&&(x==null))
+                            {
+                                if ((int)f.TypeService == 2)
+                                {
+                                    <li><a class="nav-link" asp-controller="Service" asp-action="AjouterTransport">Créer Transport</a> </li>
+                                }
+                                if ((int)f.TypeService == 0)
+                                {
+                                    <li><a class="nav-link" asp-controller="Service" asp-action="AddLogement">Créer Logement</a></li>
+                                }
+                                if ((int)f.TypeService == 1)
+                                {
+                                    <li><a class="nav-link" asp-controller="Service" asp-action="AddRestaurant">Créer Nourritue</a></li>
+                                }
+                            }
+                            @if (x != null)
+                            {
+                                <li>
+                                    <a class="nav-link" asp-controller="Experience" asp-action="CreateExperience">Créer Experience</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link" asp-controller="Hebergement" asp-action="AddHebergement">Créer Hebergement</a>
+                                </li>
+                            }
+
+                        </ul>} }
                             else
 
                             {

@@ -23,6 +23,8 @@ using TourMe.Data;
 using TourMe.Web;
 using TourMe.Web.Controllers;
 using Twilio;
+using TourMe.Web.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace WebApplication2
 {
@@ -38,20 +40,23 @@ namespace WebApplication2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.MaxValue;
 
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton(typeof(IUserIdProvider), typeof(MyUserIdProvider));
             services.AddMvc(options =>
             {
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 options.Filters.Add(new AuthorizeFilter(policy));
 
             });
-          
-           
+
+            services.AddSignalR();
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = (int)HttpStatusCode.TemporaryRedirect;
@@ -146,6 +151,7 @@ namespace WebApplication2
             services.AddScoped(typeof(ITransportRepo), typeof(TransportRepo));
             services.AddScoped(typeof(ITransportExtRepo), typeof(TransportExtRepo));
             services.AddScoped(typeof(IPanierRepo), typeof(PanierRepo));
+            services.AddScoped(typeof(IHebergementRepo), typeof(HebergementRepo));
             //add Services
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<INourritureService, NourritureService>();
@@ -158,6 +164,7 @@ namespace WebApplication2
             services.AddTransient<ITransportService, TransportService>();
             services.AddTransient<ITransportExtService, TransportExtService>();
             services.AddTransient<IPanierService, PanierService>();
+            services.AddTransient<IHebergementService, HebergementService>();
 
         }
 
@@ -177,16 +184,17 @@ namespace WebApplication2
             app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+            
+                ; app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                  endpoints.MapHub<ChatHub>("/chatHub");
             });
    
         }

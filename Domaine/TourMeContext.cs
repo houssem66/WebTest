@@ -29,6 +29,7 @@ namespace TourMe.Data
         public DbSet<Panier> Paniers { get; set; }
         public DbSet<EmployeDocuments> EmployeDocuments { get; set; }
         public DbSet<SendEmail> SendEmail { get; set; }
+        public DbSet<Hebergement> Hebergements { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -109,8 +110,16 @@ namespace TourMe.Data
             }
 
          );
+            builder.Entity<Hebergement>(eb =>
+            {
+                eb.Property(l => l.Prix).HasColumnType("decimal(5, 2)");
 
+
+            }
+
+        );
             builder.Entity<Commerçant>().HasMany(e => e.EmployeDocuments).WithOne(x => x.Commerçant).OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Commerçant>().HasMany(e => e.Hebergements).WithOne(x => x.Commercant);
             //sprint4
             builder.Entity<ServiceLogment>().HasMany(e => e.Documents).WithOne(x => x.ServiceLogment).OnDelete(DeleteBehavior.Cascade);
             

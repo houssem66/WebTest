@@ -1,0 +1,92 @@
+﻿
+@{
+    ViewData["Title"] = "MesHebergements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<TourMe.Data.Entities.Hebergement>
+@{var photoPath = "~/images/" + (ViewBag.user.ProfilePhoto ?? "noimage.jpg");
+
+}
+<!--DASHBOARD-->
+<section>
+    <div class="db col-md-12">
+        <!--LEFT SECTION-->
+        <div class="db-l">
+            <div class="db-l-1">
+                <ul>
+                    <li>
+                        <img src="@photoPath" asp-append-version="true" alt="" />
+                    </li>
+
+                </ul>
+            </div>
+            <div class="db-l-2">
+                <ul>
+                    <li>
+                        <a asp-controller="Experience" asp-action="MesExperiences"><img src="~/Theme/Template2/images/icon/dbl1.png" alt="" /> Mes Expériences</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Experience" asp-action="MesHebergement"><img src="~/Theme/Template2/images/icon/dbl2.png" alt="" /> Mes Hébergement</a>
+                    </li>
+                    
+                    <li>
+                        <a asp-controller="Account" asp-action="ProfilCommerc"><img src="~/Theme/Template2/images/icon/dbl6.png" alt="" /> My Profile</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!--CENTER SECTION-->
+        <div class="col-md-6">
+            <div class="col-md-6">
+                <h4>Mes Hébergement</h4>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Titre</th>
+                            <th>Lieu</th>
+                            <th>Type</th>
+                            <th>Sous catégorie</th>
+                            <th>Delete</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>  <a asp-action="Details" asp-controller="Experience" asp-route-id="@item.Id" style="color:black"><h3>@item.Titre</h3></a></td>
+
+                            <td>@item.Lieu</td>
+                            <td>@item.Type</td>
+                            <td>@item.SubCategory</td>
+                            
+
+
+
+
+
+                            <td>
+                                <form method="post">
+                                    <button type="submit" asp-action="DeleteHebergement" asp-controller="Hebergement" asp-route-id="@item.Id"> Delete</button>
+                                </form>
+
+
+                            </td>
+                            <td>
+                                <a asp-action="ModifierExperience" asp-controller="Experience" class="btn-primary" asp-route-id="@item.Id">Modifier</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <!--RIGHT SECTION-->
+
+    </div>
+</section>
+<!--END DASHBOARD-->

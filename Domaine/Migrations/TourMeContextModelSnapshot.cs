@@ -484,6 +484,41 @@ namespace TourMe.Data.Migrations
                     b.ToTable("Experience");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Hebergement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CommercantId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Lieu")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Prix")
+                        .HasColumnType("decimal(5,2)");
+
+                    b.Property<int>("SubCategory")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Titre")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommercantId");
+
+                    b.ToTable("Hebergements");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
                 {
                     b.Property<int>("Id")
@@ -1124,6 +1159,15 @@ namespace TourMe.Data.Migrations
                     b.Navigation("Commerçant");
                 });
 
+            modelBuilder.Entity("TourMe.Data.Entities.Hebergement", b =>
+                {
+                    b.HasOne("Domaine.Entities.Commerçant", "Commercant")
+                        .WithMany("Hebergements")
+                        .HasForeignKey("CommercantId");
+
+                    b.Navigation("Commercant");
+                });
+
             modelBuilder.Entity("TourMe.Data.Entities.LNDocuments", b =>
                 {
                     b.HasOne("Domaine.Entities.SendEmail", null)
@@ -1310,6 +1354,8 @@ namespace TourMe.Data.Migrations
                     b.Navigation("EmployeDocuments");
 
                     b.Navigation("Experiences");
+
+                    b.Navigation("Hebergements");
                 });
 
             modelBuilder.Entity("TourMe.Data.Entities.Fournisseur", b =>

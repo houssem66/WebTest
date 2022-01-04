@@ -72,7 +72,13 @@
                 </tbody>
             </table>
             <p>
+                @{ var id = User.Identity.Name;}
+                <input type="hidden" value="oki" id="messageInput" />
+                <input type="hidden" value="@id" id="userInput" />
+                <input type="button" id="sendButton" value="Send Message" />
+                
                 <a class="btn btn-primary btn-block" asp-action="CreateRole">Create New</a>
+                <a class="btn btn-primary btn-block"asp-route-friend="houssem"  asp-action="Testing">Testing</a>
             </p>
         }
     </div>
